@@ -42,6 +42,7 @@ class Student(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.teacher_id'), nullable=False)
     program_name = db.Column(db.String(50), nullable=True)
+    # INSTRUMENT!!!!****
 
     teacher = db.relationship('Teacher', backref='students')
     user = db.relationship('User', backref='student', uselist=False)

@@ -6,6 +6,10 @@ from model import db, User, Movie, Rating, connect_to_db
 # # Functions start here!
 # """CRUD operations."""
 
+def create_user():
+    """ Create 
+
+
 # from model import db, User, Movie, Rating, connect_to_db
 
 

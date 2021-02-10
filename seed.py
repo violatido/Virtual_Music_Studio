@@ -21,55 +21,22 @@ def seed_data(filename):
     teachers_in_db = []
     students_in_db = []
 
-    for entry in filename:
-        position, first, last, email, phone, password, program  = entry.rstrip().split('|')
+    f = open(filename, 'r')
 
-        if position == "Student":
-            students_in_db.append(entry)
+    for entry in f:
+
+        # position, first, last, email, phone, password, program  = entry.rstrip().split('|')
+        entry = entry.rstrip().split('|')
+
+        if entry[0] == "Student": #crud.create_student (crud.py function takes in an object)
+            students_in_db.append(entry[1])
         else:
-            teachers_in_db.append(entry)
+            teachers_in_db.append(entry[1])
     
     return students_in_db
 
 print(seed_data("data.txt"))
 
-
-# Creates users, stores them in list
-
-
-# with open('data/movies.json') as f:
-#     movie_data = json.loads(f.read())
-
-
-# # Create movies, store them in list so we can use them
-# # to create fake ratings later
-# movies_in_db = []
-# for movie in movie_data:
-#     title, overview, poster_path = (movie['title'],
-#                                     movie['overview'],
-#                                     movie['poster_path'])
-#     release_date = datetime.strptime(movie['release_date'], '%Y-%m-%d')
-
-#     db_movie = crud.create_movie(title,
-#                                  overview,
-#                                  release_date,
-#                                  poster_path)
-#     movies_in_db.append(db_movie)
-
-#     for n in range(10):
-#         email = f'user{n}@test.com'  # Voila! A unique email!
-#         password = 'test'
-
-# # (...snippet)
-# # Create 10 users; each user will make 10 ratings
-# for n in range(10):
-#     email = f'user{n}@test.com'  # Voila! A unique email!
-#     password = 'test'
-
-#     user = crud.create_user(email, password)
-
-#     for _ in range(10):
-#         random_movie = choice(movies_in_db)
-#         score = randint(1, 5)
-
-#         crud.create_rating(user, random_movie, score)
+# data.txt seed_student_teacher = take user information and put in student or teacher lists
+# log.txt seed_logs 
+# lsits unnecessay. once sent to crud, will be in database 
