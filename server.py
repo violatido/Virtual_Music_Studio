@@ -12,6 +12,9 @@ app.jinja_env.undefined = StrictUndefined
 
 
 # create view functions here
+@app.route('/')
+def test_it_out():
+    return '?'
 
 
 if __name__ == '__main__':

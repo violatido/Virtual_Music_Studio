@@ -5,14 +5,37 @@ import json
 from random import choice, randint
 from datetime import datetime
 
-import crud
+# import crud
 import model
-import server
+# import server
 
-os.system('dropdb VMS')
-os.system('createdb VMS')
-model.connect_to_db(server.app)
-model.db.create_all()
+
+# os.system('dropdb VMS')
+# os.system('createdb VMS')
+# model.connect_to_db(server.app)
+# model.db.create_all()
+
+
+
+def seed_data(filename):
+    teachers_in_db = []
+    students_in_db = []
+
+    for entry in filename:
+        position, first, last, email, phone, password, program  = entry.rstrip().split('|')
+
+        if position == "Student":
+            students_in_db.append(entry)
+        else:
+            teachers_in_db.append(entry)
+    
+    return students_in_db
+
+print(seed_data("data.txt"))
+
+
+# Creates users, stores them in list
+
 
 # with open('data/movies.json') as f:
 #     movie_data = json.loads(f.read())

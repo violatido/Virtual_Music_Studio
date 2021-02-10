@@ -69,7 +69,6 @@ class Log(db.Model):
         """Show Log Info"""
         return f'<Log log_date={self.log_date} student_id={self.student_id}>'
 
-
 def connect_to_db(flask_app, db_uri='postgresql:///VMS', echo=True):
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     flask_app.config['SQLALCHEMY_ECHO'] = echo

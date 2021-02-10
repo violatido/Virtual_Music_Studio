@@ -1,0 +1,5 @@
+Student|Matthew|Smith|msmith@gmail.com||**password1**|Klein High School
+Teacher|Rose|Mercer|rosem@yahoo.com||??password2??|
+Student|Alice|Baker|abaker@aol.com|618-922-1827|!!password3!!|
+Student|Alex|Peterson|apete@gmail.com||%%password4%%|Private studio
+Teacher|Sean|Taylor|stay@gmail.com||^^password5^^|
