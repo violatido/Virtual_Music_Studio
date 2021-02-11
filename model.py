@@ -8,7 +8,7 @@ class User(db.Model):
     """Data model for all users"""
     __tablename__ = 'users'
 
-    user_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     fname = db.Column(db.String(25), nullable=False)
     lname = db.Column(db.String(25), nullable=False)
     email = db.Column(db.String(50), nullable=False)
@@ -24,7 +24,7 @@ class Teacher(db.Model):
     """Data Model for Teacher IDs"""
     __tablename__ = 'teachers'
 
-    teacher_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    teacher_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
 
     user = db.relationship('User', backref='teacher', uselist=False)
@@ -38,7 +38,7 @@ class Student(db.Model):
     """Data Model for Student-specific Information"""
     __tablename__ = 'students'
 
-    student_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    student_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.teacher_id'), nullable=False)
     program_name = db.Column(db.String(50)) 
@@ -57,7 +57,7 @@ class Log(db.Model):
     """Data Model for Practice Logs"""
     __tablename__ = 'logs'
     
-    log_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    log_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     student_id = db.Column(db.Integer, db.ForeignKey('students.student_id'), nullable=False)
     log_date = db.Column(db.Date, nullable=False)
     start_time = db.Column(db.String, nullable=False)

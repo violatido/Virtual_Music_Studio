@@ -34,9 +34,11 @@ def create_teacher(user_id):
 
     return teacher
 
-def get_teacher_by_email():
+def get_teacher_by_email(email):
     """Return teacher by email query"""
+    return User.query.filter(User.email == email).first().teacher
 
+#get user, exist? return teacher: nothing
 
 def create_student(user_id, teacher_id,):
     """Create a student"""
@@ -47,8 +49,10 @@ def create_student(user_id, teacher_id,):
 
     return student
 
-def get_student_by_email():
+def get_student_by_email(email):
     """Queries a student by email"""
+    return User.query.filter(User.email == email).first().student
+
 
 
 def create_log(student_id, log_date, start_time, end_time, pieces_practiced, practice_notes):
@@ -60,8 +64,9 @@ def create_log(student_id, log_date, start_time, end_time, pieces_practiced, pra
 
     return log 
 
-def get_log():
+def get_log_student_email(email):
     """Queries a practice log"""
+    return User.query.filter(User.email == email).first().student.logs
 
 
 if __name__ == '__main__':
