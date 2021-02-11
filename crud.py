@@ -7,7 +7,7 @@ from model import db, User, Movie, Rating, connect_to_db
 # """CRUD operations."""
 
 def create_user():
-    """ Create 
+    """ Create """
 
 
 # from model import db, User, Movie, Rating, connect_to_db
