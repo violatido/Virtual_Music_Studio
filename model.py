@@ -17,7 +17,7 @@ class User(db.Model):
 
     def __repr__(self):
         """Show User Id and names"""
-        return f'<User user_id={self.user_id} name={self.fname} {self.lname}>'
+        return f'<User user_id={self.user_id} name={self.fname} {self.lname} email={self.email}>'
 
 
 class Teacher(db.Model):
@@ -31,7 +31,7 @@ class Teacher(db.Model):
 
     def __repr__(self):
         """Show Teacher ID/Corresponding User Id"""
-        return f'<Teacher teacher_id={self.teacher_id} name={self.user.fname} {self.user.lname}>'
+        return f'<Teacher teacher_id={self.teacher_id} name={self.user.fname} {self.user.lname} email={self.user.email}>'
 
 
 class Student(db.Model):
@@ -50,7 +50,7 @@ class Student(db.Model):
 
     def __repr__(self):
         """Show Student ID"""
-        return f'<Student student_id={self.student_id} name={self.user.fname} {self.user.lname}>'
+        return f'<Student student_id={self.student_id} name={self.user.fname} {self.user.lname} email={self.user.email}>'
 
 
 class Log(db.Model):
@@ -69,7 +69,7 @@ class Log(db.Model):
 
     def __repr__(self):
         """Show Log Info"""
-        return f'<Log log_date={self.log_date} student_id={self.student_id}>'
+        return f'<Log log_date={self.log_date} student_name={self.student.fname} {self.student.lname} log_date={self.log_date}>'
 
 def connect_to_db(flask_app, db_uri='postgresql:///VMS', echo=True):
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
