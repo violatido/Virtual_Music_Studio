@@ -41,8 +41,8 @@ class Student(db.Model):
     student_id = db.Column(db.Integer, primary_key=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.teacher_id'), nullable=False)
-    program_name = db.Column(db.String(50), nullable=True)
-    # INSTRUMENT!!!!****
+    program_name = db.Column(db.String(50)) 
+    instrument = db.Column(db.String(25), nullable=False)
 
     teacher = db.relationship('Teacher', backref='students')
     user = db.relationship('User', backref='student', uselist=False)
@@ -63,6 +63,7 @@ class Log(db.Model):
     start_time = db.Column(db.String, nullable=False)
     end_time = db.Column(db.String, nullable=False)
     pieces_practiced = db.Column(db.String(150), nullable=False)
+    practice_notes = db.Column(db.String(200))
 
     student = db.relationship('Student', backref='logs')
 

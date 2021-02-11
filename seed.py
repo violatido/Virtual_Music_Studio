@@ -17,14 +17,13 @@ import model
 
 
 
-def seed_data(filename):
+def seed_users(filename):
     teachers_in_db = []
     students_in_db = []
 
     f = open(filename, 'r')
 
     for entry in f:
-
         # position, first, last, email, phone, password, program  = entry.rstrip().split('|')
         entry = entry.rstrip().split('|')
 
@@ -35,8 +34,17 @@ def seed_data(filename):
     
     return students_in_db
 
-print(seed_data("data.txt"))
+# print(seed_users("user_data.txt"))
 
-# data.txt seed_student_teacher = take user information and put in student or teacher lists
-# log.txt seed_logs 
-# lsits unnecessay. once sent to crud, will be in database 
+def seed_logs(filename):
+    logs_in_db = []
+
+    f = open(filename, 'r')
+
+    for entry in f:
+        entry = entry.rstrip().split('|')
+        logs_in_db.append(entry)
+    
+    return logs_in_db
+
+print(seed_logs("log_data.txt"))
