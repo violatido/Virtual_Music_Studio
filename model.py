@@ -1,6 +1,7 @@
 """ Define Model Classes """
 
 from flask_sqlalchemy import SQLAlchemy
+from datetime from datetime
 
 db = SQLAlchemy()
 
@@ -96,3 +97,21 @@ if __name__ == '__main__':
     connect_to_db(app)
     db.create_all()
 
+    sample_teacher = Teacher(user = User(fname="Teacher", 
+                                    lname="mcTeachface", 
+                                    email="yes", 
+                                    password="no"))
+
+    sample_student = Student(program_name = "Music class the best", 
+                                instrument="violin", 
+                                teacher = sample_teacher,
+                                user = User(fname="Stuuuwy", 
+                                    lname="Stoodent", 
+                                    email="yes", 
+                                    password="no"))
+
+    sample_log = Log(student=sample_student,
+                            log_date=datetime.now(),
+                            start_time="2:00pm",
+                            end_time="5:00pm",
+                            pieces_practiced="Walton Violin Concerto")

@@ -31,6 +31,8 @@ def seed_users(filename):
             students_in_db.append(entry[1])
         else:
             teachers_in_db.append(entry[1])
+
+        # crud.create_user()
     
     return students_in_db
 
