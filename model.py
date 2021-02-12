@@ -12,7 +12,7 @@ class User(db.Model):
     fname = db.Column(db.String(25), nullable=False)
     lname = db.Column(db.String(25), nullable=False)
     email = db.Column(db.String(50), nullable=False)
-    phone = db.Column(db.String(9))
+    phone = db.Column(db.String(25))
     password = db.Column(db.String(50), nullable=False)
 
     def __repr__(self):
@@ -32,7 +32,6 @@ class Teacher(db.Model):
     def __repr__(self):
         """Show Teacher ID/Corresponding User Id"""
         return f'<Teacher teacher_id={self.teacher_id} name={self.user.fname} {self.user.lname} email={self.user.email}>'
-
 
 class Student(db.Model):
     """Data Model for Student-specific Information"""

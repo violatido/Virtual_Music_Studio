@@ -13,8 +13,9 @@ app.jinja_env.undefined = StrictUndefined
 
 # create view functions here
 @app.route('/')
-def test_it_out():
-    return '?'
+def create_homepage():
+    """Renders the VMS homepage"""
+    return render_template('homepage.html')
 
 
 if __name__ == '__main__':
