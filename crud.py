@@ -6,20 +6,15 @@ from model import db, User, Teacher, Student, Log, connect_to_db
 # # Functions start here!
 # """CRUD operations."""
 
-def create_user(fname, lname, email, phone, password):
-    """ Create an return a new user."""
 
-    user = User(fname=fname, lname=lname, email=email, phone=phone, password=password)
-
-    db.session.add(user)
-    db.session.commit()
-
-    return user
-
-
-def create_teacher(user_id):
+def create_teacher(teacher_fname, teacher_lname, teacher_email, teacher_phone, teacher_password):
     """Create a teacher"""
-    teacher = Teacher(user_id=user_id)
+    teacher = Teacher(teacher_fname=teacher_fname, 
+                        teacher_lname=teacher_lname, 
+                        teacher_email=teacher_email,
+                        teacher_phone=teacher_phone,
+                        teacher_password=teacher_password
+                        )
 
     db.session.add(teacher)
     db.session.commit()
@@ -27,9 +22,16 @@ def create_teacher(user_id):
     return teacher
 
 
-def create_student(user_id, teacher_name, program_name, instrument):
+def create_student(student_fname, student_lname, student_email, private_teacher, program_name, instrument, student_password):
     """Create a student"""
-    student = Student(user_id=user_id, teacher_name=teacher_name, program_name=program_name, instrument=instrument)
+    student = Student(student_fname=student_fname,
+                        student_lname=student_lname,
+                        student_email=student_email,
+                        private_teacher=private_teacher,
+                        program_name=program_name, 
+                        instrument=instrument,
+                        student_password=student_password
+                        )
 
     db.session.add(student)
     db.session.commit()
@@ -39,14 +41,18 @@ def create_student(user_id, teacher_name, program_name, instrument):
 
 def create_log(student_id, log_date, start_time, end_time, pieces_practiced, practice_notes):
     """Creates a new practice log"""
-    log = Log(student_id=student_id, log_date=log_date, start_time=start_time, end_time=end_time, pieces_practiced=pieces_practiced, practice_notes=practice_notes)
+    log = Log(student_id=student_id, 
+                log_date=log_date, 
+                start_time=start_time, 
+                end_time=end_time, 
+                pieces_practiced=pieces_practiced, 
+                practice_notes=practice_notes
+                )
 
     db.session.add(log)
     db.session.commit()
 
     return log 
-
-
 
 
 if __name__ == '__main__':

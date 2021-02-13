@@ -5,55 +5,48 @@ from datetime import datetime
 
 db = SQLAlchemy()
 
-class User(db.Model):
-    """Data model for all users"""
-    __tablename__ = 'users'
-
-    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
-    fname = db.Column(db.String(25), nullable=False)
-    lname = db.Column(db.String(25), nullable=False)
-    email = db.Column(db.String(50), nullable=False)
-    phone = db.Column(db.String(25))
-    password = db.Column(db.String(50), nullable=False)
-
-    def __repr__(self):
-        """Show User Id and names"""
-        return f'<User user_id={self.user_id} name={self.fname} {self.lname} email={self.email}>'
-
 
 class Teacher(db.Model):
     """Data Model for Teacher IDs"""
     __tablename__ = 'teachers'
-
+    
     teacher_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    # user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    teacher_fname = db.Column(db.String(25), nullable=False)
+    teacher_lname = db.Column(db.String(25), nullable=False)
+    teacher_email = db.Column(db.String(50), nullable=False)
+    teacher_phone = db.Column(db.String(25))
+    teacher_password = db.Column(db.String(50), nullable=False)
 
-    user = db.relationship('User', backref='teacher', uselist=False)
+    # user = db.relationship('User', backref='teacher', uselist=False)
 
     def __repr__(self):
         """Show Teacher ID/Corresponding User Id"""
-        # return f'<Teacher teacher_id={self.teacher_id} name={self.user.fname} {self.user.lname} email={self.user.email}>'
-        return f'Teacher teacher_id={self.teacher_id}'
+        return f'<Teacher teacher_id={self.teacher_id} teacher_name={self.teacher_fname} {self.teacher_lname}>'
 
 
 class Student(db.Model):
     """Data Model for Student-specific Information"""
     __tablename__ = 'students'
-
+    
     student_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    # user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     # teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.teacher_id'), nullable=False)
-    teacher_name = db.Column(db.String(50), nullable=False)
+    student_fname = db.Column(db.String(25), nullable=False)
+    student_lname = db.Column(db.String(25), nullable=False)
+    student_email = db.Column(db.String(50), nullable=False)
+    student_phone = db.Column(db.String(25))
+    student_password = db.Column(db.String(50), nullable=False)
+    private_teacher = db.Column(db.String(50), nullable=False)
     program_name = db.Column(db.String(50)) 
     instrument = db.Column(db.String(25), nullable=False)
 
     teacher = db.relationship('Teacher', backref='students')
-    user = db.relationship('User', backref='student', uselist=False)
+    # user = db.relationship('User', backref='student', uselist=False)
 
     def __repr__(self):
         """Show Student ID"""
-        # return f'<Student student_id={self.student_id} name={self.user.fname} {self.user.lname} email={self.user.email}>'
-        return f'<Student student_id={self.student_id} instrument={self.instrument}'
+        return f'<Student student_id={self.student_id} student_name = {self.fname} {self.lname} private_teacher={self.private_teacher}>'
 
 
 class Log(db.Model):
