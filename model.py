@@ -90,10 +90,6 @@ def connect_to_db(flask_app, db_uri='postgresql:///VMS', echo=True):
 if __name__ == '__main__':
     from server import app
 
-    #this sets Flask instance ->
-    # from flask import Flask
-    # app = Flask(__name__)
-
     connect_to_db(app)
     db.create_all()
 
