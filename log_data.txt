@@ -1,3 +1,11 @@
 log_id|student_id|2021-01-31|2021-01-31 10:12:33|2021-01-31 11:03:58|Schubert Arpeggione Sonata|
 log_id|student_id|2021-01-15|2021-01-15 14:25:02|2021-01-15 14:59:12|Rebecca Clarke Morpheus|This piece is really hard!
 log_id|student_id|2021-01-23|2021-01-23 22:10:37|2021-01-23 23:17:45|Bach Suite 6 Allemande|Measure 12 is confusing rhythmically
+
+
+log data comparisons (4 options)
+
+minutes / day (y axis = minutes practiced per day, x axis = monday, tuesday, etc .... sunday)
+minutes / week (y axis = minutes practiced per week, x axis = this week, last week, two weeks ago, three weeks ago)
+days / week (y axis = days practiced per week, x axis = this week, last week, two weeks ago, three weeks ago)
+days / month (y axis = days practiced per month, x axis = previous 12 months)
