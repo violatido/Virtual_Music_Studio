@@ -46,7 +46,7 @@ class Student(db.Model):
 
     def __repr__(self):
         """Show Student ID"""
-        return f'<Student student_id={self.student_id} student_name = {self.fname} {self.lname} private_teacher={self.private_teacher}>'
+        return f'<Student student_id={self.student_id} student_name = {self.fname} {self.lname} teacher={self.private_teacher}>'
 
 
 class Log(db.Model):
@@ -65,8 +65,7 @@ class Log(db.Model):
 
     def __repr__(self):
         """Show Log Info"""
-        # return f'<Log log_date={self.log_date} student_name={self.student.fname} {self.student.lname}>'
-        return f'<Log log_date={self.log_date} student_id={self.student_id}'
+        return f'<Log log_date={self.log_date} student_id={self.student_id} log_id={self.log_id}'
 
 
 def connect_to_db(flask_app, db_uri='postgresql:///VMS', echo=True):
