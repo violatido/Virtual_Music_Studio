@@ -9,3 +9,5 @@ minutes / day (y axis = minutes practiced per day, x axis = monday, tuesday, etc
 minutes / week (y axis = minutes practiced per week, x axis = this week, last week, two weeks ago, three weeks ago)
 days / week (y axis = days practiced per week, x axis = this week, last week, two weeks ago, three weeks ago)
 days / month (y axis = days practiced per month, x axis = previous 12 months)
+
+use chart.js bar charts with tooltips
