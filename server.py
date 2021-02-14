@@ -24,20 +24,36 @@ def sign_up():
     return render_template('sign-up.html')
 
 
-@app.route('/sign-up', methods=["POST"])
+@app.route('/sign-up/teacher', methods=["POST"])
 def add_teacher():
-    """Adds a teacher to the teacher table"""
+    """Creates a teacher, adds the teacher to the teacher table"""
     teacher_fname = request.form.get('teacher-fname')
     teacher_lname = request.form.get('teacher-lname')
     teacher_email = request.form.get('teacher-email')
     teacher_phone = request.form.get('teacher-phone')
     teacher_password = request.form.get('teacher-password')
 
+
     crud.create_teacher(teacher_fname, teacher_lname, teacher_email, teacher_phone, teacher_password)
     print("Created teacher account")
 
     return jsonify({'status': 'ok', 'fname': teacher_fname, 'lname': teacher_lname})
-    
+
+@app.route('/sign-up/student', methods=["POST"])
+def add_student():
+    """Creates a student, adds the student to the student table"""
+    student_fname = request.form.get('student-fname')
+    student_lname = request.form.get('student-lname')
+    student_email = request.form.get('student-email')
+    private_teacher = request.form.get('private-teacher')
+    program_name = request.form.get('program-name')
+    instrument = request.form.get('instrument')
+    student_password = request.form.get('student-password')
+
+    crud.create_student(student_fname, student_lname, student_email, private_teacher, program_name, instrument, student_password)
+    print("Created student account")
+
+    return jsonify({'status': 'ok', 'fname': studnt_fname, 'lname': student_lname})   
 
 
 # @app.route('/sign-up', methods=["POST", "GET"])

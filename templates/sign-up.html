@@ -8,7 +8,7 @@
   </div>
   <div>
     <div id="teacher-reg-form">
-      <form action="/teacher-profile" method="post" id="create-teacher">
+      <form action="#" method="post" id="create-teacher">
         <h3>Teacher Registration Form</h3>
         First name: <input type="text" id="teacher-fname" name="teacher-fname"> <br> 
         Last name: <input type="text" id="teacher-lname" name="teacher-lname"> <br>
@@ -17,9 +17,21 @@
         Password<input type="text" id="teacher-password" name="teacher-password"> <br>
         <input type="submit" value="submit">
       </form>
+      <h3 id="teacher-added-response"></h3>
     </div>
-    <div>
-      <form action="#"></form>
+    <div id="student-reg-form">
+      <form action="#" method="post" id="create-student">
+        <h3>Student Registration Form</h3>
+        First name: <input type="text" id="student-fname" name="student-fname"> <br> 
+        Last name: <input type="text" id="student-lname" name="student-lname"> <br>
+        Email: <input type="text" id="student-email" name="student-email"> <br>
+        Private-teacher: <input type="text" id="private-teacher" name="private-teacher"> <br>
+        Program-name: <input type="text" id="Program-name" name="Program-name"> <br>
+        Instrument: <input type="text" id="Instrument" name="Instrument"> <br>
+        Password: <input type="text" id="student-password" name="student-password"> <br>
+        <input type="submit" value="submit">
+      </form>
+      <h3 id="student-added-response"></h3>
     </div>
   </div>
 {% endblock %}
