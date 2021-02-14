@@ -1,6 +1,49 @@
-{% block link %}
-    <link href="/static/css/VMS.css" rel="stylesheet">
+{% extends 'base.html' %}
+
+{% block title %}
+    Sign-up
 {% endblock %}
 {% block body %}
-  <h1 id="hope">sign up page</h1>
+  <h1>sign up page</h1>
+  <div> 
+    <h1>Are you a teacher or a student?</h1>
+  </div>
+  <div>
+    <button id="teacher-button" type="button">Teacher</button>
+  </div>
+  <div>
+    <button id="student-button" type="button">Student</button>
+  </div>
+  <div id="teacher-registration">
+    <form action="" method="POST">
+      <h3>Teacher Registration Form</h3>
+      <label for="teacher-fname">First name:</label>
+      <input type="text" id="teacher-fname" name="teacher-fname" value=""> 
+      <br>
+      <label for="teacher-lname">Last name:</label>
+      <input type="text" id="teacher-lname" name="teacher-lname" value="">
+      <br>
+      <label for="teacher-email">Email:</label>
+      <input type="text" id="teacher-email" name="teacher-email" value="">
+      <br>
+      <label for="teacher-phone">Phone (optional):</label>
+      <input type="text" id="teacher-phone" name="teacher-phone" value="">
+    </form>
+  </div>
+  <div id="student-registration">
+    <form action="" method="POST">
+      <h3>Student Registration Form</h3>
+      <label for="student-fname">First name:</label>
+      <input type="text" id="student-fname" name="student-fname" value=""> 
+      <br>
+      <label for="student-lname">Last name:</label>
+      <input type="text" id="student-lname" name="student-lname" value="">
+      <br>
+      <label for="student-email">Email:</label>
+      <input type="text" id="student-email" name="student-email" value="">
+      <br>
+      <label for="student-phone">Phone (optional):</label>
+      <input type="text" id="student-phone" name="student-phone" value="">
+    </form>
+  </div>
 {% endblock %}

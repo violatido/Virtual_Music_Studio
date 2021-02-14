@@ -45,10 +45,9 @@ def create_student(student_fname,
     return student
 
 
-def create_log(student_id, log_date, start_time, end_time, pieces_practiced, practice_notes):
+def create_log(log_date, start_time, end_time, pieces_practiced, practice_notes):
     """Creates a new practice log"""
-    log = Log(student_id=student_id, 
-                log_date=log_date, 
+    log = Log(log_date=log_date, 
                 start_time=start_time, 
                 end_time=end_time, 
                 pieces_practiced=pieces_practiced, 
@@ -64,27 +63,3 @@ def create_log(student_id, log_date, start_time, end_time, pieces_practiced, pra
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)
-
-
-# def get_user_by_user_id(user_id):
-#     """ Get the user email using the primary key: user_id """
-#     return User.query.get(user_id)
-
-# def get_user_by_email(email):
-#     """ Get the user by using the email """
-#     return User.query.filter(User.email == email).first()
-
-# def get_teacher_by_email(email):
-#     """Return teacher by email query"""
-#     return User.query.filter(User.email == email).first().teacher
-
-#get user, exist? return teacher: nothing
-
-
-# def get_student_by_email(email):
-#     """Queries a student by email"""
-#     return User.query.filter(User.email == email).first().student
-
-# def get_log_student_email(email):
-#     """Queries a practice log"""
-#     return User.query.filter(User.email == email).first().student.logs

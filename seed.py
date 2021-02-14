@@ -14,39 +14,45 @@ os.system('createdb VMS')
 model.connect_to_db(server.app)
 model.db.create_all()
 
-m_s = crud.create_user(fname="Matthew",
-                            lname="Smith",
-                            email="msmith@gmail.com",
-                            phone="666-888-4444",
-                            password="!!password1!!",
+m_s = crud.create_teacher(teacher_fname="Matthew",
+                            teacher_lname="Smith",
+                            teacher_email="msmith@gmail.com",
+                            teacher_phone="666-888-4444",
+                            teacher_password="!!password1!!",
                         )
 
-a_b = crud.create_user(fname="Alice",
-                            lname="Baker",
-                            email="abakes@gmail.com",
-                            phone= "",
-                            password="??password2??",
+a_b = crud.create_teacher(teacher_fname="Alice",
+                            teacher_lname="Baker",
+                            teacher_email="abakes@gmail.com",
+                            teacher_phone= "",
+                            teacher_password="??password2??",
                         )
 
-o_r = crud.create_user(fname="Olivia",
-                            lname="Rose",
-                            email="orose@gmail.com",
-                            phone="323-145-1288",
-                            password="##password3##",
+o_r = crud.create_student(student_fname="Olivia",
+                            student_lname="Rose",
+                            student_email="orose@gmail.com",
+                            private_teacher="323-145-1288",
+                            program_name = "",
+                            instrument = "viola",
+                            student_password="##student_password3##",
                         )
 
-a_p = crud.create_user(fname="Alex",
-                            lname="Peterson",
-                            email="apete@yahoo.com",
-                            phone="939-717-2288",
-                            password="$$pasword4$$",
+a_p = crud.create_student(student_fname="Alex",
+                            student_lname="Peterson",
+                            student_email="apete@yahoo.com",
+                            private_teacher="939-717-2288",
+                            program_name = "",
+                            instrument = "viola",
+                            student_password="$$pasword4$$",
                         )
 
-m_s = crud.create_user(fname="Sean",
-                            lname="Taylor",
-                            email="stay@aol.com",
-                            phone="",
-                            password="Schubert Arpeggione Sonata",
+m_s = crud.create_student(student_fname="Sean",
+                            student_lname="Taylor",
+                            student_email="stay@aol.com",
+                            private_teacher="",
+                            program_name = "",
+                            instrument = "viola",
+                            student_password="Schubert Arpeggione Sonata",
                         )
 
 log_a = crud.create_log(student_id=1,
@@ -71,40 +77,6 @@ log_c = crud.create_log(student_id=2,
                             end_time="12:30pm",
                             pieces_practiced="Walton Viola Concerto",
                             practice_notes="Are you trying to kill me?"
-                        )                                                                                        
+                        )              
 
-
-
-
-
-# def seed_users(filename):
-#     teachers_in_db = []
-#     students_in_db = []
-
-#     f = open(filename, 'r')
-
-#     for entry in f:
-#         entry = entry.rstrip().split('|')
-
-#         if entry[0] == "Student": #crud.create_student (crud.py function takes in an object)
-#             students_in_db.append(entry[1])
-#         else:
-#             teachers_in_db.append(entry[1])
-
-#         # crud.create_user()
-    
-#     return students_in_db
-
-
-
-# def seed_logs(filename):
-#     logs_in_db = []
-
-#     f = open(filename, 'r')
-
-#     for entry in f:
-#         entry = entry.rstrip().split('|')
-#         logs_in_db.append(entry)
-    
-#     return logs_in_db
 
