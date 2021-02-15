@@ -23,7 +23,7 @@ def sign_up():
     return render_template('sign-up.html')
 
 
-@app.route('/sign-up/teacher', methods=["POST"])
+@app.route('/sign-up', methods=["POST"])
 def add_teacher():
     """Creates a teacher, adds the teacher to the teacher table"""
     teacher_fname = request.form.get('teacher_fname')

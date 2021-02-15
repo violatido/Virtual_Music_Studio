@@ -38,6 +38,8 @@ class Student(db.Model):
     instrument = db.Column(db.String(25), nullable=False)
 
     teacher = db.relationship('Teacher', backref='students')
+    # kathy's suggestion: 
+    # logs = db.relationship('Log', backref='student', uselist=False)
 
     def __repr__(self):
         """Show Student ID"""
@@ -57,6 +59,7 @@ class Log(db.Model):
     practice_notes = db.Column(db.String(200))
 
     student = db.relationship('Student', backref='logs')
+    # student_id=db.Column(db.Integer, db.ForeignKey('student.student_id'), nullable=False)
 
     def __repr__(self):
         """Show Log Info"""

@@ -34,6 +34,7 @@ $('#student_reg_form').on('submit', (evt) => {
         'instrument': $('#instrument').val(),
         'student_password': $('#student_password').val()
     } 
+    
     $.post("/sign-up", studentFormValues, (res) => {
         $('#student_added_response').text(
             `student profile for ${res.student_fname} ${res.student_lname} has been created!`
