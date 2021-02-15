@@ -1,14 +1,14 @@
 """CRUD operations."""
 
-# from model import db, User, Movie, Rating, connect_to_db
 from model import db, Teacher, Student, Log, connect_to_db
 
-# # Functions start here!
-# """CRUD operations."""
+def create_teacher(teacher_fname, 
+                    teacher_lname, 
+                    teacher_email, 
+                    teacher_phone, 
+                    teacher_password):
+    """Creates a new teacher record"""
 
-
-def create_teacher(teacher_fname, teacher_lname, teacher_email, teacher_phone, teacher_password):
-    """Create a teacher"""
     teacher = Teacher(teacher_fname=teacher_fname, 
                         teacher_lname=teacher_lname, 
                         teacher_email=teacher_email,
@@ -29,7 +29,8 @@ def create_student(student_fname,
                     program_name, 
                     instrument, 
                     student_password):
-    """Create a student"""
+    """Creates a new student record"""
+
     student = Student(student_fname=student_fname,
                         student_lname=student_lname,
                         student_email=student_email,
@@ -45,8 +46,13 @@ def create_student(student_fname,
     return student
 
 
-def create_log(log_date, start_time, end_time, pieces_practiced, practice_notes):
-    """Creates a new practice log"""
+def create_log(log_date, 
+                start_time, 
+                end_time, 
+                pieces_practiced, 
+                practice_notes):
+    """Creates a new practice log record"""
+    
     log = Log(log_date=log_date, 
                 start_time=start_time, 
                 end_time=end_time, 

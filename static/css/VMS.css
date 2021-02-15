@@ -1,3 +1,20 @@
 h1 {
-    color: purple;
+    color: #6D5D7B;
+    display: flex;
+    text-align: center;
+    
+}
+
+.background-color {
+    background-color: #355C7D;
+}
+
+#panel {
+    background-color: #FED7BF;
+    border: 10px #C06C84 solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    
 }

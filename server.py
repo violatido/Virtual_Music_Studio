@@ -11,7 +11,6 @@ app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined 
 
 
-# create view functions here
 @app.route('/')
 def create_homepage():
     """Renders the VMS homepage"""
@@ -27,46 +26,35 @@ def sign_up():
 @app.route('/sign-up/teacher', methods=["POST"])
 def add_teacher():
     """Creates a teacher, adds the teacher to the teacher table"""
-    teacher_fname = request.form.get('teacher-fname')
-    teacher_lname = request.form.get('teacher-lname')
-    teacher_email = request.form.get('teacher-email')
-    teacher_phone = request.form.get('teacher-phone')
-    teacher_password = request.form.get('teacher-password')
+    teacher_fname = request.form.get('teacher_fname')
+    teacher_lname = request.form.get('teacher_lname')
+    teacher_email = request.form.get('teacher_email')
+    teacher_phone = request.form.get('teacher_phone')
+    teacher_password = request.form.get('teacher_password')
 
-
+    # calls the crud function create_teacher()
     crud.create_teacher(teacher_fname, teacher_lname, teacher_email, teacher_phone, teacher_password)
-    print("Created teacher account")
 
     return jsonify({'status': 'ok', 'fname': teacher_fname, 'lname': teacher_lname})
+
 
 @app.route('/sign-up/student', methods=["POST"])
 def add_student():
     """Creates a student, adds the student to the student table"""
-    student_fname = request.form.get('student-fname')
-    student_lname = request.form.get('student-lname')
-    student_email = request.form.get('student-email')
-    private_teacher = request.form.get('private-teacher')
-    program_name = request.form.get('program-name')
+
+    student_fname = request.form.get('student_fname')
+    student_lname = request.form.get('student_lname')
+    student_email = request.form.get('student_email')
+    private_teacher = request.form.get('private_teacher')
+    program_name = request.form.get('program_name')
     instrument = request.form.get('instrument')
-    student_password = request.form.get('student-password')
+    student_password = request.form.get('student_password')
 
+    # calls crud function create_student()
     crud.create_student(student_fname, student_lname, student_email, private_teacher, program_name, instrument, student_password)
-    print("Created student account")
 
-    return jsonify({'status': 'ok', 'fname': studnt_fname, 'lname': student_lname})   
+    return jsonify({'status': 'ok', 'fname': student_fname, 'lname': student_lname})   
 
-
-# @app.route('/sign-up', methods=["POST", "GET"])
-# def check_login():
-#     if request.method == "POST":
-#         user = request.form["nm"]
-#         return redirect(url_for("user", usr=user))
-#     else:
-#         return render_template("sign-up.html")
-
-# @app.route("/<usr>")
-# def user(usr):
-#     return f"<h1>{usr}</h1>"
 
 @app.route('/student-profile')
 def view_student_profile():

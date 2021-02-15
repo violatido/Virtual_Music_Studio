@@ -1,38 +1,42 @@
 
 // event handler for new teacher registration 
-$('#teacher-reg-form').on('submit', (evt) => {
+$('#teacher_reg_form').on('submit', (evt) => {
     evt.preventDefault();
 
     // converts teacher registration form into an object
-    // const teacherFormValues = $('#teacher-reg-form').serialize();
+    // const teacherFormValues = $('#teacher_reg_form').serialize();
     const teacherFormValues = { 
-        'teacher-fname': $('#teacher-fname').val(),
-        'teacher-lname': $('#teacher-lname').val(),
-        'teacher-email': $('#teacher-email').val(),
-        'teacher-phone': $('#teacher-phone').val(),
-        'teacher-password': $('#teacher-password').val()
+        'teacher_fname': $('#teacher_fname').val(),
+        'teacher_lname': $('#teacher_lname').val(),
+        'teacher_email': $('#teacher_email').val(),
+        'teacher_phone': $('#teacher_phone').val(),
+        'teacher_password': $('#teacher_password').val()
     } 
     $.post("/sign-up", teacherFormValues, (res) => {
-        $('#teacher-added-response').text(`Teacher profile for ${res.teacher-fname} ${res.teacher-lname} has been created!`)
+        $('#teacher_added_response').text(
+            `Teacher profile for ${res.teacher_fname} ${res.teacher_lname} has been created!`
+        )
     })
 })
 
 // event handler for new student registration 
-$('#student-reg-form').on('submit', (evt) => {
+$('#student_reg_form').on('submit', (evt) => {
     evt.preventDefault();
 
     // converts student registration form into an object
-    // const studentFormValues = $('#student-reg-form').serialize();
+    // const studentFormValues = $('#student_reg_form').serialize();
     const studentFormValues = { 
-        'student-fname': $('#student-fname').val(),
-        'student-lname': $('#student-lname').val(),
-        'student-email': $('#student-email').val(),
-        'private-teacher': $('#private-teacher').val(),
-        'program-name': $('#program-name').val(),
+        'student_fname': $('#student_fname').val(),
+        'student_lname': $('#student_lname').val(),
+        'student_email': $('#student_email').val(),
+        'private_teacher': $('#private_teacher').val(),
+        'program_name': $('#program_name').val(),
         'instrument': $('#instrument').val(),
-        'student-password': $('#student-password').val()
+        'student_password': $('#student_password').val()
     } 
     $.post("/sign-up", studentFormValues, (res) => {
-        $('#student-added-response').text(`student profile for ${res.student-fname} ${res.student-lname} has been created!`)
+        $('#student_added_response').text(
+            `student profile for ${res.student_fname} ${res.student_lname} has been created!`
+        )
     })
 })
