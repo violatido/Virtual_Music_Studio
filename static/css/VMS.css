@@ -2,7 +2,13 @@ h1 {
     color: #6D5D7B;
     display: flex;
     text-align: center;
-    
+}
+
+#left-panel {
+    background-color: #FED7BF;
+    height: 20vh;
+    display: flex;
+    align-items: center;
 }
 
 .background-color {
