@@ -15,6 +15,7 @@ def create_homepage():
     """Renders the VMS homepage"""
     return render_template('homepage.html')
 
+#_______________________________view functions for teacher login/registration___________________________________#
 
 @app.route('/teacher-portal')
 def show_teacher_reg_login_page():
@@ -49,7 +50,7 @@ def add_teacher():
 
     return jsonify({'status': 'ok', 'fname': teacher_fname, 'lname': teacher_lname})
 
-
+#_______________________________view functions for student login/registration___________________________________#
 @app.route('/student-portal')
 def sign_up_student():
     """Renders the VMS sign-up page"""
@@ -86,7 +87,7 @@ def add_student():
 
     return jsonify({'status': 'ok', 'fname': student_fname, 'lname': student_lname})   
 
-
+#___________________________________view functions for viewing profiles________________________________________#
 @app.route('/student-profile')
 def view_student_profile():
     """Renders the VMS student-profile page"""

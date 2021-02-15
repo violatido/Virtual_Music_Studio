@@ -67,14 +67,23 @@ def create_log(log_date,
 
 #__________________________functions for User verification___________________________#
 def verify_teacher(teacher_email, teacher_password):
-
-   return Teacher.query.filter(Teacher.teacher_email == teacher_email, 
+    """Validates teacher email and password by finding matches in the database"""
+    return Teacher.query.filter(Teacher.teacher_email == teacher_email, 
             Teacher.teacher_password == teacher_password).first()
 
 def verify_student(student_email, student_password):
-
-   return Student.query.filter(Student.student_email == student_email, 
+    """Validates student email and password by finding matches in the database"""
+    return Student.query.filter(Student.student_email == student_email, 
             Student.student_password == student_password).first()
+
+#__________________________functions for User verification___________________________#
+def get_teacher_by_email():
+    """Takes info from teacher records to show on teacher profile page"""
+    pass
+
+def get_student_by_email(student_id, student_fname, student_lname, student_email, private_teacher, instrument, program_name): 
+    """Takes info from teacher records to show on teacher profile page"""
+    pass
 
 
 if __name__ == '__main__':
