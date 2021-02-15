@@ -1,3 +1,15 @@
+// event handler for login verification
+$('#login_form').on('submit', (evt) => {
+    evt.preventDefault();
+
+    const loginFormValues = {
+        'login_email': $('#login_email').val(),
+        'login_password': $('#login_password').val()
+    }
+
+    $.post("/", loginFormValues, (res))
+})
+
 
 // event handler for new teacher registration 
 $('#teacher_reg_form').on('submit', (evt) => {
@@ -12,7 +24,7 @@ $('#teacher_reg_form').on('submit', (evt) => {
         'teacher_phone': $('#teacher_phone').val(),
         'teacher_password': $('#teacher_password').val()
     } 
-    $.post("/sign-up", teacherFormValues, (res) => {
+    $.post("/register-teacher", teacherFormValues, (res) => {
         $('#teacher_added_response').text(
             `Teacher profile for ${res.teacher_fname} ${res.teacher_lname} has been created!`
         )
@@ -34,8 +46,8 @@ $('#student_reg_form').on('submit', (evt) => {
         'instrument': $('#instrument').val(),
         'student_password': $('#student_password').val()
     } 
-    
-    $.post("/sign-up", studentFormValues, (res) => {
+
+    $.post("/register-student", studentFormValues, (res) => {
         $('#student_added_response').text(
             `student profile for ${res.student_fname} ${res.student_lname} has been created!`
         )

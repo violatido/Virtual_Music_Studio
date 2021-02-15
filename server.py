@@ -16,14 +16,18 @@ def create_homepage():
     """Renders the VMS homepage"""
     return render_template('homepage.html')
 
+# @app.route('/')
+# def verify_login():
+#     """Checks if email/password is valid"""
+#     pass
 
-@app.route('/sign-up')
+@app.route('/register-teacher')
 def sign_up():
     """Renders the VMS sign-up page"""
-    return render_template('sign-up.html')
+    return render_template('register-teacher.html')
 
 
-@app.route('/sign-up', methods=["POST"])
+@app.route('/register-teacher', methods=["POST"])
 def add_teacher():
     """Creates a teacher, adds the teacher to the teacher table"""
     teacher_fname = request.form.get('teacher_fname')
@@ -38,7 +42,13 @@ def add_teacher():
     return jsonify({'status': 'ok', 'fname': teacher_fname, 'lname': teacher_lname})
 
 
-@app.route('/sign-up/student', methods=["POST"])
+@app.route('/register-student')
+def sign_up_student():
+    """Renders the VMS sign-up page"""
+    return render_template('register-student.html')
+
+
+@app.route('/register-student', methods=["POST"])
 def add_student():
     """Creates a student, adds the student to the student table"""
 

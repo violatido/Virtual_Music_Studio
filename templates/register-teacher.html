@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign-up{% endblock %}
+{% block body %}
+  <h2>sign up page</h1>
+  <div> 
+    <h2>Are you a teacher or a student?</h1>
+  </div>
+  <div>
+    <div id="teacher_reg_form">
+      <form action="#" method="post" id="create_teacher">
+        <h3>Teacher Registration Form</h3>
+        First name: <input type="text" id="teacher_fname" name="teacher_fname"> <br> 
+        Last name: <input type="text" id="teacher_lname" name="teacher_lname"> <br>
+        Email: <input type="text" id="teacher_email" name="teacher_email"> <br>
+        Phone (optional): <input type="text" id="teacher_phone" name="teacher_phone"> <br>
+        Password: <input type="text" id="teacher_password" name="teacher_password"> <br>
+        <input type="submit">
+      </form>
+      <h3 id="teacher_added_response"></h3>
+    </div>
+  </div>
+{% endblock %}

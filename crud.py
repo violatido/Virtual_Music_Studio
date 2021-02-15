@@ -65,6 +65,12 @@ def create_log(log_date,
 
     return log 
 
+def verify_teacher(teacher_email, teacher_password):
+    if teacher_email != None:
+        return "hello"
+
+
+
 
 if __name__ == '__main__':
     from server import app
