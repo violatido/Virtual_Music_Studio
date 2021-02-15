@@ -2,7 +2,7 @@
 
 from model import db, Teacher, Student, Log, connect_to_db
 
-#_________________________functions for creating table records____________________________#
+#______________________functions for creating table records___________________________#
 def create_teacher(teacher_fname, 
                     teacher_lname, 
                     teacher_email, 
@@ -65,12 +65,16 @@ def create_log(log_date,
     return log 
 
 
-#_______________________________________________________________________________________#
+#__________________________functions for User verification___________________________#
 def verify_teacher(teacher_email, teacher_password):
 
-   return Teacher.query.filter(Teacher.teacher_email == teacher_email).first(), Teacher.query.filter(Teacher.teacher_password == teacher_password).first()
+   return Teacher.query.filter(Teacher.teacher_email == teacher_email, 
+            Teacher.teacher_password == teacher_password).first()
 
+def verify_student(student_email, student_password):
 
+   return Student.query.filter(Student.student_email == student_email, 
+            Student.student_password == student_password).first()
 
 
 if __name__ == '__main__':

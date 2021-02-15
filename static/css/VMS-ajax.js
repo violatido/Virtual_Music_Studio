@@ -7,7 +7,7 @@ $('#teacher_login_form').on('submit', (evt) => {
         'teacher_login_pw': $('#teacher_login_pw').val()
     }
 
-    $.post("/register-teacher", loginFormValues, (res) => {
+    $.post("/teacher-portal", loginFormValues, (res) => {
         $('#teacher_added_response').text("Logged in!")
     })
 })
@@ -26,12 +26,28 @@ $('#teacher_reg_form').on('submit', (evt) => {
         'teacher_phone': $('#teacher_phone').val(),
         'teacher_password': $('#teacher_password').val()
     } 
-    $.post("/register-teacher", teacherFormValues, (res) => {
+    $.post("/student-portal", teacherFormValues, (res) => {
         $('#teacher_added_response').text(
             `Teacher profile for ${res.teacher_fname} ${res.teacher_lname} has been created!`
         )
     })
 })
+
+// event handler for student login
+$('#student_login_form').on('submit', (evt) => {
+    evt.preventDefault();
+
+    const loginFormValues = {
+        'student_login_email': $('#student_login_email').val(),
+        'student_login_pw': $('#student_login_pw').val()
+    }
+
+    $.post("/student-portal", loginFormValues, (res) => {
+        $('#student_added_response').text("Logged in!")
+    })
+})
+
+
 
 // event handler for new student registration 
 $('#student_reg_form').on('submit', (evt) => {
@@ -49,7 +65,7 @@ $('#student_reg_form').on('submit', (evt) => {
         'student_password': $('#student_password').val()
     } 
 
-    $.post("/register-student", studentFormValues, (res) => {
+    $.post("/student-portal", studentFormValues, (res) => {
         $('#student_added_response').text(
             `student profile for ${res.student_fname} ${res.student_lname} has been created!`
         )

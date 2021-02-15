@@ -15,27 +15,27 @@ def create_homepage():
     """Renders the VMS homepage"""
     return render_template('homepage.html')
 
-@app.route('/register-teacher')
-def show_teacher_reg_login_page():
-    return render_template('register-teacher.html')
 
-@app.route('/register-teacher', methods=["POST"])
+@app.route('/teacher-portal')
+def show_teacher_reg_login_page():
+    """Renders the Teacher registration/login page"""
+    return render_template('teacher-portal.html')
+
+@app.route('/teacher-portal', methods=["POST"])
 def teacher_login():
-    """Logs in a teacher"""
+    """Checks to see if email and password works"""
     teacher_login_email = request.form.get('teacher_login_email')
     teacher_login_pw = request.form.get('teacher_login_pw')
 
     checked_teacher = crud.verify_teacher(teacher_login_email, teacher_login_pw)
 
     if checked_teacher != None:
-        return jsonify({'status': 'ok', 'teacher_login_email': teacher_login_email})
+        flash('This works!')
+        return redirect('/teacher-profile')
+    else:
+        return jsonify({'status': 'error'})
 
-
-    print("*******!!!!!****HIIIIIIIIIIIII*****!!!!!!***")
-    return render_template('register-teacher.html')
-
-
-@app.route('/register-teacher', methods=["POST"])
+@app.route('/teacher-portal', methods=["POST"])
 def add_teacher():
     """Creates a teacher, adds the teacher to the teacher table"""
     teacher_fname = request.form.get('teacher_fname')
@@ -50,13 +50,26 @@ def add_teacher():
     return jsonify({'status': 'ok', 'fname': teacher_fname, 'lname': teacher_lname})
 
 
-@app.route('/register-student')
+@app.route('/student-portal')
 def sign_up_student():
     """Renders the VMS sign-up page"""
-    return render_template('register-student.html')
+    return render_template('student-portal.html')
 
+@app.route('/student-portal', methods=["POST"])
+def student_login():
+    """Checks to see if email and password works"""
+    student_login_email = request.form.get('student_login_email')
+    student_login_pw = request.form.get('student_login_pw')
 
-@app.route('/register-student', methods=["POST"])
+    checked_student = crud.verify_student(student_login_email, student_login_pw)
+
+    if checked_student != None:
+        # return jsonify({'status': 'ok', 'student_login_email': student_login_email})
+        return redirect('/student-profile')
+    else:
+        return jsonify({'status': 'error'})
+
+@app.route('/student-portal', methods=["POST"])
 def add_student():
     """Creates a student, adds the student to the student table"""
 

@@ -2,9 +2,14 @@
 
 {% block title %}Sign-up{% endblock %}
 {% block body %}
-  <h2>student sign up page</h1>
-  <div> 
-    <h2>Are you a teacher or a student?</h1>
+  <div id="student_login_form">
+    <h3>Student Login</h3>
+    <form action="" method="POST" id="login_student">
+      Email: <input type="text" id="student_login_email" name="student_login_email">
+      Password: <input type="text" id="student_login_pw" name="student_login_pw">
+      <input type="submit">
+    </form>
+    <br><br><br>
   </div>
   <div>
     <div id="student_reg_form">
