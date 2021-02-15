@@ -3,7 +3,6 @@
 from flask import (Flask, render_template, request, flash, session, redirect, url_for, jsonify)
 from model import connect_to_db 
 import crud 
-
 from jinja2 import StrictUndefined 
 
 app = Flask(__name__)
@@ -16,14 +15,23 @@ def create_homepage():
     """Renders the VMS homepage"""
     return render_template('homepage.html')
 
-# @app.route('/')
-# def verify_login():
-#     """Checks if email/password is valid"""
-#     pass
-
 @app.route('/register-teacher')
-def sign_up():
-    """Renders the VMS sign-up page"""
+def show_teacher_reg_login_page():
+    return render_template('register-teacher.html')
+
+@app.route('/register-teacher', methods=["POST"])
+def teacher_login():
+    """Logs in a teacher"""
+    teacher_login_email = request.form.get('teacher_login_email')
+    teacher_login_pw = request.form.get('teacher_login_pw')
+
+    checked_teacher = crud.verify_teacher(teacher_login_email, teacher_login_pw)
+
+    if checked_teacher != None:
+        return jsonify({'status': 'ok', 'teacher_login_email': teacher_login_email})
+
+
+    print("*******!!!!!****HIIIIIIIIIIIII*****!!!!!!***")
     return render_template('register-teacher.html')
 
 

@@ -1,13 +1,15 @@
-// event handler for login verification
-$('#login_form').on('submit', (evt) => {
+// event handler for teacher login verification
+$('#teacher_login_form').on('submit', (evt) => {
     evt.preventDefault();
 
     const loginFormValues = {
-        'login_email': $('#login_email').val(),
-        'login_password': $('#login_password').val()
+        'teacher_login_email': $('#teacher_login_email').val(),
+        'teacher_login_pw': $('#teacher_login_pw').val()
     }
 
-    $.post("/", loginFormValues, (res))
+    $.post("/register-teacher", loginFormValues, (res) => {
+        $('#teacher_added_response').text("Logged in!")
+    })
 })
 
 
