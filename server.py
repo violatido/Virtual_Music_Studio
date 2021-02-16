@@ -36,7 +36,7 @@ def teacher_login():
     else:
         return jsonify({'status': 'error'})
 
-@app.route('/teacher-portal/register', methods=["POST"])
+@app.route('/teacher-portal-create', methods=["POST"])
 def add_teacher():
     """Creates a teacher, adds the teacher to the teacher table"""
     teacher_fname = request.form.get('teacher_fname')

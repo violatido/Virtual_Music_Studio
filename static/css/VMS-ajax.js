@@ -1,8 +1,9 @@
 //_______________________________Event Listeners for teacher login/registration___________________________________#
 
 // event handler for teacher login verification
-$('#teacher_login_form').on('submit', (evt) => {
+$('#login_teacher').on('submit', (evt) => {
     evt.preventDefault();
+    console.log("LOGIN FUCNTION WORKS")
 
     const loginFormValues = {
         'teacher_login_email': $('#teacher_login_email').val(),
@@ -10,15 +11,17 @@ $('#teacher_login_form').on('submit', (evt) => {
     }
 
     $.post("/teacher-portal", loginFormValues, (res) => {
-        alert('signed in!!')
         $('#teacher_added_response').text("Logged in!")
+        console.log("HIIIIIIIIIIIII")
+
     })
 });
 
 
 // event handler for new teacher registration 
-$('#teacher_reg_form').on('submit', (evt) => {
+$('#create_teacher').on('submit', (evt) => {
     evt.preventDefault();
+    console.log("!!!!!!************");
 
     // converts teacher registration form into an object
     // const teacherFormValues = $('#teacher_reg_form').serialize();
@@ -30,11 +33,12 @@ $('#teacher_reg_form').on('submit', (evt) => {
         'teacher_password': $('#teacher_password').val()
     } 
 
-    $.post("/teacher-portal/register", teacherFormValues, (res) => {
+    $.post("/teacher-portal-create", teacherFormValues, (res) => {
         $('#teacher_added_response').text(
             `Teacher profile for ${res.teacher_fname} ${res.teacher_lname} has been created!`
-        )
-    })
+        );
+        console.log("HEWOOOOOOOOOO!!!!")
+    });
 });
 
 //_______________________________Event Listeners for student login____________________#
@@ -75,9 +79,9 @@ $('#create_student').on('submit', (evt) => {
     } 
 
     $.post("/student-portal-create", studentFormValues, (res) => {
-        // $('#student_added_response').text(
-        //     `student profile for ${res.student_fname} ${res.student_lname} has been created!`
-        // );
+        $('#student_added_response').text(
+            `student profile for ${res.student_fname} ${res.student_lname} has been created!`
+        );
         console.log("HEWOOOOOOOOOO!!!!")
     });
 });
