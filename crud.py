@@ -64,7 +64,6 @@ def create_log(log_date,
 
     return log 
 
-
 #__________________________functions for User verification___________________________#
 def verify_teacher(teacher_email, teacher_password):
     """Validates teacher email and password by finding matches in the database"""
@@ -77,13 +76,13 @@ def verify_student(student_email, student_password):
             Student.student_password == student_password).first()
 
 #__________________________functions for User verification___________________________#
-def get_teacher_by_email():
-    """Takes info from teacher records to show on teacher profile page"""
-    pass
+# def get_teacher_by_email():
+#     """Takes info from teacher records to show on teacher profile page"""
+#     pass
 
-def get_student_by_email(student_id, student_fname, student_lname, student_email, private_teacher, instrument, program_name): 
-    """Takes info from teacher records to show on teacher profile page"""
-    pass
+# def get_students(): 
+#     """Finds all student info"""
+#     return Student.query.all()
 
 
 if __name__ == '__main__':

@@ -1,3 +1,5 @@
+//_______________________________Event Listeners for teacher login/registration___________________________________#
+
 // event handler for teacher login verification
 $('#teacher_login_form').on('submit', (evt) => {
     evt.preventDefault();
@@ -8,9 +10,10 @@ $('#teacher_login_form').on('submit', (evt) => {
     }
 
     $.post("/teacher-portal", loginFormValues, (res) => {
+        alert('signed in!!')
         $('#teacher_added_response').text("Logged in!")
     })
-})
+});
 
 
 // event handler for new teacher registration 
@@ -26,16 +29,21 @@ $('#teacher_reg_form').on('submit', (evt) => {
         'teacher_phone': $('#teacher_phone').val(),
         'teacher_password': $('#teacher_password').val()
     } 
-    $.post("/student-portal", teacherFormValues, (res) => {
+
+    $.post("/teacher-portal/register", teacherFormValues, (res) => {
         $('#teacher_added_response').text(
             `Teacher profile for ${res.teacher_fname} ${res.teacher_lname} has been created!`
         )
     })
-})
+});
+
+//_______________________________Event Listeners for student login____________________#
+
 
 // event handler for student login
-$('#student_login_form').on('submit', (evt) => {
+$('#login_student').on('submit', (evt) => {
     evt.preventDefault();
+    console.log("LOGIN FUCNTION WORKS")
 
     const loginFormValues = {
         'student_login_email': $('#student_login_email').val(),
@@ -43,15 +51,16 @@ $('#student_login_form').on('submit', (evt) => {
     }
 
     $.post("/student-portal", loginFormValues, (res) => {
-        $('#student_added_response').text("Logged in!")
+        $('#student_login_response').text("Logged in!")
+        console.log("HIIIIIIIIIIIII")
     })
-})
-
+});
 
 
 // event handler for new student registration 
-$('#student_reg_form').on('submit', (evt) => {
+$('#create_student').on('submit', (evt) => {
     evt.preventDefault();
+    console.log("!!!!!!************");
 
     // converts student registration form into an object
     // const studentFormValues = $('#student_reg_form').serialize();
@@ -65,9 +74,33 @@ $('#student_reg_form').on('submit', (evt) => {
         'student_password': $('#student_password').val()
     } 
 
-    $.post("/student-portal", studentFormValues, (res) => {
-        $('#student_added_response').text(
-            `student profile for ${res.student_fname} ${res.student_lname} has been created!`
+    $.post("/student-portal-create", studentFormValues, (res) => {
+        // $('#student_added_response').text(
+        //     `student profile for ${res.student_fname} ${res.student_lname} has been created!`
+        // );
+        console.log("HEWOOOOOOOOOO!!!!")
+    });
+});
+
+
+
+//_______________________________Event Listeners for student login____________________#
+
+// event handler for creating new practice logs
+$('#create_log_form').on('submit', (evt) => {
+    evt.preventDefault();
+
+    const teacherFormValues = { 
+        'log_date': $('#log_date').val(),
+        'log_start_time': $('#log_start_time').val(),
+        'log_end_time': $('#log_end_time').val(),
+        'log_pieces_practiced': $('#log_pieces_practiced').val(),
+        'log_practice_notes': $('#log_practice_notes').val()
+    } 
+
+    $.post("/teacher-portal/register", teacherFormValues, (res) => {
+        $('#teacher_added_response').text(
+            `Teacher profile for ${res.teacher_fname} ${res.teacher_lname} has been created!`
         )
     })
 })

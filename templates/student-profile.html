@@ -4,8 +4,15 @@
     Student Profile
 {% endblock %}
 {% block body %}
-  <h1>Welcome, {{student_fname}} {{student_lname}!</h1>
+  <h1>Welcome, student!</h1>
+  {#<!-- <h1>Welcome, {{student_fname}} {{student_lname}!</h1>
   <ul>
-    {%if student%}
-  </ul>
+    {%for student in students%}
+      <li>Name: {{student_fname}} {{student_lname}}</li>
+      <li>Teacher: {{private_teacher}}</li>
+      <li>Program: {{program_name}}</li>
+      <li>Instrument: {{instrument}}</li>
+      <li>Student Id: {{student_id}}</li>
+    {%end for%}#}
+  </ul> -->
 {% endblock %}

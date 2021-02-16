@@ -43,7 +43,7 @@ class Student(db.Model):
 
     def __repr__(self):
         """Show Student ID"""
-        return f'<Student student_id={self.student_id} student_name = {self.fname} {self.lname} teacher={self.private_teacher}>'
+        return f'<Student student_id={self.student_id} student_name = {self.student_fname} {self.student_lname} teacher={self.private_teacher}>'
 
 
 class Log(db.Model):

@@ -36,7 +36,7 @@ def teacher_login():
     else:
         return jsonify({'status': 'error'})
 
-@app.route('/teacher-portal', methods=["POST"])
+@app.route('/teacher-portal/register', methods=["POST"])
 def add_teacher():
     """Creates a teacher, adds the teacher to the teacher table"""
     teacher_fname = request.form.get('teacher_fname')
@@ -70,10 +70,10 @@ def student_login():
     else:
         return jsonify({'status': 'error'})
 
-@app.route('/student-portal', methods=["POST"])
+@app.route('/student-portal-create', methods=["POST"])
 def add_student():
     """Creates a student, adds the student to the student table"""
-
+    print("!!!!!!!!\nIM IN THE ADD STUDENT Function \n !!!!!!!!!!")
     student_fname = request.form.get('student_fname')
     student_lname = request.form.get('student_lname')
     student_email = request.form.get('student_email')
@@ -82,16 +82,21 @@ def add_student():
     instrument = request.form.get('instrument')
     student_password = request.form.get('student_password')
 
-    # calls crud function create_student()
     crud.create_student(student_fname, student_lname, student_email, private_teacher, program_name, instrument, student_password)
-
-    return jsonify({'status': 'ok', 'fname': student_fname, 'lname': student_lname})   
+    
+    return redirect('/student-profile')
+    # return jsonify({'status': 'ok', 'fname': student_fname, 'lname': student_lname})   
 
 #___________________________________view functions for viewing profiles________________________________________#
 @app.route('/student-profile')
-def view_student_profile():
-    """Renders the VMS student-profile page"""
+def blank_student_profile():
     return render_template('student-profile.html')
+
+# @app.route('/student-profile')
+# def view_student_profile():
+#     """Renders the VMS student-profile page"""
+#     students=crud.get_students()
+#     return render_template('student-profile.html', students=students)
 
 
 @app.route('/teacher-profile')
@@ -99,11 +104,14 @@ def view_teacher_profile():
     """Renders the VMS teacher-profile page"""
     return render_template('teacher-profile.html')
 
+#___________________________________functions for practice logs________________________________________#
 
 @app.route('/practice-log')
-def create_log():
+def view_log_page():
     """Renders the VMS practice-log page"""
     return render_template('practice-log.html')
+
+
     
 
 if __name__ == '__main__':
