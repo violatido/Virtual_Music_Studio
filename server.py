@@ -140,7 +140,7 @@ def add_log():
     return jsonify({'status': 'ok', 'log_date': log_date})  
 
 #___________________________________functions for viewing logs________________________________________#
-@app.route('/student-portal')
+@app.route('/past-logs')
 def view_logs_per_student():
     """View past logs for individual student"""
     return render_template('past-logs.html')

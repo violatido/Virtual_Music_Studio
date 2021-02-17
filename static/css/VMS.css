@@ -4,31 +4,10 @@ h1 {
     text-align: center;
 }
 
-
-
-/* 
-#left-panel {
-    background-color: #FED7BF;
-    height: 20vh;
-    display: flex;
-    align-items: center;
-} */
-
-#VMS-homepage-logo {
-    height: 50%;
-    width: 50%;
-}
-
 .background-color {
     background-color: #355C7D;
 }
 
-#panel {
-    background-color: #FED7BF;
-    border: 10px #C06C84 solid;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-    
-}
+/* #logo-col {
+    border: 1px black solid;
+} */
