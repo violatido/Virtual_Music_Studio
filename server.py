@@ -31,7 +31,22 @@ def teacher_login():
     checked_teacher = crud.verify_teacher(teacher_login_email, teacher_login_pw)
 
     if checked_teacher != None:
-        flash('This works!')
+        # return jsonify({'status': 'ok', 'student_login_email': student_login_email})
+        teacher_login_email = request.form.get('teacher_login_email')
+        print(teacher_login_email)
+        
+        teacher=crud.get_teacher_by_email(teacher_login_email)
+        session['teacher'] = {
+            "teacher_id": teacher.teacher_id,
+            "teacher_email": teacher.teacher_email,
+            "teacher_fname": teacher.teacher_fname,
+            'teacher_lname': teacher.teacher_lname,
+            "teacher_phone": teacher.teacher_phone
+            }
+        print("!!!!!!!\nteacher\nIT'S HERE\n!!!!")
+        print(teacher.teacher_email)
+        print(session['teacher'])
+        # return render_template('teacher-profile.html', email = teacher.teacher_email)
         return redirect('/teacher-profile')
     else:
         return jsonify({'status': 'error'})
@@ -59,7 +74,10 @@ def sign_up_student():
 
 @app.route('/student-portal', methods=["POST"])
 def student_login():
-    """Checks to see if email and password works"""
+    """Checks to see if email and password works, 
+        
+        redirects to personal profile with successful login"""
+
     student_login_email = request.form.get('student_login_email')
     student_login_pw = request.form.get('student_login_pw')
 
@@ -76,9 +94,9 @@ def student_login():
             "student_email": student.student_email,
             "student_fname": student.student_fname,
             'student_lname': student.student_lname,
-            "student_teacher": student.private_teacher,
-            "student_program": student.program_name,
-            "student_instrument": student.instrument
+            "private_teacher": student.private_teacher,
+            "program_name": student.program_name,
+            "instrument": student.instrument
             }
         print("!!!!!!!\nSTUDENT\nIT'S HERE\n!!!!")
         print(student.student_email)
@@ -110,16 +128,6 @@ def add_student():
 def blank_student_profile():
     return render_template('student-profile.html')
 
-# @app.route('/student-profile')
-# def view_student_profile():
-#     """Renders the VMS student-profile page"""
-#     student_login_email = request.form.get('student_login_email')
-#     print(student_login_email)
-
-#     students=crud.get_student_by_email(student_login_email)
-#     print(students)
-
-#     return render_template('student-profile.html', students=students)
 
 
 @app.route('/teacher-profile')

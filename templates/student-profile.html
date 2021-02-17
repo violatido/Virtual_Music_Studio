@@ -6,6 +6,12 @@
 {% block body %}
 {% if session["student"] %}
   <h1>Welcome, {{session['student']['student_fname']}} {{session['student']['student_lname']}}</h1>
+  <ul>
+    <li>Student ID: {{session['student']['student_id']}}</li>
+    <li>Student Email: {{session['student']['student_email']}}</li>
+    <li>Private Teacher: {{session['student']['private_teacher']}}</li>
+    <li>Program Name: {{session['student']['program_name']}}</li>
+    <li>Instrument: {{session['student']['instrument']}}</li>
+  </ul>
 {% endif %}  
-  <h3>Hope this works! Thanks, kat :D</h3>
 {% endblock %}  

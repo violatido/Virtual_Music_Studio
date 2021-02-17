@@ -86,6 +86,10 @@ def get_student_by_email(student_email):
     """Finds all student info"""
     return Student.query.filter(Student.student_email == student_email).first()
 
+def get_teacher_by_email(teacher_email): 
+    """Finds all teacher info"""
+    return Teacher.query.filter(Teacher.teacher_email == teacher_email).first()
+
 
 if __name__ == '__main__':
     from server import app

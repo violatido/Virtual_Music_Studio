@@ -4,5 +4,12 @@
     teacher-profile
 {% endblock %}
 {% block body %}
-  <h1>teacher profile page</h1>
+{% if session["student"] %}
+  <h1>Welcome, {{session['teacher']['teacher_fname']}} {{session['teacher']['teacher_lname']}}</h1>
+  <ul>
+    <li>Teacher ID: {{session['teacher']['teacher_id']}}</li>
+    <li>Teacher Email: {{session['teacher']['teacher_email']}}</li>
+    <li>Phone: {{session['teacher']['teacher_phone']}}</li>
+  </ul>
+{% endif %}  
 {% endblock %}

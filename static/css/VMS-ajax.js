@@ -2,19 +2,19 @@
 
 // event handler for teacher login verification
 $('#login_teacher').on('submit', (evt) => {
-    evt.preventDefault();
-    console.log("LOGIN FUCNTION WORKS")
+    // evt.preventDefault();
+    // console.log("LOGIN FUCNTION WORKS")
 
-    const loginFormValues = {
-        'teacher_login_email': $('#teacher_login_email').val(),
-        'teacher_login_pw': $('#teacher_login_pw').val()
-    }
+    // const loginFormValues = {
+    //     'teacher_login_email': $('#teacher_login_email').val(),
+    //     'teacher_login_pw': $('#teacher_login_pw').val()
+    // }
 
-    $.post("/teacher-portal", loginFormValues, (res) => {
-        $('#teacher_added_response').text("is logged in!")
-        console.log("HIIIIIIIIIIIII")
+    // $.post("/teacher-portal", loginFormValues, (res) => {
+    //     $('#teacher_added_response').text("is logged in!")
+    //     console.log("HIIIIIIIIIIIII")
     
-    })
+    // })
 });
 
 
