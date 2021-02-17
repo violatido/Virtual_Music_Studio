@@ -1,4 +1,4 @@
-//_______________________________Event Listeners for teacher login/registration___________________________________#
+//_______________________________Event Listeners for teacher login/registration_____________________________
 
 // event handler for teacher login verification
 $('#login_teacher').on('submit', (evt) => {
@@ -11,9 +11,9 @@ $('#login_teacher').on('submit', (evt) => {
     }
 
     $.post("/teacher-portal", loginFormValues, (res) => {
-        $('#teacher_added_response').text("Logged in!")
+        $('#teacher_added_response').text("is logged in!")
         console.log("HIIIIIIIIIIIII")
-
+    
     })
 });
 
@@ -34,19 +34,17 @@ $('#create_teacher').on('submit', (evt) => {
     } 
 
     $.post("/teacher-portal-create", teacherFormValues, (res) => {
-        $('#teacher_added_response').text(
-            `Teacher profile for ${res.teacher_fname} ${res.teacher_lname} has been created!`
-        );
+        $('#teacher_added_response').text(`Teacher profile for ${res.teacher_fname} ${res.teacher_lname} has been created!`);
         console.log("HEWOOOOOOOOOO!!!!")
     });
 });
 
-//_______________________________Event Listeners for student login____________________#
+//_______________________________Event Listeners for student login/registration___________________________________
 
 
 // event handler for student login
 $('#login_student').on('submit', (evt) => {
-    evt.preventDefault();
+    // evt.preventDefault();
     console.log("LOGIN FUCNTION WORKS")
 
     const loginFormValues = {
@@ -55,8 +53,8 @@ $('#login_student').on('submit', (evt) => {
     }
 
     $.post("/student-portal", loginFormValues, (res) => {
-        $('#student_login_response').text("Logged in!")
-        console.log("HIIIIIIIIIIIII")
+        $('#student_login_response').text(`${res.student_login_email} is logged in!`)
+        console.log("LOGIN FUNCTION STILL WORKS!")
     })
 });
 
@@ -88,13 +86,14 @@ $('#create_student').on('submit', (evt) => {
 
 
 
-//_______________________________Event Listeners for student login____________________#
+//__________________________________Event Listeners for creating logs________________________________
 
 // event handler for creating new practice logs
-$('#create_log_form').on('submit', (evt) => {
+$('#create_log').on('submit', (evt) => {
     evt.preventDefault();
+    console.log("BLAHHHHH")
 
-    const teacherFormValues = { 
+    const logFormValues = { 
         'log_date': $('#log_date').val(),
         'log_start_time': $('#log_start_time').val(),
         'log_end_time': $('#log_end_time').val(),
@@ -102,9 +101,10 @@ $('#create_log_form').on('submit', (evt) => {
         'log_practice_notes': $('#log_practice_notes').val()
     } 
 
-    $.post("/teacher-portal/register", teacherFormValues, (res) => {
-        $('#teacher_added_response').text(
-            `Teacher profile for ${res.teacher_fname} ${res.teacher_lname} has been created!`
+    $.post("/practice-log", logFormValues, (res) => {
+        $('#log_added_response').text(
+            `Log for ${res.log_date} has been saved!`
         )
-    })
-})
+        console.log("UGHHHHHHHH")
+    });
+});

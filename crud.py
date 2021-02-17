@@ -80,9 +80,9 @@ def verify_student(student_email, student_password):
 #     """Takes info from teacher records to show on teacher profile page"""
 #     pass
 
-# def get_students(): 
-#     """Finds all student info"""
-#     return Student.query.all()
+def get_student_by_email(student_email): 
+    """Finds all student info"""
+    return Student.query.filter(Student.student_email == student_email).first()
 
 
 if __name__ == '__main__':

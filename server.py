@@ -47,7 +47,8 @@ def add_teacher():
 
     # calls the crud function create_teacher()
     crud.create_teacher(teacher_fname, teacher_lname, teacher_email, teacher_phone, teacher_password)
-
+    # return jsonify({new_teacher})
+    # return new_teacher
     return jsonify({'status': 'ok', 'fname': teacher_fname, 'lname': teacher_lname})
 
 #_______________________________view functions for student login/registration___________________________________#
@@ -66,7 +67,12 @@ def student_login():
 
     if checked_student != None:
         # return jsonify({'status': 'ok', 'student_login_email': student_login_email})
-        return redirect('/student-profile')
+        student_login_email = request.form.get('student_login_email')
+        print(student_login_email)
+
+        students=crud.get_student_by_email(student_login_email)
+        print(students)
+        return render_template('student-profile.html', student=students)
     else:
         return jsonify({'status': 'error'})
 
@@ -95,7 +101,12 @@ def blank_student_profile():
 # @app.route('/student-profile')
 # def view_student_profile():
 #     """Renders the VMS student-profile page"""
-#     students=crud.get_students()
+#     student_login_email = request.form.get('student_login_email')
+#     print(student_login_email)
+
+#     students=crud.get_student_by_email(student_login_email)
+#     print(students)
+
 #     return render_template('student-profile.html', students=students)
 
 
@@ -111,7 +122,21 @@ def view_log_page():
     """Renders the VMS practice-log page"""
     return render_template('practice-log.html')
 
+@app.route('/practice-log', methods=["POST"])
+def add_log():
+    """Creates a new log, adds the log to the log table"""
+    print("****\nIM IN THE ADD LOG Function \n !!!!!!!!!!")
+    log_date = request.form.get('log_date')
+    log_start_time = request.form.get('log_start_time')
+    log_end_time = request.form.get('log_end_time')
+    log_pieces_practiced = request.form.get('log_pieces_practiced')
+    log_practice_notes = request.form.get('log_practice_notes')
+    
 
+    crud.create_log(log_date, log_start_time, log_end_time, log_pieces_practiced, log_practice_notes)
+    
+    # return redirect('/student-profile')
+    return jsonify({'status': 'ok', 'log_date': log_date})  
     
 
 if __name__ == '__main__':

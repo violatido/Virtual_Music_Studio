@@ -4,11 +4,19 @@ h1 {
     text-align: center;
 }
 
+
+
+/* 
 #left-panel {
     background-color: #FED7BF;
     height: 20vh;
     display: flex;
     align-items: center;
+} */
+
+#VMS-homepage-logo {
+    height: 50%;
+    width: 50%;
 }
 
 .background-color {

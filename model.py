@@ -21,6 +21,7 @@ class Teacher(db.Model):
         """Show Teacher ID/Corresponding User Id"""
         return f'<Teacher teacher_id={self.teacher_id} teacher_name={self.teacher_fname} {self.teacher_lname}>'
 
+############################################################################
 
 class Student(db.Model):
     """Data Model for Student-specific Information"""
@@ -45,6 +46,7 @@ class Student(db.Model):
         """Show Student ID"""
         return f'<Student student_id={self.student_id} student_name = {self.student_fname} {self.student_lname} teacher={self.private_teacher}>'
 
+########################################################################
 
 class Log(db.Model):
     """Data Model for Practice Logs"""
@@ -58,7 +60,7 @@ class Log(db.Model):
     pieces_practiced = db.Column(db.String(150), nullable=False)
     practice_notes = db.Column(db.String(200))
 
-    student = db.relationship('Student', backref='logs')
+    # student = db.relationship('Student', backref='logs')
     # student_id=db.Column(db.Integer, db.ForeignKey('student.student_id'), nullable=False)
 
     def __repr__(self):
@@ -66,6 +68,7 @@ class Log(db.Model):
         return f'<Log log_date={self.log_date} student_id={self.student_id} log_id={self.log_id}'
 
 
+############################################################################
 
 def connect_to_db(flask_app, db_uri='postgresql:///VMS', echo=True):
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
