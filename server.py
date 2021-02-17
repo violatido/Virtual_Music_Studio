@@ -70,9 +70,10 @@ def student_login():
         student_login_email = request.form.get('student_login_email')
         print(student_login_email)
 
-        students=crud.get_student_by_email(student_login_email)
-        print(students)
-        return render_template('student-profile.html', student=students)
+        student=crud.get_student_by_email(student_login_email)
+        print("!!!!!!!\nSTUDENT\nIT'S HERE\n!!!!")
+        print(student)
+        return render_template('student-profile.html', student=student)
     else:
         return jsonify({'status': 'error'})
 
