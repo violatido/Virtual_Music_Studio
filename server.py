@@ -69,11 +69,22 @@ def student_login():
         # return jsonify({'status': 'ok', 'student_login_email': student_login_email})
         student_login_email = request.form.get('student_login_email')
         print(student_login_email)
-
+        
         student=crud.get_student_by_email(student_login_email)
+        session['student'] = {
+            "student_id": student.student_id,
+            "student_email": student.student_email,
+            "student_fname": student.student_fname,
+            'student_lname': student.student_lname,
+            "student_teacher": student.private_teacher,
+            "student_program": student.program_name,
+            "student_instrument": student.instrument
+            }
         print("!!!!!!!\nSTUDENT\nIT'S HERE\n!!!!")
         print(student.student_email)
-        return render_template('student-profile.html', email = student.student_email)
+        print(session['student'])
+        # return render_template('student-profile.html', email = student.student_email)
+        return redirect('/student-profile')
     else:
         return jsonify({'status': 'error'})
 
@@ -132,9 +143,9 @@ def add_log():
     log_end_time = request.form.get('log_end_time')
     log_pieces_practiced = request.form.get('log_pieces_practiced')
     log_practice_notes = request.form.get('log_practice_notes')
-    
+    student_id=session['student']['student_id']
 
-    crud.create_log(log_date, log_start_time, log_end_time, log_pieces_practiced, log_practice_notes)
+    crud.create_log(log_date, student_id, log_start_time, log_end_time, log_pieces_practiced, log_practice_notes)
     
     # return redirect('/student-profile')
     return jsonify({'status': 'ok', 'log_date': log_date})  

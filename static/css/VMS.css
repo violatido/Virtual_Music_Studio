@@ -11,3 +11,9 @@ h1 {
 /* #logo-col {
     border: 1px black solid;
 } */
+
+#right-panel {
+    background-image: url("Blank-logo-background.png");
+    background-color:#C06C84;
+    height: 546px;
+}

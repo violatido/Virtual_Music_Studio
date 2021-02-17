@@ -4,6 +4,8 @@
     Student Profile
 {% endblock %}
 {% block body %}
-  <h1>Welcome, {{email}}!</h1>
-  
-{% endblock %}
+{% if session["student"] %}
+  <h1>Welcome, {{session['student']['student_fname']}} {{session['student']['student_lname']}}</h1>
+{% endif %}  
+  <h3>Hope this works! Thanks, kat :D</h3>
+{% endblock %}  

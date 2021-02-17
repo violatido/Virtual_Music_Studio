@@ -45,17 +45,17 @@ $('#create_teacher').on('submit', (evt) => {
 // event handler for student login
 $('#login_student').on('submit', (evt) => {
     // evt.preventDefault();
-    console.log("LOGIN FUCNTION WORKS")
+    // console.log("LOGIN FUCNTION WORKS")
 
-    const loginFormValues = {
-        'student_login_email': $('#student_login_email').val(),
-        'student_login_pw': $('#student_login_pw').val()
-    }
+    // const loginFormValues = {
+    //     'student_login_email': $('#student_login_email').val(),
+    //     'student_login_pw': $('#student_login_pw').val()
+    // }
 
-    $.post("/student-portal", loginFormValues, (res) => {
-        $('#student_login_response').text(`${res.student_login_email} is logged in!`)
-        console.log("LOGIN FUNCTION STILL WORKS!")
-    })
+    // $.post("/student-portal", loginFormValues, (res) => {
+    //     $('#student_login_response').text(`${res.student_login_email} is logged in!`)
+    //     console.log("LOGIN FUNCTION STILL WORKS!")
+    // })
 });
 
 

@@ -17,6 +17,9 @@ class Teacher(db.Model):
     teacher_phone = db.Column(db.String(25))
     teacher_password = db.Column(db.String(50), nullable=False)
 
+    # kathy: establish student/teacher relationship in the teacher table
+    # students = db.relationship('Student', backref='teacher', uselist=False)
+
     def __repr__(self):
         """Show Teacher ID/Corresponding User Id"""
         return f'<Teacher teacher_id={self.teacher_id} teacher_name={self.teacher_fname} {self.teacher_lname}>'
@@ -38,9 +41,10 @@ class Student(db.Model):
     program_name = db.Column(db.String(50)) 
     instrument = db.Column(db.String(25), nullable=False)
 
-    teacher = db.relationship('Teacher', backref='students')
-    # kathy's suggestion: 
-    # logs = db.relationship('Log', backref='student', uselist=False)
+    # kathy: don't put the teacher/student relationship in the student table
+    # teacher = db.relationship('Teacher', backref='students')
+    # # kathy: put student/log relationship in the student table 
+    logs = db.relationship('Log', backref='student', uselist=False)
 
     def __repr__(self):
         """Show Student ID"""
@@ -60,13 +64,15 @@ class Log(db.Model):
     pieces_practiced = db.Column(db.String(150), nullable=False)
     practice_notes = db.Column(db.String(200))
 
+    # kathy: don't put student/log relationship in the log table
     # student = db.relationship('Student', backref='logs')
-    # student_id=db.Column(db.Integer, db.ForeignKey('student.student_id'), nullable=False)
+    # student_id=db.Column(db.Integer, db.ForeignKey('students.student_id'), nullable=False)
 
     def __repr__(self):
         """Show Log Info"""
         return f'<Log log_date={self.log_date} student_id={self.student_id} log_id={self.log_id}'
-
+        # using student table attributes in the repr return statement:
+        # return f'<Log log_date={self.log_date} student_name={self.student.fname} {self.student.lname}>'
 
 ############################################################################
 
