@@ -72,8 +72,8 @@ def student_login():
 
         student=crud.get_student_by_email(student_login_email)
         print("!!!!!!!\nSTUDENT\nIT'S HERE\n!!!!")
-        print(student)
-        return render_template('student-profile.html', student=student)
+        print(student.student_email)
+        return render_template('student-profile.html', email = student.student_email)
     else:
         return jsonify({'status': 'error'})
 
@@ -116,7 +116,7 @@ def view_teacher_profile():
     """Renders the VMS teacher-profile page"""
     return render_template('teacher-profile.html')
 
-#___________________________________functions for practice logs________________________________________#
+#___________________________________functions for adding practice logs________________________________________#
 
 @app.route('/practice-log')
 def view_log_page():
@@ -138,7 +138,12 @@ def add_log():
     
     # return redirect('/student-profile')
     return jsonify({'status': 'ok', 'log_date': log_date})  
-    
+
+#___________________________________functions for viewing logs________________________________________#
+@app.route('/student-portal')
+def view_logs_per_student():
+    """View past logs for individual student"""
+    return render_template('past-logs.html')
 
 if __name__ == '__main__':
     connect_to_db(app)
