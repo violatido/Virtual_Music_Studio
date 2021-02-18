@@ -1,5 +1,6 @@
 h1 {
     color: #6D5D7B;
+    background-color: #FCD5BE;
     display: flex;
     text-align: center;
 }
@@ -8,12 +9,54 @@ h1 {
     background-color: #355C7D;
 }
 
-/* #logo-col {
-    border: 1px black solid;
-} */
+#big-row {
+    display: flex;
+    justify-content: space-around;
+}
+
+#logo-col {
+    border: 1px green solid;
+    padding: 0%;
+    margin-top: 2%;
+}
 
 #right-panel {
-    background-image: url("Blank-logo-background.png");
     background-color:#C06C84;
-    height: 546px;
+    border: 1px black solid;
+    margin-top: 2%;
+}
+
+#right-first-row {
+    height: 50%;
+}
+
+#right-middle-row {
+    height: 10%;
+}
+
+#right-last-row {
+    height: 50%;
+}
+
+.homepage-button {
+    border: 10px #6C5B7B solid;
+    border-radius: 10px;
+    color: #355C7D;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.5rem;
+    font-weight: 200;
+    padding: 0.9375rem 1.875rem;
+    margin: 2rem;
+}
+
+#student-button {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+#teacher-button {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
