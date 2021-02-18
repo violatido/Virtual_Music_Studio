@@ -15,15 +15,19 @@ h1 {
 }
 
 #logo-col {
-    border: 1px green solid;
+    /* border: 1px green solid; */
     padding: 0%;
     margin-top: 2%;
+    height: 482px;
+    width: 482px;
 }
 
 #right-panel {
     background-color:#C06C84;
     border: 1px black solid;
     margin-top: 2%;
+    height: 482px;
+    width: 482px;
 }
 
 #right-first-row {
