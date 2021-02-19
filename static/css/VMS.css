@@ -1,6 +1,5 @@
 h1 {
     color: #6D5D7B;
-    background-color: #FCD5BE;
     display: flex;
     text-align: center;
 }
@@ -9,8 +8,8 @@ h1 {
     background-color: #355C7D;
 }
 
-#chart-container {
-    background-color: white;
+body {
+    background-color: #FCD5BE;
 }
 
 #big-row {
@@ -78,4 +77,18 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+}
+
+/*______________________________Chart.js Specific______________________________*/
+#chart-container {
+    background-color: white;
+}
+
+#all-charts-container{
+    background-color: #FCD5BE;
+}
+
+.view-past-logs {
+    display: flex;
+    justify-content: center;
 }

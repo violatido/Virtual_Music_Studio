@@ -1,5 +1,7 @@
 //______________________________________Event for homepage redirects________________________________________________
-
+function myFunction() {
+    location.replace("/Users/IlanaMercer/src/VMS/templates/student-portal.html")
+    }
 //________________________________________Events for teacher login/registration______________________________________
 
 // event handler for teacher login verification
@@ -94,14 +96,14 @@ $('#create_log').on('submit', (evt) => {
     console.log("BLAHHHHH")
 
     const logFormValues = { 
-        "log_student_id": $('log_student_id').val(),
+        "log_student_id": $('#log_student_id').val(),
         'log_date': $('#log_date').val(),
         'log_start_time': $('#log_start_time').val(),
         'log_end_time': $('#log_end_time').val(),
         'log_pieces_practiced': $('#log_pieces_practiced').val(),
         'log_practice_notes': $('#log_practice_notes').val()
     } 
-
+    console.log(logFormValues)
     $.post("/practice-log", logFormValues, (res) => {
         $('#log_added_response').text(
             `Log for ${res.log_date} has been saved!`
