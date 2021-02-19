@@ -78,10 +78,6 @@ def verify_student(student_email, student_password):
             Student.student_password == student_password).first()
 
 #__________________________functions for User verification___________________________#
-# def get_teacher_by_email():
-#     """Takes info from teacher records to show on teacher profile page"""
-#     pass
-
 def get_student_by_email(student_email): 
     """Finds all student info"""
     return Student.query.filter(Student.student_email == student_email).first()

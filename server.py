@@ -167,17 +167,16 @@ def add_log():
     """Creates a new practice log
     
     if the log form is valid, the session adds the log to the log table"""
-
+    log_student_id = request.form.get('log_student_id')
     log_date = request.form.get('log_date')
     log_start_time = request.form.get('log_start_time')
     log_end_time = request.form.get('log_end_time')
     log_pieces_practiced = request.form.get('log_pieces_practiced')
     log_practice_notes = request.form.get('log_practice_notes')
-    student_id=session['student']['student_id']
+    # log_student_id=session['student']['student_id']
 
-    crud.create_log(log_date, student_id, log_start_time, log_end_time, log_pieces_practiced, log_practice_notes)
-    
-    # return redirect('/student-profile')
+    crud.create_log(log_date, log_student_id, log_start_time, log_end_time, log_pieces_practiced, log_practice_notes)
+    print("!!!!!!!!!!!\n!!!!!!!!!!\n!!!!!!!!\n!!!!!!!!")
     return jsonify({'status': 'ok', 'log_date': log_date})  
 
 

@@ -1,7 +1,4 @@
 //______________________________________Event for homepage redirects________________________________________________
-$('#homepage-button').on('submit', (evt) => {
-    evt.preventDefault();
-});
 
 //________________________________________Events for teacher login/registration______________________________________
 
@@ -97,6 +94,7 @@ $('#create_log').on('submit', (evt) => {
     console.log("BLAHHHHH")
 
     const logFormValues = { 
+        "log_student_id": $('log_student_id').val(),
         'log_date': $('#log_date').val(),
         'log_start_time': $('#log_start_time').val(),
         'log_end_time': $('#log_end_time').val(),

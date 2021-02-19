@@ -46,7 +46,7 @@ h1 {
     height: 50%;
 }
 
-.homepage-button {
+#homepage-button {
     border: 10px #6C5B7B solid;
     border-radius: 10px;
     color: #355C7D;
