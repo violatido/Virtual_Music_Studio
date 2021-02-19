@@ -7,7 +7,7 @@
       <h3>Teacher Login</h3>
       <form id="login_teacher" action="/teacher-portal" method="post">
         Email: <input type="text" id="teacher_login_email" name="teacher_login_email">
-        Password: <input type="text" id="teacher_login_pw" name="teacher_login_pw">
+        Password: <input type="password" id="teacher_login_pw" name="teacher_login_pw">
         <input type="submit" value="submit">
       </form>
       <br><br><br>
@@ -17,10 +17,11 @@
         <h3>Teacher Registration Form</h3>
         First name: <input type="text" id="teacher_fname" name="teacher_fname"> <br> 
         Last name: <input type="text" id="teacher_lname" name="teacher_lname"> <br>
-        Email: <input type="text" id="teacher_email" name="teacher_email"> <br>
-        Phone (optional): <input type="text" id="teacher_phone" name="teacher_phone"> <br>
+        Email: <input type="email" id="teacher_email" name="teacher_email"> <br>
+        Phone (optional): <input type="text" id="teacher_phone" name="teacher_phone" value="000-000-0000"> <br>
         Password: <input type="text" id="teacher_password" name="teacher_password"> <br>
         <input type="submit" value="submit">
+        <input type="reset" value="reset">
       </form>
       <h3 id="teacher_added_response"></h3>
     </div>

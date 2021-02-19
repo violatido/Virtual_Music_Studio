@@ -1,4 +1,9 @@
-//_______________________________Event Listeners for teacher login/registration_____________________________
+//______________________________________Event for homepage redirects________________________________________________
+$('#homepage-button').on('submit', (evt) => {
+    evt.preventDefault();
+});
+
+//________________________________________Events for teacher login/registration______________________________________
 
 // event handler for teacher login verification
 $('#login_teacher').on('submit', (evt) => {
@@ -39,7 +44,7 @@ $('#create_teacher').on('submit', (evt) => {
     });
 });
 
-//_______________________________Event Listeners for student login/registration___________________________________
+//________________________________________Event for student login/registration______________________________________
 
 
 // event handler for student login
@@ -82,12 +87,9 @@ $('#create_student').on('submit', (evt) => {
         );
     });
 });
- 
 
 
-
-
-//__________________________________Event Listeners for creating logs________________________________
+//_________________________________________Event for creating logs___________________________________________________
 
 // event handler for creating new practice logs
 $('#create_log').on('submit', (evt) => {

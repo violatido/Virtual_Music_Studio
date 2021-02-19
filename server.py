@@ -17,6 +17,12 @@ def create_homepage():
     
     return render_template('homepage.html')
 
+@app.route('/homepage')
+def redirect_teacher():
+
+    return redirect('/teacher-portal')
+
+
 #_______________________________view functions for teacher login/registration___________________________________#
 
 @app.route('/teacher-portal')
@@ -148,7 +154,7 @@ def view_teacher_profile():
     return render_template('teacher-profile.html')
 
 
-#___________________________________functions for adding practice logs________________________________________#
+#________________________________________functions for adding practice logs________________________________________#
 
 @app.route('/practice-log')
 def view_log_page():
@@ -175,7 +181,7 @@ def add_log():
     return jsonify({'status': 'ok', 'log_date': log_date})  
 
 
-#___________________________________functions for viewing logs________________________________________#
+#___________________________________________functions for viewing logs____________________________________________#
 @app.route('/past-logs')
 def view_logs_per_student():
     """View past logs for individual student"""
@@ -183,7 +189,7 @@ def view_logs_per_student():
     return render_template('past-logs.html')
 
 
-#____________________functions for creating/seeding data charts__________________________#
+#____________________________________functions for creating/seeding data charts____________________________________#
 @app.route('/charts')
 def view_charts():
     """View data charts for practice logs"""

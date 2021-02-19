@@ -57,6 +57,17 @@ h1 {
     margin: 2rem;
 }
 
+.student-homepage-button {
+    border: 10px #6C5B7B solid;
+    border-radius: 10px;
+    color: #355C7D;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.5rem;
+    font-weight: 200;
+    padding: 0.9375rem 1.875rem;
+    margin: 2rem;
+}
+
 #student-button {
     display: flex;
     justify-content: center;
