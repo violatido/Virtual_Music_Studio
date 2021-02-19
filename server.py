@@ -70,10 +70,7 @@ def add_teacher():
 
     # calls the crud function create_teacher()
     crud.create_teacher(teacher_fname, teacher_lname, teacher_email, teacher_phone, teacher_password)
-    # return jsonify({new_teacher})
-    # return new_teacher
-    return jsonify({'status': 'ok', 'fname': teacher_fname, 'lname': teacher_lname})
-
+    return jsonify({'teacher_fname': teacher_fname, 'teacher_lname': teacher_lname})
 
 #_______________________________view functions for student login/registration___________________________________#
 @app.route('/student-portal')
@@ -134,8 +131,7 @@ def add_student():
     student = crud.create_student(student_fname, student_lname, student_email, private_teacher, program_name, instrument, student_password)
     print("!!!!!!!!!\n!!!!!!!!!\n!!!!!!!!\n!!!!!!!!!!\n!!!!!")
     print(student)
-    # return redirect('/student-profile')
-    return render_template('student-profile.html', student=student)
+    return jsonify({'student_fname': student_fname, 'student_lname': student_lname})
 
 
 #___________________________________view functions for viewing profiles________________________________________#
