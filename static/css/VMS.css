@@ -9,6 +9,10 @@ h1 {
     background-color: #355C7D;
 }
 
+#chart-container {
+    background-color: white;
+}
+
 #big-row {
     display: flex;
     justify-content: space-around;

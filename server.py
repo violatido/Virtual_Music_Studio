@@ -131,10 +131,11 @@ def add_student():
     instrument = request.form.get('instrument')
     student_password = request.form.get('student_password')
 
-    crud.create_student(student_fname, student_lname, student_email, private_teacher, program_name, instrument, student_password)
-    
-    return redirect('/student-profile')
-    # return jsonify({'status': 'ok', 'fname': student_fname, 'lname': student_lname})   
+    student = crud.create_student(student_fname, student_lname, student_email, private_teacher, program_name, instrument, student_password)
+    print("!!!!!!!!!\n!!!!!!!!!\n!!!!!!!!\n!!!!!!!!!!\n!!!!!")
+    print(student)
+    # return redirect('/student-profile')
+    return render_template('student-profile.html', student=student)
 
 
 #___________________________________view functions for viewing profiles________________________________________#

@@ -1,6 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    home
 {% endblock %}
 {% block body %}
-<div>
-    <h1>Charts charts charts!</h1>
-</div>
+<h1>charts charts charts!</h1>
+    <div class="container" id="chart-container">
+        <div class="row">
+            <div class="col-6 chart">
+                <canvas id="myChart" width="500" height="400"></canvas>
+            </div>
+            <div class="col-6 chart">
+                <canvas id="myChart2" width="500" height="400"></canvas>      
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 chart">
+                <canvas id="myChart3" width="500" height="400"></canvas>
+            </div>
+            <div class="col-6 chart">
+                <canvas id="myChart4" width="500" height="400"></canvas>      
+            </div>
+        </div>
 {% endblock %}

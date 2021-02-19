@@ -78,11 +78,12 @@ $('#create_student').on('submit', (evt) => {
 
     $.post("/student-portal-create", studentFormValues, (res) => {
         $('#student_added_response').text(
-            `student profile for ${res.student_fname} ${res.student_lname} has been created!`
+            `Student profile for ${res.student_fname} ${res.student_lname} has been created!`
         );
-        console.log("HEWOOOOOOOOOO!!!!")
     });
 });
+ 
+
 
 
 
