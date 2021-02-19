@@ -1,7 +1,7 @@
 //______________________________________Event for homepage redirects________________________________________________
-function myFunction() {
-    location.replace("/Users/IlanaMercer/src/VMS/templates/student-portal.html")
-    }
+// $('#homepage-button').on('click', () => {
+//     alert('Handled with jQuery!');
+//   })
 //________________________________________Events for teacher login/registration______________________________________
 
 // event handler for teacher login verification

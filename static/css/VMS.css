@@ -45,7 +45,19 @@ body {
     height: 50%;
 }
 
-#homepage-button {
+#student-button-col {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+#student-portal-link {
+    text-decoration: none;
+    color:#355C7D;
+    background-color: white;
+}
+
+#student-homepage-button {
     border: 10px #6C5B7B solid;
     border-radius: 10px;
     color: #355C7D;
@@ -54,6 +66,25 @@ body {
     font-weight: 200;
     padding: 0.9375rem 1.875rem;
     margin: 2rem;
+    background-color: white;
+}
+
+#teacher-portal-link {
+    text-decoration: none;
+    color:#355C7D;
+    background-color: white;
+}
+
+#teacher-homepage-button {
+    border: 10px #6C5B7B solid;
+    border-radius: 10px;
+    color: #355C7D;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.5rem;
+    font-weight: 200;
+    padding: 0.9375rem 1.875rem;
+    margin: 2rem;
+    background-color: white;
 }
 
 .student-homepage-button {
@@ -67,19 +98,13 @@ body {
     margin: 2rem;
 }
 
-#student-button {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
-
-#teacher-button {
+#teacher-button-col {
     display: flex;
     justify-content: center;
     align-items: flex-start;
 }
 
-/*______________________________Chart.js Specific______________________________*/
+/*_____________________________________________Chart.js Specific_______________________________________________*/
 #chart-container {
     background-color: white;
 }
