@@ -1,6 +1,6 @@
 """Server for movie ratings app."""
 
-from flask import (Flask, render_template, request, flash, session, redirect, url_for, jsonify)
+from flask import (Flask, render_template, request, flash, session, redirect, jsonify)
 from model import connect_to_db 
 import crud 
 from jinja2 import StrictUndefined 
@@ -16,12 +16,6 @@ def create_homepage():
     """Renders the VMS homepage"""
     
     return render_template('homepage.html')
-
-@app.route('/homepage')
-def redirect_teacher():
-
-    return redirect('/teacher-portal')
-
 
 #_______________________________view functions for teacher login/registration___________________________________#
 
@@ -183,18 +177,29 @@ def add_log():
     return jsonify({'status': 'ok', 'log_date': log_date})  
 
 
-#___________________________________________functions for viewing logs____________________________________________#
+#___________________________________functions for viewing past logs by student id________________________________#
 @app.route('/past-logs')
-def view_logs_per_student():
-    """View past logs for individual student"""
+def view_student_logs():
+    """Renders page for viewing past logs for individual student"""
 
     return render_template('past-logs.html')
+
+@app.route('/past-logs/<student_id>')
+def list_logs_by_student(student_id):
+    """Lists every log made by a student depending on their student_id"""
+
+    student=crud.get_log_by_student_id(student_id)
+
+    return render_template('past-logs.html', student=student)
 
 
 #____________________________________functions for creating/seeding data charts____________________________________#
 @app.route('/charts')
 def view_charts():
     """View data charts for practice logs"""
+
+    # must extract time/date data by student
+
 
     return render_template('charts.html')
 

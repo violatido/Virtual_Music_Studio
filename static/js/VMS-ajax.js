@@ -1,3 +1,5 @@
+"use strict"
+
 //______________________________________Event for homepage redirects________________________________________________
 // $('#homepage-button').on('click', () => {
 //     alert('Handled with jQuery!');
