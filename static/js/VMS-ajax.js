@@ -1,9 +1,5 @@
 "use strict"
 
-//______________________________________Event for homepage redirects________________________________________________
-// $('#homepage-button').on('click', () => {
-//     alert('Handled with jQuery!');
-//   })
 //________________________________________Events for teacher login/registration______________________________________
 
 // event handler for teacher login verification
@@ -100,8 +96,7 @@ $('#create_log').on('submit', (evt) => {
     const logFormValues = { 
         "log_student_id": $('#log_student_id').val(),
         'log_date': $('#log_date').val(),
-        'log_start_time': $('#log_start_time').val(),
-        'log_end_time': $('#log_end_time').val(),
+        'log_minutes_practiced': $('#log_minutes_practiced').val(),
         'log_pieces_practiced': $('#log_pieces_practiced').val(),
         'log_practice_notes': $('#log_practice_notes').val()
     } 

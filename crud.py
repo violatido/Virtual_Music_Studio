@@ -47,16 +47,14 @@ def create_student(student_fname,
 
 def create_log(log_date, 
                 student_id,
-                start_time, 
-                end_time, 
+                minutes_practiced, 
                 pieces_practiced, 
                 practice_notes):
     """Creates a new practice log record"""
     
     log = Log(log_date=log_date, 
                 student_id=student_id,
-                start_time=start_time, 
-                end_time=end_time, 
+                minutes_practiced=minutes_practiced,
                 pieces_practiced=pieces_practiced, 
                 practice_notes=practice_notes
                 )

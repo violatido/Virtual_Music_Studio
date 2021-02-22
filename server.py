@@ -165,13 +165,13 @@ def add_log():
     print("!!!!!!!!!!!\n!!!!!!!!!!\n!!!!!!!!\n!!!!!!!!")
     print(log_student_id)
     log_date = request.form.get('log_date')
-    log_start_time = request.form.get('log_start_time')
-    log_end_time = request.form.get('log_end_time')
+    log_minutes_practiced = request.form.get('log_minutes_practiced')
     log_pieces_practiced = request.form.get('log_pieces_practiced')
     log_practice_notes = request.form.get('log_practice_notes')
     # log_student_id=session['student']['student_id']
-
-    log = crud.create_log(log_date, log_student_id, log_start_time, log_end_time, log_pieces_practiced, log_practice_notes)
+    print('************\n*******LINE 172********\n!!!!!!!!!!!!\n!!!!!!!!!')
+    print(log_date, log_student_id, log_minutes_practiced, log_pieces_practiced, log_practice_notes)
+    log = crud.create_log(log_date, log_student_id, log_minutes_practiced, log_pieces_practiced, log_practice_notes)
     print("!!!!!!!!!!!\n!!!!!!!!!!\n!!!!!!!!\n!!!!!!!!")
     print(log)
     return jsonify({'status': 'ok', 'log_date': log_date})  

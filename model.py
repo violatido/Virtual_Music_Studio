@@ -59,8 +59,7 @@ class Log(db.Model):
     log_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     student_id = db.Column(db.Integer, db.ForeignKey('students.student_id'), nullable=False)
     log_date = db.Column(db.Date, nullable=False)
-    start_time = db.Column(db.Time, nullable=False)
-    end_time = db.Column(db.Time, nullable=False)
+    minutes_practiced = db.Column(db.Integer, nullable=False)
     pieces_practiced = db.Column(db.String(150), nullable=False)
     practice_notes = db.Column(db.String(200))
 
