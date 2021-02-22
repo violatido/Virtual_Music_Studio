@@ -178,19 +178,20 @@ def add_log():
 
 
 #___________________________________functions for viewing past logs by student id________________________________#
-@app.route('/past-logs')
+@app.route('/past-logz')
 def view_student_logs():
     """Renders page for viewing past logs for individual student"""
 
     return render_template('past-logs.html')
 
-@app.route('/past-logs/<student_id>')
-def list_logs_by_student(student_id):
+@app.route('/past-logs')
+def list_logs_by_student():
     """Lists every log made by a student depending on their student_id"""
+    
+    student_id= session['student']["student_id"]
+    student_logs=crud.get_logs_by_student_id(student_id)
 
-    student=crud.get_log_by_student_id(student_id)
-
-    return render_template('past-logs.html', student=student)
+    return render_template('past-logs.html', student_logs=student_logs)
 
 
 #____________________________________functions for creating/seeding data charts____________________________________#

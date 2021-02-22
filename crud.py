@@ -88,8 +88,8 @@ def get_teacher_by_email(teacher_email):
 
 #__________________________functions for Finding Logs___________________________#
 
-def get_log_by_student_id(student_id):
-    return Log.query.filter(Log.student_id == student_id).first()
+def get_logs_by_student_id(student_id):
+    return Log.query.filter(Log.student_id == student_id).all()
 
 if __name__ == '__main__':
     from server import app
