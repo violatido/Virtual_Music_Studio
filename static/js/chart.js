@@ -35,26 +35,49 @@ $.get('/charts.json', (res) => {
         return {x: practiceTotal.date, y: practiceTotal.minutes_practiced};
     });
 
+    let colors = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5B7B', '#355C7D'];
+
+
     new Chart(
         $('#line-time'),
         {
             type: 'bar',
             data: {
+                labels: 'Minutes Practiced',
                 datasets: [
-                    {
-                        label: 'Minutes Practiced',
-                        data: data
+                    {   
+                        data: data,
+                        backgroundColor: colors
                     }
                 ]
             },
             options: {
+                title: {
+                    text: "How many minutes did you practice per day this week?",
+                    display: true
+                },
+                legend: {
+                    display: false
+                },
                 scales: {
                     xAxes: [
                         {
                             type: 'time',
+                            time: {
+                                unit: 'day',
+                                round: 'day',
+                                displayFormats: {
+                                    day: 'MMM D'
+                                },
+                            },
                             distribution: 'series'
                         }
-                    ]
+                    ],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
                 },
                 tooltips: {
                     callbacks: {
