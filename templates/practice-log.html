@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Log Practice
+    Practice Log History
 {% endblock %}
 {% block body %}
   <form id="create_log">
@@ -16,6 +16,14 @@
   </form>
   <h3 id="log_added_response"></h3>
 
-  <submit id="return-to-profile-button"></button> <a id="student-profile-link" href="http://0.0.0.0:5000/student-profile">Return to student profile</a></submit> <br>
-
+  
+  <button class="return-to-profile-button">
+    <a class="charts-link" href="http://0.0.0.0:5000/student-profile">Return to Student Profile</a>
+  </button> 
+  <button class="past-logs-link-button">
+    <a class="charts-link" href="http://0.0.0.0:5000/past-logs">See Log History</a>
+  </button> 
+  <button class="charts-link-button">
+    <a class="charts-link" href="http://0.0.0.0:5000/charts">View Chart Data Graphs</a>
+  </button> 
 {% endblock %}

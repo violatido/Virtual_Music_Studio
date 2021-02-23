@@ -128,3 +128,4 @@ $.get('/charts.json'), (res) => {
     })
 
 };
+
