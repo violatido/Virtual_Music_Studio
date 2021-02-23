@@ -135,7 +135,7 @@ def add_student():
     return jsonify({'student_fname': student_fname, 'student_lname': student_lname})
 
 
-#___________________________________view functions for viewing profiles________________________________________#
+#__________________________________________functions for viewing profiles__________________________________________#
 @app.route('/student-profile')
 def blank_student_profile():
     """Renders the VMS student profile page"""
@@ -148,6 +148,22 @@ def view_teacher_profile():
 
     return render_template('teacher-profile.html')
 
+
+#____________________________________functions for assigning students to studios___________________________________#
+@app.route('/teacher-profilez')
+def assign_students():
+    """ Assigns a new student to a studio upon registering """
+    private_teacher = session['student']["private_teacher"]
+    selected_teacher_name = crud.group_students_by_teacher(private_teacher)
+
+    teacher_fname = session['teacher']['teacher_fname']
+    teacher_lname = session['teacher']['teacher_lname']
+    private_teacher_name = crud.find_teacher_by_name(teacher_fname, teacher_lname)
+
+    if selected_teacher_name == private_teacher_name:
+        student_email = session['student']["student_email"]
+        selected_student = crud.get_student_by_email(student_email)
+        return render_template('teacher-profile.html', selected_student=selected_student)
 
 #________________________________________functions for adding practice logs________________________________________#
 
@@ -187,7 +203,9 @@ def view_student_logs():
 
 @app.route('/past-logs')
 def list_logs_by_student():
-    """Lists every log made by a student depending on their student_id"""
+    """Lists every log made by a student depending on their student_id.
+    
+    All log info is passed into the HTML doc"""
     
     student_id= session['student']["student_id"]
     student_logs=crud.get_logs_by_student_id(student_id)
@@ -204,7 +222,7 @@ def view_charts():
 
 @app.route('/charts.json')
 def seed_charts():
-    """Get minutes practiced/log dates into charts as JSON"""
+    """Passes data for minutes practiced and log dates into charts as JSON"""
     practice_dates = []
     date = datetime.now()
     for _ in range(7):
