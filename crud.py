@@ -87,7 +87,19 @@ def get_teacher_by_email(teacher_email):
 #__________________________functions for Finding Logs___________________________#
 
 def get_logs_by_student_id(student_id):
+    """ Finds a specific student bby their student ID """
     return Log.query.filter(Log.student_id == student_id).all()
+
+#__________________________functions for Assigning Teachers___________________________#
+
+def group_students_by_teacher(private_teacher):
+    """ Locate all students by private teacher's name """
+    return Student.query.filter(Student.private_teacher == private_teacher).all()
+
+def find_teacher_by_name(teacher_fname, teacher_lname):
+    """ Locate teacher by first and last name """
+    return Teacher.query.filter(Teacher.teacher_fname == teacher_fname, 
+                                    Teacher.teacher_lname == teacher_lname).first()
 
 if __name__ == '__main__':
     from server import app

@@ -8,17 +8,20 @@ h1 {
     background-color: #355C7D;
 }
 
+/*____________________________________________________Homepage____________________________________________________*/
+
 body {
     background-color: #FCD5BE;
 }
 
-#big-row {
+#main-homepage-row {
     display: flex;
     justify-content: space-around;
+    /* border: 3px black solid; */
 }
 
 #logo-col {
-    /* border: 1px green solid; */
+    /* border: 3px green solid; */
     padding: 0%;
     margin-top: 2%;
     height: 482px;
@@ -26,85 +29,56 @@ body {
 }
 
 #right-panel {
-    background-color:#C06C84;
-    border: 1px black solid;
+    /* border: 3px green solid; */
+    background-color:#C06C84;    
     margin-top: 2%;
     height: 482px;
     width: 482px;
 }
 
-#right-first-row {
-    height: 50%;
-}
-
-#right-middle-row {
-    height: 10%;
-}
-
-#right-last-row {
-    height: 50%;
+#right-row {
+    /* border: 3px blue solid; */
+    height: 241px;
 }
 
 #student-button-col {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-}
-
-#student-portal-link {
-    text-decoration: none;
-    color:#355C7D;
-    background-color: white;
-}
-
-#student-homepage-button {
-    border: 10px #6C5B7B solid;
-    border-radius: 10px;
-    color: #355C7D;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 1.5rem;
-    font-weight: 200;
-    padding: 0.9375rem 1.875rem;
-    margin: 2rem;
-    background-color: white;
-}
-
-#teacher-portal-link {
-    text-decoration: none;
-    color:#355C7D;
-    background-color: white;
-}
-
-#teacher-homepage-button {
-    border: 10px #6C5B7B solid;
-    border-radius: 10px;
-    color: #355C7D;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 1.5rem;
-    font-weight: 200;
-    padding: 0.9375rem 1.875rem;
-    margin: 2rem;
-    background-color: white;
-}
-
-.student-homepage-button {
-    border: 10px #6C5B7B solid;
-    border-radius: 10px;
-    color: #355C7D;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 1.5rem;
-    font-weight: 200;
-    padding: 0.9375rem 1.875rem;
-    margin: 2rem;
+    /* border: 3px greenyellow solid; */
 }
 
 #teacher-button-col {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    /* border: 3px aquamarine solid; */
 }
 
-/*_____________________________________________Chart.js Specific_______________________________________________*/
+.portal-link {
+    text-decoration: none;
+    color:#355C7D;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.homepage-button {
+    background-color: white;
+    color: #355C7D;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.75rem;
+    border: 10px #6C5B7B solid;
+    border-radius: 10px;
+    padding: .5rem 1.5rem;
+    margin: .5rem;
+}
+
+/*_________________________________________________Portal Pages___________________________________________________*/
+
+
+/*_________________________________________________Chart.js Specific_______________________________________________*/
 #chart-container {
     background-color: white;
 }

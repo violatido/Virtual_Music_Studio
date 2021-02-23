@@ -6,25 +6,27 @@
 {% block body %}
 
 <div class="container-fluid">
-<div class="row" id="big-row">
-    <div class="col-sm-6" id="logo-col">
-        <img class="img-fluid" src="static/img/VMS-logo.png" alt="">
-    </div>
-    <div class="col-sm-6 " id="right-panel">
-        <div class="row" id="right-first-row">
-            <div class="col" id="student-button-col">
-                <form action="">
-                    <submit id="student-homepage-button"><a id="student-portal-link" href="http://0.0.0.0:5000/student-portal">Student</a></submit>    
-                </form>
+    <div class="row" id="main-homepage-row">
+        <div class="col-sm-6" id="logo-col">
+            <img class="img-fluid" src="static/img/VMS-logo.png" alt="">
+        </div>
+        <div class="col-sm-6 " id="right-panel">
+            <div class="row" id="right-row">
+                <div class="col" id="student-button-col">
+                    <button class="homepage-button" id="student-homepage-button">
+                        <a class="portal-link" href="http://0.0.0.0:5000/student-portal">Student</a>
+                    </button>    
+                </div>
+            </div>
+            <div class="row" id="right-row">
+                <div class="col" id="teacher-button-col">
+                    <button class="homepage-button" id="teacher-homepage-button">
+                        <a class="portal-link" href="http://0.0.0.0:5000/teacher-portal">Teacher</a>
+                    </button>    
+                </div>
             </div>
         </div>
-        <div class="row" id="right-last-row">
-            <div class="col" id="teacher-button-col">
-                <submit id="teacher-homepage-button"></button> <a id="teacher-portal-link" href="http://0.0.0.0:5000/teacher-portal">Teacher</a></submit>    
-            </div>
-        </div>
     </div>
-</div>
 </div>
 
 {% endblock %}
