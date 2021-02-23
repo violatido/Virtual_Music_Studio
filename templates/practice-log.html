@@ -6,7 +6,7 @@
 {% block body %}
   <form id="create_log">
     <h3>Practice Log</h3>
-    Student Id: <input type="number" id="log_student_id" name="log_student_id"> <br>
+    Student Id: <input type="number" id="log_student_id" name="log_student_id" value={{session['student']['student_id']}}> <br>
     Date: <input type="date" id="log_date" name="log_date">    <br>
     Minutes Practiced: <input type="number" id="log_minutes_practiced"> <br>
     Pieces Practiced: <input type="text" id="log_pieces_practiced"> <br>
@@ -15,4 +15,7 @@
     <input type="reset" value="reset">
   </form>
   <h3 id="log_added_response"></h3>
+
+  <submit id="return-to-profile-button"></button> <a id="student-profile-link" href="http://0.0.0.0:5000/student-profile">Return to student profile</a></submit> <br>
+
 {% endblock %}

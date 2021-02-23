@@ -108,3 +108,5 @@ $('#create_log').on('submit', (evt) => {
         console.log("UGHHHHHHHH")
     });
 });
+
+

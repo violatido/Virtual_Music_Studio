@@ -28,3 +28,43 @@ let chart = new Chart(myChart, {
         }
     }
 });
+// ________________________________________________________________________________________________________________________
+
+$.get('/charts.json', (res) => {
+    const data = res.data.map((practiceTotal) => {
+        return {x: practiceTotal.date, y: practiceTotal.minutes_practiced};
+    });
+
+    new Chart(
+        $('#line-time'),
+        {
+            type: 'bar',
+            data: {
+                datasets: [
+                    {
+                        label: 'Minutes Practiced',
+                        data: data
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    xAxes: [
+                        {
+                            type: 'time',
+                            distribution: 'series'
+                        }
+                    ]
+                },
+                tooltips: {
+                    callbacks: {
+                        title: (tooltipItem) => {
+
+                            return moment(tooltipItem.label).format('MMM D');
+                        }
+                    }
+                }
+            }
+        }
+    )
+});

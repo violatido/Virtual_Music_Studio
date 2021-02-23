@@ -2,6 +2,7 @@
 
 from flask import (Flask, render_template, request, flash, session, redirect, jsonify)
 from model import connect_to_db 
+from datetime import datetime, timedelta
 import crud 
 from jinja2 import StrictUndefined 
 
@@ -161,6 +162,8 @@ def add_log():
     """Creates a new practice log
     
     if the log form is valid, the session adds the log to the log table"""
+
+    student_id= session['student']["student_id"]
     log_student_id = request.form.get('log_student_id')
     print("!!!!!!!!!!!\n!!!!!!!!!!\n!!!!!!!!\n!!!!!!!!")
     print(log_student_id)
@@ -169,11 +172,9 @@ def add_log():
     log_pieces_practiced = request.form.get('log_pieces_practiced')
     log_practice_notes = request.form.get('log_practice_notes')
     # log_student_id=session['student']['student_id']
-    print('************\n*******LINE 172********\n!!!!!!!!!!!!\n!!!!!!!!!')
-    print(log_date, log_student_id, log_minutes_practiced, log_pieces_practiced, log_practice_notes)
+    
     log = crud.create_log(log_date, log_student_id, log_minutes_practiced, log_pieces_practiced, log_practice_notes)
-    print("!!!!!!!!!!!\n!!!!!!!!!!\n!!!!!!!!\n!!!!!!!!")
-    print(log)
+    
     return jsonify({'status': 'ok', 'log_date': log_date})  
 
 
@@ -190,19 +191,33 @@ def list_logs_by_student():
     
     student_id= session['student']["student_id"]
     student_logs=crud.get_logs_by_student_id(student_id)
-
+    print('!!!!!!!!!!\n***************\n??????????????')
+    print(student_logs)
     return render_template('past-logs.html', student_logs=student_logs)
-
 
 #____________________________________functions for creating/seeding data charts____________________________________#
 @app.route('/charts')
 def view_charts():
     """View data charts for practice logs"""
 
-    # must extract time/date data by student
-
-
     return render_template('charts.html')
+
+@app.route('/charts.json')
+def seed_charts():
+    """Get minutes practiced/log dates into charts as JSON"""
+    practice_dates = []
+    date = datetime.now()
+    for _ in range(7):
+        practice_dates.append(date)
+        date = date - timedelta(days=1) #order_dates will contain current date & previous six dates
+
+    minutes_practiced = [10, 20, 30, 40, 50, 60, 70]
+
+    data = []
+    for date, minutes in zip(practice_dates, minutes_practiced):
+        data.append({'date': date.isoformat(), 'minutes_practiced': minutes})
+
+    return jsonify({'data': data})
 
 
 

@@ -5,8 +5,7 @@
 {% endblock %}
 {% block body %}
 <div>
-    <h1>Past logs for student ID of {{session['student']['student_id']}}!</h1>
-    <p>for loop here to list out every past log and its log info</p>
+    <h1>Past logs for {{session['student']['student_fname']}} {{session['student']['student_lname']}}</h1>
     {% for log in student_logs%}
         <div>{{ log.log_date }}
         <ul>
