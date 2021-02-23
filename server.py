@@ -49,9 +49,7 @@ def teacher_login():
             'teacher_lname': teacher.teacher_lname,
             "teacher_phone": teacher.teacher_phone
             }
-        print("!!!!!!!\nteacher\nIT'S HERE\n!!!!")
-        print(teacher.teacher_email)
-        print(session['teacher'])
+
         # return render_template('teacher-profile.html', email = teacher.teacher_email)
         return redirect('/teacher-profile')
     else:
@@ -155,6 +153,10 @@ def assign_students():
     """ Assigns a new student to a studio upon registering """
     private_teacher = session['student']["private_teacher"]
     selected_teacher_name = crud.group_students_by_teacher(private_teacher)
+    print('!!!!!!!!\n!!!!!!!!!!!\nPRIVATE_TEACHER\n!!!!!!!!\n!!!!!!')
+    print(private_teacher)
+    # print('!!!!!!!!\n!!!!!!!!!!!\nPRIVATE_TEACHER\n!!!!!!!!\n!!!!!!')
+    # print(selected_teacher_name)
 
     teacher_fname = session['teacher']['teacher_fname']
     teacher_lname = session['teacher']['teacher_lname']
@@ -181,8 +183,7 @@ def add_log():
 
     student_id= session['student']["student_id"]
     log_student_id = request.form.get('log_student_id')
-    print("!!!!!!!!!!!\n!!!!!!!!!!\n!!!!!!!!\n!!!!!!!!")
-    print(log_student_id)
+
     log_date = request.form.get('log_date')
     log_minutes_practiced = request.form.get('log_minutes_practiced')
     log_pieces_practiced = request.form.get('log_pieces_practiced')
@@ -209,8 +210,7 @@ def list_logs_by_student():
     
     student_id= session['student']["student_id"]
     student_logs=crud.get_logs_by_student_id(student_id)
-    print('!!!!!!!!!!\n***************\n??????????????')
-    print(student_logs)
+
     return render_template('past-logs.html', student_logs=student_logs)
 
 #____________________________________functions for creating/seeding data charts____________________________________#
@@ -235,6 +235,8 @@ def seed_charts():
     for date, minutes in zip(practice_dates, minutes_practiced):
         data.append({'date': date.isoformat(), 'minutes_practiced': minutes})
 
+
+    print(data)
     return jsonify({'data': data})
 
 

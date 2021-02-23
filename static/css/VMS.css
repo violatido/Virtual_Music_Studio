@@ -55,15 +55,6 @@ body {
     /* border: 3px aquamarine solid; */
 }
 
-.portal-link {
-    text-decoration: none;
-    color:#355C7D;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-}
-
 .homepage-button {
     background-color: white;
     color: #355C7D;
@@ -75,8 +66,25 @@ body {
     margin: .5rem;
 }
 
-/*_________________________________________________Portal Pages___________________________________________________*/
+.portal-link {
+    text-decoration: none;
+    color:#355C7D;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
 
+/*_________________________________________________Portal Pages___________________________________________________*/
+.portal-login-button {
+    background-color: white;
+    color: #355C7D;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.25rem;
+    border: 10px #6C5B7B solid;
+    border-radius: 10px;
+    padding: .25rem 1.25rem;
+}
 
 /*_________________________________________________Chart.js Specific_______________________________________________*/
 #chart-container {

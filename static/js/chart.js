@@ -47,7 +47,7 @@ $.get('/charts.json', (res) => {
                 datasets: [
                     {   
                         data: data,
-                        backgroundColor: colors
+                        backgroundColor: colors,
                     }
                 ]
             },
@@ -61,7 +61,9 @@ $.get('/charts.json', (res) => {
                 },
                 scales: {
                     xAxes: [
-                        {
+                        {   
+                            // categoryPercentage: 1,
+                            // barPercentage: .9,
                             type: 'time',
                             time: {
                                 unit: 'day',
@@ -70,19 +72,25 @@ $.get('/charts.json', (res) => {
                                     day: 'MMM D'
                                 },
                             },
+                            gridLines: {
+                                offsetGridLines: false,
+                                drawTicks: true,
+                                display: true
+                            },
+                            stacked: true,
                             distribution: 'series'
                         }
                     ],
                     yAxes: [{
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            min: 0
                         }
                     }]
                 },
                 tooltips: {
                     callbacks: {
                         title: (tooltipItem) => {
-
                             return moment(tooltipItem.label).format('MMM D');
                         }
                     }
@@ -91,3 +99,32 @@ $.get('/charts.json', (res) => {
         }
     )
 });
+
+//________________________________________________________________________________________________________________________
+$.get('/charts.json'), (res) => {
+    const data = res.data.map((practiceTotal) => {
+        return {x: practiceTotal.date, y: practiceTotal.minutes_practiced};
+    });
+
+    let colors = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5B7B', '#355C7D'];
+
+    
+
+    new Chart( $('#thirdChart'), {
+        type: 'bar',
+        data: {
+            labels: 'Minutes Practiced',
+            datasets: [ {
+                data: data,
+                backgroundColor: colors
+            }]
+        },
+        options: {
+            title: {
+                text: 'How many minutes did you practice in a day?',
+                display: true
+            }
+        }
+    })
+
+};
