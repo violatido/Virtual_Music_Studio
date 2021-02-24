@@ -39,18 +39,20 @@ def teacher_login():
     if checked_teacher != None:
         # return jsonify({'status': 'ok', 'student_login_email': student_login_email})
         teacher_login_email = request.form.get('teacher_login_email')
-        print(teacher_login_email)
+        # print(teacher_login_email)
         
         teacher=crud.get_teacher_by_email(teacher_login_email)
-        session['teacher'] = {
-            "teacher_id": teacher.teacher_id,
-            "teacher_email": teacher.teacher_email,
-            "teacher_fname": teacher.teacher_fname,
-            'teacher_lname': teacher.teacher_lname,
-            "teacher_phone": teacher.teacher_phone
-            }
+        # session['teacher'] = {
+        #     "teacher_id": teacher.teacher_id,
+        #     "teacher_email": teacher.teacher_email,
+        #     "teacher_fname": teacher.teacher_fname,
+        #     'teacher_lname': teacher.teacher_lname,
+        #     "teacher_phone": teacher.teacher_phone
+        #     }
 
-        # return render_template('teacher-profile.html', email = teacher.teacher_email)
+        session["teacher_id"]=teacher.teacher_id
+
+
         return redirect('/teacher-profile')
     else:
         return jsonify({'status': 'error'})
@@ -93,7 +95,7 @@ def student_login():
     if checked_student != None:
         # return jsonify({'status': 'ok', 'student_login_email': student_login_email})
         student_login_email = request.form.get('student_login_email')
-        print(student_login_email)
+        # print(student_login_email)
         
         student=crud.get_student_by_email(student_login_email)
         session['student'] = {
@@ -106,9 +108,9 @@ def student_login():
             "instrument": student.instrument
             }
 
-        print(student.student_email)
-        print(session['student'])
-        # return render_template('student-profile.html', email = student.student_email)
+        # print(student.student_email)
+        # print(session['student'])
+
         return redirect('/student-profile')
     else:
         return jsonify({'status': 'error'})
@@ -122,6 +124,7 @@ def add_student():
     student_fname = request.form.get('student_fname')
     student_lname = request.form.get('student_lname')
     student_email = request.form.get('student_email')
+    private_teacher = request.form.get('private_teacher')
     private_teacher_email = request.form.get('private_teacher_email')
     program_name = request.form.get('program_name')
     instrument = request.form.get('instrument')
@@ -131,8 +134,6 @@ def add_student():
     student = crud.create_student(student_fname, student_lname, student_email, program_name, instrument, student_password, teacher)
 
     # teacher.students = all student objects that belong to specific teacher 
-
-    # teacher_email = crud.get_teacher_by_email()
 
     return jsonify({'student_fname': student_fname, 'student_lname': student_lname})
 
@@ -148,7 +149,9 @@ def blank_student_profile():
 def view_teacher_profile():
     """Renders the VMS teacherprofile page"""
 
-    return render_template('teacher-profile.html')
+    teacher = crud.get_teacher_by_id(session["teacher_id"])
+
+    return render_template('teacher-profile.html', teacher=teacher)
 
 
 #________________________________________functions for adding practice logs________________________________________#

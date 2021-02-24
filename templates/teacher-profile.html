@@ -4,15 +4,15 @@
     Teacher Profile
 {% endblock %}
 {% block body %}
-{% if session["teacher"] %}
-  <h1>Welcome, {{session['teacher']['teacher_fname']}} {{session['teacher']['teacher_lname']}}</h1>
+{% if teacher %}
+  <h1>Welcome, {{teacher.teacher_fname}} {{teacher.teacher_lname}}</h1>
   <ul>
-    <li>Teacher ID: {{session['teacher']['teacher_id']}}</li>
-    <li>Teacher Email: {{session['teacher']['teacher_email']}}</li>
-    <li>Phone: {{session['teacher']['teacher_phone']}}</li>
+    <li>Teacher ID: {{teacher.teacher_id}}</li>
+    <li>Teacher Email: {{teacher.teacher_email}}</li>
+    <li>Phone: {{teacher.teacher_phone}}</li>
   </ul>
 {% endif %}  
-{% for student in session["teacher"].students%}
+{% for student in teacher.students%}
 {% endfor %}
 
 {% endblock %}
