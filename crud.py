@@ -25,19 +25,19 @@ def create_teacher(teacher_fname,
 def create_student(student_fname, 
                     student_lname, 
                     student_email, 
-                    private_teacher, 
                     program_name, 
                     instrument, 
-                    student_password):
+                    student_password,
+                    teacher_obj):
     """Creates a new student record"""
 
     student = Student(student_fname=student_fname,
                         student_lname=student_lname,
                         student_email=student_email,
-                        private_teacher=private_teacher,
                         program_name=program_name, 
                         instrument=instrument,
-                        student_password=student_password
+                        student_password=student_password,
+                        teacher=teacher_obj #using the teacher/student relationship
                         )
 
     db.session.add(student)
@@ -100,10 +100,8 @@ def group_students_by_teacher(private_teacher):
     """ Locate all students by private teacher's name """
     return Student.query.filter(Student.private_teacher == private_teacher).all()
 
-def find_teacher_by_name(teacher_fname, teacher_lname):
-    """ Locate teacher by first and last name """
-    return Teacher.query.filter(Teacher.teacher_fname == teacher_fname, 
-                                    Teacher.teacher_lname == teacher_lname).first()
+
+
 
 if __name__ == '__main__':
     from server import app

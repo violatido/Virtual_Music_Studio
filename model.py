@@ -18,7 +18,7 @@ class Teacher(db.Model):
     teacher_password = db.Column(db.String(50), nullable=False)
 
     # kathy: establish student/teacher relationship in the teacher table
-    # students = db.relationship('Student', backref='teacher', uselist=False)
+    students = db.relationship('Student')
 
     def __repr__(self):
         """Show Teacher ID/Corresponding User Id"""
@@ -35,20 +35,18 @@ class Student(db.Model):
     student_fname = db.Column(db.String(25), nullable=False)
     student_lname = db.Column(db.String(25), nullable=False)
     student_email = db.Column(db.String(50), nullable=False)
-    student_phone = db.Column(db.String(25))
     student_password = db.Column(db.String(50), nullable=False)
-    private_teacher = db.Column(db.String(50), nullable=False)
     program_name = db.Column(db.String(50)) 
     instrument = db.Column(db.String(25), nullable=False)
 
     # kathy: don't put the teacher/student relationship in the student table
-    # teacher = db.relationship('Teacher', backref='students')
+    teacher = db.relationship('Teacher')
     # # kathy: put student/log relationship in the student table 
     logs = db.relationship('Log', backref='student', uselist=False)
 
     def __repr__(self):
         """Show Student ID"""
-        return f'<Student student_id={self.student_id} student_name = {self.student_fname} {self.student_lname} teacher={self.private_teacher}>'
+        return f'<Student student_id={self.student_id} student_name = {self.student_fname} {self.student_lname}>'
 
 ########################################################################
 

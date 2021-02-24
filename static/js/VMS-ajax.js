@@ -70,6 +70,7 @@ $('#create_student').on('submit', (evt) => {
         'student_lname': $('#student_lname').val(),
         'student_email': $('#student_email').val(),
         'private_teacher': $('#private_teacher').val(),
+        'private_teacher_email': $('#private_teacher_email').val(),
         'program_name': $('#program_name').val(),
         'instrument': $('#instrument').val(),
         'student_password': $('#student_password').val()

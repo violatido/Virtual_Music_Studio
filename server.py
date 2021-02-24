@@ -122,12 +122,17 @@ def add_student():
     student_fname = request.form.get('student_fname')
     student_lname = request.form.get('student_lname')
     student_email = request.form.get('student_email')
-    private_teacher = request.form.get('private_teacher')
+    private_teacher_email = request.form.get('private_teacher_email')
     program_name = request.form.get('program_name')
     instrument = request.form.get('instrument')
     student_password = request.form.get('student_password')
+    teacher = crud.get_teacher_by_email(private_teacher_email)
 
-    student = crud.create_student(student_fname, student_lname, student_email, private_teacher, program_name, instrument, student_password)
+    student = crud.create_student(student_fname, student_lname, student_email, program_name, instrument, student_password, teacher)
+
+    # teacher.students = all student objects that belong to specific teacher 
+
+    # teacher_email = crud.get_teacher_by_email()
 
     return jsonify({'student_fname': student_fname, 'student_lname': student_lname})
 
@@ -145,26 +150,6 @@ def view_teacher_profile():
 
     return render_template('teacher-profile.html')
 
-
-#____________________________________functions for assigning students to studios___________________________________#
-# @app.route('/teacher-profilez')
-# def assign_students():
-#     """ Assigns a new student to a studio upon registering """
-#     private_teacher = session['student']["private_teacher"]
-#     selected_teacher_name = crud.group_students_by_teacher(private_teacher)
-#     print('!!!!!!!!\n!!!!!!!!!!!\nPRIVATE_TEACHER\n!!!!!!!!\n!!!!!!')
-#     print(private_teacher)
-#     # print('!!!!!!!!\n!!!!!!!!!!!\nPRIVATE_TEACHER\n!!!!!!!!\n!!!!!!')
-#     # print(selected_teacher_name)
-
-#     teacher_fname = session['teacher']['teacher_fname']
-#     teacher_lname = session['teacher']['teacher_lname']
-#     private_teacher_name = crud.find_teacher_by_name(teacher_fname, teacher_lname)
-
-#     if selected_teacher_name == private_teacher_name:
-#         student_email = session['student']["student_email"]
-#         selected_student = crud.get_student_by_email(student_email)
-#         return render_template('teacher-profile.html', selected_student=selected_student)
 
 #________________________________________functions for adding practice logs________________________________________#
 

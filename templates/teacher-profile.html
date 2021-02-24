@@ -4,7 +4,7 @@
     Teacher Profile
 {% endblock %}
 {% block body %}
-{% if session["student"] %}
+{% if session["teacher"] %}
   <h1>Welcome, {{session['teacher']['teacher_fname']}} {{session['teacher']['teacher_lname']}}</h1>
   <ul>
     <li>Teacher ID: {{session['teacher']['teacher_id']}}</li>
@@ -12,4 +12,7 @@
     <li>Phone: {{session['teacher']['teacher_phone']}}</li>
   </ul>
 {% endif %}  
+{% for student in session["teacher"].students%}
+{% endfor %}
+
 {% endblock %}
