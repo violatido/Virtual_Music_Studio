@@ -23,7 +23,6 @@ $('#login_teacher').on('submit', (evt) => {
 // event handler for new teacher registration 
 $('#create_teacher').on('submit', (evt) => {
     evt.preventDefault();
-    console.log("!!!!!!************");
 
     // converts teacher registration form into an object
     // const teacherFormValues = $('#teacher_reg_form').serialize();
@@ -37,7 +36,6 @@ $('#create_teacher').on('submit', (evt) => {
 
     $.post("/teacher-portal-create", teacherFormValues, (res) => {
         $('#teacher_added_response').text(`Teacher profile for ${res.teacher_fname} ${res.teacher_lname} has been created!`);
-        console.log("HEWOOOOOOOOOO!!!!")
     });
 });
 
@@ -64,7 +62,6 @@ $('#login_student').on('submit', (evt) => {
 // event handler for new student registration 
 $('#create_student').on('submit', (evt) => {
     evt.preventDefault();
-    console.log("!!!!!!************");
 
     // converts student registration form into an object
     // const studentFormValues = $('#student_reg_form').serialize();
@@ -91,7 +88,6 @@ $('#create_student').on('submit', (evt) => {
 // event handler for creating new practice logs
 $('#create_log').on('submit', (evt) => {
     evt.preventDefault();
-    console.log("BLAHHHHH")
 
     const logFormValues = { 
         "log_student_id": $('#log_student_id').val(),
@@ -105,7 +101,6 @@ $('#create_log').on('submit', (evt) => {
         $('#log_added_response').text(
             `Log for ${res.log_date} has been saved!`
         )
-        console.log("UGHHHHHHHH")
     });
 });
 

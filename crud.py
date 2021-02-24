@@ -84,10 +84,14 @@ def get_teacher_by_email(teacher_email):
     """Finds all teacher info"""
     return Teacher.query.filter(Teacher.teacher_email == teacher_email).first()
 
-#__________________________functions for Finding Logs___________________________#
+#__________________________functions for Finding Logs/Log info___________________________#
 
 def get_logs_by_student_id(student_id):
     """ Finds a specific student bby their student ID """
+    return Log.query.filter(Log.student_id == student_id).all()
+
+def get_minutes_practiced(student_id):
+    """ Procures all minutes-practiced data per student """
     return Log.query.filter(Log.student_id == student_id).all()
 
 #__________________________functions for Assigning Teachers___________________________#

@@ -228,7 +228,7 @@ def seed_charts():
         practice_dates.append(date)
         date = date - timedelta(days=1) #order_dates will contain current date & previous six dates
 
-    minutes_practiced = [10, 20, 30, 40, 50, 60, 70]
+    minutes_practiced = [10, 100, 30, 40, 50, 60, 70]
 
     data = []
     for date, minutes in zip(practice_dates, minutes_practiced):
@@ -238,6 +238,28 @@ def seed_charts():
     print(data)
     return jsonify({'data': data})
 
+
+# @app.route('/charts.json')
+# def seed_charts():
+#     """Passes data for minutes practiced and log dates into charts as JSON"""
+#     practice_dates = []
+#     date = datetime.now()
+#     for _ in range(7):
+#         practice_dates.append(date)
+#         date = date - timedelta(days=1) #order_dates will contain current date & previous six dates
+
+#     # minutes_practiced = [10, 20, 30, 40, 50, 60, 70]
+#     student_id= session['student']["student_id"]
+#     student_logs=crud.get_logs_by_student_id(student_id)
+#     minutes_practiced = student_logs.minutes_practiced
+
+#     data = []
+#     for date, minutes in zip(practice_dates, minutes_practiced):
+#         data.append({'date': date.isoformat(), 'minutes_practiced': minutes})
+
+
+#     print(data)
+#     return jsonify({'data': data})
 
 
 
