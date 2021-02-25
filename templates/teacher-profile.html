@@ -5,7 +5,7 @@
 {% endblock %}
 {% block body %}
 {% if teacher %}
-  <h1>Welcome, {{teacher.teacher_fname}} {{teacher.teacher_lname}}</h1>
+  <h1>Welcome to your Virtual Music Studio, {{teacher.teacher_fname}} {{teacher.teacher_lname}}</h1>
   <div> Teacher Info
     <ul>
       <li>Teacher ID: {{teacher.teacher_id}}</li>
@@ -15,7 +15,7 @@
 </div>
 {% endif %}  
 <div>
-  <h1>List of Students</h1>
+  <h3>List of Students</h3>
 {% for student in teacher.students%}
   <div>{{ student.student_fname}} {{ student.student_lname}} 
     <ul>
