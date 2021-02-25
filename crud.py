@@ -87,6 +87,9 @@ def get_teacher_by_email(teacher_email):
 def get_teacher_by_id(teacher_id):
     return Teacher.query.get(teacher_id)
 
+def get_student_by_id(student_id):
+    return Student.query.get(student_id)
+
 #__________________________functions for Finding Logs/Log info___________________________#
 
 def get_logs_by_student_id(student_id):

@@ -19,6 +19,14 @@ class Teacher(db.Model):
 
     # kathy: establish student/teacher relationship in the teacher table
     students = db.relationship('Student')
+    # teacher_email = imercer@gmail.com
+    # crud.get_teacher_by_email --> <Teacher Ilana>
+    # ilana = crud.get_teacher_by_email
+    # ilana.students => [<Student1>, <lucia>, <Student1>]
+   # lucia.teacher_id = ilana.teacher_id
+   # lucia = Student("lucia", "racine" ....)
+    # lucia.teacher => [<Teacher ilana>]
+    # lucia.teacher.teacher_phone = '415-314-5555'
 
     def __repr__(self):
         """Show Teacher ID/Corresponding User Id"""

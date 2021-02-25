@@ -30,70 +30,46 @@ let chart = new Chart(myChart, {
 });
 // ________________________________________________________________________________________________________________________
 $.get('/charts.json', (res) => {
-    const data = res.data.map((practiceTotal) => {
-        return {x: practiceTotal.date, y: practiceTotal.minutes_practiced};
-    });
-    
-    let colors = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5B7B', '#355C7D'];
+    console.log(res.date_key)
+    const dates = res.date_key; // give us a list of dates
+    const practice_times = res.minutes_practiced; // associated practice times
 
-    new Chart(
-        $('#bar-time'),
-        {
-            type: 'bar',
-            data: {
-                labels: 'Minutes Practiced',
-                datasets: [
-                    {   
-                        data: data,
-                        backgroundColor: colors,
-                    }
-                ]
+    let myChart = document.getElementById("bar-time").getContext('2d');
+    
+    let colors = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5B7B', '#355C7D', '#A8A0B1'];
+    let chart = new Chart(myChart, {
+        type: 'bar',
+        data: {
+            labels: dates, 
+            datasets: [ {
+                data: practice_times,
+                backgroundColor: colors
+            }] 
+        },
+        options: {
+            // title = the question we are asking
+            title: {
+                text: "How many minutes did you practice per day this week?",
+                display: true
             },
-            options: {
-                title: {
-                    text: "How many minutes did you practice per day this week?",
-                    display: true
-                },
-                legend: {
-                    display: false
-                },
-                scales: {
-                    xAxes: [
-                        {   
-                            type: 'time',
-                            time: {
-                                unit: 'day',
-                                round: 'day',
-                                displayFormats: {
-                                    day: 'MMM D'
-                                },
-                            },
-                            distribution: 'series'
-                        }
-                    ],
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            min: 0
-                        }
-                    }]
-                },
-                tooltips: {
-                    callbacks: {
-                        title: (tooltipItem) => {
-                            return moment(tooltipItem.label).format('MMM D');
-                        }
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        suggestedMin: 0,
+                        suggestedMax: 300
                     }
+                }]
+            }
+        },
+        tooltips: {
+            callbacks: {
+                title: (tooltipItem) => {
+                    return moment(tooltipItem.label).format('MMM D');
                 }
             }
-        }
-    )
+        }    
+    })
 });
-
-// ________________________________________________________________________________________________________________________
-
-// window.onload = function() {
-//     $.get('/charts.json', (res) => {
-//         window.myBar = new Chart(document.getElementById('#thirdChart'))
-//     })
-// }

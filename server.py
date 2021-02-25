@@ -98,18 +98,20 @@ def student_login():
         # print(student_login_email)
         
         student=crud.get_student_by_email(student_login_email)
-        session['student'] = {
-            "student_id": student.student_id,
-            "student_email": student.student_email,
-            "student_fname": student.student_fname,
-            'student_lname': student.student_lname,
-            "private_teacher": student.private_teacher,
-            "program_name": student.program_name,
-            "instrument": student.instrument
-            }
+        # session['student'] = {
+        #     "student_id": student.student_id,
+        #     "student_email": student.student_email,
+        #     "student_fname": student.student_fname,
+        #     'student_lname': student.student_lname,
+        #     # "private_teacher": student.private_teacher,
+        #     "program_name": student.program_name,
+        #     "instrument": student.instrument
+        #     }
 
         # print(student.student_email)
         # print(session['student'])
+
+        session["student_id"]=student.student_id
 
         return redirect('/student-profile')
     else:
@@ -124,7 +126,7 @@ def add_student():
     student_fname = request.form.get('student_fname')
     student_lname = request.form.get('student_lname')
     student_email = request.form.get('student_email')
-    private_teacher = request.form.get('private_teacher')
+    # private_teacher = request.form.get('private_teacher')
     private_teacher_email = request.form.get('private_teacher_email')
     program_name = request.form.get('program_name')
     instrument = request.form.get('instrument')
@@ -143,7 +145,16 @@ def add_student():
 def blank_student_profile():
     """Renders the VMS student profile page"""
 
-    return render_template('student-profile.html')
+    student = crud.get_student_by_id(session["student_id"])
+    teacher = student.teacher
+    private_teacher_email = request.form.get('private_teacher_email')
+    #teacher = crud.get_teacher_by_email(private_teacher_email) # <- teacher object
+    print("************", teacher)
+    # teacher_email = teacher.teacher_email
+    # teacher_name= f"{teacher.teacher_fname} {teacher.teacher_lname}"
+
+
+    return render_template('student-profile.html', student=student, teacher=teacher)
 
 @app.route('/teacher-profile')
 def view_teacher_profile():
@@ -216,15 +227,21 @@ def seed_charts():
         practice_dates.append(date)
         date = date - timedelta(days=1) #order_dates will contain current date & previous six dates
 
-    minutes_practiced = [10, 100, 30, 40, 50, 60, 70]
+    minutes_practiced = [120, 100, 30, 40, 50, 60, 70]
 
-    data = []
+    data = {}
+    data['date_key'] = []
+    data['minutes_practiced'] = []
     for date, minutes in zip(practice_dates, minutes_practiced):
-        data.append({'date': date.isoformat(), 'minutes_practiced': minutes})
+        # data.append({'date': date.isoformat(), 'minutes_practiced': minutes})
+        date_string = date.isoformat()
+        date = date_string[5:10]
+        data['date_key'].append(date) # '2021-02-25T00:09:28.280921'
+        data['minutes_practiced'].append(minutes)
 
-
+    print('!!!!!!!\n!!!!!!\n!!!!!!!')
     print(data)
-    return jsonify({'data': data})
+    return jsonify(data) 
 
 
 # @app.route('/charts.json')
