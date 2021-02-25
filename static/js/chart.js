@@ -36,7 +36,7 @@ $.get('/charts.json', (res) => {
 
     let myChart = document.getElementById("bar-time").getContext('2d');
     
-    let colors = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5B7B', '#355C7D', '#A8A0B1'];
+    let colors = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5 B7B', '#355C7D', '#A8A0B1'];
     let chart = new Chart(myChart, {
         type: 'bar',
         data: {
@@ -47,7 +47,6 @@ $.get('/charts.json', (res) => {
             }] 
         },
         options: {
-            // title = the question we are asking
             title: {
                 text: "How many minutes did you practice per day this week?",
                 display: true
@@ -59,10 +58,30 @@ $.get('/charts.json', (res) => {
                 yAxes: [{
                     ticks: {
                         suggestedMin: 0,
-                        suggestedMax: 300
+                        suggestedMax: 200
                     }
                 }]
             }
+        },
+        scales: {
+            xAxes: [
+                {
+                    type: 'time',
+                    time: {
+                        unit: 'day',
+                        round: 'day',
+                        displayFormats: {
+                            day: 'MMM D'
+                        },
+                    },
+                    distribution: 'series'
+                }
+            ],
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
         },
         tooltips: {
             callbacks: {

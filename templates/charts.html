@@ -4,23 +4,24 @@
     Practice Log Data
 {% endblock %}
 {% block body %}
-<h1>charts charts charts!</h1>
+
 <div class="container-fluid" id="all-charts-container">
     <div class="row" id="chart-row">
         <div class="col-10 offset-1" id="chart-container">
+            <h1>charts charts charts!</h1>
             <div class="row">
                 <div class="col">
-                    <span height="200">All charts for student</span>
+                    <span height="200"></span>
                 </div>
                 <div class="col">
-                    <span height="200" class="view-past-logs">View Past Logs</span>
+                    <span height="200" class="view-past-logs"></span>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6 chart">
+                <div class="col-md-6 chart">
                     <canvas id="bar-time" width="500" height="400"></canvas>
                 </div>
-                <div class="col-6 chart">
+                <div class="col-md-6 chart">
                     <canvas id="myChart" width="500" height="400"></canvas>      
                 </div>
             </div>

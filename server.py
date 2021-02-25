@@ -37,21 +37,10 @@ def teacher_login():
     checked_teacher = crud.verify_teacher(teacher_login_email, teacher_login_pw)
 
     if checked_teacher != None:
-        # return jsonify({'status': 'ok', 'student_login_email': student_login_email})
         teacher_login_email = request.form.get('teacher_login_email')
-        # print(teacher_login_email)
         
         teacher=crud.get_teacher_by_email(teacher_login_email)
-        # session['teacher'] = {
-        #     "teacher_id": teacher.teacher_id,
-        #     "teacher_email": teacher.teacher_email,
-        #     "teacher_fname": teacher.teacher_fname,
-        #     'teacher_lname': teacher.teacher_lname,
-        #     "teacher_phone": teacher.teacher_phone
-        #     }
-
         session["teacher_id"]=teacher.teacher_id
-
 
         return redirect('/teacher-profile')
     else:
@@ -69,7 +58,6 @@ def add_teacher():
     teacher_phone = request.form.get('teacher_phone')
     teacher_password = request.form.get('teacher_password')
 
-    # calls the crud function create_teacher()
     crud.create_teacher(teacher_fname, teacher_lname, teacher_email, teacher_phone, teacher_password)
     return jsonify({'teacher_fname': teacher_fname, 'teacher_lname': teacher_lname})
 
@@ -93,9 +81,7 @@ def student_login():
     checked_student = crud.verify_student(student_login_email, student_login_pw)
 
     if checked_student != None:
-        # return jsonify({'status': 'ok', 'student_login_email': student_login_email})
         student_login_email = request.form.get('student_login_email')
-        # print(student_login_email)
         
         student=crud.get_student_by_email(student_login_email)
         # session['student'] = {
@@ -107,9 +93,6 @@ def student_login():
         #     "program_name": student.program_name,
         #     "instrument": student.instrument
         #     }
-
-        # print(student.student_email)
-        # print(session['student'])
 
         session["student_id"]=student.student_id
 
@@ -126,7 +109,6 @@ def add_student():
     student_fname = request.form.get('student_fname')
     student_lname = request.form.get('student_lname')
     student_email = request.form.get('student_email')
-    # private_teacher = request.form.get('private_teacher')
     private_teacher_email = request.form.get('private_teacher_email')
     program_name = request.form.get('program_name')
     instrument = request.form.get('instrument')
@@ -134,8 +116,6 @@ def add_student():
     teacher = crud.get_teacher_by_email(private_teacher_email)
 
     student = crud.create_student(student_fname, student_lname, student_email, program_name, instrument, student_password, teacher)
-
-    # teacher.students = all student objects that belong to specific teacher 
 
     return jsonify({'student_fname': student_fname, 'student_lname': student_lname})
 
@@ -148,11 +128,6 @@ def blank_student_profile():
     student = crud.get_student_by_id(session["student_id"])
     teacher = student.teacher
     private_teacher_email = request.form.get('private_teacher_email')
-    #teacher = crud.get_teacher_by_email(private_teacher_email) # <- teacher object
-    print("************", teacher)
-    # teacher_email = teacher.teacher_email
-    # teacher_name= f"{teacher.teacher_fname} {teacher.teacher_lname}"
-
 
     return render_template('student-profile.html', student=student, teacher=teacher)
 
@@ -171,7 +146,9 @@ def view_teacher_profile():
 def view_log_page():
     """Renders the VMS practice-log page with practice log form"""
 
-    return render_template('practice-log.html')
+    student = crud.get_student_by_id(session["student_id"])
+
+    return render_template('practice-log.html', student=student)
 
 @app.route('/practice-log', methods=["POST"])
 def add_log():
@@ -179,14 +156,13 @@ def add_log():
     
     if the log form is valid, the session adds the log to the log table"""
 
-    student_id= session['student']["student_id"]
-    log_student_id = request.form.get('log_student_id')
+    student = crud.get_student_by_id(session["student_id"])
 
+    log_student_id = request.form.get('log_student_id')
     log_date = request.form.get('log_date')
     log_minutes_practiced = request.form.get('log_minutes_practiced')
     log_pieces_practiced = request.form.get('log_pieces_practiced')
     log_practice_notes = request.form.get('log_practice_notes')
-    # log_student_id=session['student']['student_id']
     
     log = crud.create_log(log_date, log_student_id, log_minutes_practiced, log_pieces_practiced, log_practice_notes)
     
@@ -198,7 +174,10 @@ def add_log():
 def view_student_logs():
     """Renders page for viewing past logs for individual student"""
 
-    return render_template('past-logs.html')
+    student = crud.get_student_by_id(session["student_id"])
+
+
+    return render_template('past-logs.html', student=student)
 
 @app.route('/past-logs')
 def list_logs_by_student():
@@ -233,38 +212,13 @@ def seed_charts():
     data['date_key'] = []
     data['minutes_practiced'] = []
     for date, minutes in zip(practice_dates, minutes_practiced):
-        # data.append({'date': date.isoformat(), 'minutes_practiced': minutes})
-        date_string = date.isoformat()
-        date = date_string[5:10]
+        date_string = date.ctime()
+        date = date_string[4:10]
         data['date_key'].append(date) # '2021-02-25T00:09:28.280921'
         data['minutes_practiced'].append(minutes)
 
-    print('!!!!!!!\n!!!!!!\n!!!!!!!')
-    print(data)
     return jsonify(data) 
 
-
-# @app.route('/charts.json')
-# def seed_charts():
-#     """Passes data for minutes practiced and log dates into charts as JSON"""
-#     practice_dates = []
-#     date = datetime.now()
-#     for _ in range(7):
-#         practice_dates.append(date)
-#         date = date - timedelta(days=1) #order_dates will contain current date & previous six dates
-
-#     # minutes_practiced = [10, 20, 30, 40, 50, 60, 70]
-#     student_id= session['student']["student_id"]
-#     student_logs=crud.get_logs_by_student_id(student_id)
-#     minutes_practiced = student_logs.minutes_practiced
-
-#     data = []
-#     for date, minutes in zip(practice_dates, minutes_practiced):
-#         data.append({'date': date.isoformat(), 'minutes_practiced': minutes})
-
-
-#     print(data)
-#     return jsonify({'data': data})
 
 
 
