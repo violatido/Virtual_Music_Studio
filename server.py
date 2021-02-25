@@ -137,9 +137,10 @@ def view_teacher_profile():
     """Renders the VMS teacherprofile page"""
 
     teacher = crud.get_teacher_by_id(session["teacher_id"])
+    student = crud.get_student_by_id(session["student_id"])
 
-    return render_template('teacher-profile.html', teacher=teacher)
 
+    return render_template('teacher-profile.html', teacher=teacher, student=student)
 
 #________________________________________functions for adding practice logs________________________________________#
 

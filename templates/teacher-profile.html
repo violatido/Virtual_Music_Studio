@@ -6,13 +6,27 @@
 {% block body %}
 {% if teacher %}
   <h1>Welcome, {{teacher.teacher_fname}} {{teacher.teacher_lname}}</h1>
-  <ul>
-    <li>Teacher ID: {{teacher.teacher_id}}</li>
-    <li>Teacher Email: {{teacher.teacher_email}}</li>
-    <li>Phone: {{teacher.teacher_phone}}</li>
-  </ul>
+  <div> Teacher Info
+    <ul>
+      <li>Teacher ID: {{teacher.teacher_id}}</li>
+      <li>Teacher Email: {{teacher.teacher_email}}</li>
+      <li>Phone: {{teacher.teacher_phone}}</li>
+    </ul>
+</div>
 {% endif %}  
+<div>
+  <h1>List of Students</h1>
 {% for student in teacher.students%}
+  <div>{{ student.student_fname}} {{ student.student_lname}} 
+    <ul>
+      <li>Student ID #: {{ student.student_id }}</li>
+      <li>Student email: {{ student.student_email }}</li>
+      <li>Program name: {{ student.program_name }}</li>
+      <li>Instrument: {{ student.instrument }}</li>
+
+    </ul>
+  </div>
+</div>
 {% endfor %}
 
 {% endblock %}
