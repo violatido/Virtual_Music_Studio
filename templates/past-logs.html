@@ -4,20 +4,25 @@
     Past Logs
 {% endblock %}
 {% block body %}
-<div>
-    <h1>Past logs for {{session['student']['student_fname']}} {{session['student']['student_lname']}}</h1>
-    {% for log in student_logs%}
-        <div>{{ log.log_date }}
-        <ul>
-            <li>Log ID #{{ log.log_id }}</li>
-            <li>Minutes Practiced: {{ log.minutes_practiced }}</li>
-            <li>Pieces Practiced: {{ log.pieces_practiced }}</li>
-            <li>Notes: {{ log.practice_notes }}</li>
-        </ul>
+<div class="container-main" id="container-main-past-logs">
+    <div class="row">
+        <div class="col">
+            <h1>Past logs for {{student.student_fname}} {{student.student_lname}}</h1>
+            {% for log in student_logs%}
+                <div>{{ log.log_date }}
+                <ul>
+                    <li>Log ID #{{ log.log_id }}</li>
+                    <li>Minutes Practiced: {{ log.minutes_practiced }}</li>
+                    <li>Pieces Practiced: {{ log.pieces_practiced }}</li>
+                    <li>Notes: {{ log.practice_notes }}</li>
+                </ul>
+                </div>
+            {% endfor %}
+            <button class="charts-link-button" id="charts-link-button">
+                <a class="charts-link" href="http://0.0.0.0:5000/charts">View Practice Data</a>
+            </button>    
         </div>
-    {% endfor %}
-    <button class="charts-link-button" id="charts-link-button">
-        <a class="charts-link" href="http://0.0.0.0:5000/charts">View Practice Data</a>
-    </button>    
+    </div>
+    
 </div>
 {% endblock %}

@@ -184,11 +184,11 @@ def list_logs_by_student():
     """Lists every log made by a student depending on their student_id.
     
     All log info is passed into the HTML doc"""
-    
-    student_id= session['student']["student_id"]
-    student_logs=crud.get_logs_by_student_id(student_id)
+    student = crud.get_student_by_id(session["student_id"])
+    # student_id= session['student']["student_id"]
+    student_logs=crud.get_logs_by_student_id(student.student_id)
 
-    return render_template('past-logs.html', student_logs=student_logs)
+    return render_template('past-logs.html', student= student, student_logs=student_logs)
 
 #____________________________________functions for creating/seeding data charts____________________________________#
 @app.route('/charts')
