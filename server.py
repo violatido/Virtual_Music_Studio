@@ -109,6 +109,7 @@ def add_student():
     student_fname = request.form.get('student_fname')
     student_lname = request.form.get('student_lname')
     student_email = request.form.get('student_email')
+    private_teacher_name = request.form.get('private_teacher_name')
     private_teacher_email = request.form.get('private_teacher_email')
     program_name = request.form.get('program_name')
     instrument = request.form.get('instrument')
@@ -122,7 +123,7 @@ def add_student():
 
 #__________________________________________functions for viewing profiles__________________________________________#
 @app.route('/student-profile')
-def blank_student_profile():
+def view_student_profile():
     """Renders the VMS student profile page"""
 
     student = crud.get_student_by_id(session["student_id"])

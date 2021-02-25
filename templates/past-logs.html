@@ -4,25 +4,27 @@
     Past Logs
 {% endblock %}
 {% block body %}
-<div class="container-main" id="container-main-past-logs">
-    <div class="row">
-        <div class="col">
-            <h1>Past logs for {{student.student_fname}} {{student.student_lname}}</h1>
-            {% for log in student_logs%}
-                <div>{{ log.log_date }}
-                <ul>
-                    <li>Log ID #{{ log.log_id }}</li>
-                    <li>Minutes Practiced: {{ log.minutes_practiced }}</li>
-                    <li>Pieces Practiced: {{ log.pieces_practiced }}</li>
-                    <li>Notes: {{ log.practice_notes }}</li>
-                </ul>
-                </div>
-            {% endfor %}
-            <button class="charts-link-button" id="charts-link-button">
-                <a class="charts-link" href="http://0.0.0.0:5000/charts">View Practice Data</a>
-            </button>    
+<nav class="navbar navbar-expand-lg navbar-light bg-light"></nav>
+<div class="container-main" id="container-past-logs">
+    <div class="container" id="container-log-list">
+        <div class="row">
+            <div class="col">
+                {% for log in student_logs%}
+                    <div>{{ log.log_date }}
+                    <ul>
+                        <li>Log ID #{{ log.log_id }}</li>
+                        <li>Minutes Practiced: {{ log.minutes_practiced }}</li>
+                        <li>Pieces Practiced: {{ log.pieces_practiced }}</li>
+                        <li>Notes: {{ log.practice_notes }}</li>
+                    </ul>
+                    </div>
+                {% endfor %}
+                <button class="charts-link-button" id="charts-link-button">
+                    <a class="charts-link" href="http://0.0.0.0:5000/charts">View Practice Data</a>
+                </button>    
+            </div>
         </div>
     </div>
-    
 </div>
+
 {% endblock %}
