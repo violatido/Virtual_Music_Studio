@@ -17,16 +17,7 @@ class Teacher(db.Model):
     teacher_phone = db.Column(db.String(25))
     teacher_password = db.Column(db.String(50), nullable=False)
 
-    # kathy: establish student/teacher relationship in the teacher table
     students = db.relationship('Student')
-    # teacher_email = imercer@gmail.com
-    # crud.get_teacher_by_email --> <Teacher Ilana>
-    # ilana = crud.get_teacher_by_email
-    # ilana.students => [<Student1>, <lucia>, <Student1>]
-   # lucia.teacher_id = ilana.teacher_id
-   # lucia = Student("lucia", "racine" ....)
-    # lucia.teacher => [<Teacher ilana>]
-    # lucia.teacher.teacher_phone = '415-314-5555'
 
     def __repr__(self):
         """Show Teacher ID/Corresponding User Id"""
@@ -69,14 +60,11 @@ class Log(db.Model):
     pieces_practiced = db.Column(db.String(150), nullable=False)
     practice_notes = db.Column(db.String(200))
 
-    # kathy: don't put student/log relationship in the log table
-    # student_id=db.Column(db.Integer, db.ForeignKey('students.student_id'), nullable=False)
+
 
     def __repr__(self):
         """Show Log Info"""
         return f'<Log log_date={self.log_date} student_id={self.student_id} log_id={self.log_id}'
-        # using student table attributes in the repr return statement:
-        # return f'<Log log_date={self.log_date} student_name={self.student.fname} {self.student.lname}>'
 
 ############################################################################
 

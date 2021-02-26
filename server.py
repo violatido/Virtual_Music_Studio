@@ -203,26 +203,26 @@ def seed_charts():
     """Passes data for minutes practiced and log dates into charts as JSON"""
 
     student = crud.get_student_by_id(session["student_id"])
-    student_logs=crud.get_logs_by_student_id(student.student_id)
+    student_logs = crud.get_logs_by_student_id(student.student_id)
 
-    practice_dates = [] # ['2021-2-25', '2021-2-24', '2021-2-23', '2021-2-22', '2021-2-21', '2021-2-20', '2021-2-19']
+    practice_dates = [] # holds todays date and previous six days as list items
     date = datetime.now()
     for _ in range(7):
         dater = str(date.year) + '-' + str(date.month) + '-' + str(date.day)
         practice_dates.append(dater)
         date = date - timedelta(days=1)
 
-    log_dates = [] # all practice dates [datetime.date(2021, 2, 25), datetime.date(2021, 2, 24), ...]
-    log_minutes = [] # all practice minutes[12, 45, 35, 100, 22, 23, 45]
+    # log_dates = [] 
+    # log_minutes = [] 
 
-    for log in student_logs:
-        log_dates.append(log.log_date)
-        log_minutes.append(log.minutes_practiced)
+    # for log in student_logs:
+    #     log_dates.append(log.log_date) #adds all practice dates to log_dates list
+    #     log_minutes.append(log.minutes_practiced) #adds all minutes practiced to minutes_practiced list
 
     minutes_practiced = []
 
-    for date in practice_dates:
-        dates_practiced = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date())
+    for date in practice_dates: # loops over the dates of the week
+        dates_practiced = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #all practice dates 
         if dates_practiced:
             minutes_practiced.append((date, dates_practiced.minutes_practiced))
         else:
@@ -235,7 +235,12 @@ def seed_charts():
     return jsonify(data) 
 
 
+#__________________________________functions for messaging__________________________________#
+@app.route('/message')
+def view_messages():
+    """View text messages"""
 
+    return render_template('message.html')
 
 
 if __name__ == '__main__':
