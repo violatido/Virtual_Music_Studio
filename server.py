@@ -187,7 +187,6 @@ def list_logs_by_student():
     
     All log info is passed into the HTML doc"""
     student = crud.get_student_by_id(session["student_id"])
-    # student_id= session['student']["student_id"]
     student_logs=crud.get_logs_by_student_id(student.student_id)
 
     return render_template('past-logs.html', student= student, student_logs=student_logs)
@@ -202,24 +201,39 @@ def view_charts():
 @app.route('/charts.json')
 def seed_charts():
     """Passes data for minutes practiced and log dates into charts as JSON"""
-    practice_dates = []
+
+    student = crud.get_student_by_id(session["student_id"])
+    student_logs=crud.get_logs_by_student_id(student.student_id)
+
+    practice_dates = [] # ['2021-2-25', '2021-2-24', '2021-2-23', '2021-2-22', '2021-2-21', '2021-2-20', '2021-2-19']
     date = datetime.now()
     for _ in range(7):
-        practice_dates.append(date)
-        date = date - timedelta(days=1) #order_dates will contain current date & previous six dates
+        dater = str(date.year) + '-' + str(date.month) + '-' + str(date.day)
+        practice_dates.append(dater)
+        date = date - timedelta(days=1)
 
-    minutes_practiced = [120, 100, 30, 40, 50, 60, 70]
+    log_dates = [] # all practice dates [datetime.date(2021, 2, 25), datetime.date(2021, 2, 24), ...]
+    log_minutes = [] # all practice minutes[12, 45, 35, 100, 22, 23, 45]
 
+    for log in student_logs:
+        log_dates.append(log.log_date)
+        log_minutes.append(log.minutes_practiced)
+
+    minutes_practiced = []
+
+    for date in practice_dates:
+        dates_practiced = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date())
+        if dates_practiced:
+            minutes_practiced.append((date, dates_practiced.minutes_practiced))
+        else:
+            minutes_practiced.append((date, 0))
+        
     data = {}
-    data['date_key'] = []
-    data['minutes_practiced'] = []
-    for date, minutes in zip(practice_dates, minutes_practiced):
-        date_string = date.ctime()
-        date = date_string[4:10]
-        data['date_key'].append(date) # '2021-02-25T00:09:28.280921'
-        data['minutes_practiced'].append(minutes)
+    data['dates_practiced'] = [datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:10] for date, min_prac in minutes_practiced]
+    data['minutes_practiced'] = [min_prac for date, min_prac in minutes_practiced]
 
     return jsonify(data) 
+
 
 
 

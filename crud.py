@@ -93,12 +93,15 @@ def get_student_by_id(student_id):
 #__________________________functions for Finding Logs/Log info___________________________#
 
 def get_logs_by_student_id(student_id):
-    """ Finds a specific student bby their student ID """
-    return Log.query.filter(Log.student_id == student_id).all()
+    """ Finds all logs submitted by a specific student using their student ID """
+    return Log.query.filter(Log.student_id == student_id).order_by(Log.log_date.desc()).all()
 
 def get_minutes_practiced(student_id):
     """ Procures all minutes-practiced data per student """
-    return Log.query.filter(Log.student_id == student_id).all()
+    return Log.query.get(student_id)
+
+def search_logs_by_date(log_date):
+    return Log.query.filter(Log.log_date == log_date).first()
 
 #__________________________functions for Assigning Teachers___________________________#
 

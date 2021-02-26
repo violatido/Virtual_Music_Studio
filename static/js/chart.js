@@ -30,12 +30,13 @@ let chart = new Chart(myChart, {
 });
 // ________________________________________________________________________________________________________________________
 $.get('/charts.json', (res) => {
-    console.log(res.date_key)
-    const dates = res.date_key; // give us a list of dates
+    const dates = res.dates_practiced; // give us a list of dates
     const practice_times = res.minutes_practiced; // associated practice times
-
     let myChart = document.getElementById("bar-time").getContext('2d');
-    
+
+    console.log(dates)
+    console.log(practice_times)
+
     let colors = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5 B7B', '#355C7D', '#A8A0B1'];
     let chart = new Chart(myChart, {
         type: 'bar',
