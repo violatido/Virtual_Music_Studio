@@ -28,20 +28,21 @@ let chart = new Chart(myChart, {
         }
     }
 });
+
 // ________________________________________________________________________________________________________________________
 $.get('/charts.json', (res) => {
     const dates = res.dates_practiced; // give us a list of dates
     const practice_times = res.minutes_practiced; // associated practice times
-    let myChart = document.getElementById("bar-time").getContext('2d');
+    let myChart2 = document.getElementById("bar-time").getContext('2d');
 
-    let colors = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5 B7B', '#355C7D', '#A8A0B1'];
-    let chart = new Chart(myChart, {
+    let colors2 = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5 B7B', '#355C7D', '#A8A0B1'];
+    let chart2 = new Chart(myChart2, {
         type: 'bar',
         data: {
             labels: dates, 
             datasets: [ {
                 data: practice_times,
-                backgroundColor: colors
+                backgroundColor: colors2
             }] 
         },
         options: {

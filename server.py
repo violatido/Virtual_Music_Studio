@@ -199,8 +199,8 @@ def view_charts():
     return render_template('charts.html')
 
 @app.route('/charts.json')
-def seed_charts():
-    """Passes data for minutes practiced and log dates into charts as JSON"""
+def seed_chart_one():
+    """Passes data for minutes practiced and log dates into chart #1 as JSON"""
 
     student = crud.get_student_by_id(session["student_id"])
     student_logs = crud.get_logs_by_student_id(student.student_id)
@@ -212,12 +212,13 @@ def seed_charts():
         practice_dates.append(dater)
         date = date - timedelta(days=1)
 
-    # log_dates = [] 
-    # log_minutes = [] 
+    #code unused
+        # log_dates = [] 
+        # log_minutes = [] 
 
-    # for log in student_logs:
-    #     log_dates.append(log.log_date) #adds all practice dates to log_dates list
-    #     log_minutes.append(log.minutes_practiced) #adds all minutes practiced to minutes_practiced list
+        # for log in student_logs:
+            #log_dates.append(log.log_date) #adds all practice dates to log_dates list
+            #log_minutes.append(log.minutes_practiced) #adds all minutes practiced to minutes_practiced list
 
     minutes_practiced = []
 
@@ -233,6 +234,42 @@ def seed_charts():
     data['minutes_practiced'] = [min_prac for date, min_prac in minutes_practiced]
 
     return jsonify(data) 
+
+# @app.route('/charts/2.json')
+# def seed_chart_two():
+#     """ Passes data for days practiced over four weeks to chart #2 as JSON"""
+
+#     student = crud.get_student_by_id(session["student_id"])
+#     student_logs = crud.get_logs_by_student_id(student.student_id)
+
+#     dates_in_month = [] # holds todays date and previous 27 dates as list items
+#     date = datetime.now()
+#     for idx in range(28):
+#         dater = str(date.year) + '-' + str(date.month) + '-' + str(date.day)
+#         dates_in_month.append(dater)
+#         date = date - timedelta(days=1)
+
+#     week_1 = dates_in_month[:7] #current week
+#     week_2 = dates_in_month[7:14] #one week ago
+#     week_3 = dates_in_month[14:21]#two weeks ago
+#     week_4 = dates_in_month[21:]#three weeks ago
+
+
+#     dates_practiced_in_month = []
+
+#     for date in dates_in_month: # loops over the dates of the month
+#         dates_practiced = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #all logged practice dates, formatted
+#         if dates_practiced:
+#             dates_practiced_in_month.append((date, dates_practiced.dates_practiced_in_month))
+#         else:
+#             dates_practiced_in_month.append((date, 0))
+
+#     data = {}
+#     data['dates_practiced'] = [datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:10] for date, min_prac in dates_practiced_in_month]
+#     data['dates_practiced_in_month'] = [min_prac for date, min_prac in dates_practiced_in_month]
+
+#     print('!!!!!!!!\n!!!!!!!!!!!!!!\n!!!!!!!!!!!!!Dates Practiced In Month')
+#     print(dates_practiced_in_month)
 
 
 #__________________________________functions for messaging__________________________________#
