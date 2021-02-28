@@ -231,46 +231,49 @@ def seed_chart_one():
         
     data = {}
     data['dates_practiced'] = [datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:10] for date, min_prac in minutes_practiced]
+    #2021-02-28 21:05:57,764 INFO sqlalchemy.engine.base.Engine {'log_date_1': datetime.date(2021, 2, 23), 'param_1': 1}
+    #<Log log_date=2021-02-22 student_id=4 log_id=6
     data['minutes_practiced'] = [min_prac for date, min_prac in minutes_practiced]
+    #[('2021-2-28', 0), ('2021-2-27', 0), ('2021-2-26', 120), ('2021-2-25', 12), ('2021-2-24', 45), ('2021-2-23', 35), ('2021-2-22', 100)]
 
     return jsonify(data) 
 
-# @app.route('/charts/2.json')
-# def seed_chart_two():
-#     """ Passes data for days practiced over four weeks to chart #2 as JSON"""
+@app.route('/charts/2.json')
+def seed_chart_two():
+    """ Passes data for days practiced over four weeks to chart #2 as JSON"""
 
-#     student = crud.get_student_by_id(session["student_id"])
-#     student_logs = crud.get_logs_by_student_id(student.student_id)
+    student = crud.get_student_by_id(session["student_id"])
+    student_logs = crud.get_logs_by_student_id(student.student_id)
 
-#     dates_in_month = [] # holds todays date and previous 27 dates as list items
-#     date = datetime.now()
-#     for idx in range(28):
-#         dater = str(date.year) + '-' + str(date.month) + '-' + str(date.day)
-#         dates_in_month.append(dater)
-#         date = date - timedelta(days=1)
+    dates_in_month = [] # holds todays date and previous 27 dates as list items
+    date = datetime.now()
+    for idx in range(28):
+        dater = str(date.year) + '-' + str(date.month) + '-' + str(date.day) #formats each date
+        dates_in_month.append(dater) #adds formatted date to dates_in_month list
+        date = date - timedelta(days=1) #goes back a day from current date
 
-#     week_1 = dates_in_month[:7] #current week
-#     week_2 = dates_in_month[7:14] #one week ago
-#     week_3 = dates_in_month[14:21]#two weeks ago
-#     week_4 = dates_in_month[21:]#three weeks ago
+    #week breakdown:
+        # week_1 = dates_in_month[:7] #current week
+        # week_2 = dates_in_month[7:14] #one week ago
+        # week_3 = dates_in_month[14:21]#two weeks ago
+        # week_4 = dates_in_month[21:]#three weeks ago
 
+    log_date = []
 
-#     dates_practiced_in_month = []
+    for date in dates_in_month: # loops over each date of the month
+        monthly_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #finds and formatts all logged practice dates in DB
+        if monthly_dates:
+            log_date.append((date, 1)) #adds to log_date date in month, 1 to signify a practice session that date
+        else:
+            log_date.append((date, 0)) #adds date in month, 0 to signify no practice session that date
 
-#     for date in dates_in_month: # loops over the dates of the month
-#         dates_practiced = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #all logged practice dates, formatted
-#         if dates_practiced:
-#             dates_practiced_in_month.append((date, dates_practiced.dates_practiced_in_month))
-#         else:
-#             dates_practiced_in_month.append((date, 0))
+    data = {}
+    data['dates_in_month'] = [datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:10] for date, date_prac in log_date]
+    #['2021-2-28', '2021-2-27', '2021-2-26', '2021-2-25', '2021-2-24', '2021-2-23', '2021-2-22', '2021-2-21', '2021-2-20', '2021-2-19', '2021-2-18', '2021-2-17', '2021-2-16', '2021-2-15', '2021-2-14', '2021-2-13', '2021-2-12', '2021-2-11', '2021-2-10', '2021-2-9', '2021-2-8', '2021-2-7', '2021-2-6', '2021-2-5', '2021-2-4', '2021-2-3', '2021-2-2', '2021-2-1']
+    data['log_date'] = [date_prac for date, date_prac in log_date]
+    #[('2021-2-28', 0), ('2021-2-27', 0), ('2021-2-26', 1), ('2021-2-25', 1), ('2021-2-24', 1), ('2021-2-23', 1), ('2021-2-22', 1), ('2021-2-21', 1), ('2021-2-20', 0), ('2021-2-19', 0), ('2021-2-18', 0), ('2021-2-17', 1), ('2021-2-16', 1), ('2021-2-15', 0), ('2021-2-14', 1), ('2021-2-13', 0), ('2021-2-12', 1), ('2021-2-11', 0), ('2021-2-10', 1), ('2021-2-9', 0), ('2021-2-8', 1), ('2021-2-7', 1), ('2021-2-6', 1), ('2021-2-5', 1), ('2021-2-4', 0), ('2021-2-3', 1), ('2021-2-2', 0), ('2021-2-1', 0)]
 
-#     data = {}
-#     data['dates_practiced'] = [datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:10] for date, min_prac in dates_practiced_in_month]
-#     data['dates_practiced_in_month'] = [min_prac for date, min_prac in dates_practiced_in_month]
-
-#     print('!!!!!!!!\n!!!!!!!!!!!!!!\n!!!!!!!!!!!!!Dates Practiced In Month')
-#     print(dates_practiced_in_month)
-
+    return jsonify(data) 
 
 #__________________________________functions for messaging__________________________________#
 @app.route('/message')
