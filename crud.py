@@ -103,6 +103,8 @@ def get_minutes_practiced(student_id):
 def search_logs_by_date(log_date):
     return Log.query.filter(Log.log_date == log_date).first()
 
+
+
 #__________________________functions for Assigning Teachers___________________________#
 
 def group_students_by_teacher(private_teacher):

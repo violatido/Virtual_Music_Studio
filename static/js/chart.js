@@ -68,7 +68,7 @@ $.get('/charts.json', (res) => {
 
 
 
-// ________________________________________________________________________________________________________________________
+// ___________________________________________Chart 2_____________________________________________________________________________
 $.get('/charts/2.json', (res) => {
     const dates_in_month = res.dates_in_month; // give us a list of dates over 4 weeks
     // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22", "Feb 21", "Feb 20", "Feb 19", "Feb 18", "Feb 17", "Feb 16", "Feb 15", "Feb 14", "Feb 13", "Feb 12", "Feb 11", "Feb 10", "Feb  9", "Feb  8", "Feb  7", "Feb  6", "Feb  5", "Feb  4", "Feb  3", "Feb  2", "Feb  1"]
@@ -102,7 +102,7 @@ $.get('/charts/2.json', (res) => {
     let myChart3 = document.getElementById("chart-3").getContext('2d');
 
 
-    let colors = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5B7B', '#355C7D', '#A8A0B1'];
+    let colors = ['#F8B195', '#F67280', '#A8A0B1', '#6C5B7B', '#355C7D', '#A8A0B1'];
     let chart3 = new Chart(myChart3, {
         type: 'bar',
         data: {
@@ -159,7 +159,10 @@ $.get('/charts/2.json', (res) => {
     })
 });
 
-//___________________________
+
+
+// ___________________________________________Chart 3_____________________________________________________________________________
+
 
 $.get('/charts/3.json', (res) => {
     const dates_in_month = res.dates_in_month; // give us a list of dates over 4 weeks
@@ -189,9 +192,7 @@ $.get('/charts/3.json', (res) => {
 
     const minutes_list = [week1, week2, week3, week4];
     
-    console.log(minutes_per_week.slice(7, 13))
-
-    let colors = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5B7B', '#355C7D'];
+    let colors = ['#FCD5BE;', '#A8A0B1', '#F67280', '#355C7D'];
 
     // myChart1 = the query in 2D context
     let myChart4 = document.getElementById("myChart4").getContext('2d');
@@ -261,4 +262,12 @@ $.get('/charts/3.json', (res) => {
             }
         }    
     })
+});
+
+
+// ___________________________________________Chart 4_____________________________________________________________________________
+$.get('/charts/4.json', (res) => {
+    // const dates_in_month = res.dates_in_month; // give us a list of dates over 4 weeks
+    const dates = res.dates_in_month;
+    console.log(dates);
 });
