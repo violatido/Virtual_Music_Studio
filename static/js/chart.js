@@ -132,13 +132,13 @@ $.get('/charts/2.json', (res) => {
     let myChart3 = document.getElementById("chart-3").getContext('2d');
 
 
-    let colors3 = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5 B7B', '#355C7D', '#A8A0B1'];
+    let colors3 = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5B7B', '#355C7D', '#A8A0B1'];
     let chart3 = new Chart(myChart3, {
         type: 'bar',
         data: {
-            labels: viewDates, 
+            labels: viewDates.reverse(), 
             datasets: [ {
-                data: dates_practiced_in_month,
+                data: dates_practiced_in_month.reverse(),
                 backgroundColor: colors3
             }] 
         },
@@ -187,4 +187,78 @@ $.get('/charts/2.json', (res) => {
             }
         }    
     })
+});
+
+//___________________________
+let labels4 = [];
+let data4 = [];
+let colors4 = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5B7B', '#355C7D'];
+
+// myChart1 = the query in 2D context
+let myChart4 = document.getElementById("myChart4").getContext('2d');
+
+// render the chart
+let chart4 = new Chart(myChart4, {
+    type: 'bar',
+    data: {
+        labels: labels4, 
+        datasets: [ {
+            data: data4,
+            backgroundColor: colors4
+        }] 
+    },
+    options: {
+        // title = the question we are asking
+        title: {
+            text: "How many minutes did you practice each week this month?",
+            display: true
+        },
+        legend: {
+            display: false
+        }
+    },
+    options: {
+        title: {
+            text: "How many days did you practice per week this past month?",
+            display: true
+        },
+        legend: {
+            display: false
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    suggestedMin: 0,
+                    suggestedMax: 7
+                }
+            }]
+        }
+    },
+    scales: {
+        xAxes: [
+            {
+                type: 'time',
+                time: {
+                    unit: 'day',
+                    round: 'day',
+                    displayFormats: {
+                        day: 'MMM D'
+                    },
+                },
+                distribution: 'series'
+            }
+        ],
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    },
+    tooltips: {
+        callbacks: {
+            title: (tooltipItem) => {
+                return moment(tooltipItem.label).format('MMM D');
+            }
+        }
+    }    
 });
