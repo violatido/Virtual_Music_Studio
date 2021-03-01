@@ -205,6 +205,7 @@ def seed_chart_one():
     student = crud.get_student_by_id(session["student_id"])
     student_logs = crud.get_logs_by_student_id(student.student_id)
 
+    # x-axis data: dates in the week
     practice_dates = [] # holds todays date and previous six days as list items
     date = datetime.now()
     for _ in range(7):
@@ -222,6 +223,7 @@ def seed_chart_one():
 
     minutes_practiced = []
 
+    # y-axis data: minutes practiced on each date in the week
     for date in practice_dates: # loops over the dates of the week
         dates_practiced = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #all practice dates 
         if dates_practiced:
@@ -245,6 +247,7 @@ def seed_chart_two():
     student = crud.get_student_by_id(session["student_id"])
     student_logs = crud.get_logs_by_student_id(student.student_id)
 
+    # x-axis data: dates in month (eventually divded into four weeks)
     dates_in_month = [] # holds todays date and previous 27 dates as list items
     date = datetime.now()
     for idx in range(28):
@@ -260,6 +263,7 @@ def seed_chart_two():
 
     log_date = []
 
+    # y-axis data: days practiced in each week of the month
     for date in dates_in_month: # loops over each date of the month
         monthly_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #finds and formatts all logged practice dates in DB
         if monthly_dates:
@@ -272,6 +276,44 @@ def seed_chart_two():
     #['2021-2-28', '2021-2-27', '2021-2-26', '2021-2-25', '2021-2-24', '2021-2-23', '2021-2-22', '2021-2-21', '2021-2-20', '2021-2-19', '2021-2-18', '2021-2-17', '2021-2-16', '2021-2-15', '2021-2-14', '2021-2-13', '2021-2-12', '2021-2-11', '2021-2-10', '2021-2-9', '2021-2-8', '2021-2-7', '2021-2-6', '2021-2-5', '2021-2-4', '2021-2-3', '2021-2-2', '2021-2-1']
     data['log_date'] = [date_prac for date, date_prac in log_date]
     #[('2021-2-28', 0), ('2021-2-27', 0), ('2021-2-26', 1), ('2021-2-25', 1), ('2021-2-24', 1), ('2021-2-23', 1), ('2021-2-22', 1), ('2021-2-21', 1), ('2021-2-20', 0), ('2021-2-19', 0), ('2021-2-18', 0), ('2021-2-17', 1), ('2021-2-16', 1), ('2021-2-15', 0), ('2021-2-14', 1), ('2021-2-13', 0), ('2021-2-12', 1), ('2021-2-11', 0), ('2021-2-10', 1), ('2021-2-9', 0), ('2021-2-8', 1), ('2021-2-7', 1), ('2021-2-6', 1), ('2021-2-5', 1), ('2021-2-4', 0), ('2021-2-3', 1), ('2021-2-2', 0), ('2021-2-1', 0)]
+
+    return jsonify(data) 
+
+
+@app.route('/charts/3.json')
+def seed_chart_three():
+    """ Passes data for minutes practiced over four weeks to chart #3 as JSON"""
+
+    student = crud.get_student_by_id(session["student_id"])
+    student_logs = crud.get_logs_by_student_id(student.student_id)
+
+    # x-axis data: dates in month (eventually divded into four weeks)
+    dates_in_month = [] # holds todays date and previous 27 dates as list items
+    date = datetime.now()
+    for idx in range(28):
+        dater = str(date.year) + '-' + str(date.month) + '-' + str(date.day) #formats each date
+        dates_in_month.append(dater) #adds formatted date to dates_in_month list
+        date = date - timedelta(days=1) #goes back a day from current date
+
+
+    minutes_practiced = []
+
+    # y-axis data: minutes practiced on each date in the month
+    for date in dates_in_month: # loops over the dates of the month
+        monthly_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #finds and formatts all logged practice dates in DB
+        if monthly_dates:
+            minutes_practiced.append((date, monthly_dates.minutes_practiced))
+        else:
+            minutes_practiced.append((date, 0))
+
+    data = {}
+    data['dates_in_month'] = [datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:10] for date, date_prac in minutes_practiced]
+    #['2021-3-1', '2021-2-28', '2021-2-27', '2021-2-26', '2021-2-25', '2021-2-24', '2021-2-23', '2021-2-22', '2021-2-21', '2021-2-20', '2021-2-19', '2021-2-18', '2021-2-17', '2021-2-16', '2021-2-15', '2021-2-14', '2021-2-13', '2021-2-12', '2021-2-11', '2021-2-10', '2021-2-9', '2021-2-8', '2021-2-7', '2021-2-6', '2021-2-5', '2021-2-4', '2021-2-3', '2021-2-2']
+    print('!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!\dates_in_month')
+    print(dates_in_month)
+    data['minutes_practiced'] = [min_prac for date, min_prac in minutes_practiced]
+    # [('2021-3-1', 45), ('2021-2-28', 0), ('2021-2-27', 0), ('2021-2-26', 120), ('2021-2-25', 12), ('2021-2-24', 45), ('2021-2-23', 35), ('2021-2-22', 100), ('2021-2-21', 22), ('2021-2-20', 0), ('2021-2-19', 45), ('2021-2-18', 22), ('2021-2-17', 23), ('2021-2-16', 45), ('2021-2-15', 0), ('2021-2-14', 10), ('2021-2-13', 0), ('2021-2-12', 72), ('2021-2-11', 0), ('2021-2-10', 42), ('2021-2-9', 0), ('2021-2-8', 50), ('2021-2-7', 65), ('2021-2-6', 35), ('2021-2-5', 122), ('2021-2-4', 40), ('2021-2-3', 25), ('2021-2-2', 0)]
+
 
     return jsonify(data) 
 
