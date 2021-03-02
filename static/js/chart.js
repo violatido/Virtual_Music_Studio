@@ -73,8 +73,8 @@ $.get('/charts/2.json', (res) => {
     const datesInMonth = res.dates_in_month; // give us a list of dates over 4 weeks
     // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22", "Feb 21", "Feb 20", "Feb 19", "Feb 18", "Feb 17", "Feb 16", "Feb 15", "Feb 14", "Feb 13", "Feb 12", "Feb 11", "Feb 10", "Feb  9", "Feb  8", "Feb  7", "Feb  6", "Feb  5", "Feb  4", "Feb  3", "Feb  2", "Feb  1"]
     let datesPracticedInMonth = res.log_date; // associated dates on which student practiced
-    // [0, 1, 1, 1, 1, 1, 1 | 1, 1, 1, 0, 1, 1, 1 | 1, 0, 1, 0, 1, 0, 1 | 0, 1, 1, 1, 1, 1, 1]
-    // [6, 6, 4, 6]
+    //[0, 1, 1, 1, 1, 1, 1 | 1, 1, 1, 0, 1, 1, 1 | 1, 0, 1, 0, 1, 0, 1 | 0, 1, 1, 1, 1, 1, 1]    
+    //[6, 6, 4, 6]
 
     let viewDates = [
                         `${datesInMonth[6]} - ${datesInMonth[0]}`, // Feb 28 - Feb 21
@@ -82,40 +82,25 @@ $.get('/charts/2.json', (res) => {
                         `${datesInMonth[20]} - ${datesInMonth[14]}`, 
                         `${datesInMonth[27]} - ${datesInMonth[21]}`
                     ];
-//     
-    // const countDates = function(numList) {
-    //     let count = 0;
     
-    //     for (let num of numList) {
-    //         count += num;
-    //     }
-    //     return count;
-    // };
+    datesPracticedInMonth.unshift(0)
 
     const countDates = (numList) => {
         let emptylist = [];
         let count = 0;
-
-        for (let i = 0; i < numList.length; i ++) {
-            if (i !== 0 && i % 6 === 0) {
-                count += numList[i];
-                emptylist.push(count);
+        
+        for (let i = 1; i < numList.length; i ++) {
+            count += numList[i];
+        
+            if (i % 7 === 0) {
+                emptylist.push(count)
                 count = 0;
             }
-            count += numList[i];
         }
         return emptylist;
     }
-
-    console.log(countDates(datesPracticedInMonth))
-    let week = countDates(datesPracticedInMonth)
-
-    // let week1 = countDates(datesPracticedInMonth.slice(0, 7));
-    // let week2 = countDates(datesPracticedInMonth.slice(7, 14));
-    // let week3 = countDates(datesPracticedInMonth.slice(14, 21));
-    // let week4 = countDates(datesPracticedInMonth.slice(21, 28));
-
-    // datesPracticedInMonth = [week1, week2, week3, week4];
+    
+    let weeks = countDates(datesPracticedInMonth);
 
 
     let myChart3 = document.getElementById("chart-3").getContext('2d');
@@ -127,7 +112,7 @@ $.get('/charts/2.json', (res) => {
         data: {
             labels: viewDates.reverse(), //datesPracticedInMonth.reverse()
             datasets: [ {
-                data: week.reverse(),
+                data: weeks.reverse(),
                 backgroundColor: colors
             }] 
         },
@@ -195,6 +180,7 @@ $.get('/charts/3.json', (res) => {
         `${datesInMonth[27]} - ${datesInMonth[21]}`
     ];
 
+    
     const countMinutes = function(num_list) {
         let count = 0;
     
