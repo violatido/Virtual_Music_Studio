@@ -318,7 +318,7 @@ def seed_chart_four():
     # x-axis data: dates in month (eventually divded into four weeks)
     dates_in_month = [] # holds todays date and previous 27 dates as list items
     date = datetime.now()
-    for idx in range(28):
+    for idx in range(365):
         dater = str(date.year) + '-' + str(date.month) + '-' + str(date.day) #formats each date
         dates_in_month.append(dater) #adds formatted date to dates_in_month list
         date = date - timedelta(days=1) #goes back a day from current date
@@ -341,7 +341,6 @@ def seed_chart_four():
     data['minutes_practiced'] = [min_prac for date, min_prac in minutes_practiced]
 
     return jsonify(data) 
-
 
 
 #__________________________________functions for messaging__________________________________#

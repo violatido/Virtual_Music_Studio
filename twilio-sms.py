@@ -5,20 +5,22 @@ from twilio.rest import Client
 
 # Your Account Sid and Auth Token from twilio.com/console
 # and set the environment variables. See http://twil.io/secure
-account_sid = os.environ.get('twilio_account_sid')
-auth_token = os.environ.get('twilio_auth_token')
+account_sid = os.environ.get('ACCOUNT_SID')
+auth_token = os.environ.get('AUTH_TOKEN')
 client = Client(account_sid, auth_token)
 
+# conversation = client.conversations \
+#                      .conversations \
+#                      .create(friendly_name='My First Conversation')
+
+# conversation.sid = CH2ceade900b8946e1892babf48e194d2d
+
 conversation = client.conversations \
-                     .conversations \
-                     .create(friendly_name='My First Conversation')
+                     .conversations('CH2ceade900b8946e1892babf48e194d2d') \
+                     .fetch()
 
-print(conversation.sid)
+print(conversation.chat_service_sid)
 
-participant = client.conversations \
-  .conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-    .participants \
-    .create(
-        messaging_binding_address='<+16106806107>',
-        messaging_binding_proxy_address='<+17067409285>'
-    )
+# chat service ID = IS3a14601e02ca48d581a251a5c5cb57ba
+
+# twilio token:chat --identity testPineapple --chat-service-sid IS3a14601e02ca48d581a251a5c5cb57ba --profile project-danger
