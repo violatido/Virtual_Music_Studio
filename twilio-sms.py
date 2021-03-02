@@ -19,8 +19,6 @@ conversation = client.conversations \
                      .conversations('CH2ceade900b8946e1892babf48e194d2d') \
                      .fetch()
 
-print(conversation.chat_service_sid)
-
 # chat service ID = IS3a14601e02ca48d581a251a5c5cb57ba
 
 # twilio token:chat --identity testPineapple --chat-service-sid IS3a14601e02ca48d581a251a5c5cb57ba --profile project-danger

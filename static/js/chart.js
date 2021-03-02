@@ -75,7 +75,6 @@ $.get('/charts/2.json', (res) => {
     let datesPracticedInMonth = res.log_date; // associated dates on which student practiced
     // [0, 1, 1, 1, 1, 1, 1 | 1, 1, 1, 0, 1, 1, 1 | 1, 0, 1, 0, 1, 0, 1 | 0, 1, 1, 1, 1, 1, 1]
     // [6, 6, 4, 6]
-    console.log(datesPracticedInMonth)
 
     let viewDates = [
                         `${datesInMonth[6]} - ${datesInMonth[0]}`, // Feb 28 - Feb 21
