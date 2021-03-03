@@ -110,7 +110,7 @@ $('#create_log').on('submit', (evt) => {
 $('#message-id').on('submit', (evt) => {
     evt.preventDefault();
 
-    const myMessage = { "my-message": $('#my-message').val() }
+    const myMessage = { "my_message": $('#my_message').val() }
 
     console.log(myMessage)
     $.post("/api/messages", myMessage, (res) => {
@@ -118,12 +118,4 @@ $('#message-id').on('submit', (evt) => {
             `Message sent! Reads: ${res.my_message}`
         )
     });
-});
-
-
-//____________________________________Event for student profile hyperlinks_________________________________________
-
-$('#student-profile-link').on('click', (evt) => {
-    evt.preventDefault();
-
 });

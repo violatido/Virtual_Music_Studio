@@ -310,40 +310,40 @@ def seed_chart_three():
 
     return jsonify(data) 
 
+#
+    # @app.route('/charts/4.json')
+    # def seed_chart_four():
+    #     """ Passes data for days practiced per months over a year to chart #3 as JSON """
 
-@app.route('/charts/4.json')
-def seed_chart_four():
-    """ Passes data for days practiced per months over a year to chart #3 as JSON """
+    #     student = crud.get_student_by_id(session["student_id"])
+    #     student_logs = crud.get_logs_by_student_id(student.student_id)
 
-    student = crud.get_student_by_id(session["student_id"])
-    student_logs = crud.get_logs_by_student_id(student.student_id)
+    #     # x-axis data: dates in month (eventually divded into four weeks)
+    #     dates_in_month = [] # holds todays date and previous 27 dates as list items
+    #     date = datetime.now()
+    #     for idx in range(28):
+    #         dater = str(date.year) + '-' + str(date.month) + '-' + str(date.day) #formats each date
+    #         dates_in_month.append(dater) #adds formatted date to dates_in_month list
+    #         date = date - timedelta(days=1) #goes back a day from current date
 
-    # x-axis data: dates in month (eventually divded into four weeks)
-    dates_in_month = [] # holds todays date and previous 27 dates as list items
-    date = datetime.now()
-    for idx in range(28):
-        dater = str(date.year) + '-' + str(date.month) + '-' + str(date.day) #formats each date
-        dates_in_month.append(dater) #adds formatted date to dates_in_month list
-        date = date - timedelta(days=1) #goes back a day from current date
-
-    minutes_practiced = []
-    # y-axis data: minutes practiced on each date in the month
-    for date in dates_in_month: # loops over the dates of the month
-        monthly_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #finds and formatts all logged practice dates in DB
-        if monthly_dates:
-            minutes_practiced.append((date, monthly_dates.minutes_practiced))
-        else:
-            minutes_practiced.append((date, 0))
-    
-    format_date = datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:7] #Feb
+    #     minutes_practiced = []
+    #     # y-axis data: minutes practiced on each date in the month
+    #     for date in dates_in_month: # loops over the dates of the month
+    #         monthly_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #finds and formatts all logged practice dates in DB
+    #         if monthly_dates:
+    #             minutes_practiced.append((date, monthly_dates.minutes_practiced))
+    #         else:
+    #             minutes_practiced.append((date, 0))
+        
+    #     format_date = datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:7] #Feb
 
 
-    data = {}
-    data['dates_in_month'] = [format_date for date, date_prac in minutes_practiced]
-    #['2021-3-1', '2021-2-28', '2021-2-27', '2021-2-26', '2021-2-25', '2021-2-24', '2021-2-23', '2021-2-22', '2021-2-21', '2021-2-20', '2021-2-19', '2021-2-18', '2021-2-17', '2021-2-16', '2021-2-15', '2021-2-14', '2021-2-13', '2021-2-12', '2021-2-11', '2021-2-10', '2021-2-9', '2021-2-8', '2021-2-7', '2021-2-6', '2021-2-5', '2021-2-4', '2021-2-3', '2021-2-2']
-    data['minutes_practiced'] = [min_prac for date, min_prac in minutes_practiced]
+    #     data = {}
+    #     data['dates_in_month'] = [format_date for date, date_prac in minutes_practiced]
+    #     #['2021-3-1', '2021-2-28', '2021-2-27', '2021-2-26', '2021-2-25', '2021-2-24', '2021-2-23', '2021-2-22', '2021-2-21', '2021-2-20', '2021-2-19', '2021-2-18', '2021-2-17', '2021-2-16', '2021-2-15', '2021-2-14', '2021-2-13', '2021-2-12', '2021-2-11', '2021-2-10', '2021-2-9', '2021-2-8', '2021-2-7', '2021-2-6', '2021-2-5', '2021-2-4', '2021-2-3', '2021-2-2']
+    #     data['minutes_practiced'] = [min_prac for date, min_prac in minutes_practiced]
 
-    return jsonify(data) 
+    #     return jsonify(data) 
 
 
 #__________________________________functions for messaging__________________________________#
@@ -367,14 +367,17 @@ def send_message():
         # return the amount of minutes practiced --> put it inside an f string
 
         # send out this message at a certain time - maybe sleeper function
+
     message = client.messages.create(
-                        body= request.form.get('my-message'),
+                        body= request.form.get('my_message'),
                         to=os.environ["MY_PHONE"],
                         from_=os.environ["TWILIO_PHONE"]
                     )
 
-    messages = {}
-    return jsonify(messages)
+    my_message = request.form.get('my_message')
+
+    return jsonify({'my_message': my_message})
+    # return jsonify({'student_fname': student_fname, 'student_lname': student_lname})
 
 
 if __name__ == '__main__':
