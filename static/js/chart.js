@@ -181,42 +181,42 @@ $.get('/charts/3.json', (res) => {
         `${datesInMonth[27]} - ${datesInMonth[21]}`
     ];
 
-    // minutesPerWeek.unshift(0)
+    minutesPerWeek.unshift(0)
 
-    // const countDates = (numList) => {
-    // let emptylist = [];
-    // let count = 0;
+    const countDates = (numList) => {
+    let emptylist = [];
+    let count = 0;
 
-    // for (let i = 1; i < numList.length; i ++) {
-    //     count += numList[i];
+    for (let i = 1; i < numList.length; i ++) {
+        count += numList[i];
 
-    //     if (i % 7 === 0) {
-    //     emptylist.push(count)
-    //     count = 0;
-    //     }
-    // }
-    // return emptylist
-    // };
-
-    // let minutesWeek =  countDates(minutesPerWeek);
-    // console.log(minutesWeek)
-
-//    
-    const countMinutes = function(num_list) {
-        let count = 0;
-    
-        for (let num of num_list) {
-            count += num;
+        if (i % 7 === 0) {
+        emptylist.push(count)
+        count = 0;
         }
-        return count;
+    }
+    return emptylist
     };
 
-    let week1 = countMinutes(minutesPerWeek.slice(0, 7));
-    let week2 = countMinutes(minutesPerWeek.slice(7, 14));
-    let week3 = countMinutes(minutesPerWeek.slice(14, 21));
-    let week4 = countMinutes(minutesPerWeek.slice(21, 28));
+    let minutesWeek =  countDates(minutesPerWeek);
+    console.log(minutesWeek)
 
-    let minutesWeek = [week1, week2, week3, week4];
+//    
+    // const countMinutes = function(num_list) {
+    //     let count = 0;
+    
+    //     for (let num of num_list) {
+    //         count += num;
+    //     }
+    //     return count;
+    // };
+
+    // let week1 = countMinutes(minutesPerWeek.slice(0, 7));
+    // let week2 = countMinutes(minutesPerWeek.slice(7, 14));
+    // let week3 = countMinutes(minutesPerWeek.slice(14, 21));
+    // let week4 = countMinutes(minutesPerWeek.slice(21, 28));
+
+    // let minutesWeek = [week1, week2, week3, week4];
     
     let colors = ['#FCD5BE;', '#A8A0B1', '#F67280', '#355C7D'];
     let myChart4 = document.getElementById("myChart4").getContext('2d');
