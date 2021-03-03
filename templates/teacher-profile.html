@@ -14,19 +14,32 @@
     </ul>
 </div>
 {% endif %}  
-<div>
-  <h3>List of Students</h3>
-{% for student in teacher.students%}
-  <div>{{ student.student_fname}} {{ student.student_lname}} 
-    <ul>
-      <li>Student ID #: {{ student.student_id }}</li>
-      <li>Student email: {{ student.student_email }}</li>
-      <li>Program name: {{ student.program_name }}</li>
-      <li>Instrument: {{ student.instrument }}</li>
+<div class="container-main">
+  <div>
+    <h3>List of Students</h3>
 
-    </ul>
+  <div class="row" id="tp-row-1">
+    <div class="col-sm-6" id="tp-col-1">
+      <div class="row" id="tp-row-2">
+        {% for student in teacher.students%}
+        <div class="col-lg-6" id="tp-loop-col">
+          <div class="card" style="width: 14rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{ student.student_fname}} {{ student.student_lname}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Student ID #: {{ student.student_id }}</h6>    
+              <ul class="card-text">
+                <li>Student ID #: {{ student.student_id }}</li>
+                <li>Student email: {{ student.student_email }}</li>
+                <li>Program name: {{ student.program_name }}</li>
+                <li>Instrument: {{ student.instrument }}</li>
+              </ul>
+              <a href="#" class="card-link">Student Profile Link</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
   </div>
 </div>
-{% endfor %}
-<iframe src="https://calendar.google.com/calendar/embed?src=f57cjm1hkqdj0nqaioc3180tlk%40group.calendar.google.com&ctz=America%2FNew_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
 {% endblock %}

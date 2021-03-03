@@ -352,12 +352,12 @@ def view_messages():
 
     return render_template('message.html')
 
-
 @app.route('/api/messages', methods=["POST"])
 def send_message():
+    """ Sends a text to user from submit button on message.html """
+
     account_sid = os.environ.get('ACCOUNT_SID')
     auth_token = os.environ.get('AUTH_TOKEN')
-    # messaging_sid = os.environ.get('messaging_service_sid') ????
     client = Client(account_sid, auth_token)
 
     message = client.messages.create(
@@ -372,6 +372,9 @@ def send_message():
     messages['message 1'] = ["This is message 1"]
     return jsonify(messages)
 
+#todo:
+    # make it so that a student can message a teacher and vice versa
+    # have past messages saved to the message feed
 
 
 
