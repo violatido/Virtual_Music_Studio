@@ -28,12 +28,14 @@
               <h5 class="card-title">{{ student.student_fname}} {{ student.student_lname}}</h5>
               <h6 class="card-subtitle mb-2 text-muted">Student ID #: {{ student.student_id }}</h6>    
               <ul class="card-text">
-                <li>Student ID #: {{ student.student_id }}</li>
+                <li id="student_id_profile">Student ID #: {{ student.student_id }}</li>
                 <li>Student email: {{ student.student_email }}</li>
                 <li>Program name: {{ student.program_name }}</li>
                 <li>Instrument: {{ student.instrument }}</li>
               </ul>
-              <a href="#" class="card-link">Student Profile Link</a>
+              <form action="">
+                <a href="#" class="card-link" id="student-profile-link">Student Profile Link</a>
+              </form>
             </div>
           </div>
         </div>

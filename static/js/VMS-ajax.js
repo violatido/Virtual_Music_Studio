@@ -105,6 +105,7 @@ $('#create_log').on('submit', (evt) => {
     });
 });
 
+//_________________________________________Event for sending a text_________________________________________________
 
 $('#message-id').on('submit', (evt) => {
     evt.preventDefault();
@@ -117,4 +118,12 @@ $('#message-id').on('submit', (evt) => {
             `Message sent! Reads: ${res.my_message}`
         )
     });
+});
+
+
+//____________________________________Event for student profile hyperlinks_________________________________________
+
+$('#student-profile-link').on('click', (evt) => {
+    evt.preventDefault();
+
 });

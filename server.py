@@ -86,21 +86,11 @@ def student_login():
         student_login_email = request.form.get('student_login_email')
         
         student=crud.get_student_by_email(student_login_email)
-        # session['student'] = {
-        #     "student_id": student.student_id,
-        #     "student_email": student.student_email,
-        #     "student_fname": student.student_fname,
-        #     'student_lname': student.student_lname,
-        #     # "private_teacher": student.private_teacher,
-        #     "program_name": student.program_name,
-        #     "instrument": student.instrument
-        #     }
-
         session["student_id"]=student.student_id
 
         return redirect('/student-profile')
     else:
-        return jsonify({'status': 'error'})
+        return jsonify({'status': 'error, login credentials incorrect'})
 
 @app.route('/student-portal-create', methods=["POST"])
 def add_student():
@@ -143,6 +133,18 @@ def view_teacher_profile():
 
 
     return render_template('teacher-profile.html', teacher=teacher, student=student)
+
+@app.route('/student-profile/<student_id>')
+def go_to_student_profile(student_id):
+
+    student_id = request.form.get()
+
+    teacher = crud.get_teacher_by_id(session["teacher_id"])
+    student = crud.get_student_by_id(student_id)
+
+
+    return redirect('/student-profile')
+
 
 #________________________________________functions for adding practice logs________________________________________#
 
@@ -360,22 +362,20 @@ def send_message():
     auth_token = os.environ.get('AUTH_TOKEN')
     client = Client(account_sid, auth_token)
 
+    # figure out how to get all the practice times and add them together per week
+        # crud.get_practice_times(student_id)
+        # just have the practice times -> add them all up (for loop)
+        # return the amount of minutes practiced --> put it inside an f string
+
+        # send out this message at a certain time - maybe sleeper function
     message = client.messages.create(
-                        body="You have unread messages in VMS. Log on to read and reply!",
+                        body= request.form.get('my-message'),
                         to=os.environ["MY_PHONE"],
                         from_=os.environ["TWILIO_PHONE"]
                     )
-    
-    my_message = request.form.get('my-message')
 
     messages = {}
-    messages['message 1'] = ["This is message 1"]
     return jsonify(messages)
-
-#todo:
-    # make it so that a student can message a teacher and vice versa
-    # have past messages saved to the message feed
-
 
 
 if __name__ == '__main__':
