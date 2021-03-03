@@ -134,16 +134,15 @@ def view_teacher_profile():
 
     return render_template('teacher-profile.html', teacher=teacher, student=student)
 
-@app.route('/student-profile/<student_id>')
+@app.route('/teacher-profile/<student_id>')
 def go_to_student_profile(student_id):
 
-    student_id = request.form.get()
 
     teacher = crud.get_teacher_by_id(session["teacher_id"])
     student = crud.get_student_by_id(student_id)
 
 
-    return redirect('/student-profile')
+    return render_template('student-profile.html', student=student, teacher=teacher)
 
 
 #________________________________________functions for adding practice logs________________________________________#
