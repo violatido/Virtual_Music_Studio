@@ -116,13 +116,17 @@ def add_student():
 #__________________________________________functions for viewing profiles__________________________________________#
 @app.route('/student-profile')
 def view_student_profile():
-    """Renders the VMS student profile page"""
+    """Renders the VMS student profile page
+    
+    Also updates the week displayed for student's weekly goals"""
 
     student = crud.get_student_by_id(session["student_id"])
     teacher = student.teacher
     private_teacher_email = request.form.get('private_teacher_email')
 
-    return render_template('student-profile.html', student=student, teacher=teacher)
+    date = "March 1"
+
+    return render_template('student-profile.html', student=student, teacher=teacher, date='date')
 
 @app.route('/teacher-profile')
 def view_teacher_profile():
@@ -143,7 +147,6 @@ def go_to_student_profile(student_id):
 
 
     return render_template('student-profile.html', student=student, teacher=teacher)
-
 
 #________________________________________functions for adding practice logs________________________________________#
 

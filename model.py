@@ -18,8 +18,6 @@ class Teacher(db.Model):
     teacher_password = db.Column(db.String(50), nullable=False)
 
     students = db.relationship('Student')
-    # messages = db.relationship('Message', backref='teacher', uselist=False)
-
 
     def __repr__(self):
         """Show Teacher ID/Corresponding User Id"""
@@ -40,11 +38,8 @@ class Student(db.Model):
     program_name = db.Column(db.String(50)) 
     instrument = db.Column(db.String(25), nullable=False)
 
-    # kathy: don't put the teacher/student relationship in the student table
     teacher = db.relationship('Teacher')
-    # # kathy: put student/log relationship in the student table 
     logs = db.relationship('Log', backref='student', uselist=False)
-    # messages = db.relationship('Message', backref='student', uselist=False)
 
     def __repr__(self):
         """Show Student ID"""
@@ -63,29 +58,9 @@ class Log(db.Model):
     pieces_practiced = db.Column(db.String(150), nullable=False)
     practice_notes = db.Column(db.String(200))
 
-
-
     def __repr__(self):
         """Show Log Info"""
         return f'<Log log_date={self.log_date} student_id={self.student_id} log_id={self.log_id}'
-
-############################################################################
-
-# class Message(db.Model):
-#     """Data Model for holding messages from students and teachers"""
-#     __tablename__ = 'messages'
-    
-#     message_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
-#     student_id = db.Column(db.Integer, db.ForeignKey('students.student_id'))
-#     teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.teacher_id'))
-#     message_text = db.Column(db.String, nullable=False)
-#     message_time = db.Column(db.datetime, nullable=False)
-
-
-#     def __repr__(self):
-#         """Show Student ID"""
-#         return f'<Message message_id={self.message_id} student_id = {self.student_id} taeacher_id = {self.teacher_id}>'
-
 
 
 
