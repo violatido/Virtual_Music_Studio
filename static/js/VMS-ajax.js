@@ -106,3 +106,15 @@ $('#create_log').on('submit', (evt) => {
 });
 
 
+$('#message-id').on('submit', (evt) => {
+    evt.preventDefault();
+
+    const myMessage = { "my-message": $('#my-message').val() }
+
+    console.log(myMessage)
+    $.post("/api/messages", myMessage, (res) => {
+        $('#sms-id').text(
+            `Message sent! Reads: ${res.my_message}`
+        )
+    });
+});

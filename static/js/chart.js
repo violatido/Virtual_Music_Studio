@@ -171,7 +171,8 @@ $.get('/charts/2.json', (res) => {
 $.get('/charts/3.json', (res) => {
     const datesInMonth = res.dates_in_month; // give us a list of dates over 4 weeks
     // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22", "Feb 21", "Feb 20", "Feb 19", "Feb 18", "Feb 17", "Feb 16", "Feb 15", "Feb 14", "Feb 13", "Feb 12", "Feb 11", "Feb 10", "Feb  9", "Feb  8", "Feb  7", "Feb  6", "Feb  5", "Feb  4", "Feb  3", "Feb  2", "Feb  1"]
-    const minutesPerWeek = res.minutes_practiced; // associated practice minutes only
+    let minutesPerWeek = res.minutes_practiced; // practice minutes per date
+    // [0, 45, 98, 50, 120, 12, 45, 35, 100, 22, 0, 45, 22, 23, 45, 0, 10, 0, 72, 0, 42, 0, 50, 65, 35, 122, 40, 25]
 
     let viewDates = [
         `${datesInMonth[6]} - ${datesInMonth[0]}`, // Feb 28 - Feb 21
@@ -180,7 +181,27 @@ $.get('/charts/3.json', (res) => {
         `${datesInMonth[27]} - ${datesInMonth[21]}`
     ];
 
-    
+    // minutesPerWeek.unshift(0)
+
+    // const countDates = (numList) => {
+    // let emptylist = [];
+    // let count = 0;
+
+    // for (let i = 1; i < numList.length; i ++) {
+    //     count += numList[i];
+
+    //     if (i % 7 === 0) {
+    //     emptylist.push(count)
+    //     count = 0;
+    //     }
+    // }
+    // return emptylist
+    // };
+
+    // let minutesWeek =  countDates(minutesPerWeek);
+    // console.log(minutesWeek)
+
+//    
     const countMinutes = function(num_list) {
         let count = 0;
     
@@ -195,25 +216,21 @@ $.get('/charts/3.json', (res) => {
     let week3 = countMinutes(minutesPerWeek.slice(14, 21));
     let week4 = countMinutes(minutesPerWeek.slice(21, 28));
 
-    const minutesList = [week1, week2, week3, week4];
+    let minutesWeek = [week1, week2, week3, week4];
     
     let colors = ['#FCD5BE;', '#A8A0B1', '#F67280', '#355C7D'];
-
-    // myChart1 = the query in 2D context
     let myChart4 = document.getElementById("myChart4").getContext('2d');
 
-    // render the chart
     let chart4 = new Chart(myChart4, {
         type: 'bar',
         data: {
             labels: viewDates.reverse(), 
             datasets: [ {
-                data: minutesList.reverse(),
+                data: minutesWeek.reverse(),
                 backgroundColor: colors
             }] 
         },
         options: {
-            // title = the question we are asking
             title: {
                 text: "How many minutes did you practice each week this month?",
                 display: true

@@ -1,10 +1,12 @@
 """Server for movie ratings app."""
-
+import os
 from flask import (Flask, render_template, request, flash, session, redirect, jsonify)
 from model import connect_to_db 
 from datetime import datetime, timedelta
 import crud 
 from jinja2 import StrictUndefined 
+from twilio.rest import Client
+
 
 app = Flask(__name__)
 app.secret_key = "dev"
@@ -318,7 +320,7 @@ def seed_chart_four():
     # x-axis data: dates in month (eventually divded into four weeks)
     dates_in_month = [] # holds todays date and previous 27 dates as list items
     date = datetime.now()
-    for idx in range(365):
+    for idx in range(28):
         dater = str(date.year) + '-' + str(date.month) + '-' + str(date.day) #formats each date
         dates_in_month.append(dater) #adds formatted date to dates_in_month list
         date = date - timedelta(days=1) #goes back a day from current date
@@ -349,6 +351,28 @@ def view_messages():
     """View text messages"""
 
     return render_template('message.html')
+
+
+@app.route('/api/messages', methods=["POST"])
+def send_message():
+    account_sid = os.environ.get('ACCOUNT_SID')
+    auth_token = os.environ.get('AUTH_TOKEN')
+    # messaging_sid = os.environ.get('messaging_service_sid') ????
+    client = Client(account_sid, auth_token)
+
+    message = client.messages.create(
+                        body="You have unread messages in VMS. Log on to read and reply!",
+                        to=os.environ["MY_PHONE"],
+                        from_=os.environ["TWILIO_PHONE"]
+                    )
+    
+    my_message = request.form.get('my-message')
+
+    messages = {}
+    messages['message 1'] = ["This is message 1"]
+    return jsonify(messages)
+
+
 
 
 if __name__ == '__main__':

@@ -7,18 +7,14 @@ from twilio.rest import Client
 # and set the environment variables. See http://twil.io/secure
 account_sid = os.environ.get('ACCOUNT_SID')
 auth_token = os.environ.get('AUTH_TOKEN')
+# messaging_sid = os.environ.get('messaging_service_sid') ????
 client = Client(account_sid, auth_token)
 
-# conversation = client.conversations \
-#                      .conversations \
-#                      .create(friendly_name='My First Conversation')
+message = client.messages.create(
+                    body="You have unread messages in VMS. Log on to read and reply!",
+                    to=os.environ["MY_PHONE"],
+                    from_=os.environ["TWILIO_PHONE"]
+                )
 
-# conversation.sid = CH2ceade900b8946e1892babf48e194d2d
-
-conversation = client.conversations \
-                     .conversations('CH2ceade900b8946e1892babf48e194d2d') \
-                     .fetch()
-
-# chat service ID = IS3a14601e02ca48d581a251a5c5cb57ba
-
-# twilio token:chat --identity testPineapple --chat-service-sid IS3a14601e02ca48d581a251a5c5cb57ba --profile project-danger
+# export TWILIO_ACCOUNT_SID=AC7de31e0e824bcdab8af440bd1a54effb
+# TWILIO_AUTH_TOKEN=aadd9e6fe1b0a00767bd20793b229cab

@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Home
+    Messages
 {% endblock %}
 {% block body %}
-<h1>Text messages</h1>
+<h1>Messages</h1>
+<form id="message-id" action="/message" method="post">
+    <p id="sms-id"></p>
+    <input type="text" id="my-message" name="my-message">
+    <input id="sms-submit" type="submit">
+</form>
 
 {% endblock %}
