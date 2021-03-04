@@ -90,12 +90,13 @@ $('practice_goal').on('submit', (evt) => {
     // converts student registration form into an object
     // const studentFormValues = $('#student_reg_form').serialize();
     const goalFormValues = { 
-        'student_fname': $('#student_fname').val(),
+        'days_goal': $('#days_goal').val(),
+        'total_practice_minutes': $('total_practice_minutes').val()
     } 
 
-    $.post("/student-portal-create", goalFormValues, (res) => {
-        $('#student_added_response').text(
-            `Student profile for ${res.student_fname} ${res.student_lname} has been created!`
+    $.post("/student-profile", goalFormValues, (res) => {
+        $('#total_practice_days').text(
+            `${res.days_goal}`
         );
     });
 });

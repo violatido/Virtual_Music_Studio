@@ -128,10 +128,13 @@ def view_student_profile():
     teacher = student.teacher
     private_teacher_email = request.form.get('private_teacher_email')
 
+    days_goal = request.form.get('days_goal')
+    minutes_goal = request.form.get('minutes_goal')
+
     date = datetime.now()
     dater = date.strftime("%c")[:3] + ', ' + date.strftime("%c")[4:10]
 
-    return render_template('student-profile.html', student=student, teacher=teacher, date=dater)
+    return render_template('student-profile.html', student=student, teacher=teacher, date=dater, days_goal=days_goal, minutes_goal=minutes_goal)
 
 @app.route('/teacher-profile')
 def view_teacher_profile():
@@ -150,7 +153,13 @@ def go_to_student_profile(student_id):
     teacher = crud.get_teacher_by_id(session["teacher_id"])
     student = crud.get_student_by_id(student_id)
 
-    return render_template('student-profile.html', student=student, teacher=teacher)
+    days_goal = request.form.get('days_goal')
+    minutes_goal = request.form.get('minutes_goal')
+
+    date = datetime.now()
+    dater = date.strftime("%c")[:3] + ', ' + date.strftime("%c")[4:10]
+
+    return render_template('student-profile.html', student=student, teacher=teacher, date=dater, days_goal=days_goal, minutes_goal=minutes_goal)
 
 #________________________________________functions for adding practice logs________________________________________#
 

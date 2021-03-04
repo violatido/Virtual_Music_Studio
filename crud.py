@@ -64,6 +64,7 @@ def create_log(log_date,
 
     return log 
 
+
 #__________________________functions for User verification___________________________#
 def verify_teacher(teacher_email, teacher_password):
     """Validates teacher email and password by finding matches in the database"""
@@ -102,8 +103,6 @@ def get_minutes_practiced(student_id):
 
 def search_logs_by_date(log_date):
     return Log.query.filter(Log.log_date == log_date).first()
-
-
 
 #__________________________functions for Assigning Teachers___________________________#
 
