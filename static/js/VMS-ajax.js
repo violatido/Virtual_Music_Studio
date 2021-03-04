@@ -83,6 +83,23 @@ $('#create_student').on('submit', (evt) => {
     });
 });
 
+//______________________________________Event for setting practice goals_________________________________________________
+$('practice_goal').on('submit', (evt) => {
+    evt.preventDefault();
+
+    // converts student registration form into an object
+    // const studentFormValues = $('#student_reg_form').serialize();
+    const goalFormValues = { 
+        'student_fname': $('#student_fname').val(),
+    } 
+
+    $.post("/student-portal-create", goalFormValues, (res) => {
+        $('#student_added_response').text(
+            `Student profile for ${res.student_fname} ${res.student_lname} has been created!`
+        );
+    });
+});
+
 
 //_________________________________________Event for creating logs___________________________________________________
 

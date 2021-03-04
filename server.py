@@ -61,7 +61,11 @@ def add_teacher():
     teacher_password = request.form.get('teacher_password')
 
     crud.create_teacher(teacher_fname, teacher_lname, teacher_email, teacher_phone, teacher_password)
-    return jsonify({'teacher_fname': teacher_fname, 'teacher_lname': teacher_lname})
+
+    if crud.get_teacher_by_email(teacher_email) == None:
+        return jsonify({'error': 'email already in use'})
+    else: 
+        return jsonify({'teacher_fname': teacher_fname, 'teacher_lname': teacher_lname})
 
 #_______________________________view functions for student login/registration___________________________________#
 @app.route('/student-portal')
@@ -124,9 +128,10 @@ def view_student_profile():
     teacher = student.teacher
     private_teacher_email = request.form.get('private_teacher_email')
 
-    date = "March 1"
+    date = datetime.now()
+    dater = date.strftime("%c")[:3] + ', ' + date.strftime("%c")[4:10]
 
-    return render_template('student-profile.html', student=student, teacher=teacher, date='date')
+    return render_template('student-profile.html', student=student, teacher=teacher, date=dater)
 
 @app.route('/teacher-profile')
 def view_teacher_profile():
@@ -144,7 +149,6 @@ def go_to_student_profile(student_id):
 
     teacher = crud.get_teacher_by_id(session["teacher_id"])
     student = crud.get_student_by_id(student_id)
-
 
     return render_template('student-profile.html', student=student, teacher=teacher)
 
