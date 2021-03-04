@@ -1,6 +1,7 @@
 "use strict"
 
 // _________________________________________Chart 1_______________________________________________________________
+// Chart for minutes practiced per day that week
 $.get('/charts.json', (res) => {
     const dates = res.dates_practiced; // give us a list of dates
     // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22"]
@@ -69,6 +70,8 @@ $.get('/charts.json', (res) => {
 
 
 // ___________________________________________Chart 2_____________________________________________________________________________
+// chart for days practiced/week over four weeks
+
 $.get('/charts/2.json', (res) => {
     const datesInMonth = res.dates_in_month; // give us a list of dates over 4 weeks
     // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22", "Feb 21", "Feb 20", "Feb 19", "Feb 18", "Feb 17", "Feb 16", "Feb 15", "Feb 14", "Feb 13", "Feb 12", "Feb 11", "Feb 10", "Feb  9", "Feb  8", "Feb  7", "Feb  6", "Feb  5", "Feb  4", "Feb  3", "Feb  2", "Feb  1"]
@@ -164,9 +167,8 @@ $.get('/charts/2.json', (res) => {
 });
 
 
-
 // ___________________________________________Chart 3_____________________________________________________________________________
-
+// chart for minutes practiced/week over four weeks
 
 $.get('/charts/3.json', (res) => {
     const datesInMonth = res.dates_in_month; // give us a list of dates over 4 weeks
@@ -269,9 +271,9 @@ $.get('/charts/3.json', (res) => {
     })
 });
 
-// ___________________________________________Chart 4_____________________________________________________________________________
-$.get('/charts/4.json', (res) => {
-    // const dates_in_month = res.dates_in_month; // give us a list of dates over 4 weeks
-    const dates = res.dates_in_month;
-    // console.log(dates);
+
+
+
+$.post( "/postmethod", {
+    javascript_data: data // JSON dict or simple value
 });

@@ -91,6 +91,9 @@ def get_teacher_by_id(teacher_id):
 def get_student_by_id(student_id):
     return Student.query.get(student_id)
 
+def get_students_by_teacher_id(teacher_id):
+    return Student.query.filter(Student.teacher_id == Teacher.teacher_id).first()
+
 #__________________________functions for Finding Logs/Log info___________________________#
 
 def get_logs_by_student_id(student_id):
@@ -110,7 +113,7 @@ def group_students_by_teacher(private_teacher):
     """ Locate all students by private teacher's name """
     return Student.query.filter(Student.private_teacher == private_teacher).all()
 
-
+    
 
 
 if __name__ == '__main__':
