@@ -225,19 +225,20 @@ def view_charts():
 
     return render_template('charts.html')
 
-def get_current_dates(date_range):
+def get_timedelta_dates(date_range):
     """ Timedelta function for finding current dates.
 
     The function returns the x-axis data for all three charts"""
 
-    practice_dates = []
+    timedelta_dates = []
     date = datetime.now()
     for _ in range(date_range):
         dater = str(date.year) + '-' + str(date.month) + '-' + str(date.day)
-        practice_dates.append(dater)
+        timedelta_dates.append(dater)
         date = date - timedelta(days=1)
 
-    return practice_dates
+    return timedelta_dates
+
 
 
 @app.route('/charts.json')
@@ -248,12 +249,12 @@ def seed_chart_one():
     student_logs = crud.get_logs_by_student_id(student.student_id)
 
     # x-axis data: dates in the week. holds todays date and previous six days as list items
-    practice_dates = (get_current_dates(date_range=7))
+    timedelta_dates = (get_timedelta_dates(date_range=7))
 
     minutes_practiced = []
 
     # y-axis data: minutes practiced on each date in the week
-    for date in practice_dates: # loops over the dates of the week
+    for date in timedelta_dates: # loops over the dates of the week
         dates_practiced = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #all practice dates 
         if dates_practiced:
             minutes_practiced.append((date, dates_practiced.minutes_practiced))
@@ -277,12 +278,12 @@ def seed_chart_two():
     student_logs = crud.get_logs_by_student_id(student.student_id)
 
     # x-axis data: dates in month (eventually divded into four weeks)
-    dates_in_month = (get_current_dates(date_range=28))
+    timedelta_dates = (get_timedelta_dates(date_range=28))
 
     log_date = []
 
     # y-axis data: days practiced in each week of the month
-    for date in dates_in_month: # loops over each date of the month
+    for date in timedelta_dates: # loops over each date of the month
         monthly_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #finds and formatts all logged practice dates in DB
         if monthly_dates:
             log_date.append((date, 1)) #adds to log_date date in month, 1 to signify a practice session that date
@@ -306,13 +307,13 @@ def seed_chart_three():
     student_logs = crud.get_logs_by_student_id(student.student_id)
 
     # x-axis data: dates in month (eventually divded into four weeks)
-    dates_in_month = (get_current_dates(date_range=28))
+    timedelta_dates = (get_timedelta_dates(date_range=28))
 
 
     minutes_practiced = []
 
     # y-axis data: minutes practiced on each date in the month
-    for date in dates_in_month: # loops over the dates of the month
+    for date in timedelta_dates: # loops over the dates of the month
         monthly_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #finds and formatts all logged practice dates in DB
         if monthly_dates:
             minutes_practiced.append((date, monthly_dates.minutes_practiced))
