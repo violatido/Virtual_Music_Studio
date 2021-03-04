@@ -230,6 +230,11 @@ def get_timedelta_dates(date_range):
 
     The function returns the x-axis data for all three charts"""
 
+    # possibly add crud funcs:
+
+        # student = crud.get_student_by_id(session["student_id"])
+        # student_logs = crud.get_logs_by_student_id(student.student_id) 
+
     timedelta_dates = []
     date = datetime.now()
     for _ in range(date_range):
@@ -239,6 +244,23 @@ def get_timedelta_dates(date_range):
 
     return timedelta_dates
 
+def loop_for_practice_minutes(date_range):
+    """Loop over timedelta dates and compare dates to log dates gathered from crud function
+    
+    gather practice log dates and associated minutes practiced to build y-axis data for charts one and three"""
+    
+    timedelta_dates = get_timedelta_dates(date_range)
+    minutes_practiced = []
+
+    # y-axis data: minutes practiced on each date in the date/week
+    for date in timedelta_dates: # loops over the dates of the week/month
+        student_log_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #all practice dates 
+        if student_log_dates:
+            minutes_practiced.append((date, student_log_dates.minutes_practiced))
+        else:
+            minutes_practiced.append((date, 0))
+
+    return minutes_practiced
 
 
 @app.route('/charts.json')
@@ -251,15 +273,16 @@ def seed_chart_one():
     # x-axis data: dates in the week. holds todays date and previous six days as list items
     timedelta_dates = (get_timedelta_dates(date_range=7))
 
-    minutes_practiced = []
+    # minutes_practiced = []
 
-    # y-axis data: minutes practiced on each date in the week
-    for date in timedelta_dates: # loops over the dates of the week
-        dates_practiced = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #all practice dates 
-        if dates_practiced:
-            minutes_practiced.append((date, dates_practiced.minutes_practiced))
-        else:
-            minutes_practiced.append((date, 0))
+    # # y-axis data: minutes practiced on each date in the week
+        # for date in timedelta_dates: # loops over the dates of the week
+        #     student_log_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #all practice dates 
+        #     if student_log_dates:
+        #         minutes_practiced.append((date, student_log_dates.minutes_practiced))
+        #     else:
+        #         minutes_practiced.append((date, 0))
+    minutes_practiced = loop_for_practice_minutes(date_range=7)
         
     data = {}
     data['dates_formatted'] = [datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:10] for date, min_prac in minutes_practiced]
@@ -269,6 +292,7 @@ def seed_chart_one():
 
 
     return jsonify(data) 
+
 
 @app.route('/charts/2.json')
 def seed_chart_two():
@@ -284,8 +308,8 @@ def seed_chart_two():
 
     # y-axis data: days practiced in each week of the month
     for date in timedelta_dates: # loops over each date of the month
-        monthly_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #finds and formatts all logged practice dates in DB
-        if monthly_dates:
+        student_log_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #finds and formatts all logged practice dates in DB
+        if student_log_dates:
             log_date.append((date, 1)) #adds to log_date date in month, 1 to signify a practice session that date
         else:
             log_date.append((date, 0)) #adds date in month, 0 to signify no practice session that date
@@ -310,15 +334,15 @@ def seed_chart_three():
     timedelta_dates = (get_timedelta_dates(date_range=28))
 
 
-    minutes_practiced = []
-
-    # y-axis data: minutes practiced on each date in the month
-    for date in timedelta_dates: # loops over the dates of the month
-        monthly_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #finds and formatts all logged practice dates in DB
-        if monthly_dates:
-            minutes_practiced.append((date, monthly_dates.minutes_practiced))
-        else:
-            minutes_practiced.append((date, 0))
+    # minutes_practiced = []
+    # # y-axis data: minutes practiced on each date in the month
+        # for date in timedelta_dates: # loops over the dates of the month
+        #     student_log_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #finds and formatts all logged practice dates in DB
+        #     if student_log_dates:
+        #         minutes_practiced.append((date, student_log_dates.minutes_practiced))
+        #     else:
+        #         minutes_practiced.append((date, 0))
+    minutes_practiced = loop_for_practice_minutes(date_range=28)
 
     data = {}
     data['dates_formatted'] = [datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:10] for date, date_prac in minutes_practiced]
