@@ -270,10 +270,3 @@ $.get('/charts/3.json', (res) => {
         }    
     })
 });
-
-
-
-
-$.post( "/postmethod", {
-    javascript_data: data // JSON dict or simple value
-});
