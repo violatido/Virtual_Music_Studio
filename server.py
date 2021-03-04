@@ -261,11 +261,11 @@ def seed_chart_one():
             minutes_practiced.append((date, 0))
         
     data = {}
-    data['dates_practiced'] = [datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:10] for date, min_prac in minutes_practiced]
-    #2021-02-28 21:05:57,764 INFO sqlalchemy.engine.base.Engine {'log_date_1': datetime.date(2021, 2, 23), 'param_1': 1}
-    #<Log log_date=2021-02-22 student_id=4 log_id=6
+    data['dates_formatted'] = [datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:10] for date, min_prac in minutes_practiced]
+    # ['Mar  4', 'Mar  3', 'Mar  2', 'Mar  1', 'Feb 28', 'Feb 27', 'Feb 26']
     data['minutes_practiced'] = [min_prac for date, min_prac in minutes_practiced]
-    #[('2021-2-28', 0), ('2021-2-27', 0), ('2021-2-26', 120), ('2021-2-25', 12), ('2021-2-24', 45), ('2021-2-23', 35), ('2021-2-22', 100)]
+    # [0, 0, 0, 45, 98, 50, 120]
+
 
     return jsonify(data) 
 
@@ -279,7 +279,6 @@ def seed_chart_two():
     # x-axis data: dates in month (eventually divded into four weeks)
     dates_in_month = (get_current_dates(date_range=28))
 
-
     log_date = []
 
     # y-axis data: days practiced in each week of the month
@@ -291,8 +290,11 @@ def seed_chart_two():
             log_date.append((date, 0)) #adds date in month, 0 to signify no practice session that date
 
     data = {}
-    data['dates_in_month'] = [datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:10] for date, date_prac in log_date]
+    data['dates_formatted'] = [datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:10] for date, date_prac in log_date]
+    # ['Mar  4', 'Mar  3', 'Mar  2', 'Mar  1', 'Feb 28', 'Feb 27', 'Feb 26', 'Feb 25', 'Feb 24', 'Feb 23', 'Feb 22', 'Feb 21', 'Feb 20', 'Feb 19', 'Feb 18', 'Feb 17', 'Feb 16', 'Feb 15', 'Feb 14', 'Feb 13', 'Feb 12', 'Feb 11', 'Feb 10', 'Feb  9', 'Feb  8', 'Feb  7', 'Feb  6', 'Feb  5']
     data['log_date'] = [date_prac for date, date_prac in log_date]
+    # [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1]
+
 
     return jsonify(data) 
 
@@ -318,10 +320,10 @@ def seed_chart_three():
             minutes_practiced.append((date, 0))
 
     data = {}
-    data['dates_in_month'] = [datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:10] for date, date_prac in minutes_practiced]
-    #['2021-3-1', '2021-2-28', '2021-2-27', '2021-2-26', '2021-2-25', '2021-2-24', '2021-2-23', '2021-2-22', '2021-2-21', '2021-2-20', '2021-2-19', '2021-2-18', '2021-2-17', '2021-2-16', '2021-2-15', '2021-2-14', '2021-2-13', '2021-2-12', '2021-2-11', '2021-2-10', '2021-2-9', '2021-2-8', '2021-2-7', '2021-2-6', '2021-2-5', '2021-2-4', '2021-2-3', '2021-2-2']
+    data['dates_formatted'] = [datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:10] for date, date_prac in minutes_practiced]
+    # ['Mar  4', 'Mar  3', 'Mar  2', 'Mar  1', 'Feb 28', 'Feb 27', 'Feb 26', 'Feb 25', 'Feb 24', 'Feb 23', 'Feb 22', 'Feb 21', 'Feb 20', 'Feb 19', 'Feb 18', 'Feb 17', 'Feb 16', 'Feb 15', 'Feb 14', 'Feb 13', 'Feb 12', 'Feb 11', 'Feb 10', 'Feb  9', 'Feb  8', 'Feb  7', 'Feb  6', 'Feb  5']
     data['minutes_practiced'] = [min_prac for date, min_prac in minutes_practiced]
-    # [('2021-3-1', 45), ('2021-2-28', 0), ('2021-2-27', 0), ('2021-2-26', 120), ('2021-2-25', 12), ('2021-2-24', 45), ('2021-2-23', 35), ('2021-2-22', 100), ('2021-2-21', 22), ('2021-2-20', 0), ('2021-2-19', 45), ('2021-2-18', 22), ('2021-2-17', 23), ('2021-2-16', 45), ('2021-2-15', 0), ('2021-2-14', 10), ('2021-2-13', 0), ('2021-2-12', 72), ('2021-2-11', 0), ('2021-2-10', 42), ('2021-2-9', 0), ('2021-2-8', 50), ('2021-2-7', 65), ('2021-2-6', 35), ('2021-2-5', 122), ('2021-2-4', 40), ('2021-2-3', 25), ('2021-2-2', 0)]
+    # [0, 0, 0, 45, 98, 50, 120, 12, 45, 35, 100, 22, 0, 45, 22, 23, 45, 0, 10, 0, 72, 0, 42, 0, 50, 65, 35, 122]
 
 
     return jsonify(data) 

@@ -3,7 +3,7 @@
 // _________________________________________Chart 1_______________________________________________________________
 // Chart for minutes practiced per day that week
 $.get('/charts.json', (res) => {
-    const dates = res.dates_practiced; // give us a list of dates
+    const dates = res.dates_formatted; // give us a list of dates
     // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22"]
     const practiceTimes = res.minutes_practiced; // associated practice minutes only
     // [0, 0, 120, 12, 45, 35, 100]
@@ -73,7 +73,7 @@ $.get('/charts.json', (res) => {
 // chart for days practiced/week over four weeks
 
 $.get('/charts/2.json', (res) => {
-    const datesInMonth = res.dates_in_month; // give us a list of dates over 4 weeks
+    const datesInMonth = res.dates_formatted; // give us a list of dates over 4 weeks
     // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22", "Feb 21", "Feb 20", "Feb 19", "Feb 18", "Feb 17", "Feb 16", "Feb 15", "Feb 14", "Feb 13", "Feb 12", "Feb 11", "Feb 10", "Feb  9", "Feb  8", "Feb  7", "Feb  6", "Feb  5", "Feb  4", "Feb  3", "Feb  2", "Feb  1"]
     let datesPracticedInMonth = res.log_date; // associated dates on which student practiced
     //[0, 1, 1, 1, 1, 1, 1 | 1, 1, 1, 0, 1, 1, 1 | 1, 0, 1, 0, 1, 0, 1 | 0, 1, 1, 1, 1, 1, 1]    
@@ -171,7 +171,7 @@ $.get('/charts/2.json', (res) => {
 // chart for minutes practiced/week over four weeks
 
 $.get('/charts/3.json', (res) => {
-    const datesInMonth = res.dates_in_month; // give us a list of dates over 4 weeks
+    const datesInMonth = res.dates_formatted; // give us a list of dates over 4 weeks
     // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22", "Feb 21", "Feb 20", "Feb 19", "Feb 18", "Feb 17", "Feb 16", "Feb 15", "Feb 14", "Feb 13", "Feb 12", "Feb 11", "Feb 10", "Feb  9", "Feb  8", "Feb  7", "Feb  6", "Feb  5", "Feb  4", "Feb  3", "Feb  2", "Feb  1"]
     let minutesPerWeek = res.minutes_practiced; // practice minutes per date
     // [0, 45, 98, 50, 120, 12, 45, 35, 100, 22, 0, 45, 22, 23, 45, 0, 10, 0, 72, 0, 42, 0, 50, 65, 35, 122, 40, 25]
