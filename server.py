@@ -371,7 +371,7 @@ def send_message():
     auth_token = os.environ.get('AUTH_TOKEN')
     client = Client(account_sid, auth_token)
     
-    # call the data by calling seed_chart_one()
+    # retrieve the data by calling seed_chart_one()
     data = seed_chart_one()
     # extract the minutes_practiced key values (min practiced per day this past week)
         # minutes_per_day = data['minutes_practiced] >>> [0, 0, 0, 45, 98, 50, 120]
@@ -386,7 +386,7 @@ def send_message():
             total_mins += minutes
             
             if minutes != 0:
-                minutes = 1
+                minutes = 1 # 1 = one day of practice 
                 total_days += 1
 
         return total_days, total_mins
