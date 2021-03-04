@@ -230,10 +230,10 @@ def get_timedelta_dates(date_range):
 
     The function returns the x-axis data for all three charts"""
 
-    # possibly add crud funcs:
+    # possibly add crud funcs for student session:
 
-        # student = crud.get_student_by_id(session["student_id"])
-        # student_logs = crud.get_logs_by_student_id(student.student_id) 
+    student = crud.get_student_by_id(session["student_id"])
+    student_logs = crud.get_logs_by_student_id(student.student_id) 
 
     timedelta_dates = []
     date = datetime.now()
@@ -260,12 +260,15 @@ def loop_for_practice_minutes(date_range):
         else:
             minutes_practiced.append((date, 0))
 
-    return minutes_practiced
+    # minites_practiced = [('2021-3-4', 0), ('2021-3-3', 0), ('2021-3-2', 0), ('2021-3-1', 45), ('2021-2-28', 98), ('2021-2-27', 50), ('2021-2-26', 120), ('2021-2-25', 12), ('2021-2-24', 45), ('2021-2-23', 35), ('2021-2-22', 100), ('2021-2-21', 22), ('2021-2-20', 0), ('2021-2-19', 45), ('2021-2-18', 22), ('2021-2-17', 23), ('2021-2-16', 45), ('2021-2-15', 0), ('2021-2-14', 10), ('2021-2-13', 0), ('2021-2-12', 72), ('2021-2-11', 0), ('2021-2-10', 42), ('2021-2-9', 0), ('2021-2-8', 50), ('2021-2-7', 65), ('2021-2-6', 35), ('2021-2-5', 122)]
 
+    return minutes_practiced
 
 @app.route('/charts.json')
 def seed_chart_one():
-    """Passes data for minutes practiced and log dates into chart #1 as JSON"""
+    """Passes data for minutes practiced and log dates into chart #1 as JSON
+    
+    later I will pass this function onto the message"""
 
     student = crud.get_student_by_id(session["student_id"])
     student_logs = crud.get_logs_by_student_id(student.student_id)
@@ -292,7 +295,6 @@ def seed_chart_one():
 
 
     return jsonify(data) 
-
 
 @app.route('/charts/2.json')
 def seed_chart_two():
@@ -368,17 +370,36 @@ def send_message():
     account_sid = os.environ.get('ACCOUNT_SID')
     auth_token = os.environ.get('AUTH_TOKEN')
     client = Client(account_sid, auth_token)
+    
+    # call the data by calling seed_chart_one()
+    data = seed_chart_one()
+    # extract the minutes_practiced key values (min practiced per day this past week)
+        # minutes_per_day = data['minutes_practiced] >>> [0, 0, 0, 45, 98, 50, 120]
+    minutes_practiced = data['minutes_practiced']
 
+    # loop over the minutes_practiced list to count total minutes and total days
+    def count_minutes_and_days(minutes_list):
+        total_days = 0
+        total_mins = 0
 
-    # figure out how to get all the practice times and add them together per week
-        # crud.get_practice_times(student_id)
-        # just have the practice times -> add them all up (for loop)
-        # return the amount of minutes practiced --> put it inside an f string
+        for minutes in minutes_list:
+            total_mins += minutes
+            
+            if minutes != 0:
+                minutes = 1
+                total_days += 1
 
-        # send out this message at a certain time - maybe sleeper function
+        return total_days, total_mins
+
+    #unpack the totals for SMS data
+    days_text_data, mins_text_data = count_minutes_and_days(minutes_practiced)
+    # >>> 4
+    # >>> 313
+
+    text_message_content = f"This week's practice stats for student! Number of days practiced this week: {days_text_data}. Number of minutes practiced this week: {mins_text_data}"
 
     message = client.messages.create(
-                        body= request.form.get('my_message'),
+                        body= text_message_content,
                         to=os.environ["MY_PHONE"],
                         from_=os.environ["TWILIO_PHONE"]
                     )
