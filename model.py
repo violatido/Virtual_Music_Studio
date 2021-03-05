@@ -37,6 +37,7 @@ class Student(db.Model):
     student_password = db.Column(db.String(50), nullable=False)
     program_name = db.Column(db.String(50)) 
     instrument = db.Column(db.String(25), nullable=False)
+    student_phone = db.Column(db.String(25))
 
     teacher = db.relationship('Teacher')
     logs = db.relationship('Log', backref='student', uselist=False)

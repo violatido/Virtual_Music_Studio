@@ -28,6 +28,7 @@ def create_student(student_fname,
                     program_name, 
                     instrument, 
                     student_password,
+                    student_phone,
                     teacher_obj):
     """Creates a new student record"""
 
@@ -37,6 +38,7 @@ def create_student(student_fname,
                         program_name=program_name, 
                         instrument=instrument,
                         student_password=student_password,
+                        student_phone=student_phone,
                         teacher=teacher_obj #using the teacher/student relationship
                         )
 

@@ -110,9 +110,10 @@ def add_student():
     program_name = request.form.get('program_name')
     instrument = request.form.get('instrument')
     student_password = request.form.get('student_password')
+    student_phone = request.form.get('student_phone')
     teacher = crud.get_teacher_by_email(private_teacher_email)
 
-    student = crud.create_student(student_fname, student_lname, student_email, program_name, instrument, student_password, teacher)
+    student = crud.create_student(student_fname, student_lname, student_email, program_name, instrument, student_phone, student_password, teacher)
 
     return jsonify({'student_fname': student_fname, 'student_lname': student_lname})
 
@@ -144,10 +145,7 @@ def view_teacher_profile():
 def go_to_student_profile(student_id):
 
     teacher = crud.get_teacher_by_id(session["teacher_id"])
-    student = crud.get_student_by_id(student_id)
-
-    # view student goals
-    
+    student = crud.get_student_by_id(student_id)    
 
     return render_template('student-profile.html', student=student, teacher=teacher)
 
