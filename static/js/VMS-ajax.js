@@ -130,10 +130,89 @@ $('#message-id').on('submit', (evt) => {
 
     const myMessage = { "my_message": $('#my_message').val() }
 
-    console.log(myMessage)
+    // console.log(myMessage)
     $.post("/api/messages", myMessage, (res) => {
         $('#sms-id').text(
             `Message sent! Reads: ${res.my_message}`
         )
     });
 });
+
+
+// $('.card-link-charts').on('click', (evt) => {
+//     evt.preventDefault();
+//     console.log(evt.currentTarget.value)
+
+//     let sid = evt.currentTarget.value;
+//     console.log(sid)
+
+//     $.getJSON(`/teacher-chart/${sid}`, (res) => {
+//         console.log('GET REQUEST 1 HAPPENED WOOOOO')
+//         console.log(res.dates_formatted)
+//         console.log(res.minutes_practiced)
+
+//         const dates = res.dates_formatted; // give us a list of dates
+//         // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22"]
+//         const practiceTimes = res.minutes_practiced; // associated practice minutes only
+//         // [0, 0, 120, 12, 45, 35, 100]
+    
+//         let myChart2 = document.getElementById("bar-time").getContext('2d');
+    
+//         let colors2 = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5B7B', '#355C7D', '#A8A0B1'];
+//         let chart2 = new Chart(myChart2, {
+//             type: 'bar',
+//             data: {
+//                 labels: dates.reverse(), 
+//                 datasets: [ {
+//                     data: practiceTimes.reverse(),
+//                     backgroundColor: colors2
+//                 }] 
+//             },
+//             options: {
+//                 title: {
+//                     text: "How many minutes did you practice per day this week?",
+//                     display: true
+//                 },
+//                 legend: {
+//                     display: false
+//                 },
+//                 scales: {
+//                     yAxes: [{
+//                         ticks: {
+//                             suggestedMin: 0,
+//                             suggestedMax: 150
+//                         }
+//                     }]
+//                 }
+//             },
+//             scales: {
+//                 xAxes: [
+//                     {
+//                         type: 'time',
+//                         time: {
+//                             unit: 'day',
+//                             round: 'day',
+//                             displayFormats: {
+//                                 day: 'MMM D'
+//                             },
+//                         },
+//                         distribution: 'series'
+//                     }
+//                 ],
+//                 yAxes: [{
+//                     ticks: {
+//                         beginAtZero: true
+//                     }
+//                 }]
+//             },
+//             tooltips: {
+//                 callbacks: {
+//                     title: (tooltipItem) => {
+//                         return moment(tooltipItem.label).format('MMM D');
+//                     }
+//                 }
+//             }    
+//         })
+//     })
+// });
+

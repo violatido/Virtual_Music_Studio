@@ -1,79 +1,79 @@
 "use strict"
-
+const help = 'please work';
 // _________________________________________Chart 1_______________________________________________________________
-// Chart for minutes practiced per day that week
-$.get('/charts.json', (res) => {
-    const dates = res.dates_formatted; // give us a list of dates
-    // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22"]
-    const practiceTimes = res.minutes_practiced; // associated practice minutes only
-    // [0, 0, 120, 12, 45, 35, 100]
+$(document).ready(function () {
+    console.log("HAAAAAAAAlP");
+    $.get('/charts.json', (res) => {
+        const dates = res.dates_practiced; // give us a list of dates
+        // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22"]
+        const practiceTimes = res.minutes_practiced; // associated practice minutes only
+        // [0, 0, 120, 12, 45, 35, 100]
+        console.log("WORKING NOW?")
 
-    let myChart2 = document.getElementById("bar-time").getContext('2d');
+        let myChart2 = document.getElementById("bar-time").getContext('2d');
 
-    let colors2 = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5 B7B', '#355C7D', '#A8A0B1'];
-    let chart2 = new Chart(myChart2, {
-        type: 'bar',
-        data: {
-            labels: dates.reverse(), 
-            datasets: [ {
-                data: practiceTimes.reverse(),
-                backgroundColor: colors2
-            }] 
-        },
-        options: {
-            title: {
-                text: "How many minutes did you practice per day this week?",
-                display: true
+        let colors2 = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5 B7B', '#355C7D', '#A8A0B1'];
+        let chart2 = new Chart(myChart2, {
+            type: 'bar',
+            data: {
+                labels: dates.reverse(), 
+                datasets: [ {
+                    data: practiceTimes.reverse(),
+                    backgroundColor: colors2
+                }] 
             },
-            legend: {
-                display: false
+            options: {
+                title: {
+                    text: "How many minutes did you practice per day this week?",
+                    display: true
+                },
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            suggestedMin: 0,
+                            suggestedMax: 150
+                        }
+                    }]
+                }
             },
             scales: {
+                xAxes: [
+                    {
+                        type: 'time',
+                        time: {
+                            unit: 'day',
+                            round: 'day',
+                            displayFormats: {
+                                day: 'MMM D'
+                            },
+                        },
+                        distribution: 'series'
+                    }
+                ],
                 yAxes: [{
                     ticks: {
-                        suggestedMin: 0,
-                        suggestedMax: 150
+                        beginAtZero: true
                     }
                 }]
-            }
-        },
-        scales: {
-            xAxes: [
-                {
-                    type: 'time',
-                    time: {
-                        unit: 'day',
-                        round: 'day',
-                        displayFormats: {
-                            day: 'MMM D'
-                        },
-                    },
-                    distribution: 'series'
+            },
+            tooltips: {
+                callbacks: {
+                    title: (tooltipItem) => {
+                        return moment(tooltipItem.label).format('MMM D');
+                    }
                 }
-            ],
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        },
-        tooltips: {
-            callbacks: {
-                title: (tooltipItem) => {
-                    return moment(tooltipItem.label).format('MMM D');
-                }
-            }
-        }    
-    })
+            }    
+        })
+    });
 });
 
 
-
 // ___________________________________________Chart 2_____________________________________________________________________________
-// chart for days practiced/week over four weeks
-
 $.get('/charts/2.json', (res) => {
-    const datesInMonth = res.dates_formatted; // give us a list of dates over 4 weeks
+    const datesInMonth = res.dates_in_month; // give us a list of dates over 4 weeks
     // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22", "Feb 21", "Feb 20", "Feb 19", "Feb 18", "Feb 17", "Feb 16", "Feb 15", "Feb 14", "Feb 13", "Feb 12", "Feb 11", "Feb 10", "Feb  9", "Feb  8", "Feb  7", "Feb  6", "Feb  5", "Feb  4", "Feb  3", "Feb  2", "Feb  1"]
     let datesPracticedInMonth = res.log_date; // associated dates on which student practiced
     //[0, 1, 1, 1, 1, 1, 1 | 1, 1, 1, 0, 1, 1, 1 | 1, 0, 1, 0, 1, 0, 1 | 0, 1, 1, 1, 1, 1, 1]    
@@ -167,11 +167,12 @@ $.get('/charts/2.json', (res) => {
 });
 
 
+
 // ___________________________________________Chart 3_____________________________________________________________________________
-// chart for minutes practiced/week over four weeks
+
 
 $.get('/charts/3.json', (res) => {
-    const datesInMonth = res.dates_formatted; // give us a list of dates over 4 weeks
+    const datesInMonth = res.dates_in_month; // give us a list of dates over 4 weeks
     // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22", "Feb 21", "Feb 20", "Feb 19", "Feb 18", "Feb 17", "Feb 16", "Feb 15", "Feb 14", "Feb 13", "Feb 12", "Feb 11", "Feb 10", "Feb  9", "Feb  8", "Feb  7", "Feb  6", "Feb  5", "Feb  4", "Feb  3", "Feb  2", "Feb  1"]
     let minutesPerWeek = res.minutes_practiced; // practice minutes per date
     // [0, 45, 98, 50, 120, 12, 45, 35, 100, 22, 0, 45, 22, 23, 45, 0, 10, 0, 72, 0, 42, 0, 50, 65, 35, 122, 40, 25]

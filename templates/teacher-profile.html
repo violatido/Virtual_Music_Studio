@@ -26,14 +26,18 @@
           <div class="card" style="width: 14rem;">
             <div class="card-body">
               <h5 class="card-title">{{ student.student_fname}} {{ student.student_lname}}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">Student ID #: {{ student.student_id }}</h6>    
+              <h6 class="card-subtitle mb-2 text-muted" id="h6-student-id">Student ID #: {{ student.student_id }}</h6>    
               <ul class="card-text">
                 <li id="student_id_profile">Student ID #: {{ student.student_id }}</li>
                 <li>Student email: {{ student.student_email }}</li>
                 <li>Program name: {{ student.program_name }}</li>
                 <li>Instrument: {{ student.instrument }}</li>
               </ul>
-              <a href="/teacher-profile/{{ student.student_id }}" class="card-link" id="student-profile-link">Student Profile Link</a>
+              <div id="chart-link-div">
+                <a href="/teacher-profile/{{ student.student_id }}" class="card-link" id="student-profile-link">Student Profile Link</a>
+                <a href="/teacher-profile-logs/{{ student.student_id }}" class="card-link" id="student-past-logs-link">Student Past Logs Link</a>
+                <a href="/teacher-profile-chart{{ student.student_id }}" class="card-link" id="student-charts-link">Student Charts Link</a>
+              </div>
             </div>
           </div>
         </div>
@@ -41,9 +45,9 @@
       </div>
     </div>
     <div class="col">
-      <form id="message-id" action="/message" method="post">
+      <form id="message-id" method="post">
         <h3 id="sms-id">Send Goal Updates To Students</h3>
-        <input type="text" id="my_message" name="my_message">
+        {#<!-- <input type="text" id="my_message" name="my_message"> -->#}
         <input id="sms-submit" type="submit">
       </form>
     </div>

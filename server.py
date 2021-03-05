@@ -4,7 +4,6 @@ from flask import (Flask, render_template, request, flash, session, redirect, js
 from model import connect_to_db 
 from datetime import datetime, timedelta
 import crud 
-# import json
 from jinja2 import StrictUndefined 
 from twilio.rest import Client
 
@@ -39,7 +38,7 @@ def teacher_login():
 
     checked_teacher = crud.verify_teacher(teacher_login_email, teacher_login_pw)
 
-    if checked_teacher != None:
+    if checked_teacher:
         teacher_login_email = request.form.get('teacher_login_email')
         
         teacher=crud.get_teacher_by_email(teacher_login_email)
@@ -87,7 +86,7 @@ def student_login():
 
     checked_student = crud.verify_student(student_login_email, student_login_pw)
 
-    if checked_student != None:
+    if checked_student:
         student_login_email = request.form.get('student_login_email')
         
         student=crud.get_student_by_email(student_login_email)
@@ -129,45 +128,49 @@ def view_student_profile():
     teacher = student.teacher
     private_teacher_email = request.form.get('private_teacher_email')
 
-    days_goal = request.form.get('days_goal')
-    minutes_goal = request.form.get('minutes_goal')
 
-    date = datetime.now()
-    dater = date.strftime("%c")[:3] + ', ' + date.strftime("%c")[4:10]
-
-    return render_template('student-profile.html', student=student, teacher=teacher, date=dater, days_goal=days_goal, minutes_goal=minutes_goal)
+    return render_template('student-profile.html', student=student, teacher=teacher)
 
 @app.route('/teacher-profile')
 def view_teacher_profile():
     """Renders the VMS teacherprofile page"""
 
     teacher = crud.get_teacher_by_id(session["teacher_id"])
-    # student = crud.get_student_by_id(session["student_id"])
 
-    if session['student_id']:
-        student = crud.get_student_by_id(session["student_id"])
-    else:
-        student = teacher.students
-        # student = crud.get_student_by_id(teacher.students.student_id)
-
-
-    return render_template('teacher-profile.html', teacher=teacher, student=student)
+    return render_template('teacher-profile.html', teacher=teacher)
 
 
 @app.route('/teacher-profile/<student_id>')
 def go_to_student_profile(student_id):
 
-
     teacher = crud.get_teacher_by_id(session["teacher_id"])
     student = crud.get_student_by_id(student_id)
 
-    days_goal = request.form.get('days_goal')
-    minutes_goal = request.form.get('minutes_goal')
+    # view student goals
+    
 
-    date = datetime.now()
-    dater = date.strftime("%c")[:3] + ', ' + date.strftime("%c")[4:10]
+    return render_template('student-profile.html', student=student, teacher=teacher)
 
-    return render_template('student-profile.html', student=student, teacher=teacher, date=dater, days_goal=days_goal, minutes_goal=minutes_goal)
+@app.route('/teacher-profile-logs/<student_id>')
+def go_to_student_logs(student_id):
+
+    teacher = crud.get_teacher_by_id(session["teacher_id"])
+    student = crud.get_student_by_id(student_id)
+    student_logs = crud.get_logs_by_student_id(student_id)
+
+    return render_template('past-logs.html', student= student, teacher=teacher, student_logs=student_logs)
+
+
+@app.route('/teacher-profile-chart/<student_id>')
+def go_to_student_charts(student_id):
+
+    teacher = crud.get_teacher_by_id(session["teacher_id"])
+    student = crud.get_student_by_id(student_id)
+    student_logs = crud.get_logs_by_student_id(student_id)
+
+
+    return render_template('charts.html', student=student, teacher=teacher, student_logs = student_logs)
+
 
 #________________________________________functions for adding practice logs________________________________________#
 
@@ -197,7 +200,6 @@ def add_log():
     
     return jsonify({'status': 'ok', 'log_date': log_date})  
 
-
 #___________________________________functions for viewing past logs by student id________________________________#
 @app.route('/past-logz')
 def view_student_logs():
@@ -216,83 +218,54 @@ def list_logs_by_student():
     student = crud.get_student_by_id(session["student_id"])
     student_logs=crud.get_logs_by_student_id(student.student_id)
 
+
     return render_template('past-logs.html', student= student, student_logs=student_logs)
 
-#____________________________________functions for creating/seeding data charts____________________________________#
+#____________________________________functions for viewing/seeding data charts___________________________________#
 @app.route('/charts')
 def view_charts():
     """View data charts for practice logs"""
-
     return render_template('charts.html')
-
-def get_timedelta_dates(date_range):
-    """ Timedelta function for finding current dates.
-
-    The function returns the x-axis data for all three charts"""
-
-    # possibly add crud funcs for student session:
-
-    student = crud.get_student_by_id(session["student_id"])
-    student_logs = crud.get_logs_by_student_id(student.student_id) 
-
-    timedelta_dates = []
-    date = datetime.now()
-    for _ in range(date_range):
-        dater = str(date.year) + '-' + str(date.month) + '-' + str(date.day)
-        timedelta_dates.append(dater)
-        date = date - timedelta(days=1)
-
-    return timedelta_dates
-
-def loop_for_practice_minutes(date_range):
-    """Loop over timedelta dates and compare dates to log dates gathered from crud function
-    
-    gather practice log dates and associated minutes practiced to build y-axis data for charts one and three"""
-    
-    timedelta_dates = get_timedelta_dates(date_range)
-    minutes_practiced = []
-
-    # y-axis data: minutes practiced on each date in the date/week
-    for date in timedelta_dates: # loops over the dates of the week/month
-        student_log_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #all practice dates 
-        if student_log_dates:
-            minutes_practiced.append((date, student_log_dates.minutes_practiced))
-        else:
-            minutes_practiced.append((date, 0))
-
-    # minites_practiced = [('2021-3-4', 0), ('2021-3-3', 0), ('2021-3-2', 0), ('2021-3-1', 45), ('2021-2-28', 98), ('2021-2-27', 50), ('2021-2-26', 120), ('2021-2-25', 12), ('2021-2-24', 45), ('2021-2-23', 35), ('2021-2-22', 100), ('2021-2-21', 22), ('2021-2-20', 0), ('2021-2-19', 45), ('2021-2-18', 22), ('2021-2-17', 23), ('2021-2-16', 45), ('2021-2-15', 0), ('2021-2-14', 10), ('2021-2-13', 0), ('2021-2-12', 72), ('2021-2-11', 0), ('2021-2-10', 42), ('2021-2-9', 0), ('2021-2-8', 50), ('2021-2-7', 65), ('2021-2-6', 35), ('2021-2-5', 122)]
-
-    return minutes_practiced
 
 @app.route('/charts.json')
 def seed_chart_one():
-    """Passes data for minutes practiced and log dates into chart #1 as JSON
-    
-    later I will pass this function onto the message"""
+    """Passes data for minutes practiced and log dates into chart #1 as JSON"""
 
     student = crud.get_student_by_id(session["student_id"])
     student_logs = crud.get_logs_by_student_id(student.student_id)
 
-    # x-axis data: dates in the week. holds todays date and previous six days as list items
-    timedelta_dates = (get_timedelta_dates(date_range=7))
+    # x-axis data: dates in the week
+    practice_dates = [] # holds todays date and previous six days as list items
+    date = datetime.now()
+    for _ in range(7):
+        dater = str(date.year) + '-' + str(date.month) + '-' + str(date.day)
+        practice_dates.append(dater)
+        date = date - timedelta(days=1)
 
-    # minutes_practiced = []
+    #code unused
+        log_dates = [] 
+        log_minutes = [] 
 
-    # # y-axis data: minutes practiced on each date in the week
-        # for date in timedelta_dates: # loops over the dates of the week
-        #     student_log_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #all practice dates 
-        #     if student_log_dates:
-        #         minutes_practiced.append((date, student_log_dates.minutes_practiced))
-        #     else:
-        #         minutes_practiced.append((date, 0))
-    minutes_practiced = loop_for_practice_minutes(date_range=7)
+        for log in student_logs:
+            log_dates.append(log.log_date) #adds all practice dates to log_dates list
+            log_minutes.append(log.minutes_practiced) #adds all minutes practiced to minutes_practiced list
+
+    minutes_practiced = []
+
+    # y-axis data: minutes practiced on each date in the week
+    for date in practice_dates: # loops over the dates of the week
+        dates_practiced = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date(), student.student_id) #all practice dates 
+        if dates_practiced:
+            minutes_practiced.append((date, dates_practiced.minutes_practiced))
+        else:
+            minutes_practiced.append((date, 0))
         
     data = {}
-    data['dates_formatted'] = [datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:10] for date, min_prac in minutes_practiced]
-    # ['Mar  4', 'Mar  3', 'Mar  2', 'Mar  1', 'Feb 28', 'Feb 27', 'Feb 26']
+    data['dates_practiced'] = [datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:10] for date, min_prac in minutes_practiced]
+    #2021-02-28 21:05:57,764 INFO sqlalchemy.engine.base.Engine {'log_date_1': datetime.date(2021, 2, 23), 'param_1': 1}
+    #<Log log_date=2021-02-22 student_id=4 log_id=6
     data['minutes_practiced'] = [min_prac for date, min_prac in minutes_practiced]
-    # [0, 0, 0, 45, 98, 50, 120]
-
+    #[('2021-2-28', 0), ('2021-2-27', 0), ('2021-2-26', 120), ('2021-2-25', 12), ('2021-2-24', 45), ('2021-2-23', 35), ('2021-2-22', 100)]
 
     return jsonify(data) 
 
@@ -304,24 +277,26 @@ def seed_chart_two():
     student_logs = crud.get_logs_by_student_id(student.student_id)
 
     # x-axis data: dates in month (eventually divded into four weeks)
-    timedelta_dates = (get_timedelta_dates(date_range=28))
+    dates_in_month = [] # holds todays date and previous 27 dates as list items
+    date = datetime.now()
+    for idx in range(28):
+        dater = str(date.year) + '-' + str(date.month) + '-' + str(date.day) #formats each date
+        dates_in_month.append(dater) #adds formatted date to dates_in_month list
+        date = date - timedelta(days=1) #goes back a day from current date
 
     log_date = []
 
     # y-axis data: days practiced in each week of the month
-    for date in timedelta_dates: # loops over each date of the month
-        student_log_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #finds and formatts all logged practice dates in DB
-        if student_log_dates:
+    for date in dates_in_month: # loops over each date of the month
+        monthly_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date(), student.student_id) #finds and formatts all logged practice dates in DB
+        if monthly_dates:
             log_date.append((date, 1)) #adds to log_date date in month, 1 to signify a practice session that date
         else:
             log_date.append((date, 0)) #adds date in month, 0 to signify no practice session that date
 
     data = {}
-    data['dates_formatted'] = [datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:10] for date, date_prac in log_date]
-    # ['Mar  4', 'Mar  3', 'Mar  2', 'Mar  1', 'Feb 28', 'Feb 27', 'Feb 26', 'Feb 25', 'Feb 24', 'Feb 23', 'Feb 22', 'Feb 21', 'Feb 20', 'Feb 19', 'Feb 18', 'Feb 17', 'Feb 16', 'Feb 15', 'Feb 14', 'Feb 13', 'Feb 12', 'Feb 11', 'Feb 10', 'Feb  9', 'Feb  8', 'Feb  7', 'Feb  6', 'Feb  5']
+    data['dates_in_month'] = [datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:10] for date, date_prac in log_date]
     data['log_date'] = [date_prac for date, date_prac in log_date]
-    # [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1]
-
 
     return jsonify(data) 
 
@@ -333,30 +308,34 @@ def seed_chart_three():
     student_logs = crud.get_logs_by_student_id(student.student_id)
 
     # x-axis data: dates in month (eventually divded into four weeks)
-    timedelta_dates = (get_timedelta_dates(date_range=28))
+    dates_in_month = [] # holds todays date and previous 27 dates as list items
+    date = datetime.now()
+    for idx in range(28):
+        dater = str(date.year) + '-' + str(date.month) + '-' + str(date.day) #formats each date
+        dates_in_month.append(dater) #adds formatted date to dates_in_month list
+        date = date - timedelta(days=1) #goes back a day from current date
 
 
-    # minutes_practiced = []
-    # # y-axis data: minutes practiced on each date in the month
-        # for date in timedelta_dates: # loops over the dates of the month
-        #     student_log_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date()) #finds and formatts all logged practice dates in DB
-        #     if student_log_dates:
-        #         minutes_practiced.append((date, student_log_dates.minutes_practiced))
-        #     else:
-        #         minutes_practiced.append((date, 0))
-    minutes_practiced = loop_for_practice_minutes(date_range=28)
+    minutes_practiced = []
+
+    # y-axis data: minutes practiced on each date in the month
+    for date in dates_in_month: # loops over the dates of the month
+        monthly_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date(), student.student_id) #finds and formatts all logged practice dates in DB
+        if monthly_dates:
+            minutes_practiced.append((date, monthly_dates.minutes_practiced))
+        else:
+            minutes_practiced.append((date, 0))
 
     data = {}
-    data['dates_formatted'] = [datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:10] for date, date_prac in minutes_practiced]
-    # ['Mar  4', 'Mar  3', 'Mar  2', 'Mar  1', 'Feb 28', 'Feb 27', 'Feb 26', 'Feb 25', 'Feb 24', 'Feb 23', 'Feb 22', 'Feb 21', 'Feb 20', 'Feb 19', 'Feb 18', 'Feb 17', 'Feb 16', 'Feb 15', 'Feb 14', 'Feb 13', 'Feb 12', 'Feb 11', 'Feb 10', 'Feb  9', 'Feb  8', 'Feb  7', 'Feb  6', 'Feb  5']
+    data['dates_in_month'] = [datetime.strptime(date, "%Y-%m-%d").date().ctime()[4:10] for date, date_prac in minutes_practiced]
+    #['2021-3-1', '2021-2-28', '2021-2-27', '2021-2-26', '2021-2-25', '2021-2-24', '2021-2-23', '2021-2-22', '2021-2-21', '2021-2-20', '2021-2-19', '2021-2-18', '2021-2-17', '2021-2-16', '2021-2-15', '2021-2-14', '2021-2-13', '2021-2-12', '2021-2-11', '2021-2-10', '2021-2-9', '2021-2-8', '2021-2-7', '2021-2-6', '2021-2-5', '2021-2-4', '2021-2-3', '2021-2-2']
     data['minutes_practiced'] = [min_prac for date, min_prac in minutes_practiced]
-    # [0, 0, 0, 45, 98, 50, 120, 12, 45, 35, 100, 22, 0, 45, 22, 23, 45, 0, 10, 0, 72, 0, 42, 0, 50, 65, 35, 122]
+    # [('2021-3-1', 45), ('2021-2-28', 0), ('2021-2-27', 0), ('2021-2-26', 120), ('2021-2-25', 12), ('2021-2-24', 45), ('2021-2-23', 35), ('2021-2-22', 100), ('2021-2-21', 22), ('2021-2-20', 0), ('2021-2-19', 45), ('2021-2-18', 22), ('2021-2-17', 23), ('2021-2-16', 45), ('2021-2-15', 0), ('2021-2-14', 10), ('2021-2-13', 0), ('2021-2-12', 72), ('2021-2-11', 0), ('2021-2-10', 42), ('2021-2-9', 0), ('2021-2-8', 50), ('2021-2-7', 65), ('2021-2-6', 35), ('2021-2-5', 122), ('2021-2-4', 40), ('2021-2-3', 25), ('2021-2-2', 0)]
 
 
     return jsonify(data) 
 
-
-#__________________________________functions for messaging__________________________________#
+#_______________________________________functions for messaging__________________________________#
 @app.route('/message')
 def view_messages():
     """View text messages"""
@@ -371,42 +350,44 @@ def send_message():
     auth_token = os.environ.get('AUTH_TOKEN')
     client = Client(account_sid, auth_token)
     
-    # retrieve the data by calling seed_chart_one()
-    data = seed_chart_one()
-    # extract the minutes_practiced key values (min practiced per day this past week)
-        # minutes_per_day = data['minutes_practiced] >>> [0, 0, 0, 45, 98, 50, 120]
-    minutes_practiced = data['minutes_practiced']
+    # # retrieve the data by calling seed_chart_one()
+    # data = seed_chart_one()
+    # # extract the minutes_practiced key values (min practiced per day this past week)
+    #     # minutes_per_day = data['minutes_practiced] >>> [0, 0, 0, 45, 98, 50, 120]
+    # minutes_practiced = data['minutes_practiced']
 
-    # loop over the minutes_practiced list to count total minutes and total days
-    def count_minutes_and_days(minutes_list):
-        total_days = 0
-        total_mins = 0
+    # # loop over the minutes_practiced list to count total minutes and total days
+    # def count_minutes_and_days(minutes_list):
+    #     total_days = 0
+    #     total_mins = 0
 
-        for minutes in minutes_list:
-            total_mins += minutes
+    #     for minutes in minutes_list:
+    #         total_mins += minutes
             
-            if minutes != 0:
-                minutes = 1 # 1 = one day of practice 
-                total_days += 1
+    #         if minutes != 0:
+    #             minutes = 1 # 1 = one day of practice 
+    #             total_days += 1
 
-        return total_days, total_mins
+    #     return total_days, total_mins
 
-    #unpack the totals for SMS data
-    days_text_data, mins_text_data = count_minutes_and_days(minutes_practiced)
-    # >>> 4
-    # >>> 313
+    # #unpack the totals for SMS data
+    # days_text_data, mins_text_data = count_minutes_and_days(minutes_practiced)
+    # # >>> 4
+    # # >>> 313
+    # print('!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!\n!!!!!!!!!!!!\n!!!')
+    # print(days_text_data, mins_text_data)
 
-    text_message_content = f"This week's practice stats for student! Number of days practiced this week: {days_text_data}. Number of minutes practiced this week: {mins_text_data}"
+    # text_message_content = f"This week's practice stats for student! Number of days practiced this week: {days_text_data}. Number of minutes practiced this week: {mins_text_data}"
+    text_message_content = "SUCCESS YAYYYYYYYYYY!!!"
+
 
     message = client.messages.create(
-                        body= text_message_content,
+                        body= text_message_content, #text message content here 
                         to=os.environ["MY_PHONE"],
                         from_=os.environ["TWILIO_PHONE"]
                     )
 
-    my_message = request.form.get('my_message')
-
-    return jsonify({'my_message': my_message})
+    return jsonify({'my_message': text_message_content})
 
 
 if __name__ == '__main__':

@@ -104,8 +104,8 @@ def get_minutes_practiced(student_id):
     """ Procures all minutes-practiced data per student """
     return Log.query.get(student_id)
 
-def search_logs_by_date(log_date):
-    return Log.query.filter(Log.log_date == log_date).first()
+def search_logs_by_date(log_date, student_id):
+    return Log.query.filter(Log.log_date == log_date, Log.student_id == student_id).first()
 
 #__________________________functions for Assigning Teachers___________________________#
 
