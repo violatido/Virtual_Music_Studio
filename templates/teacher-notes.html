@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Teacher Notes
+{% endblock %}
+{% block body %}
+{% if teacher %}
+  <h1>Welcome to your Virtual Music Studio, {{teacher.teacher_fname}} {{teacher.teacher_lname}}</h1>
+{% endif %}  
+
+<h3>Lesson Note</h3>
+<form id="create_note">
+  Teacher Id: <input type="number" id="note_teacher_id" name="note_teacher_id" value={{teacher.teacher_id}}> <br>
+  Student Name: <input type="text" id="note_student_name" name="note_student_name">
+  Lesson Date: <input type="date" id="note_date" name="note_date">    <br>
+  Lesson Time: <input type="number" id="note_time"> <br>
+  Notes: <input type="date" id="note_content" name="note_content"> <br>
+  <input type="submit" value="submit">
+  <input type="reset" value="reset">
+</form>
+<h3 id="note_added_response"></h3>
+
+
+{#<!-- {% for log in student_logs%}
+<div>{{ log.log_date }}
+<ul>
+    <li>Log ID #{{ log.log_id }}</li>
+    <li>Minutes Practiced: {{ log.minutes_practiced }}</li>
+    <li>Pieces Practiced: {{ log.pieces_practiced }}</li>
+    <li>Notes: {{ log.practice_notes }}</li>
+</ul>
+</div>
+{% endfor %} -->#}
+{% endblock %}  

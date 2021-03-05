@@ -170,6 +170,34 @@ def go_to_student_logs(student_id):
 
 #     return render_template('charts.html', student=student_id, teacher=teacher, student_logs = student_logs)
 
+#________________________________________functions for adding teacher notes________________________________________#
+@app.rout('/teacher-notez')
+def view_teacher_notes():
+    """Renders the VMS teacher notes page"""
+
+    teacher = crud.get_teacher_by_id(session["teacher_id"])
+
+    return render_template('teacher-profile.html', teacher=teacher)
+
+@app.route('/teacher-notes', methods=["POST"])
+def add_note():
+    """Creates a new practice log
+    
+    if the log form is valid, the session adds the log to the log table"""
+
+    teacher = crud.get_teacher_by_id(session["teacher_id"])
+
+    note_teacher_id = request.form.get('note_teacher_id')
+    note_student_name = request.form.get('note_student_name')
+    note_date = request.form.get('note_date')
+    note_time = request.form.get('note_time')
+    note_content = request.form.get('note_content')
+
+    note = crud.create_note(note_date, note_teacher_id, note_student_name, note_date, note_time, note_content)
+    
+    return jsonify({'status': 'ok', 'note_date': note_date})  
+
+
 
 #________________________________________functions for adding practice logs________________________________________#
 
