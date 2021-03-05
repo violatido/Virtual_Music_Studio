@@ -18,6 +18,8 @@ class Teacher(db.Model):
     teacher_password = db.Column(db.String(50), nullable=False)
 
     students = db.relationship('Student')
+    notes = db.relationship('Note', backref='teacher', uselist=False)
+
 
     def __repr__(self):
         """Show Teacher ID/Corresponding User Id"""
@@ -63,6 +65,22 @@ class Log(db.Model):
         """Show Log Info"""
         return f'<Log log_date={self.log_date} student_id={self.student_id} log_id={self.log_id}'
 
+class Note(db.Model): 
+    """Data Model for Teacher Lesson Notes"""
+
+    __tablename__ = 'notes'
+    
+    note_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
+    teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.teacher_id'))
+    note_student_name = db.Column(db.String)
+    note_date = db.Column(db.String)
+    note_time = db.Column(db.String)
+    note_content = db.Column(db.String)
+
+
+    def __repr__(self):
+        """Show Teacher Note Info"""
+        return f'<note note_id={self.note_id} note_date = {self.note_date}>'
 
 
 def connect_to_db(flask_app, db_uri='postgresql:///VMS', echo=True):

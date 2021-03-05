@@ -1,6 +1,6 @@
 """CRUD operations."""
 
-from model import db, Teacher, Student, Log, connect_to_db
+from model import db, Teacher, Student, Log, Note, connect_to_db
 
 #______________________functions for creating table records___________________________#
 def create_teacher(teacher_fname, 
@@ -66,6 +66,27 @@ def create_log(log_date,
 
     return log 
 
+def create_note(note_id, 
+                teacher_id, 
+                note_student_name, 
+                note_date, 
+                note_time, 
+                note_content):
+
+    """Creates a new teacher note record"""
+    
+    note = Note(note_id=note_id, 
+                teacher_id=teacher_id,
+                note_student_name=note_student_name,
+                note_date=note_date,
+                note_time=note_time,
+                note_content=note_content
+                )
+
+    db.session.add(note)
+    db.session.commit()
+
+    return note 
 
 #__________________________functions for User verification___________________________#
 def verify_teacher(teacher_email, teacher_password):

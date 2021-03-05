@@ -159,15 +159,16 @@ def go_to_student_logs(student_id):
     return render_template('past-logs.html', student= student, teacher=teacher, student_logs=student_logs)
 
 
-@app.route('/teacher-profile-chart/<student_id>')
-def go_to_student_charts(student_id):
+# @app.route('/teacher-profile-chart')
+# def go_to_student_charts():
 
-    teacher = crud.get_teacher_by_id(session["teacher_id"])
-    student = crud.get_student_by_id(student_id)
-    student_logs = crud.get_logs_by_student_id(student_id)
+#     student_id = request.forms.get()
 
+#     teacher = crud.get_teacher_by_id(session["teacher_id"])
+#     student = crud.get_student_by_id(student_id)
+#     student_logs = crud.get_logs_by_student_id(student_id)
 
-    return render_template('charts.html', student=student, teacher=teacher, student_logs = student_logs)
+#     return render_template('charts.html', student=student_id, teacher=teacher, student_logs = student_logs)
 
 
 #________________________________________functions for adding practice logs________________________________________#
@@ -205,7 +206,6 @@ def view_student_logs():
 
     student = crud.get_student_by_id(session["student_id"])
 
-
     return render_template('past-logs.html', student=student)
 
 @app.route('/past-logs')
@@ -216,21 +216,21 @@ def list_logs_by_student():
     student = crud.get_student_by_id(session["student_id"])
     student_logs=crud.get_logs_by_student_id(student.student_id)
 
-
     return render_template('past-logs.html', student= student, student_logs=student_logs)
 
 #____________________________________functions for viewing/seeding data charts___________________________________#
-@app.route('/charts')
-def view_charts():
-    """View data charts for practice logs"""
-    return render_template('charts.html')
+# @app.route('/charts')
+# def view_charts():
+#     """View data charts for practice logs"""
+#     return render_template('charts.html')
 
-@app.route('/charts.json')
-def seed_chart_one():
+@app.route('/past-logs.json')
+def seed_chart_one(student_id):
     """Passes data for minutes practiced and log dates into chart #1 as JSON"""
 
     student = crud.get_student_by_id(session["student_id"])
-    student_logs = crud.get_logs_by_student_id(student.student_id)
+    student_logs = crud.get_logs_by_student_id(student_id.student_id)
+
 
     # x-axis data: dates in the week
     practice_dates = [] # holds todays date and previous six days as list items
@@ -267,7 +267,7 @@ def seed_chart_one():
 
     return jsonify(data) 
 
-@app.route('/charts/2.json')
+@app.route('/past-logs/2.json')
 def seed_chart_two():
     """ Passes data for days practiced over four weeks to chart #2 as JSON"""
 
@@ -298,7 +298,7 @@ def seed_chart_two():
 
     return jsonify(data) 
 
-@app.route('/charts/3.json')
+@app.route('/past-logs/3.json')
 def seed_chart_three():
     """ Passes data for minutes practiced over four weeks to chart #3 as JSON"""
 

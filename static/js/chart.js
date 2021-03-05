@@ -1,9 +1,16 @@
 "use strict"
 const help = 'please work';
 // _________________________________________Chart 1_______________________________________________________________
-const charts1Func = () => {
-    console.log("HAAAAAAAAlP");
-    $.get('/charts.json', (res) => {
+$(document).ready(function() { 
+    // $('.chart-card-link').on('click', (evt) => {
+    // evt.preventDefault();
+    // console.log(evt.currentTarget.value)
+
+    // let sid = evt.currentTarget.value;
+    // console.log(sid)
+    // console.log("HAAAAAAAAlP");
+
+    $.get('/past-logs.json/student_id?', (res) => {
         const dates = res.dates_practiced; // give us a list of dates
         // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22"]
         const practiceTimes = res.minutes_practiced; // associated practice minutes only
@@ -68,12 +75,13 @@ const charts1Func = () => {
             }    
         })
     });
-};
+    })
+    });
 
 
 // ___________________________________________Chart 2_____________________________________________________________________________
 const charts2Func = () => { 
-    $.get('/charts/2.json', (res) => {
+    $.get('/past-logs/2.json', (res) => {
         const datesInMonth = res.dates_in_month; // give us a list of dates over 4 weeks
         // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22", "Feb 21", "Feb 20", "Feb 19", "Feb 18", "Feb 17", "Feb 16", "Feb 15", "Feb 14", "Feb 13", "Feb 12", "Feb 11", "Feb 10", "Feb  9", "Feb  8", "Feb  7", "Feb  6", "Feb  5", "Feb  4", "Feb  3", "Feb  2", "Feb  1"]
         let datesPracticedInMonth = res.log_date; // associated dates on which student practiced
@@ -172,7 +180,7 @@ const charts2Func = () => {
 // ___________________________________________Chart 3_____________________________________________________________________________
 
 const charts3Func = () => {
-    $.get('/charts/3.json', (res) => {
+    $.get('/past-logs/3.json', (res) => {
         const datesInMonth = res.dates_in_month; // give us a list of dates over 4 weeks
         // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22", "Feb 21", "Feb 20", "Feb 19", "Feb 18", "Feb 17", "Feb 16", "Feb 15", "Feb 14", "Feb 13", "Feb 12", "Feb 11", "Feb 10", "Feb  9", "Feb  8", "Feb  7", "Feb  6", "Feb  5", "Feb  4", "Feb  3", "Feb  2", "Feb  1"]
         let minutesPerWeek = res.minutes_practiced; // practice minutes per date

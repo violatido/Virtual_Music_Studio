@@ -14,28 +14,50 @@ os.system('createdb VMS')
 model.connect_to_db(server.app)
 model.db.create_all()
 
-m_s = crud.create_teacher(teacher_fname="Matthew",
-                            teacher_lname="Smith",
-                            teacher_email="msmith@gmail.com",
-                            teacher_phone="666-888-4444",
-                            teacher_password="msmith",
-                        )
+# m_s = crud.create_teacher(teacher_fname="Matthew",
+#                             teacher_lname="Smith",
+#                             teacher_email="msmith@gmail.com",
+#                             teacher_phone="666-888-4444",
+#                             teacher_password="msmith",
+#                         )
 
-a_b = crud.create_teacher(teacher_fname="Alice",
-                            teacher_lname="Baker",
-                            teacher_email="abaker@gmail.com",
-                            teacher_phone= "",
-                            teacher_password="abaker",
-                        )
+# a_b = crud.create_teacher(teacher_fname="Alice",
+#                             teacher_lname="Baker",
+#                             teacher_email="abaker@gmail.com",
+#                             teacher_phone= "",
+#                             teacher_password="abaker",
+#                         )
 
-o_r = crud.create_student(student_fname="Olivia",
-                            student_lname="Rose",
-                            student_email="orose@gmail.com",
-                            program_name = "",
-                            instrument = "violin",
-                            student_password="orose",
-                            teacher_obj=a_b
-                        )
+# o_r = crud.create_student(student_fname="Olivia",
+#                             student_lname="Rose",
+#                             student_email="orose@gmail.com",
+#                             program_name = "",
+#                             instrument = "violin",
+#                             student_password="orose",
+#                             teacher_obj=a_b
+#                         )
+
+note_1 = crud.create_note(note_id=1, 
+                teacher_id=3, 
+                note_student_name="Westin Humble", 
+                note_date="2/5/2021", 
+                note_time="3:30pm", 
+                note_content="Came very prepared, but five minutes late")
+
+note_2 = crud.create_note(note_id=2, 
+                teacher_id=3, 
+                note_student_name="Louis Jaffe", 
+                note_date="3/5/2021", 
+                note_time="1:30pm", 
+                note_content="Did not have his music")
+
+note_3 = crud.create_note(note_id=3, 
+                teacher_id=3, 
+                note_student_name="Franz Schubert", 
+                note_date="3/1/2021", 
+                note_time="11:30am", 
+                note_content="Fantastic work!")
+
 
 # a_p = crud.create_student(student_fname="Alex",
 #                             student_lname="Peters",
