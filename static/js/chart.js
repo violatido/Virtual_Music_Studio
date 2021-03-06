@@ -1,25 +1,33 @@
 "use strict"
-const help = 'please work';
-// _________________________________________Chart 1_______________________________________________________________
-$(document).ready(function() { 
-    // $('.chart-card-link').on('click', (evt) => {
-    // evt.preventDefault();
-    // console.log(evt.currentTarget.value)
+let help = 'please work';
+console.log('AT LEAST JS IS LOADING!!!')
+//_________________________________________Chart 1_______________________________________________________________
+// const studentLogButton = document.getElementById('student-past-logs-button');
+// const teacherLogButton = document.getElementById('teacher-past-logs-button');
 
-    // let sid = evt.currentTarget.value;
-    // console.log(sid)
-    // console.log("HAAAAAAAAlP");
+function getStudentIdForStudent(studentId) {
+        console.log(studentId, '-----BREAD & BUTTER SID----')
+        getStudentCharts(studentId)
+}
 
-    $.get('/past-logs.json/student_id?', (res) => {
+function getStudentIdForTeacher(studentId) {
+        console.log(studentId, '!!!!!!!B&B SID!!!!!!')
+        getStudentCharts(studentId)
+}
+
+async function getStudentCharts(studentId) {
+        
+    $.get(`${studentId}/past-logs.json/`, (res) => {
         const dates = res.dates_practiced; // give us a list of dates
         // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22"]
         const practiceTimes = res.minutes_practiced; // associated practice minutes only
         // [0, 0, 120, 12, 45, 35, 100]
         console.log("WORKING NOW?")
-
+    
         let myChart2 = document.getElementById("bar-time").getContext('2d');
-
-        let colors2 = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5 B7B', '#355C7D', '#A8A0B1'];
+    
+        let colors2 = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5B7B', '#355C7D', '#A8A0B1'];
+        
         let chart2 = new Chart(myChart2, {
             type: 'bar',
             data: {
@@ -75,8 +83,8 @@ $(document).ready(function() {
             }    
         })
     });
-    })
-    });
+    
+};
 
 
 // ___________________________________________Chart 2_____________________________________________________________________________

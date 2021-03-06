@@ -17,10 +17,10 @@
   </ul>
   <br>
   <br>
-  
-  <submit id="practice-log-button"></button> <a id="practice-log-link" href="http://0.0.0.0:5000/practice-log">Log a Practice Session</a></submit> <br>
-  <submit id="view-past-logs-button"></button> <a id="view-past-logs-link" href="http://0.0.0.0:5000/past-logs">View Past Logs</a></submit> <br>
-  <submit id="view-practice-data-button"></button> <a id="view-practice-data-link" href="/charts" value = {{student.student_id}} class="charts-card-link" >View Practice Data</a></submit>
-  
+  <div class="student-card-link" value={{student.student_id}}>
+    <button id="practice-log-button" type="button" value={{student.student_id}}><a id="practice-log-link" href="/practice-log">Log a Practice Session</a></button> <br>
+    <button id="student-past-logs-button" type="button" value={{student.student_id}} onclick="getStudentIdForStudent('{{ student.student_id }}')">View Log History and Graphs</button> <br>
+    {#<!-- <submit id="view-practice-data-button"></button> <a id="view-practice-data-link" href="/charts" value = {{student.student_id}} class="charts-card-link" >View Practice Data</a></submit> -->#}
+  </div>
   {% endif %}  
 {% endblock %}  

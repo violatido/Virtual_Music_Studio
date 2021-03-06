@@ -171,19 +171,20 @@ def go_to_student_logs(student_id):
 #     return render_template('charts.html', student=student_id, teacher=teacher, student_logs = student_logs)
 
 #________________________________________functions for adding teacher notes________________________________________#
-@app.rout('/teacher-notez')
+@app.route('/teacher-notez')
 def view_teacher_notes():
     """Renders the VMS teacher notes page"""
 
     teacher = crud.get_teacher_by_id(session["teacher_id"])
 
-    return render_template('teacher-profile.html', teacher=teacher)
+    return render_template('teacher-notes.html', teacher=teacher)
 
 @app.route('/teacher-notes', methods=["POST"])
 def add_note():
-    """Creates a new practice log
+    print('!!!!!\n!!!!\nNOTES\n!!!!\n!!!!\n!!!')
+    """Creates a new lesson note
     
-    if the log form is valid, the session adds the log to the log table"""
+    if the note form is valid, the session adds the note to the note table"""
 
     teacher = crud.get_teacher_by_id(session["teacher_id"])
 
@@ -196,7 +197,6 @@ def add_note():
     note = crud.create_note(note_date, note_teacher_id, note_student_name, note_date, note_time, note_content)
     
     return jsonify({'status': 'ok', 'note_date': note_date})  
-
 
 
 #________________________________________functions for adding practice logs________________________________________#
@@ -252,13 +252,12 @@ def list_logs_by_student():
 #     """View data charts for practice logs"""
 #     return render_template('charts.html')
 
-@app.route('/past-logs.json')
+@app.route('/<student_id>/past-logs.json')
 def seed_chart_one(student_id):
     """Passes data for minutes practiced and log dates into chart #1 as JSON"""
 
-    student = crud.get_student_by_id(session["student_id"])
-    student_logs = crud.get_logs_by_student_id(student_id.student_id)
-
+    # student = crud.get_student_by_id(student_id)
+    student_logs = crud.get_logs_by_student_id(student_id)
 
     # x-axis data: dates in the week
     practice_dates = [] # holds todays date and previous six days as list items
@@ -280,7 +279,7 @@ def seed_chart_one(student_id):
 
     # y-axis data: minutes practiced on each date in the week
     for date in practice_dates: # loops over the dates of the week
-        dates_practiced = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date(), student.student_id) #all practice dates 
+        dates_practiced = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date(), student_id) #all practice dates 
         if dates_practiced:
             minutes_practiced.append((date, dates_practiced.minutes_practiced))
         else:
