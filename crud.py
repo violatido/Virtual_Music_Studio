@@ -66,8 +66,7 @@ def create_log(log_date,
 
     return log 
 
-def create_note(note_id, 
-                teacher_id, 
+def create_note(teacher_id, 
                 note_student_name, 
                 note_date, 
                 note_time, 
@@ -75,8 +74,7 @@ def create_note(note_id,
 
     """Creates a new teacher note record"""
     
-    note = Note(note_id=note_id, 
-                teacher_id=teacher_id,
+    note = Note(teacher_id=teacher_id,
                 note_student_name=note_student_name,
                 note_date=note_date,
                 note_time=note_time,

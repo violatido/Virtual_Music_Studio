@@ -37,22 +37,19 @@ model.db.create_all()
 #                             teacher_obj=a_b
 #                         )
 
-note_1 = crud.create_note(note_id=1, 
-                teacher_id=3, 
+note_1 = crud.create_note(teacher_id=3, 
                 note_student_name="Westin Humble", 
                 note_date="2/5/2021", 
                 note_time="3:30pm", 
                 note_content="Came very prepared, but five minutes late")
 
-note_2 = crud.create_note(note_id=2, 
-                teacher_id=3, 
+note_2 = crud.create_note(teacher_id=3, 
                 note_student_name="Louis Jaffe", 
                 note_date="3/5/2021", 
                 note_time="1:30pm", 
                 note_content="Did not have his music")
 
-note_3 = crud.create_note(note_id=3, 
-                teacher_id=3, 
+note_3 = crud.create_note(teacher_id=3, 
                 note_student_name="Franz Schubert", 
                 note_date="3/1/2021", 
                 note_time="11:30am", 

@@ -14,10 +14,8 @@
     </ul>
 </div>
 {% endif %}  
-<div>
-  <button type="button"><a href="/teacher-notes">Create a Lesson Note</a></button>
-</div>
 <div class="container-main">
+  <a href="/teacher-notes">Write a lesson note</a>
   <div>
     <h3>List of Students</h3>
 
@@ -36,11 +34,10 @@
                 <li>Program name: {{ student.program_name }}</li>
                 <li>Instrument: {{ student.instrument }}</li>
               </ul>
-              <div class="teacher-card-link" id="chart-link-div">
-                {#<!-- <button type="button" id="student-profile-link"><a href="/teacher-profile/{{ student.student_id }}" class="card-link" >Student Profile Link</a></button> -->#}
-                {#<!-- <button id="student-past-logs-link"><a href="/teacher-profile-logs/{{ student.student_id }}" class="card-link" >Student Logs and Graphs</a></button> -->#}
-                {#<!-- <a href="/charts" class="charts-card-link" value={{student.student_id}} id="student-charts-link">Student Charts Link</a> -->#}
-                <button id="teacher-past-logs-button" type="button" value={{student.student_id}} onclick="getStudentIdForTeacher('{{ student.student_id }}')">Student Logs and Graphs</button>
+              <div id="chart-link-div">
+                <a href="/teacher-profile/{{ student.student_id }}" class="card-link" id="student-profile-link">Student Profile Link</a>
+                {#<!-- <a href="/teacher-profile-logs/{{ student.student_id }}" class="card-link" id="student-past-logs-link">Student Past Logs Link</a> -->#}
+                {#<a href="/teacher-profile-chart{{ student.student_id }}" class="card-link" id="student-charts-link">Student Charts Link</a>#}
               </div>
             </div>
           </div>

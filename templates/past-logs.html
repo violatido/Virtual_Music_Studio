@@ -5,36 +5,6 @@
 {% endblock %}
 {% block body %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light"></nav>
-<div class="container-fluid" id="all-charts-container">
-    <div class="row" id="chart-row">
-        <div class="col-10 offset-1" id="chart-container">
-            <h1>charts charts charts!</h1>
-            <div class="row">
-                <div class="col">
-                    <span height="200"></span>
-                </div>
-                <div class="col">
-                    <span height="200" class="view-past-logs"></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 chart" id="chart-1-div">
-                    <canvas id="bar-time" width="500" height="400"></canvas>
-                </div>
-                <div class="col-md-6 chart" id="chart-2-div">
-                    <canvas id="chart-3" width="500" height="400"></canvas>      
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6" id="chart-3-div">
-                    <canvas id="myChart4" width="500" height="400"></canvas>
-                </div>
-                <div class="col-md-6">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="container-main" id="container-past-logs">
     <div class="container" id="container-log-list">
         <div class="row">
@@ -49,12 +19,13 @@
                     </ul>
                     </div>
                 {% endfor %}
-                <!-- <button class="charts-link-button" id="charts-link-button">
+                <button class="charts-link-button" id="charts-link-button">
                     <a class="charts-link" href="http://0.0.0.0:5000/charts">View Practice Data</a>
-                </button>     -->
+                </button>    
             </div>
         </div>
     </div>
 </div>
 
 {% endblock %}
+

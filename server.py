@@ -159,19 +159,8 @@ def go_to_student_logs(student_id):
     return render_template('past-logs.html', student= student, teacher=teacher, student_logs=student_logs)
 
 
-# @app.route('/teacher-profile-chart')
-# def go_to_student_charts():
-
-#     student_id = request.forms.get()
-
-#     teacher = crud.get_teacher_by_id(session["teacher_id"])
-#     student = crud.get_student_by_id(student_id)
-#     student_logs = crud.get_logs_by_student_id(student_id)
-
-#     return render_template('charts.html', student=student_id, teacher=teacher, student_logs = student_logs)
-
 #________________________________________functions for adding teacher notes________________________________________#
-@app.route('/teacher-notez')
+@app.route('/teacher-notes')
 def view_teacher_notes():
     """Renders the VMS teacher notes page"""
 
@@ -194,7 +183,7 @@ def add_note():
     note_time = request.form.get('note_time')
     note_content = request.form.get('note_content')
 
-    note = crud.create_note(note_date, note_teacher_id, note_student_name, note_date, note_time, note_content)
+    note = crud.create_note(note_teacher_id, note_student_name, note_date, note_time, note_content)
     
     return jsonify({'status': 'ok', 'note_date': note_date})  
 
@@ -247,17 +236,17 @@ def list_logs_by_student():
     return render_template('past-logs.html', student= student, student_logs=student_logs)
 
 #____________________________________functions for viewing/seeding data charts___________________________________#
-# @app.route('/charts')
-# def view_charts():
-#     """View data charts for practice logs"""
-#     return render_template('charts.html')
+@app.route('/charts')
+def view_charts():
+    """View data charts for practice logs"""
+    return render_template('charts.html')
 
-@app.route('/<student_id>/past-logs.json')
-def seed_chart_one(student_id):
+@app.route('/charts.json')
+def seed_chart_one():
     """Passes data for minutes practiced and log dates into chart #1 as JSON"""
 
-    # student = crud.get_student_by_id(student_id)
-    student_logs = crud.get_logs_by_student_id(student_id)
+    student = crud.get_student_by_id(session["student_id"])
+    student_logs = crud.get_logs_by_student_id(student.student_id)
 
     # x-axis data: dates in the week
     practice_dates = [] # holds todays date and previous six days as list items
@@ -267,19 +256,11 @@ def seed_chart_one(student_id):
         practice_dates.append(dater)
         date = date - timedelta(days=1)
 
-    #code unused
-        log_dates = [] 
-        log_minutes = [] 
-
-        for log in student_logs:
-            log_dates.append(log.log_date) #adds all practice dates to log_dates list
-            log_minutes.append(log.minutes_practiced) #adds all minutes practiced to minutes_practiced list
-
     minutes_practiced = []
 
     # y-axis data: minutes practiced on each date in the week
     for date in practice_dates: # loops over the dates of the week
-        dates_practiced = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date(), student_id) #all practice dates 
+        dates_practiced = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date(), student.student_id) #all practice dates 
         if dates_practiced:
             minutes_practiced.append((date, dates_practiced.minutes_practiced))
         else:
@@ -294,7 +275,7 @@ def seed_chart_one(student_id):
 
     return jsonify(data) 
 
-@app.route('/past-logs/2.json')
+@app.route('/charts/2.json')
 def seed_chart_two():
     """ Passes data for days practiced over four weeks to chart #2 as JSON"""
 
@@ -325,7 +306,7 @@ def seed_chart_two():
 
     return jsonify(data) 
 
-@app.route('/past-logs/3.json')
+@app.route('/charts/3.json')
 def seed_chart_three():
     """ Passes data for minutes practiced over four weeks to chart #3 as JSON"""
 

@@ -73,8 +73,8 @@ class Note(db.Model):
     note_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.teacher_id'))
     note_student_name = db.Column(db.String)
-    note_date = db.Column(db.String)
-    note_time = db.Column(db.String)
+    note_date = db.Column(db.Date)
+    note_time = db.Column(db.Time)
     note_content = db.Column(db.String)
 
 
