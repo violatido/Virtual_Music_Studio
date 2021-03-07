@@ -6,13 +6,13 @@
 
 {% block body %}
 {% if teacher %}
-  <h1>Welcome to your Virtual Music Studio, {{teacher.teacher_fname}} {{teacher.teacher_lname}}</h1>
+  <h1>Welcome to your Virtual Music Studio, {{ teacher.teacher_fname }} {{ teacher.teacher_lname }}</h1>
 {% endif %}  
 
 
 <form id="create_note">
   <h3>Lesson Note</h3>
-  Teacher Id: <input type="text" id="note_teacher_id" name="note_teacher_id" value={{teacher.teacher_id}}> <br>
+  Teacher Id: <input type="text" id="note_teacher_id" name="note_teacher_id" value={{ teacher.teacher_id }}> <br>
   Student Name: <input type="text" id="note_student_name" name="note_student_name"> <br>
   Lesson Date: <input type="date" id="note_date" name="note_date">    <br>
   Lesson Time: <input type="time" id="note_time"> <br>
@@ -21,5 +21,16 @@
   <input type="reset" value="reset">
 </form>
 <h3 id="note_added_response"></h3>
+<br><br><br><br>
+{% for note in teacher_notes%}
+                    <ul>
+                        <li>Note ID # {{ note.note_id }}</li>
+                        <li>Student Name: {{ note.note_student_name }}</li>
+                        <li>Lesson Date: {{ note.note_date }}</li>
+                        <li>Lesson Time: {{ note.note_time }}</li>
+                        <li>Lesson Notes: {{ note.note_content }}</li>
+                    </ul>
+                    </div>
+                {% endfor %}
 
 {% endblock %}  

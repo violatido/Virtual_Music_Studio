@@ -162,11 +162,12 @@ def go_to_student_logs(student_id):
 #________________________________________functions for adding teacher notes________________________________________#
 @app.route('/teacher-notes')
 def view_teacher_notes():
-    """Renders the VMS teacher notes page"""
+    """Renders the VMS teacher notes page and note history"""
 
     teacher = crud.get_teacher_by_id(session["teacher_id"])
+    teacher_notes= crud.get_notes_by_teacher_id(teacher.teacher_id)
 
-    return render_template('teacher-notes.html', teacher=teacher)
+    return render_template('teacher-notes.html', teacher=teacher, teacher_notes=teacher_notes)
 
 @app.route('/teacher-notes', methods=["POST"])
 def add_note():
@@ -195,7 +196,7 @@ def view_log_page():
     """Renders the VMS practice-log page with practice log form"""
 
     student = crud.get_student_by_id(session["student_id"])
-
+    
     return render_template('practice-log.html', student=student)
 
 @app.route('/practice-log', methods=["POST"])
