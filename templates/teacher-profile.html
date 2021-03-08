@@ -24,7 +24,7 @@
       <div class="row" id="tp-row-2">
         {% for student in teacher.students %}
         <div class="col-lg-6" id="tp-loop-col">
-          <div class="card" style="width: 14rem;">
+          <div class="card" style="width: 16rem;">
             <div class="card-body">
               <h5 class="card-title">{{ student.student_fname}} {{ student.student_lname}}</h5>
               <h6 class="card-subtitle mb-2 text-muted" id="h6-student-id">Student ID #: {{ student.student_id }}</h6>    
@@ -48,16 +48,30 @@
     </div>
     <div class="col">
       <form id="message-id" method="post">
-        <label for="">Send Goal Updates To Students</label>
+        
+        <input type="number" id="phone_dropdown_id">
+        {#<!-- <label for="">Send Goal Updates To Students</label>
         <select name="student_numbers" id="">Students
           <option value="select-student">Select Student ID</option>
         {% for student in teacher.students %}
-          <option id="phone_dropdown_name" value= "{{ student.student_id }}" > {{ student.student_id }}  </option>
+          <option id="phone_dropdown_id" value= "{{ student.student_id }}" > {{ student.student_id }}  </option>
         {% endfor %}
-        </select>
+        </select>  -->#}
         <h3 id="sms-id"></h3>
         <input id="sms-submit" type="submit">
       </form>
+    </div>
+    <div class="col">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown button
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {% for student in teacher.students %}
+          <a class="dropdown-item" href="#">{{ student.student_id }}</a>
+          {% endfor %}
+        </div>
+      </div>
     </div>
   </div>
 </div>

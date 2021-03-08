@@ -1,49 +1,85 @@
 .background-color {
     background-color: #355C7D;
 }
+/* 
+#nav-row {
+    border: 3px white solid;
+} */
 
-.nav-class {
+#left-nav-col {
+    /* border: 3px green solid; */
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    align-items: center;
 }
 
-#dropdown-container {
-    color: white;
+#right-nav-col {
+    /* border: 3px red solid; */
+    display: flex;
+    align-items: center;
 }
 
-#navbardropdown {
+.left-nav-link{
+    display: block;
+    overflow: visible;
+    text-overflow: ellipsis;
     color: white;
+    text-align: center;
+}
+
+.right-nav-link {
+    display: block;
+    overflow: visible;
+    text-overflow: ellipsis;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-self: flex-end;
+}
+
+.a-home {
+    color: white;
+    font-family: 'Arial';
+    font-size: 1.25em;
+    /* border: 3px rgba(246, 114, 128) solid; */
+    border-radius: 10px;
+    margin-right: 3px;
     text-decoration: none;
-    display: flex;
-    flex-wrap: wrap;
-
+    padding: 5px;
 }
 
-#navbar-home-link {
-    color: White;
 
-}
-
-#homepage-link {
-    color: white;
-    font-size: 2.5em;
-}
-
-#dropdown-container {
-    display: flex;
-    justify-content: flex-end;
+a:hover {
+    background-color: #111;
 }
 
 /*____________________________________________________Homepage____________________________________________________*/
 
-body {
-    background-color: #FCD5BE;
-}
-
 #main-homepage-row {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
     /* border: 3px black solid; */
+}
+
+#main-left-col {
+        /* border: 3px green solid; */
+        border-radius: 100px;  
+        margin-top: 2%;
+        display: flex;
+        align-items: center;
+}
+
+.homepage-content {
+    text-align: center;
+    font-size: 3.25em;
+    color: white;
+}
+
+.homepage-subtitle {
+    text-align: center;
+    font-size: 1em;
+    color: white;
 }
 
 #logo-col {
@@ -52,7 +88,7 @@ body {
     margin-top: 2%;
     height: 600px;
     width: 600px;
-    
+
 }
 
 #right-panel {
@@ -83,26 +119,75 @@ body {
     /* border: 3px aquamarine solid; */
 }
 
-.homepage-button {
-    background-color: white;
-    color: #355C7D;
+.student-home-button {
+    color: white;
     font-family: 'Times New Roman', Times, serif;
-    font-size: 1.75rem;
-    border: 10px rgba(246, 114, 128, .65) solid;
+    font-size: 1.75em;
+    border: 3px rgba(246, 114, 128) solid;
     border-radius: 10px;
-    padding: .5rem 1.5rem;
-    margin: .5rem;
+    margin-right: 5px;
 }
 
 .portal-link {
     text-decoration: none;
-    color:#355C7D;
-    background-color: white;
+    color:white;
     display: flex;
     justify-content: center;
     align-content: center;
 }
 
+/*_________________________________________________Portals_____________________________________________________*/
+.portal-login-button {
+background-color: white;
+color: #355C7D;
+font-family: 'Times New Roman', Times, serif;
+font-size: 1.25rem;
+border: 10px #6C5B7B solid;
+border-radius: 10px;
+padding: .25rem 1.25rem;
+}
+
+/*_________________________________________________Teacher Profile_____________________________________________*/
+.card {
+background-color: #FCD5BE;
+border-radius: .5em;
+/* margin: .5em; */
+}
+
+#tp-row-1 {
+/* border: 3px white solid; */
+}
+
+#tp-col-1 {
+/* border: 3px red solid; */
+}
+
+#tp-loop-col {
+/* border: 3px green solid; */
+margin-bottom: .5em;
+display: flex;
+justify-content: space-between;
+}
+
+
+/*_________________________________________________Past Logs___________________________________________________*/
+#container-log-list {
+background-color: #FCD5BE;
+}
+
+/*_________________________________________________Charts_______________________________________________*/
+#chart-container {
+background-color: white;
+}
+
+#all-charts-container{
+background-color: #FCD5BE;
+}
+
+.view-past-logs {
+display: flex;
+justify-content: center;
+}
 /*_________________________________________________Portals_____________________________________________________*/
 .portal-login-button {
     background-color: white;

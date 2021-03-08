@@ -4,51 +4,36 @@
     Home
 {% endblock %}
 {% block body %}
-<nav class="navbar navbar-expand-lg" >
-    <div class="container-fluid" id="nav-class">
-        <a class="navbar-brand" id="navbar-home-link" href="/">Navbar</a>
-        <button class="navbar-toggler" id="navbar-dropdown" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon">Login, Register</span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="dropdown-container">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Login/Register
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-            </ul>
+<nav>
+    <div class="row" id="nav-row">
+        <div class="col-sm-6" id="left-nav-col">
+            <span class="left-nav-link"><a class="a-home" href="#home">Virtual Music Studio</a>
         </div>
-    </div>
+        <div class="col-sm-6">
+        <div class="row">
+            <div class="col-sm-4 offset-lg-4" id="right-nav-col">
+            <span class="right-nav-link"><a class="a-home" href="/student-portal">Student</a></span>
+            </div>
+            <div class="col-sm-4" id="right-nav-col">
+            <span class="right-nav-link"><a class="a-home" href="/teacher-portal">Teacher</a></span>
+            </div>
+        </div>
+        </div>
+    </div>    
 </nav>
 <div class="container-fluid">
     <div class="row" id="main-homepage-row">
-        <div class="col-sm-6 " id="right-panel">
-            <div class="row" id="right-row">
-                <div class="col" id="student-button-col">
-                    <button class="homepage-button" id="student-homepage-button">
-                        <a class="portal-link" href="http://0.0.0.0:5000/student-portal">Student</a>
-                    </button>    
-                </div>
-            </div>
-            <div class="row" id="right-row">
-                <div class="col" id="teacher-button-col">
-                    <button class="homepage-button" id="teacher-homepage-button">
-                        <a class="portal-link" href="http://0.0.0.0:5000/teacher-portal">Teacher</a>
-                    </button>    
+        <div class="col-sm-6" id="main-left-col">
+            <div class="row">
+                <div class="col" id="homepage-text">
+                    <span class="homepage-content">An Organizational Tool For Private Music Teachers.</span> <br>
+                    <span class="homepage-subtitle">Remove the burden of tracking student information and progress with an all inclusive app that creates your own virtual studio</span>
                 </div>
             </div>
         </div>
         <div class="col-sm-6" id="logo-col">
             <img class="img-fluid" src="static/img/ilana's logo.png" alt="">
         </div>
-        
     </div>
 </div>
 

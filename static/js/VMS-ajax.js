@@ -151,13 +151,11 @@ $('#create_note').on('submit', (evt) => {
 $('#message-id').on('submit', (evt) => {
     evt.preventDefault();
 
-    const myMessage = { "my_message": $('#my_message').val() }
+    const studentTexted = { "phone_dropdown_id": $('#phone_dropdown_id').val() }
 
     // console.log(myMessage)
-    $.post("/api/messages", myMessage, (res) => {
-        $('#sms-id').text(
-            `Message sent! Reads: ${res.my_message}`
-        )
+    $.post("/api/messages", studentTexted, (res) => {
+        $('#sms-id').text(`Message sent!`)
     });
 });
 

@@ -137,6 +137,7 @@ def view_teacher_profile():
     """Renders the VMS teacherprofile page"""
 
     teacher = crud.get_teacher_by_id(session["teacher_id"])
+    # students = crud.get_students_by_teacher_id(teacher.teacher_id)
 
     return render_template('teacher-profile.html', teacher=teacher)
 
@@ -383,13 +384,14 @@ def send_message():
         # print(days_text_data, mins_text_data)
 
         # text_message_content = f"This week's practice stats for student! Number of days practiced this week: {days_text_data}. Number of minutes practiced this week: {mins_text_data}"
-    text_message_content = "SUCCESS YAYYYYYYYYYY!!!"
+    text_message_content = "I see you're practice habits are below your goals. Try to get some extra sessions in before the next lesson!"
 
     teacher = crud.get_teacher_by_id(session["teacher_id"])
 
-    student_id = request.form.args('phone_dropdown_name')
-    student = crud.get_student_by_id(student_id) 
-    student_phone = student.student_phone
+    student_id = request.form.args('phone_dropdown_id')
+
+    student_num = crud.get_student_phone(student_id)
+    student_phone = "+1" + student_num
 
     message = client.messages.create(
                         body= text_message_content, #text message content here 
