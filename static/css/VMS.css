@@ -2,6 +2,37 @@
     background-color: #355C7D;
 }
 
+.nav-class {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#dropdown-container {
+    color: white;
+}
+
+#navbardropdown {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+#navbar-home-link {
+    color: White;
+
+}
+
+#homepage-link {
+    color: white;
+    font-size: 2.5em;
+}
+
+#dropdown-container {
+    display: flex;
+    justify-content: flex-end;
+}
 
 /*____________________________________________________Homepage____________________________________________________*/
 
@@ -19,13 +50,15 @@ body {
     /* border: 3px green solid; */
     padding: 0%;
     margin-top: 2%;
-    height: 482px;
-    width: 482px;
+    height: 600px;
+    width: 600px;
+    
 }
 
 #right-panel {
     /* border: 3px green solid; */
-    background-color:#C06C84;    
+    background-color:#FCD5BE;  
+    border-radius: 100px;  
     margin-top: 2%;
     height: 482px;
     width: 482px;
@@ -55,7 +88,7 @@ body {
     color: #355C7D;
     font-family: 'Times New Roman', Times, serif;
     font-size: 1.75rem;
-    border: 10px #6C5B7B solid;
+    border: 10px rgba(246, 114, 128, .65) solid;
     border-radius: 10px;
     padding: .5rem 1.5rem;
     margin: .5rem;

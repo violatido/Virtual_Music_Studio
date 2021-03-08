@@ -22,7 +22,7 @@
   <div class="row" id="tp-row-1">
     <div class="col-sm-6" id="tp-col-1">
       <div class="row" id="tp-row-2">
-        {% for student in teacher.students%}
+        {% for student in teacher.students %}
         <div class="col-lg-6" id="tp-loop-col">
           <div class="card" style="width: 14rem;">
             <div class="card-body">
@@ -48,8 +48,14 @@
     </div>
     <div class="col">
       <form id="message-id" method="post">
-        <h3 id="sms-id">Send Goal Updates To Students</h3>
-        {#<!-- <input type="text" id="my_message" name="my_message"> -->#}
+        <label for="">Send Goal Updates To Students</label>
+        <select name="student_numbers" id="">Students
+          <option value="select-student">Select Student ID</option>
+        {% for student in teacher.students %}
+          <option id="phone_dropdown_name" value= "{{ student.student_id }}" > {{ student.student_id }}  </option>
+        {% endfor %}
+        </select>
+        <h3 id="sms-id"></h3>
         <input id="sms-submit" type="submit">
       </form>
     </div>

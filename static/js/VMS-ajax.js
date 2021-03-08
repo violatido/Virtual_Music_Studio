@@ -124,11 +124,11 @@ $('#create_log').on('submit', (evt) => {
     });
 });
 
-
 //_________________________________________Event for lesson notes___________________________________________________
 
 // event handler for creating new lesson notes
 $('#create_note').on('submit', (evt) => {
+    console.log("HALPPPPPP");
     evt.preventDefault();
 
     const noteFormValues = { 
@@ -138,7 +138,7 @@ $('#create_note').on('submit', (evt) => {
         'note_time': $('#note_time').val(),
         'note_content': $('#note_content').val(),
     } 
-    console.note(noteFormValues)
+    console.log(noteFormValues);
     $.post("/teacher-notes", noteFormValues, (res) => {
         $('#note_added_response').text(
             `note for lesson at ${res.note_time} on ${res.note_date} has been saved!`

@@ -7,12 +7,13 @@
 {% if student %}
   <h1>Welcome, {{student.student_fname}} {{student.student_lname}}</h1>
   <ul>
-    <li>Student ID: {{student.student_id}}</li>
-    <li>Student Email: {{student.student_email}}</li>
-    <li>Private Teacher Name: {{teacher.teacher_fname}} {{teacher.teacher_lname}}</li>
-    <li>Private Teacher Email: {{teacher.teacher_email}}</li>
-    <li>Program Name: {{student.program_name}}</li>
-    <li>Instrument: {{student.instrument}}</li>
+    <li>Student ID: {{ student.student_id }}</li>
+    <li>Student Email: {{ student.student_email }}</li>
+    <li>Student Phone: {{ student.student_phone }}</li>
+    <li>Private Teacher Name: {{ teacher.teacher_fname }} {{ teacher.teacher_lname }}</li>
+    <li>Private Teacher Email: {{ teacher.teacher_email }}</li>
+    <li>Program Name: {{ student.program_name }}</li>
+    <li>Instrument: {{ student.instrument }}</li>
   </ul>
   <br>
   <br>

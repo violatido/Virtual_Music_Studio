@@ -140,7 +140,6 @@ def view_teacher_profile():
 
     return render_template('teacher-profile.html', teacher=teacher)
 
-
 @app.route('/teacher-profile/<student_id>')
 def go_to_student_profile(student_id):
 
@@ -171,7 +170,6 @@ def view_teacher_notes():
 
 @app.route('/teacher-notes', methods=["POST"])
 def add_note():
-    print('!!!!!\n!!!!\nNOTES\n!!!!\n!!!!\n!!!')
     """Creates a new lesson note
     
     if the note form is valid, the session adds the note to the note table"""
@@ -251,11 +249,11 @@ def seed_chart_one():
 
     # x-axis data: dates in the week
     practice_dates = [] # holds todays date and previous six days as list items
-    date = datetime.now()
+    date = datetime.now() # the date and time in this exact moment
     for _ in range(7):
         dater = str(date.year) + '-' + str(date.month) + '-' + str(date.day)
         practice_dates.append(dater)
-        date = date - timedelta(days=1)
+        date = date - timedelta(days=1) # first iteration = yesterday 
 
     minutes_practiced = []
 
@@ -358,39 +356,45 @@ def send_message():
     client = Client(account_sid, auth_token)
     
     # # retrieve the data by calling seed_chart_one()
-    # data = seed_chart_one()
-    # # extract the minutes_practiced key values (min practiced per day this past week)
-    #     # minutes_per_day = data['minutes_practiced] >>> [0, 0, 0, 45, 98, 50, 120]
-    # minutes_practiced = data['minutes_practiced']
+        # data = seed_chart_one()
+        # # extract the minutes_practiced key values (min practiced per day this past week)
+        #     # minutes_per_day = data['minutes_practiced] >>> [0, 0, 0, 45, 98, 50, 120]
+        # minutes_practiced = data['minutes_practiced']
 
-    # # loop over the minutes_practiced list to count total minutes and total days
-    # def count_minutes_and_days(minutes_list):
-    #     total_days = 0
-    #     total_mins = 0
+        # # loop over the minutes_practiced list to count total minutes and total days
+        # def count_minutes_and_days(minutes_list):
+        #     total_days = 0
+        #     total_mins = 0
 
-    #     for minutes in minutes_list:
-    #         total_mins += minutes
-            
-    #         if minutes != 0:
-    #             minutes = 1 # 1 = one day of practice 
-    #             total_days += 1
+        #     for minutes in minutes_list:
+        #         total_mins += minutes
+                
+        #         if minutes != 0:
+        #             minutes = 1 # 1 = one day of practice 
+        #             total_days += 1
 
-    #     return total_days, total_mins
+        #     return total_days, total_mins
 
-    # #unpack the totals for SMS data
-    # days_text_data, mins_text_data = count_minutes_and_days(minutes_practiced)
-    # # >>> 4
-    # # >>> 313
-    # print('!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!\n!!!!!!!!!!!!\n!!!')
-    # print(days_text_data, mins_text_data)
+        # #unpack the totals for SMS data
+        # days_text_data, mins_text_data = count_minutes_and_days(minutes_practiced)
+        # # >>> 4
+        # # >>> 313
+        # print('!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!\n!!!!!!!!!!!!\n!!!')
+        # print(days_text_data, mins_text_data)
 
-    # text_message_content = f"This week's practice stats for student! Number of days practiced this week: {days_text_data}. Number of minutes practiced this week: {mins_text_data}"
+        # text_message_content = f"This week's practice stats for student! Number of days practiced this week: {days_text_data}. Number of minutes practiced this week: {mins_text_data}"
     text_message_content = "SUCCESS YAYYYYYYYYYY!!!"
 
+    teacher = crud.get_teacher_by_id(session["teacher_id"])
+
+    student_id = request.form.args('phone_dropdown_name')
+    student = crud.get_student_by_id(student_id) 
+    student_phone = student.student_phone
 
     message = client.messages.create(
                         body= text_message_content, #text message content here 
-                        to=os.environ["MY_PHONE"],
+                        # to=os.environ["MY_PHONE"],
+                        to=student_phone,
                         from_=os.environ["TWILIO_PHONE"]
                     )
 

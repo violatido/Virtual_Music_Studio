@@ -65,6 +65,8 @@ class Log(db.Model):
         """Show Log Info"""
         return f'<Log log_date={self.log_date} student_id={self.student_id} log_id={self.log_id}'
 
+########################################################################
+
 class Note(db.Model): 
     """Data Model for Teacher Lesson Notes"""
 

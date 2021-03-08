@@ -1,14 +1,12 @@
 "use strict"
-const help = 'please work';
 // _________________________________________Chart 1_______________________________________________________________
 $.get('/charts.json', (res) => {
     const dates = res.dates_practiced; // give us a list of dates
     // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22"]
     const practiceTimes = res.minutes_practiced; // associated practice minutes only
     // [0, 0, 120, 12, 45, 35, 100]
-    console.log("WORKING NOW?")
 
-    let myChart2 = document.getElementById("bar-time").getContext('2d');
+    let myChart2 = document.getElementById("bar-time");
 
     let colors2 = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5 B7B', '#355C7D', '#A8A0B1'];
     let chart2 = new Chart(myChart2, {
@@ -103,7 +101,7 @@ $.get('/charts/2.json', (res) => {
     let weeks = countDates(datesPracticedInMonth);
 
 
-    let myChart3 = document.getElementById("chart-3").getContext('2d');
+    let myChart3 = document.getElementById("chart-3");
 
 
     let colors = ['#F8B195', '#F67280', '#A8A0B1', '#6C5B7B', '#355C7D', '#A8A0B1'];
@@ -166,8 +164,6 @@ $.get('/charts/2.json', (res) => {
 
 
 // ___________________________________________Chart 3_____________________________________________________________________________
-
-
 $.get('/charts/3.json', (res) => {
     const datesInMonth = res.dates_in_month; // give us a list of dates over 4 weeks
     // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22", "Feb 21", "Feb 20", "Feb 19", "Feb 18", "Feb 17", "Feb 16", "Feb 15", "Feb 14", "Feb 13", "Feb 12", "Feb 11", "Feb 10", "Feb  9", "Feb  8", "Feb  7", "Feb  6", "Feb  5", "Feb  4", "Feb  3", "Feb  2", "Feb  1"]
@@ -202,7 +198,7 @@ $.get('/charts/3.json', (res) => {
     console.log(minutesWeek)
     
     let colors = ['#FCD5BE;', '#A8A0B1', '#F67280', '#355C7D'];
-    let myChart4 = document.getElementById("myChart4").getContext('2d');
+    let myChart4 = document.getElementById("myChart4");
 
     let chart4 = new Chart(myChart4, {
         type: 'bar',
