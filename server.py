@@ -443,7 +443,6 @@ def send_message():
 
     message = client.messages.create(
                         body= text_message_content, #text message content here 
-                        # to=os.environ["MY_PHONE"],
                         to=student_phone,
                         from_=os.environ["TWILIO_PHONE"]
                     )
