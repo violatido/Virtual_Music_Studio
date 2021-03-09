@@ -4,7 +4,47 @@
     Practice Log History
 {% endblock %}
 {% block body %}
-  <form id="create_log">
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Practice Log for {{student.student_fname}} {{student.student_lname}}</h3>
+      <form id="create_log">
+        <div class="form-group">
+          <label for="log_student_id">Student Id</label>
+          <input type="number" class="form-control" id="log_student_id" aria-describedby="emailHelp" placeholder={{ student.student_id }}>          
+        </div>
+        <div class="form-group">
+          <label for="log_date">Today's Date</label>
+          <input type="date" class="form-control" id="log_date" placeholder="">
+        </div>
+        <div class="form-group">
+          <label for="log_minutes_practiced">For How Many Minutes Did You Practice?</label>
+          <input type="number" class="form-control" id="log_minutes_practiced" placeholder="">
+        </div>
+        <div class="form-group">
+          <label for="log_pieces_practiced">Which Pieces Did You Practice?</label>
+          <input type="text" class="form-control" id="log_pieces_practiced" placeholder="">
+        </div>
+        <div class="form-group">
+          <label for="log_practice_notes">Notes (optional)</label>
+          <input type="text" class="form-control" id="log_practice_notes" placeholder="Write notes about your session here (ex: problem areas, lines of focus, etc)">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <button class="return-to-profile-button">
+        <a class="charts-link" href="/student-profile">Return to Student Profile</a>
+      </button> 
+      <button class="charts-link-button">
+        <a class="charts-link" href="/charts/{{ student.student_id }}">View Practice Data and History</a>
+      </button> 
+    </div>
+  </div>
+</div>
+
+ {# <!-- <form id="create_log">
     <h3>Practice Log for {{student.student_fname}} {{student.student_lname}}</h3>
     Student Id: <input type="text" id="log_student_id" name="log_student_id" value={{student.student_id}}> <br>
     Date: <input type="date" id="log_date" name="log_date">    <br>
@@ -14,10 +54,10 @@
     <input type="submit" value="submit">
     <input type="reset" value="reset">
   </form>
-  <h3 id="log_added_response"></h3>
+  <h3 id="log_added_response"></h3> --> #}
 
   
-  <button class="return-to-profile-button">
+  <!-- <button class="return-to-profile-button">
     <a class="charts-link" href="http://0.0.0.0:5000/student-profile">Return to Student Profile</a>
   </button> 
   <button class="past-logs-link-button">
@@ -25,5 +65,5 @@
   </button> 
   <button class="charts-link-button">
     <a class="charts-link" href="http://0.0.0.0:5000/charts">View Chart Data Graphs</a>
-  </button> 
+  </button>  -->
 {% endblock %}
