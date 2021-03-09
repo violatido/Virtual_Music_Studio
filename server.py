@@ -420,14 +420,21 @@ def send_message():
         # print(days_text_data, mins_text_data)
 
         # text_message_content = f"This week's practice stats for student! Number of days practiced this week: {days_text_data}. Number of minutes practiced this week: {mins_text_data}"
-    text_message_content = "I see you're practice habits are below your goals. Try to get some extra sessions in before the next lesson!"
+    
+    # hardcoded message to text to selected student
+    # text_message_content = "I see you're practice habits are below your goals. Try to get some extra sessions in before the next lesson!"
 
+    #locating the teacher currently logged in, and their list of students
     teacher = crud.get_teacher_by_id(session["teacher_id"])
 
+    # selecting a student id number
     student_id = request.form.get('phone_dropdown_id')
-
-    student_num = crud.get_student_phone(student_id)
+    
+    student= crud.get_student_phone(student_id) # crud: return Student.query.filter(Student.student_id == student_id).first()
+    student_num = student.student_phone
     student_phone = "+1" + student_num
+
+    text_message_content = request.form.get('message_content')
 
     message = client.messages.create(
                         body= text_message_content, #text message content here 
