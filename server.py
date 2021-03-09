@@ -378,15 +378,15 @@ def seed_chart_three(student_id):
     return jsonify(data) 
 
 #_______________________________________functions for messaging__________________________________#
-@app.route('/message')
-def view_messages():
-    """View text messages"""
+# @app.route('/message')
+# def view_messages():
+#     """View text messages"""
 
-    return render_template('message.html')
+#     return render_template('message.html')
 
 @app.route('/api/messages', methods=["POST"])
 def send_message():
-    """ Sends a text to user from submit button on message.html """
+    """ Sends a text to a specific student from their teacher's profile page """
 
     account_sid = os.environ.get('ACCOUNT_SID')
     auth_token = os.environ.get('AUTH_TOKEN')

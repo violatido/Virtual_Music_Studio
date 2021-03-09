@@ -37,6 +37,8 @@ $('#create_teacher').on('submit', (evt) => {
     $.post("/teacher-portal-create", teacherFormValues, (res) => {
         $('#teacher_added_response').text(`Teacher profile for ${res.teacher_fname} ${res.teacher_lname} has been created!`);
     });
+
+    document.getElementById("#create_teacher").reset()
 });
 
 //________________________________________Event for student login/registration______________________________________
@@ -82,25 +84,27 @@ $('#create_student').on('submit', (evt) => {
             `Student profile for ${res.student_fname} ${res.student_lname} has been created!`
         );
     });
+
+    document.getElementById("#create_student").reset()
 });
 
 //______________________________________Event for setting practice goals_________________________________________________
-$('practice_goal').on('submit', (evt) => {
-    evt.preventDefault();
+// $('practice_goal').on('submit', (evt) => {
+//     evt.preventDefault();
 
-    // converts student registration form into an object
-    // const studentFormValues = $('#student_reg_form').serialize();
-    const goalFormValues = { 
-        'days_goal': $('#days_goal').val(),
-        'total_practice_minutes': $('total_practice_minutes').val()
-    } 
+//     // converts student registration form into an object
+//     // const studentFormValues = $('#student_reg_form').serialize();
+//     const goalFormValues = { 
+//         'days_goal': $('#days_goal').val(),
+//         'total_practice_minutes': $('total_practice_minutes').val()
+//     } 
 
-    $.post("/student-profile", goalFormValues, (res) => {
-        $('#total_practice_days').text(
-            `${res.days_goal}`
-        );
-    });
-});
+//     $.post("/student-profile", goalFormValues, (res) => {
+//         $('#total_practice_days').text(
+//             `${res.days_goal}`
+//         );
+//     });
+// });
 
 
 //_________________________________________Event for creating logs___________________________________________________
@@ -122,13 +126,14 @@ $('#create_log').on('submit', (evt) => {
             `Log for ${res.log_date} has been saved!`
         )
     });
+
+    document.getElementById("#create_log").reset()
 });
 
 //_________________________________________Event for lesson notes___________________________________________________
 
 // event handler for creating new lesson notes
 $('#create_note').on('submit', (evt) => {
-    console.log("HALPPPPPP");
     evt.preventDefault();
 
     const noteFormValues = { 
@@ -144,6 +149,7 @@ $('#create_note').on('submit', (evt) => {
             `note for lesson has been saved!`
         )
     });
+    document.getElementById("#create_note").reset()
 });
 
 //_________________________________________Event for sending a text_________________________________________________
@@ -158,7 +164,9 @@ $('#message-id').on('submit', (evt) => {
 
     // console.log(myMessage)
     $.post("/api/messages", studentTexted, (res) => {
-        $('#sms-id').text(`Message sent!`)
+        $('#sms-id').text(`Message sent! Reads: ${res.message_content}`)
     });
+
+    document.getElementById("message-id").reset()
 });
 
