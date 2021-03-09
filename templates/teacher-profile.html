@@ -15,7 +15,7 @@
 </div>
 {% endif %}  
 <div class="container-main">
-  <a href="/teacher-notes">Write a lesson note</a>
+  <button type="button"><a href="/teacher-notes">Write a lesson note</a></button>
   <div>
     <h3>List of Students</h3>
   <div class="row" id="tp-row-1">
@@ -35,9 +35,9 @@
                 <li>Student phone: {{ student.student_phone }}</li>
               </ul>
               <div id="chart-link-div">
-                <a href="/teacher-profile/{{ student.student_id }}" class="card-link" id="student-profile-link">Student Profile Link</a>
+                <button type="button"><a href="/teacher-profile/{{ student.student_id }}" class="card-link" id="student-profile-link">Student Profile Link</a></button>
                 {#<!-- <a href="/teacher-profile-logs/{{ student.student_id }}" class="card-link" id="student-past-logs-link">Student Past Logs Link</a> -->#}
-                {#<a href="/teacher-profile-chart{{ student.student_id }}" class="card-link" id="student-charts-link">Student Charts Link</a>#}
+                <!-- {#<a href="/teacher-profile-chart{{ student.student_id }}" class="card-link" id="student-charts-link">Student Charts Link</a>#} -->
               </div>
             </div>
           </div>
@@ -46,32 +46,20 @@
       </div>
     </div>
     <div class="col">
+      <h3>Send a Message to a Student</h3>
       <form id="message-id" method="post">
-        {#<!-- <select>
-          <option value="" id="phone_dropdown_id">Choose a student</option>
+        <select id="phone_dropdown_id">
+          <option value="" id="">Choose a student</option>
         {% for student in teacher.students %} 
-          <option  placeholder="Choose student name" value="student_name" >{{ student.student_id }}</option>
+          <option id="" value={{ student.student_id }} >{{ student.student_fname }} {{ student.student_lname }}</option>
         {% endfor %}
-        </select> --> #}
-        <input type="number" id="phone_dropdown_id">
-        <label for="message_content">Write your message here</label>
-        <input type="text" name="message_content" id="message_content">
+        </select>
+        <input type="text" name="message_content" placeholder="Write Message Here" id="message_content">
         <input id="sms-submit" type="submit">
       </form>
       <h3 id="sms-id"></h3>
     </div>
-    <div class="col">
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown button
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          {% for student in teacher.students %}
-          <a class="dropdown-item" href="#">{{ student.student_id }}</a>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
+    
   </div>
 </div>
 {% endblock %}

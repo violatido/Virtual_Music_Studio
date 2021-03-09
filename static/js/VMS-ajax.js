@@ -161,6 +161,8 @@ $('#message-id').on('submit', (evt) => {
         "phone_dropdown_id": $('#phone_dropdown_id').val(),
         "message_content": $('#message_content').val() 
     }
+    
+    console.log(studentTexted)
 
     // console.log(myMessage)
     $.post("/api/messages", studentTexted, (res) => {

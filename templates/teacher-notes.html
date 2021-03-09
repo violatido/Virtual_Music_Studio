@@ -22,7 +22,7 @@
         <form id="create_note">
           <div class="form-group">
             <label for="note_teacher_id">Teacher ID</label>
-            <input type="number" class="form-control" id="note_teacher_id" aria-describedby="emailHelp" placeholder={{ teacher.teacher_id }}>
+            <input type="number" class="form-control" id="note_teacher_id" aria-describedby="emailHelp" value={{ teacher.teacher_id }}>
           </div>
           <div class="form-group">
             <label for="note_student_name">Student Name</label>
@@ -38,8 +38,8 @@
           </div>
           <div class="form-group">
             <label for="note_content">Lesson Notes</label>
-            {#<!-- <textarea class="md-textarea form-control" id="note_content" placeholder="Write your notes here!" rows="6"></textarea> -->#}
-            <input type="text" class="form-control" id="note_content" placeholder="Write your notes here!"> 
+            <textarea class="md-textarea form-control" id="note_content" placeholder="Write your notes here!" rows="6"></textarea>
+            <!-- <input type="text" class="form-control" id="note_content" placeholder="Write your notes here!">  -->
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>

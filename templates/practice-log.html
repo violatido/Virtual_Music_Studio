@@ -8,30 +8,37 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-      <h3>Practice Log for {{student.student_fname}} {{student.student_lname}}</h3>
-      <form id="create_log">
-        <div class="form-group">
-          <label for="log_student_id">Student Id</label>
-          <input type="number" class="form-control" id="log_student_id" aria-describedby="emailHelp" placeholder={{ student.student_id }}>          
-        </div>
-        <div class="form-group">
-          <label for="log_date">Today's Date</label>
-          <input type="date" class="form-control" id="log_date" placeholder="">
-        </div>
-        <div class="form-group">
-          <label for="log_minutes_practiced">For How Many Minutes Did You Practice?</label>
-          <input type="number" class="form-control" id="log_minutes_practiced" placeholder="">
-        </div>
-        <div class="form-group">
-          <label for="log_pieces_practiced">Which Pieces Did You Practice?</label>
-          <input type="text" class="form-control" id="log_pieces_practiced" placeholder="">
-        </div>
-        <div class="form-group">
-          <label for="log_practice_notes">Notes (optional)</label>
-          <input type="text" class="form-control" id="log_practice_notes" placeholder="Write notes about your session here (ex: problem areas, lines of focus, etc)">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+      <div id="student_log_submission">
+        <h3>Practice Log for {{student.student_fname}} {{student.student_lname}}</h3>
+        <form id="create_log">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="log_student_id">Student Id</label>
+              <input type="number" class="form-control" id="log_student_id" value={{ student.student_id }}>          
+            </div>
+            <div class="form-group col-md-6">
+              <label for="log_date">Today's Date</label>
+              <input type="date" class="form-control" id="log_date" placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="log_minutes_practiced">For How Many Minutes Did You Practice?</label>
+              <input type="number" class="form-control" id="log_minutes_practiced" placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="log_pieces_practiced">Which Pieces Did You Practice?</label>
+              <input type="text" class="form-control" id="log_pieces_practiced" placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="log_practice_notes">Notes (optional)</label>
+              <input type="text" class="form-control" id="log_practice_notes" placeholder="Write notes about your session here (ex: problem areas, lines of focus, etc)">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="reset" class="btn btn-primary" value="reset">Reset</button>
+        </form>
+        <h3 id="log_added_response"></h3> 
+        <br><br><br>
+      </div>  
     </div>
     <div class="col-md-6">
       <button class="return-to-profile-button">

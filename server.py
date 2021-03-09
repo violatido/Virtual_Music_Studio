@@ -60,9 +60,9 @@ def add_teacher():
     teacher_phone = request.form.get('teacher_phone')
     teacher_password = request.form.get('teacher_password')
 
-    crud.create_teacher(teacher_fname, teacher_lname, teacher_email, teacher_phone, teacher_password)
+    teacher = crud.create_teacher(teacher_fname, teacher_lname, teacher_email, teacher_phone, teacher_password)
 
-    if crud.get_teacher_by_email(teacher_email) == None:
+    if teacher == None:
         return jsonify({'error': 'email already in use'})
     else: 
         return jsonify({'teacher_fname': teacher_fname, 'teacher_lname': teacher_lname})
@@ -115,8 +115,10 @@ def add_student():
 
     student = crud.create_student(student_fname, student_lname, student_email, program_name, instrument, student_phone, student_password, teacher)
 
-    return jsonify({'student_fname': student_fname, 'student_lname': student_lname})
-
+    if student:
+        return jsonify({'student_fname': student_fname, 'student_lname': student_lname})
+    else: 
+        return jsonify({'status': 'error, registration credentials incorrect'})
 
 #__________________________________________functions for viewing profiles__________________________________________#
 @app.route('/student-profile')
@@ -427,14 +429,17 @@ def send_message():
     #locating the teacher currently logged in, and their list of students
     teacher = crud.get_teacher_by_id(session["teacher_id"])
 
-    # selecting a student id number
     student_id = request.form.get('phone_dropdown_id')
-    
+
     student= crud.get_student_phone(student_id) # crud: return Student.query.filter(Student.student_id == student_id).first()
+    
     student_num = student.student_phone
     student_phone = "+1" + student_num
 
+
     text_message_content = request.form.get('message_content')
+    # selecting a student id number
+    
 
     message = client.messages.create(
                         body= text_message_content, #text message content here 
@@ -443,7 +448,7 @@ def send_message():
                         from_=os.environ["TWILIO_PHONE"]
                     )
 
-    return jsonify({'my_message': text_message_content})
+    return jsonify({'message_content': text_message_content})
 
 
 if __name__ == '__main__':

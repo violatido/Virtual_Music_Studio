@@ -142,6 +142,12 @@ def get_student_phone(student_id):
     
     return Student.query.filter(Student.student_id == student_id).first()
 
+def get_full_student_name(student_id):
+    student = Student.query.filter(Student.student_id == student_id).first()
+
+    student_full_name = student.student_fname + ' ' + student.student_lname
+
+    return student_full_name
 
 if __name__ == '__main__':
     from server import app
