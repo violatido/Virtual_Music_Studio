@@ -13,7 +13,7 @@
                 <input type="text" class="form-control" id="teacher_login_email" name="teacher_login_email" placeholder="Email Address">                
               </div>
               <div class="col">
-                <input type="text" class="form-control" id="teacher_login_pw" name="teacher_login_pw" placeholder="Password">                
+                <input type="password" class="form-control" id="teacher_login_pw" name="teacher_login_pw" placeholder="Password">                
               </div>
               <div class="col">
                 <input type="submit" value="submit" class="portal-login-button">
@@ -40,32 +40,32 @@
               <div class="form-group col-md-6">
                 <input type="text" class="form-control" id="teacher_phone" placeholder="Phone">
               </div>
-            </div>
-            <div class="form-row">
               <div class="form-group col-md-6">              
                 <input type="password" class="form-control" id="teacher_password" placeholder="Password">
               </div>
             </div>
-            <input type="submit" name="" id="" value="submit">
-            <input type="reset" value="reset">
+            <button type="submit" value="submit">Submit</button>
+            <button type="reset" value="reset">Reset</button>
           </form>
-          <h3 id="student_added_response"></h3>
+          <h3 id="teacher_added_response"></h3>
         </div>
       </div>
         </div>
-        {#<!-- <div id="teacher_reg_form">
-          <form id="create_teacher">
-            <h3>Teacher Registration Form</h3>
-            First name: <input type="text" id="teacher_fname" name="teacher_fname"> <br> 
-            Last name: <input type="text" id="teacher_lname" name="teacher_lname"> <br>
-            Email: <input type="email" id="teacher_email" name="teacher_email"> <br>
-            Phone (optional): <input type="text" id="teacher_phone" name="teacher_phone" value="000-000-0000"> <br>
-            Password: <input type="text" id="teacher_password" name="teacher_password"> <br>
-            <input type="submit" value="submit">
-            <input type="reset" value="reset">
-          </form>
-          <h3 id="teacher_added_response"></h3>
-        </div> -->#}
     </div>
   </div>
 {% endblock %}
+
+
+{#<!-- <div id="teacher_reg_form">
+  <form id="create_teacher">
+    <h3>Teacher Registration Form</h3>
+    First name: <input type="text" id="teacher_fname" name="teacher_fname"> <br> 
+    Last name: <input type="text" id="teacher_lname" name="teacher_lname"> <br>
+    Email: <input type="email" id="teacher_email" name="teacher_email"> <br>
+    Phone (optional): <input type="text" id="teacher_phone" name="teacher_phone" value="000-000-0000"> <br>
+    Password: <input type="text" id="teacher_password" name="teacher_password"> <br>
+    <input type="submit" value="submit">
+    <input type="reset" value="reset">
+  </form>
+  <h3 id="teacher_added_response"></h3>
+</div> -->#}
