@@ -141,25 +141,6 @@ display: flex;
 justify-content: space-between;
 }
 
-
-/*_________________________________________________Past Logs___________________________________________________*/
-#container-log-list {
-background-color: #FCD5BE;
-}
-
-/*_________________________________________________Charts_______________________________________________*/
-#chart-container {
-background-color: white;
-}
-
-#all-charts-container{
-background-color: #FCD5BE;
-}
-
-.view-past-logs {
-display: flex;
-justify-content: center;
-}
 /*_________________________________________________Portals_____________________________________________________*/
 .portal-login-button {
     background-color: white;
@@ -193,22 +174,7 @@ justify-content: center;
     justify-content: space-between;
 }
 
-
-/*_________________________________________________Past Logs___________________________________________________*/
-#container-log-list {
-    background-color: #FCD5BE;
-}
-
-/*_________________________________________________Charts_______________________________________________*/
-#chart-container {
+/*___________________________________________Practice Data________________________________*/
+#container-past-logs {
     background-color: white;
-}
-
-#all-charts-container{
-    background-color: #FCD5BE;
-}
-
-.view-past-logs {
-    display: flex;
-    justify-content: center;
 }

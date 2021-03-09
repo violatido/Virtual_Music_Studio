@@ -141,7 +141,7 @@ $('#create_note').on('submit', (evt) => {
     console.log(noteFormValues);
     $.post("/teacher-notes", noteFormValues, (res) => {
         $('#note_added_response').text(
-            `note for lesson at ${res.note_time} on ${res.note_date} has been saved!`
+            `note for lesson has been saved!`
         )
     });
 });

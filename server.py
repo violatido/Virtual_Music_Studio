@@ -156,7 +156,7 @@ def go_to_student_logs(student_id):
     student = crud.get_student_by_id(student_id)
     student_logs = crud.get_logs_by_student_id(student_id)
 
-    return render_template('past-logs.html', student= student, teacher=teacher, student_logs=student_logs)
+    return render_template('charts.html', student= student, teacher=teacher, student_logs=student_logs)
 
 
 
@@ -218,15 +218,15 @@ def add_log():
     return jsonify({'status': 'ok', 'log_date': log_date})  
 
 #___________________________________functions for viewing past logs by student id________________________________#
-@app.route('/past-logz')
+@app.route('/chartsz')
 def view_student_logs():
     """Renders page for viewing past logs for individual student"""
 
     student = crud.get_student_by_id(session["student_id"])
 
-    return render_template('past-logs.html', student=student)
+    return render_template('charts.html', student=student)
 
-@app.route('/past-logs/<student_id>')
+@app.route('/charts/<student_id>')
 def list_logs_by_student(student_id):
     """Lists every log made by a student depending on their student_id.
     
@@ -235,7 +235,7 @@ def list_logs_by_student(student_id):
     student = crud.get_student_by_id(student_id)
     student_logs=crud.get_logs_by_student_id(student.student_id)
 
-    return render_template('past-logs.html', student= student, student_logs=student_logs)
+    return render_template('charts.html', student= student, student_logs=student_logs)
 
 #____________________________________functions for viewing/seeding data charts___________________________________#
 @app.route('/charts/<student_id>')

@@ -119,7 +119,7 @@ def get_students_by_teacher_id(teacher_id):
 #__________________________functions for Notes/Logs___________________________#
 def get_notes_by_teacher_id(teacher_id):
     """ Finds all notes submitted by a specific teacher using their teacher ID """
-    return Note.query.filter(Note.teacher_id == teacher_id).order_by(Note.note_date.desc()).all()
+    return Note.query.filter(Note.teacher_id == teacher_id).order_by(Note.note_id).all()
 
 def get_logs_by_student_id(student_id):
     """ Finds all logs submitted by a specific student using their student ID """

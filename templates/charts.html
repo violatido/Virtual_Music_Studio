@@ -4,8 +4,46 @@
     Practice Log Data
 {% endblock %}
 {% block body %}
-
-<div class="container-fluid" id="all-charts-container">
+<div class="container-main" id="container-past-logs">
+    <div class="container" id="container-log-list">
+        <div class="row">
+            <div class="col-md-9">
+                <h1>charts charts charts!</h1>
+                <div class="row">
+                    <div class="col chart" id="chart-1-div">
+                        <canvas id="bar-time"></canvas>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col chart" id="chart-2-div">
+                        <canvas id="chart-3"></canvas>      
+                    </div>
+                </div>
+                <div class="row">
+                <div class="col" id="chart-3-div">
+                    <canvas id="myChart4"></canvas>
+                </div>
+            </div>
+            </div>
+            <div class="col-md-3">
+                {% for log in student_logs%}
+                    <div>{{ log.log_date }}
+                    <ul>
+                        <li>Log ID #{{ log.log_id }}</li>
+                        <li>Minutes Practiced: {{ log.minutes_practiced }}</li>
+                        <li>Pieces Practiced: {{ log.pieces_practiced }}</li>
+                        <li>Notes: {{ log.practice_notes }}</li>
+                    </ul>
+                    </div>
+                {% endfor %}
+                <button class="charts-link-button" id="charts-link-button">
+                    <a class="charts-link" href="http://0.0.0.0:5000/charts">View Practice Data</a>
+                </button>    
+            </div>
+        </div>
+    </div>
+</div>
+{#<!-- <div class="container-fluid" id="all-charts-container">
     <div class="row" id="chart-row">
         <div class="col-10 offset-1" id="chart-container">
             <h1>charts charts charts!</h1>
@@ -34,5 +72,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->#}
 {% endblock %}
