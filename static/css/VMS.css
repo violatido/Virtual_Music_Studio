@@ -63,8 +63,7 @@ a:hover {
 }
 
 #main-left-col {
-        /* border: 3px green solid; */
-        border-radius: 100px;  
+        border: 3px green solid;
         margin-top: 2%;
         display: flex;
         align-items: center;
@@ -72,51 +71,20 @@ a:hover {
 
 .homepage-content {
     text-align: center;
-    font-size: 3.25em;
+    font-size: 5vw;
     color: white;
 }
 
 .homepage-subtitle {
     text-align: center;
-    font-size: 1em;
+    font-size: 1.5vw;
     color: white;
 }
 
 #logo-col {
-    /* border: 3px green solid; */
+    border: 3px red solid;
     padding: 0%;
     margin-top: 2%;
-    height: 600px;
-    width: 600px;
-
-}
-
-#right-panel {
-    /* border: 3px green solid; */
-    background-color:#FCD5BE;  
-    border-radius: 100px;  
-    margin-top: 2%;
-    height: 482px;
-    width: 482px;
-}
-
-#right-row {
-    /* border: 3px blue solid; */
-    height: 241px;
-}
-
-#student-button-col {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    /* border: 3px greenyellow solid; */
-}
-
-#teacher-button-col {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    /* border: 3px aquamarine solid; */
 }
 
 .student-home-button {
@@ -137,6 +105,10 @@ a:hover {
 }
 
 /*_________________________________________________Portals_____________________________________________________*/
+.student-portal-container {
+    margin-top: 3vh;
+}
+
 .portal-login-button {
 background-color: white;
 color: #355C7D;

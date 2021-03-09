@@ -159,6 +159,7 @@ def go_to_student_logs(student_id):
     return render_template('past-logs.html', student= student, teacher=teacher, student_logs=student_logs)
 
 
+
 #________________________________________functions for adding teacher notes________________________________________#
 @app.route('/teacher-notes')
 def view_teacher_notes():
@@ -225,28 +226,40 @@ def view_student_logs():
 
     return render_template('past-logs.html', student=student)
 
-@app.route('/past-logs')
-def list_logs_by_student():
+@app.route('/past-logs/<student_id>')
+def list_logs_by_student(student_id):
     """Lists every log made by a student depending on their student_id.
     
     All log info is passed into the HTML doc"""
-    student = crud.get_student_by_id(session["student_id"])
+    
+    student = crud.get_student_by_id(student_id)
     student_logs=crud.get_logs_by_student_id(student.student_id)
 
     return render_template('past-logs.html', student= student, student_logs=student_logs)
 
 #____________________________________functions for viewing/seeding data charts___________________________________#
-@app.route('/charts')
-def view_charts():
+@app.route('/charts/<student_id>')
+def view_charts(student_id):
     """View data charts for practice logs"""
     return render_template('charts.html')
 
-@app.route('/charts.json')
-def seed_chart_one():
+@app.route('/charts.json/<student_id>')
+def seed_chart_one(student_id):
     """Passes data for minutes practiced and log dates into chart #1 as JSON"""
 
-    student = crud.get_student_by_id(session["student_id"])
-    student_logs = crud.get_logs_by_student_id(student.student_id)
+    if "student_id" in session:
+        student_logs = crud.get_logs_by_student_id(student_id)
+    elif "teacher_id" in session:
+        teacher = crud.get_teacher_by_id(session["teacher_id"])
+        valid_students = teacher.get_student_ids()
+        
+        if int(student_id) in valid_students:
+            crud.get_logs_by_student_id
+        else:
+            return jsonify({"error": "student not valid"})
+
+    # student = crud.get_student_by_id(session["student_id"])
+    # student_logs = crud.get_logs_by_student_id(student.student_id)
 
     # x-axis data: dates in the week
     practice_dates = [] # holds todays date and previous six days as list items
@@ -260,7 +273,8 @@ def seed_chart_one():
 
     # y-axis data: minutes practiced on each date in the week
     for date in practice_dates: # loops over the dates of the week
-        dates_practiced = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date(), student.student_id) #all practice dates 
+        dates_practiced = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date(), student_id) #all practice dates 
+        # dates_practiced = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date(), student.student_id) #all practice dates 
         if dates_practiced:
             minutes_practiced.append((date, dates_practiced.minutes_practiced))
         else:
@@ -272,15 +286,27 @@ def seed_chart_one():
     #<Log log_date=2021-02-22 student_id=4 log_id=6
     data['minutes_practiced'] = [min_prac for date, min_prac in minutes_practiced]
     #[('2021-2-28', 0), ('2021-2-27', 0), ('2021-2-26', 120), ('2021-2-25', 12), ('2021-2-24', 45), ('2021-2-23', 35), ('2021-2-22', 100)]
-
+    print('!!!!!!!\n!!!\n!!!!\n!!!')
+    print(data)
     return jsonify(data) 
 
-@app.route('/charts/2.json')
-def seed_chart_two():
+@app.route('/charts/2.json/<student_id>')
+def seed_chart_two(student_id):
     """ Passes data for days practiced over four weeks to chart #2 as JSON"""
 
-    student = crud.get_student_by_id(session["student_id"])
-    student_logs = crud.get_logs_by_student_id(student.student_id)
+    if "student_id" in session:
+        student_logs = crud.get_logs_by_student_id(student_id)
+    elif "teacher_id" in session:
+        teacher = crud.get_teacher_by_id(session["teacher_id"])
+        valid_students = teacher.get_student_ids()
+        
+        if int(student_id) in valid_students:
+            crud.get_logs_by_student_id
+        else:
+            return jsonify({"error": "student not valid"})
+
+    # student = crud.get_student_by_id(session["student_id"])
+    # student_logs = crud.get_logs_by_student_id(student.student_id)
 
     # x-axis data: dates in month (eventually divded into four weeks)
     dates_in_month = [] # holds todays date and previous 27 dates as list items
@@ -294,7 +320,7 @@ def seed_chart_two():
 
     # y-axis data: days practiced in each week of the month
     for date in dates_in_month: # loops over each date of the month
-        monthly_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date(), student.student_id) #finds and formatts all logged practice dates in DB
+        monthly_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date(), student_id) #finds and formatts all logged practice dates in DB
         if monthly_dates:
             log_date.append((date, 1)) #adds to log_date date in month, 1 to signify a practice session that date
         else:
@@ -306,12 +332,22 @@ def seed_chart_two():
 
     return jsonify(data) 
 
-@app.route('/charts/3.json')
-def seed_chart_three():
+@app.route('/charts/3.json/<student_id>')
+def seed_chart_three(student_id):
     """ Passes data for minutes practiced over four weeks to chart #3 as JSON"""
 
-    student = crud.get_student_by_id(session["student_id"])
-    student_logs = crud.get_logs_by_student_id(student.student_id)
+    if "student_id" in session:
+        student_logs = crud.get_logs_by_student_id(student_id)
+    elif "teacher_id" in session:
+        teacher = crud.get_teacher_by_id(session["teacher_id"])
+        valid_students = teacher.get_student_ids()
+        
+        if int(student_id) in valid_students:
+            crud.get_logs_by_student_id
+        else:
+            return jsonify({"error": "student not valid"})
+    # student = crud.get_student_by_id(session["student_id"])
+    # student_logs = crud.get_logs_by_student_id(student.student_id)
 
     # x-axis data: dates in month (eventually divded into four weeks)
     dates_in_month = [] # holds todays date and previous 27 dates as list items
@@ -326,7 +362,7 @@ def seed_chart_three():
 
     # y-axis data: minutes practiced on each date in the month
     for date in dates_in_month: # loops over the dates of the month
-        monthly_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date(), student.student_id) #finds and formatts all logged practice dates in DB
+        monthly_dates = crud.search_logs_by_date(datetime.strptime(date, "%Y-%m-%d").date(), student_id) #finds and formatts all logged practice dates in DB
         if monthly_dates:
             minutes_practiced.append((date, monthly_dates.minutes_practiced))
         else:
@@ -388,7 +424,7 @@ def send_message():
 
     teacher = crud.get_teacher_by_id(session["teacher_id"])
 
-    student_id = request.form.args('phone_dropdown_id')
+    student_id = request.form.get('phone_dropdown_id')
 
     student_num = crud.get_student_phone(student_id)
     student_phone = "+1" + student_num

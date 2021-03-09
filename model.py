@@ -25,6 +25,10 @@ class Teacher(db.Model):
         """Show Teacher ID/Corresponding User Id"""
         return f'<Teacher teacher_id={self.teacher_id} teacher_name={self.teacher_fname} {self.teacher_lname}>'
 
+    def get_student_ids(self):
+        student_ids_lst = [student.student_id for student in self.students]
+        return set(student_ids_lst)
+
 ############################################################################
 
 class Student(db.Model):

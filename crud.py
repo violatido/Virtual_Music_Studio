@@ -113,10 +113,10 @@ def get_student_by_id(student_id):
     return Student.query.get(student_id)
 
 def get_students_by_teacher_id(teacher_id):
-    return Student.query.filter(Student.teacher_id == Teacher.teacher_id).first()
+    return Student.query.filter(Student.teacher_id == teacher_id).order_by(Student.student_id.desc()).all()
 
 
-#__________________________functions for Finding Logs/Log info___________________________#
+#__________________________functions for Notes/Logs___________________________#
 def get_notes_by_teacher_id(teacher_id):
     """ Finds all notes submitted by a specific teacher using their teacher ID """
     return Note.query.filter(Note.teacher_id == teacher_id).order_by(Note.note_date.desc()).all()
@@ -134,11 +134,13 @@ def search_logs_by_date(log_date, student_id):
 
 #__________________________functions for Assigning Teachers___________________________#
 
-def group_students_by_teacher(private_teacher):
+def group_students_by_teacher(private_teacher, student_id):
     """ Locate all students by private teacher's name """
-    return Student.query.filter(Student.private_teacher == private_teacher).all()
+    return Student.query.filter(Student.private_teacher == private_teacher).order_by(Student.student_id.desc()).all()
 
+def get_student_phone(student_id):
     
+    return Student.query.filter(Student.student_id == student_id).first()
 
 
 if __name__ == '__main__':
