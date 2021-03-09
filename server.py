@@ -243,7 +243,7 @@ def view_charts(student_id):
     """View data charts for practice logs"""
     return render_template('charts.html')
 
-@app.route('/charts.json/<student_id>')
+@app.route('/charts/1.json/<student_id>')
 def seed_chart_one(student_id):
     """Passes data for minutes practiced and log dates into chart #1 as JSON"""
 

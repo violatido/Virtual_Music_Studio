@@ -7,7 +7,7 @@ console.log(urlArr);
 const studentId = urlArr[urlArr.length - 1];
 console.log(studentId);
 
-$.get(`/charts.json/${studentId}`, (res) => {
+$.get(`/charts/1.json/${studentId}`, (res) => {
     console.log(res)
     const dates = res.dates_practiced; // give us a list of dates
     // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22"]

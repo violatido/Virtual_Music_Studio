@@ -20,17 +20,52 @@
               <input type="submit" value="submit" class="portal-login-button">
             </div>
           </form>
-          {#<!-- <h3>Student Login</h3>
-          <form id="login_student" action="/student-portal" method="post">
-            Email: <input type="text" id="student_login_email" name="student_login_email">
-            Password: <input type="password" id="student_login_pw" name="student_login_pw">
-            <input type="submit" value="submit" class="portal-login-button">
-          </form>
-          <h3 id="student_login_response"></h3> -->#}
           <br><br><br>
         </div>
       </div>
-      <div class="col"> 
+      <div class="col-md-6">
+        <div id="student-registration-form">
+          <h3>Student Registration</h3>
+          <form id="create_student">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="student_fname" placeholder="First Name">
+              </div>
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="student_lname" placeholder="Last Name">
+              </div>
+              <div class="form-group col-md-6">
+                <input type="email" class="form-control" id="student_email" placeholder="Email">
+              </div>
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="student_phone" placeholder="Phone">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">              
+                <input type="text" class="form-control" id="private_teacher_name" placeholder="Private Teacher Name">
+              </div>
+              <div class="form-group col-md-6">                
+                <input type="email" class="form-control" id="private_teacher_email" placeholder="Private Teacher Email">
+              </div>
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="program_name" placeholder="Program Name (Optional)">
+              </div>
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="instrument" placeholder="Instrument">
+              </div>
+            </div>
+            <div class="form-row col">
+              <input type="password" name="student_password" id="student_password" placeholder="Password">
+            </div>
+            <input type="submit" name="" id="" value="submit">
+            <input type="reset" value="reset">
+          </form>
+          <h3 id="student_added_response"></h3>
+        </div>
+      </div>
+      
+      {#<!-- <div class="col"> 
         <div id="student_reg_form">
           <form id="create_student">
             <h3>Student Registration Form</h3>
@@ -48,7 +83,7 @@
           </form>
           <h3 id="student_added_response"></h3>
         </div>
-      </div>
+      </div> -->#}
     </div>
   </div>
 {% endblock %}
