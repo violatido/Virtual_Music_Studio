@@ -18,6 +18,7 @@
   <button type="button"><a href="/teacher-notes">Write a lesson note</a></button>
   <div>
     <h3>List of Students</h3>
+  </div>
   <div class="row" id="tp-row-1">
     <div class="col-sm-6" id="tp-col-1">
       <div class="row" id="tp-row-2">
@@ -55,11 +56,31 @@
         {% endfor %}
         </select>
         <input type="text" name="message_content" placeholder="Write Message Here" id="message_content">
-        <input id="sms-submit" type="submit">
+        <input id="sms-submit" class="btn btn-primary" data-toggle="modal" data-target="#teacher_text_message" type="submit">
       </form>
-      <h3 id="sms-id"></h3>
     </div>
-    
   </div>
 </div>
+
+
+<!-- Modal Window for Text Message -->
+<div class="modal fade" id="teacher_text_message" tabindex="-1" role="dialog" aria-labelledby="teacher_text_messageTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="teacher_text_messageTitle">New Text from {{ teacher.teacher_fname }} {{ teacher.teacher_fname }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="sms-id"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}

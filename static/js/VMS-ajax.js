@@ -166,7 +166,8 @@ $('#message-id').on('submit', (evt) => {
 
     // console.log(myMessage)
     $.post("/api/messages", studentTexted, (res) => {
-        $('#sms-id').text(`Message sent! Reads: ${res.message_content}`)
+        $('#sms-id').text(
+            `Message sent! ${res.message_content}`)
     });
 
     document.getElementById("message-id").reset()

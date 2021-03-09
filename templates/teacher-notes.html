@@ -41,9 +41,8 @@
             <textarea class="md-textarea form-control" id="note_content" placeholder="Write your notes here!" rows="6"></textarea>
             <!-- <input type="text" class="form-control" id="note_content" placeholder="Write your notes here!">  -->
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#teacher_note_button">Submit</button>
         </form>
-        <h3 id="note_added_response"></h3>
         <br><br><br>
       </div>
     </div>
@@ -61,6 +60,26 @@
           </div>
         </div>
     {% endfor %}
+  </div>
+</div>
+
+<!-- Modal Window for Note Creation -->
+<div class="modal fade" id="teacher_note_button" tabindex="-1" role="dialog" aria-labelledby="teacher_note_buttonTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="teacher_note_buttonTitle">New Note for {{ teacher.teacher_fname }} {{ teacher.teacher_lname }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3 id="note_added_response"></h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
   </div>
 </div>
 
