@@ -112,38 +112,6 @@ border-radius: 10px;
 padding: .25rem 1.25rem;
 }
 
-/*_________________________________________________Teacher Profile_____________________________________________*/
-.card {
-background-color: #FCD5BE;
-border-radius: .5em;
-/* margin: .5em; */
-}
-
-#tp-row-1 {
-/* border: 3px white solid; */
-}
-
-#tp-col-1 {
-/* border: 3px red solid; */
-}
-
-#tp-loop-col {
-/* border: 3px green solid; */
-margin-bottom: .5em;
-display: flex;
-justify-content: space-between;
-}
-
-/*_________________________________________________Portals_____________________________________________________*/
-.portal-login-button {
-    background-color: white;
-    color: #355C7D;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 1.25rem;
-    border: 10px #6C5B7B solid;
-    border-radius: 10px;
-    padding: .25rem 1.25rem;
-}
 
 /*_________________________________________________Teacher Profile_____________________________________________*/
 .card {
@@ -168,7 +136,16 @@ justify-content: space-between;
     justify-content: space-between;
 }
 
-/*___________________________________________Practice Data________________________________*/
+
+
+/*___________________________________________Student Profile__________________________________________*/
+
+#main-student-row {
+    margin-top: 3em;
+}
+
+
+/*___________________________________________Practice Data_________________________________________________*/
 #container-past-logs {
     background-color: white;
 }

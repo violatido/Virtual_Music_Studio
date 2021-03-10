@@ -7,7 +7,7 @@
 
 
 <div class="container">
-  <div class="row">
+  <div class="row" id="main-student-row">
     <div class="col-md-6">
       {% if student %}
       <h1>Welcome, {{student.student_fname}} {{student.student_lname}}</h1>
@@ -33,7 +33,7 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="log_student_id">Student Id</label>
-              <input type="number" class="form-control" id="log_student_id" value={{ student.student_id }}>          
+              <input type="number" class="form-control" id="log_student_id" value={{ student.student_id }} readonly>          
             </div>
             <div class="form-group col-md-6">
               <label for="log_date">Today's Date</label>
@@ -44,7 +44,7 @@
               <input type="number" class="form-control" id="log_minutes_practiced" placeholder="">
             </div>
             <div class="form-group col-md-6">
-              <label for="log_pieces_practiced">Which Pieces Did You Practice?</label>
+              <label for="log_pieces_practiced">Which Pieces Did You Practice Today?</label>
               <input type="text" class="form-control" id="log_pieces_practiced" placeholder="">
             </div>
             <div class="form-group col-md-6">
@@ -52,14 +52,33 @@
               <input type="text" class="form-control" id="log_practice_notes" placeholder="Write notes about your session here (ex: problem areas, lines of focus, etc)">
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#practice_log_button">Submit</button>
           <button type="reset" class="btn btn-primary" value="reset">Reset</button>
-        </form>
-        <h3 id="log_added_response"></h3> 
+        </form> 
         <br><br><br>
       </div>  
     </div>
   </div>
 </div>
   {% endif %}  
+
+  <div class="modal fade" id="practice_log_button" tabindex="-1" role="dialog" aria-labelledby="practice_log_buttonTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="practice_log_buttonTitle">Practice Log Submitted!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p id="log_added_response"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 {% endblock %}  
