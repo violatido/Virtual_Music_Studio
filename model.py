@@ -13,7 +13,7 @@ class Teacher(db.Model):
     teacher_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     teacher_fname = db.Column(db.String(25), nullable=False)
     teacher_lname = db.Column(db.String(25), nullable=False)
-    teacher_email = db.Column(db.String(50), nullable=False)
+    teacher_email = db.Column(db.String(50), nullable=False, unique="True")
     teacher_phone = db.Column(db.String(25))
     teacher_password = db.Column(db.String(50), nullable=False)
 
@@ -39,7 +39,7 @@ class Student(db.Model):
     teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.teacher_id'))
     student_fname = db.Column(db.String(25), nullable=False)
     student_lname = db.Column(db.String(25), nullable=False)
-    student_email = db.Column(db.String(50), nullable=False)
+    student_email = db.Column(db.String(50), nullable=False, unique=True)
     student_password = db.Column(db.String(50), nullable=False)
     program_name = db.Column(db.String(50)) 
     instrument = db.Column(db.String(25), nullable=False)

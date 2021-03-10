@@ -29,6 +29,7 @@ class BasicTests(unittest.TestCase):
     def tearDown(self):
         pass
 
+# create student to login as in the test, rather than seed.py data
 
     ###############
     #### tests ####
@@ -42,6 +43,8 @@ class BasicTests(unittest.TestCase):
         assert response.status_code == 200
         assert b'Welcome, Olivia Rose' in response.data
 
+# returns 200 response:
+# moves to next page, forwards to student page (why assert b sys "Welcome")
 
     def test_student_cannot_login_with_incorrect_password(self):
         response = self.app.post('/student-portal', data=dict(
@@ -49,8 +52,10 @@ class BasicTests(unittest.TestCase):
             student_login_pw = 'bad_password'
         ), follow_redirects = True)
         assert response.status_code == 200 # this should be a 401
-        assert b'{"status":"error"}' in response.data
+        assert b'{"login credentials incorrect"}' in response.data
 
+# this is negative test for bad password
+# 401 = unauthorized 
 
 if __name__ == "__main__":
     unittest.main()
