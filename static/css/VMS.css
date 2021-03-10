@@ -1,6 +1,4 @@
-.background-color {
-    background-color: #355C7D;
-}
+
 /* 
 #nav-row {
     border: 3px white solid;
@@ -23,7 +21,6 @@
     display: block;
     overflow: visible;
     text-overflow: ellipsis;
-    color: white;
     text-align: center;
 }
 
@@ -31,14 +28,12 @@
     display: block;
     overflow: visible;
     text-overflow: ellipsis;
-    color: white;
     text-align: center;
     display: flex;
     justify-self: flex-end;
 }
 
 .a-home {
-    color: white;
     font-family: 'Arial';
     font-size: 1.25em;
     /* border: 3px rgba(246, 114, 128) solid; */
@@ -72,13 +67,11 @@ a:hover {
 .homepage-content {
     text-align: center;
     font-size: 5vw;
-    color: white;
 }
 
 .homepage-subtitle {
     text-align: center;
     font-size: 1.5vw;
-    color: white;
 }
 
 #logo-col {
@@ -157,6 +150,7 @@ justify-content: space-between;
     background-color: #FCD5BE;
     border-radius: .5em;
     /* margin: .5em; */
+    margin-left: .5em;
 }
 
 #tp-row-1 {

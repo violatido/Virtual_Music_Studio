@@ -4,28 +4,14 @@
     Practice Log Data
 {% endblock %}
 {% block body %}
-<div class="container-main" id="container-past-logs">
-    <div class="container" id="container-log-list">
+<div class="container" id="container-past-logs">
         <div class="row">
-            <div class="col-md-9">
-                <h1>charts charts charts!</h1>
-                <div class="row">
-                    <div class="col chart" id="chart-1-div">
-                        <canvas id="bar-time"></canvas>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col chart" id="chart-2-div">
-                        <canvas id="chart-3"></canvas>      
-                    </div>
-                </div>
-                <div class="row">
-                <div class="col" id="chart-3-div">
-                    <canvas id="myChart4"></canvas>
-                </div>
+            <div class="col d-flex justify-content-center">
+                <h1>Charts Charts Charts!</h1>
             </div>
-            </div>
-            <div class="col-md-3">
+        </div>
+        <div class="row">
+            <div class="col">
                 {% for log in student_logs%}
                     <div>{{ log.log_date }}
                     <ul>
@@ -39,6 +25,28 @@
                 <button class="charts-link-button" id="charts-link-button">
                     <a class="charts-link" href="http://0.0.0.0:5000/charts">View Practice Data</a>
                 </button>    
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col" id="chart-1-div">
+                        <canvas id="bar-time"></canvas>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" id="chart-2-div">
+                        <canvas id="chart-3"></canvas>      
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" id="chart-3-div">
+                        <canvas id="myChart4"></canvas>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <img class="img-fluid" src="static/img/ilana's logo.png" alt="">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
