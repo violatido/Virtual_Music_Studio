@@ -7,26 +7,36 @@
 
 
 <div class="container">
-  <div class="row" id="main-student-row">
-    <div class="col-md-6">
+  <div class="row" >
+    <div class="col d-flex justify-content-center">
       {% if student %}
       <h1>Welcome, {{student.student_fname}} {{student.student_lname}}</h1>
-      <ul>
-        <li>Student ID: {{ student.student_id }}</li>
-        <li>Student Email: {{ student.student_email }}</li>
-        <li>Student Phone: {{ student.student_phone }}</li>
-        <li>Private Teacher Name: {{ teacher.teacher_fname }} {{ teacher.teacher_lname }}</li>
-        <li>Private Teacher Email: {{ teacher.teacher_email }}</li>
-        <li>Program Name: {{ student.program_name }}</li>
-        <li>Instrument: {{ student.instrument }}</li>
-      </ul>
-      <br>
-      <br>
-      <button class="charts-link-button">
-        <a class="charts-link" href="/charts/{{ student.student_id }}">View Practice Data and History</a>
-      </button> 
     </div>
-    <div class="col-md-6">
+  </div>
+  <div class="row" id="main-student-row">
+    <div class="col-6 d-flex align-items-center">
+      <div class="row">
+        <div class="col">
+          <ul>
+            <li>Student ID: {{ student.student_id }}</li>
+            <li>Student Email: {{ student.student_email }}</li>
+            <li>Student Phone: {{ student.student_phone }}</li>
+            <li>Private Teacher Name: {{ teacher.teacher_fname }} {{ teacher.teacher_lname }}</li>
+            <li>Private Teacher Email: {{ teacher.teacher_email }}</li>
+            <li>Program Name: {{ student.program_name }}</li>
+            <li>Instrument: {{ student.instrument }}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button class="charts-link-button">
+            <a class="charts-link" href="/charts/{{ student.student_id }}">View Practice Data and History</a>
+          </button> 
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
       <div id="student_log_submission">
         <h3>Practice Log for {{student.student_fname}} {{student.student_lname}}</h3>
         <form id="create_log">
