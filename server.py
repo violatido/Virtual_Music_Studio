@@ -113,7 +113,7 @@ def add_student():
     student_phone = request.form.get('student_phone')
     teacher = crud.get_teacher_by_email(private_teacher_email)
 
-    student = crud.create_student(student_fname, student_lname, student_email, program_name, instrument, student_phone, student_password, teacher)
+    student = crud.create_student(student_fname, student_lname, student_email, program_name, instrument, student_password, student_phone, teacher)
 
     if student:
         return jsonify({'student_fname': student_fname, 'student_lname': student_lname})

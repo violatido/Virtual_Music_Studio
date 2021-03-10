@@ -4,18 +4,48 @@
     Teacher Profile
 {% endblock %}
 {% block body %}
-{% if teacher %}
-  <h1>Welcome to your Virtual Music Studio, {{teacher.teacher_fname}} {{teacher.teacher_lname}}</h1>
-  <div> Teacher Info
-    <ul>
-      <li>Teacher ID: {{teacher.teacher_id}}</li>
-      <li>Teacher Email: {{teacher.teacher_email}}</li>
-      <li>Phone: {{teacher.teacher_phone}}</li>
-    </ul>
-</div>
-{% endif %}  
 <div class="container-main">
-  <button type="button"><a href="/teacher-notes">Write a lesson note</a></button>
+  <div class="row" id="teacher-header-row">
+    {% if teacher %}
+    <div class="col-12" id="teacher-header-col">
+      <h1>Welcome to your Virtual Music Studio</h1>
+    </div>
+  </div>
+  {% endif %} 
+  <div class="row" id="teacher-info-SMS-row">
+    <div class="col-md-6" id="teacher-info-SMS-col">
+      <div class="row" id="teacher-info-row">
+        <div class="col" id="teacher-info-col">
+          <div> Teacher Info
+            <ul>
+              <li>Teacher Name: {{teacher.teacher_fname}} {{teacher.teacher_lname}}</li>
+              <li>Teacher ID: {{teacher.teacher_id}}</li>
+              <li>Teacher Email: {{teacher.teacher_email}}</li>
+              <li>Phone: {{teacher.teacher_phone}}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col" id="teacher-sms-col">
+          <h3>Send a Message to a Student</h3>
+          <form id="message-id" method="post">
+            <select id="phone_dropdown_id">
+              <option value="" id="">Choose a student</option>
+            {% for student in teacher.students %} 
+              <option id="" value={{ student.student_id }} >{{ student.student_fname }} {{ student.student_lname }}</option>
+            {% endfor %}
+            </select>
+            <input type="text" name="message_content" placeholder="Write Message Here" id="message_content">
+            <input id="sms-submit" class="btn btn-primary" data-toggle="modal" data-target="#teacher_text_message" type="submit">
+          </form> <br>
+          <h3>Write a lesson note</h3>
+          <button type="button"><a href="/teacher-notes">Write a lesson note</a></button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6" id="cal-col">
+      <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=ZjU3Y2ptMWhrcWRqMG5xYWlvYzMxODB0bGtAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%23EF6C00&amp;showPrint=0&amp;showCalendars=0&amp;showTz=1" style="border:solid 1px #777" width="400" height="300" frameborder="0" scrolling="no"></iframe>
+    </div>
+  </div>
   <div>
     <h3>List of Students</h3>
   </div>
@@ -46,7 +76,7 @@
         {% endfor %}
       </div>
     </div>
-    <div class="col">
+    {# <!-- <div class="col">
       <h3>Send a Message to a Student</h3>
       <form id="message-id" method="post">
         <select id="phone_dropdown_id">
@@ -58,7 +88,7 @@
         <input type="text" name="message_content" placeholder="Write Message Here" id="message_content">
         <input id="sms-submit" class="btn btn-primary" data-toggle="modal" data-target="#teacher_text_message" type="submit">
       </form>
-    </div>
+    </div> --> #}
   </div>
 </div>
 
@@ -82,5 +112,6 @@
     </div>
   </div>
 </div>
+
 
 {% endblock %}
