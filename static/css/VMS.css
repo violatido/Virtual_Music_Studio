@@ -151,3 +151,9 @@ padding: .25rem 1.25rem;
 #container-past-logs {
     background-color: white;
 }
+
+#log-history-col {
+    max-height: 65em;
+    overflow-x: scroll;
+    border: 3px black solid;
+}

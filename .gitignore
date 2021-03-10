@@ -4,3 +4,4 @@ env
 *pyc
 secrets.sh
 **/.DS_Storetwilio.env
+.vscode/*

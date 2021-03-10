@@ -4,7 +4,7 @@
     Practice Log Data
 {% endblock %}
 {% block body %}
-<div class="container" id="container-past-logs">
+<div class="container-fluid" id="container-past-logs">
         <div class="row">
             <div class="col d-flex justify-content-center">
                 <h1>Charts Charts Charts!</h1>
@@ -33,20 +33,30 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
-                {% for log in student_logs%}
-                    <div>{{ log.log_date }}
-                    <ul>
-                        <li>Log ID #{{ log.log_id }}</li>
-                        <li>Minutes Practiced: {{ log.minutes_practiced }}</li>
-                        <li>Pieces Practiced: {{ log.pieces_practiced }}</li>
-                        <li>Notes: {{ log.practice_notes }}</li>
-                    </ul>
+            <div class="col" >
+                <div class="row">
+                    <div class="col">
+                        <button id="return-to-student-button">
+                            <a class="return-to-student-link" href="/student-profile/">Return to Student Profile</a>
+                        </button> 
                     </div>
-                {% endfor %}
-                <button id="return-to-student-button">
-                    <a class="return-to-student-link" href="/student-profile/">Return to Student Profile</a>
-                </button>    
+                </div>
+                <div class="row">
+                    <div class="col" id="log-history-col">
+                        {% for log in student_logs%}
+                        <div>
+                            {{ log.log_date }}
+                            <ul>
+                                <li>Log ID #{{ log.log_id }}</li>
+                                <li>Minutes Practiced: {{ log.minutes_practiced }}</li>
+                                <li>Pieces Practiced: {{ log.pieces_practiced }}</li>
+                                <li>Notes: {{ log.practice_notes }}</li>
+                            </ul>
+                        </div>
+                        {% endfor %}   
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
