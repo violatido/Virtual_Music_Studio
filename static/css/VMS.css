@@ -121,6 +121,10 @@ padding: .25rem 1.25rem;
     margin-left: .5em;
 }
 
+#main-teacher-row {
+    margin-top: 3em;
+}
+
 #tp-row-1 {
     /* border: 3px white solid; */
 }
@@ -134,6 +138,10 @@ padding: .25rem 1.25rem;
     margin-bottom: .5em;
     display: flex;
     justify-content: space-between;
+}
+
+#tp-note-button {
+    font-size: small;
 }
 
 
