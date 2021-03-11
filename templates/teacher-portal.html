@@ -2,68 +2,77 @@
 
 {% block title %}Sign-up/Register{% endblock %}
 {% block body %}
-<div class="container" id="teacher-portal-container">
-  <div class="row">
-    <div class="col-md-6">
-      <img class="img-fluid  .d-sm-none .d-md-block" id="logo" src="static/img/Dark-logo-cutout.png" height="100px" alt="">
-    </div>
-    <div class="col-md-6">
-      <div class="row">
-        <div class="col">
-          <div id="teacher_login_form">
-            <h3>Teacher Login</h3>
-            <form id="login_teacher" action="/teacher-portal" method="post">
-              <div class="form-row">
-                <div class="form-group col-12">
-                  <input type="text" class="form-control" id="teacher_login_email" name="teacher_login_email" placeholder="Email Address">                
+<body class="background-color">
+  <nav>
+    <div class="row" id="nav-row">
+        <div class="col-sm-6" id="left-nav-col">
+            <span class="left-nav-link"><a class="a-home" href="/">Virtual Music Studio</a>
+        </div>
+        <div class="col-sm-6">
+    </div>    
+  </nav>
+  <div class="container" id="teacher-portal-container">
+    <div class="row">
+      <div class="col-md-6 d-none d-sm-none d-md-block">
+        <img class="img-fluid " id="logo" src="static/img/Dark-logo-cutout.png" height="100px" alt="">
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col">
+            <div id="teacher_login_form">
+              <h3>Teacher Login</h3>
+              <form id="login_teacher" action="/teacher-portal" method="post">
+                <div class="form-row">
+                  <div class="form-group col-12">
+                    <input type="text" class="form-control" id="teacher_login_email" name="teacher_login_email" placeholder="Email Address">                
+                  </div>
                 </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-12">
-                  <input type="password" class="form-control" id="teacher_login_pw" name="teacher_login_pw" placeholder="Password">                
+                <div class="form-row">
+                  <div class="form-group col-12">
+                    <input type="password" class="form-control" id="teacher_login_pw" name="teacher_login_pw" placeholder="Password">                
+                  </div>
                 </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-12">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="form-row">
+                  <div class="form-group col-12">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div id="teacher-reg-form">
+              <h3>Teacher Registration</h3>
+              <form id="create_teacher">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="teacher_fname" placeholder="First Name">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="teacher_lname" placeholder="Last Name">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="email" class="form-control" id="teacher_email" placeholder="Email">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="teacher_phone" placeholder="Phone">
+                  </div>
+                  <div class="form-group col-md-6">              
+                    <input type="password" class="form-control" id="teacher_password" placeholder="Password">
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#teacher_reg_button">Submit</button>
+                <input class="btn btn-primary" type="reset" value="Reset">
+              </form>        
+            </div>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          <div id="teacher-reg-form">
-            <h3>Teacher Registration</h3>
-            <form id="create_teacher">
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <input type="text" class="form-control" id="teacher_fname" placeholder="First Name">
-                </div>
-                <div class="form-group col-md-6">
-                  <input type="text" class="form-control" id="teacher_lname" placeholder="Last Name">
-                </div>
-                <div class="form-group col-md-6">
-                  <input type="email" class="form-control" id="teacher_email" placeholder="Email">
-                </div>
-                <div class="form-group col-md-6">
-                  <input type="text" class="form-control" id="teacher_phone" placeholder="Phone">
-                </div>
-                <div class="form-group col-md-6">              
-                  <input type="password" class="form-control" id="teacher_password" placeholder="Password">
-                </div>
-              </div>
-              <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#teacher_reg_button">Submit</button>
-              <input class="btn btn-primary" type="reset" value="Reset">
-            </form>        
-          </div>
-        </div>
-      </div>
-    </div>
 
+    </div>
   </div>
-</div>
 
 <!-- Modal Window for Text Message -->
 <div class="modal fade" id="teacher_reg_button" tabindex="-1" role="dialog" aria-labelledby="teacher_reg_buttonTitle" aria-hidden="true">
