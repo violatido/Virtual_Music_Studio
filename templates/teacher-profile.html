@@ -7,7 +7,7 @@
 <body class="white">
   <nav class="light-pink">
     <div class="row nav-row">
-        <div class="col-sm-6 d-flex" id="left-nav-col">
+        <div class="col-12 left-nav-col">
             <span class="left-nav-link"><a class="a-home" href="/">Virtual Music Studio</a>
         </div>
     </div>    
@@ -16,7 +16,7 @@
     <div class="row header-rows">
       {% if teacher %}
       <div class="col-12 d-flex justify-content-center" id="teacher-header-col">
-        <h1 class="teacher-profile-header">Welcome to your Virtual Music Studio</h1>
+        <h1 class="h1-page-header">Welcome to your Virtual Music Studio</h1>
       </div>
     </div>
     {% endif %} 
@@ -63,11 +63,6 @@
           </form> 
       </div>
     </div>
-    <!-- <div class="row">
-      <div class="col-6 d-flex justify-content-center" id="student-list-header">
-        <h1>List of Students</h1>
-      </div>
-    </div> -->
     <div class="row" id="teacher-profile-students-row">
       <div class="col" id="teacher-profile-cards-col">
         <div class="row" id="tp-row-2">
@@ -97,19 +92,7 @@
       <div class="col-lg-6 d-flex justify-content-center" id="cal-col">
         <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=ZjU3Y2ptMWhrcWRqMG5xYWlvYzMxODB0bGtAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%23EF6C00&amp;showPrint=0&amp;showCalendars=0&amp;showTz=1" style="border:solid 1px #777" width="540" height="405" frameborder="0" scrolling="no"></iframe>
       </div>
-      {# <!-- <div class="col">
-        <h3>Send a Message to a Student</h3>
-        <form id="message-id" method="post">
-          <select id="phone_dropdown_id">
-            <option value="" id="">Choose a student</option>
-          {% for student in teacher.students %} 
-            <option id="" value={{ student.student_id }} >{{ student.student_fname }} {{ student.student_lname }}</option>
-          {% endfor %}
-          </select>
-          <input type="text" name="message_content" placeholder="Write Message Here" id="message_content">
-          <input id="sms-submit" class="btn btn-primary" data-toggle="modal" data-target="#teacher_text_message" type="submit">
-        </form>
-      </div> --> #}
+
     </div>
   </div>
 

@@ -15,6 +15,14 @@
     background-color: #2D3339;
 }
 
+.arch {
+    font-family: 'Archivo Narrow', sans-serif;
+}
+
+.bask {
+    font-family: 'Libre Baskerville', serif;
+}
+
 
 /* ______________________________________________Base/Universal__________________________________________________ */
 .nav-row {
@@ -22,7 +30,7 @@
     height: 100px;
 }
 
-#left-nav-col {
+.left-nav-col {
     /* border: 3px green solid; */
     display: flex;
     justify-content: flex-start;
@@ -38,7 +46,6 @@
 }
 
 .a-home {
-    font-family: 'Arial';
     font-size: 2.25em;
     /* border: 3px rgba(246, 114, 128) solid; */
     border-radius: 10px;
@@ -65,8 +72,6 @@ a:hover {
     background-color: #B38D97;
 }
 
-
-
 h1 {
     color: #2D3339;
 }
@@ -74,6 +79,10 @@ h1 {
 a {
     text-decoration: none;
     color: white;
+}
+
+.h1-page-header {
+    padding-bottom: 30px;
 }
 
 /*____________________________________________________Homepage____________________________________________________*/
@@ -116,6 +125,7 @@ a {
 }
 
 #homepage-logo {
+    min-height: 600px;
     max-height: 600px;
     padding-bottom: 175px;
 }
