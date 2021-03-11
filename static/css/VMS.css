@@ -55,6 +55,11 @@
     padding: 5px;
 } /*Logo home links for skewed pages*/
 
+.a-home:hover {
+    text-decoration: none;
+    color: #2D3339;
+}
+
 .a-home2 {
     font-size: 2.75em;
     /* border: 3px rgba(246, 114, 128) solid; */
@@ -65,12 +70,10 @@
     padding: 5px;
 }/* logo links for NON-skewed pages */
 
-/* a:hover {
-    background-color: #7B6C76;
+.a-home2:hover {
     text-decoration: none;
-    color: #FEFEFA;
-    transition-duration: 1s; 
-} */
+    color: #2D3339;
+}
 
 .btn {
     color: #FEFEFA;
@@ -79,8 +82,8 @@
 }
 
 .btn:hover {
-    color: #2D3339;
-    background-color: #DDBDBD;
+    color: white;
+    background-color: #2D3339;
 }
 
 .btn-link-text {
@@ -99,16 +102,19 @@ a {
 }
 
 .h1-page-header {
-    padding-bottom: 30px;
+    margin-top: 50px;
+    margin-bottom: 50px;
     font-family: 'Libre Baskerville', serif;
     font-weight: 500;
     font-size: 5em;
+    text-align: center;
 }
 
-.form-buttons {
-    
+h3 {
+    font-size: 2em;
+    color: #2D3339;
+    font-family: 'Archivo Narrow', sans-serif;
 }
-
 
 /*____________________________________________________Homepage____________________________________________________*/
 
@@ -200,8 +206,14 @@ a {
     padding: 10px;
 }
 
-.teacher-profile-info {
-    font-size: 1.25em;
+#list-border{
+    border: 3px #B38D97 solid;
+    margin-left: 15px;
+    display: block;
+    justify-content: stretch;
+    width: 100%;
+    font-size: 1.15em;
+    font-family: 'Archivo Narrow', sans-serif;
 }
 
 #notes-link {
@@ -224,11 +236,8 @@ a {
     margin-bottom: 120px;
 }
 
-#teacher-profile-cards-col {
-    max-height: 450px;
-    overflow-x: scroll;
-    border: 5px black solid;
-    margin-left: 1em;
+.tp-right-col {
+    margin-top: 10px;
 }
 
 #tp-loop-col {
@@ -239,11 +248,13 @@ a {
 }
 
 .card {
+    max-width: 20em;
     background-color: #FEFEFA;
     border-radius: .5em;
     /* margin: .5em; */
     /* margin-left: .5em; */
-    border: 3px red solid;
+    border: 3px #B38D97 inset;
+    box-shadow: 20px 20px 50px #B38D97;
 
 }
 
@@ -263,6 +274,9 @@ a {
 }
 
 /*____________________________________________Lesson Notes_____________________________________________*/
+/* #teacher_note_form {
+    margin: 30px;
+} */
 
 #top-note-row {
     margin-top: 35px;

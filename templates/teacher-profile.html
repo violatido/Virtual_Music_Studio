@@ -21,52 +21,57 @@
     </div>
     {% endif %} 
     <div class="row d-flex justify-content-center" id="teacher-profile-main-row">
-      <div class="col-md-4" id="teacher-info-col">
-        <h3 class="d-flex justify-content-center"> Teacher Info</h3>
-        <div class="d-flex justify-content-center teacher-profile-info">
-          <ul class="list-group">
-            <li class="list-group-item">Teacher Name: {{teacher.teacher_fname}} {{teacher.teacher_lname}}</li>
-            <li class="list-group-item">Teacher ID: {{teacher.teacher_id}}</li>
-            <li class="list-group-item">Teacher Email: {{teacher.teacher_email}}</li>
-            <li class="list-group-item">Phone: {{teacher.teacher_phone}}</li>
-            <a role="button" class="list-group-item list-group-item-action active" id="notes-link" href="/teacher-notes">Write a lesson Note</a>
-          </ul>
+      <div class="col-md-6">
+        <div class="col-12" id="teacher-info-col">
+          <h3 class="d-flex justify-content-center">Teacher Info</h3>
+          <div class="d-flex justify-content-center" id="list-border">
+            <ul class="col list-group" id="teacher-profile-info">
+              <li class="list-group-item">Teacher Name: {{teacher.teacher_fname}} {{teacher.teacher_lname}}</li>
+              <li class="list-group-item">Teacher ID: {{teacher.teacher_id}}</li>
+              <li class="list-group-item">Teacher Email: {{teacher.teacher_email}}</li>
+              <li class="list-group-item">Phone: {{teacher.teacher_phone}}</li>
+              <a role="button" class="list-group-item list-group-item-action active" id="notes-link" href="/teacher-notes">Write a lesson Note</a>
+            </ul>
+          </div>
+        </div>
+        <div class="col-12" id="teacher-sms-col">
+            <form id="message-id" method="post">
+              <div class="form-group  d-flex justify-content-center">
+                <h3 class="">Text a Student</h3>
+              </div>            
+              <div class="form-row  d-flex justify-content-center">
+                <div class="form-group col-10">
+                  <textarea class="md-textarea form-control" rows="4" name="message_content" placeholder="Write Message Here" id="message_content"></textarea>
+                </div>
+              </div>
+              <div class="form-row  d-flex justify-content-center">
+                <div class="form-group col-7">
+                  <select class="form-control" id="phone_dropdown_id">
+                    <option value="" id="">Choose a student</option>
+                  {% for student in teacher.students %} 
+                    <option id="" value={{ student.student_id }} >{{ student.student_fname }} {{ student.student_lname }}</option>
+                  {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group col-3">
+                  <input id="sms-submit" class="btn btn-lg dark-pink" data-toggle="modal" data-target="#teacher_text_message" type="submit">
+                </div>
+              </div>
+              <div class="form-row">
+              </div>
+            </form> 
+        </div>
+        <h3>Teacher Calendar</h3>
+        <div class="col-12 d-flex justify-content-center" id="cal-col">
+          <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=ZjU3Y2ptMWhrcWRqMG5xYWlvYzMxODB0bGtAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%23EF6C00&amp;showPrint=0&amp;showCalendars=0&amp;showTz=1" style="border:solid 1px #777" width="540" height="405" frameborder="0" scrolling="no"></iframe>
         </div>
       </div>
-      <div class="col-md-4" id="teacher-sms-col">
-          <form id="message-id" method="post">
-            <div class="form-group  d-flex justify-content-center">
-              <h3 class="">Text a Student</h3>
-            </div>            
-            <div class="form-row  d-flex justify-content-center">
-              <div class="form-group col-10">
-                <textarea class="md-textarea form-control" rows="4" name="message_content" placeholder="Write Message Here" id="message_content"></textarea>
-              </div>
-            </div>
-            <div class="form-row  d-flex justify-content-center">
-              <div class="form-group col-7">
-                <select class="form-control" id="phone_dropdown_id">
-                  <option value="" id="">Choose a student</option>
-                {% for student in teacher.students %} 
-                  <option id="" value={{ student.student_id }} >{{ student.student_fname }} {{ student.student_lname }}</option>
-                {% endfor %}
-                </select>
-              </div>
-              <div class="form-group col-3">
-                <input id="sms-submit" class="btn btn-lg dark-pink" data-toggle="modal" data-target="#teacher_text_message" type="submit">
-              </div>
-            </div>
-            <div class="form-row">
-            </div>
-          </form> 
-      </div>
-    </div>
-    <div class="row" id="teacher-profile-students-row">
-      <div class="col" id="teacher-profile-cards-col">
-        <div class="row" id="tp-row-2">
+      <div class="col-md-6 tp-right-col">
+        <h3 class="d-flex justify-content-center">Students List</h3>
+        <div class="row" id="tp-row-2">         
           {% for student in teacher.students %}
           <div class="col col-lg-6" id="tp-loop-col">
-            <div class="card" style="width: 15.5rem;">
+            <div class="card">
               <div class="card-body">
                 <h5 class="card-title">{{ student.student_fname}} {{ student.student_lname}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted" id="h6-student-id">Student ID #: {{ student.student_id }}</h6>    
@@ -78,7 +83,6 @@
                   <li>Student phone: {{ student.student_phone }}</li>
                 </ul>
                 <div id="chart-link-div">
-                  <!-- <a role="button" class="btn dark-pink" href="/teacher-profile/{{ student.student_id }}">Student Profile Link/a> -->
                   <button class="btn dark-pink" type="button"><a href="/teacher-profile/{{ student.student_id }}" class="card-link" id="student-profile-link">Student Profile Link</a></button>
                 </div>
               </div>
@@ -87,13 +91,7 @@
           {% endfor %}
         </div>
       </div>
-      <div class="col-lg-6 d-flex justify-content-center" id="cal-col">
-        <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=ZjU3Y2ptMWhrcWRqMG5xYWlvYzMxODB0bGtAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%23EF6C00&amp;showPrint=0&amp;showCalendars=0&amp;showTz=1" style="border:solid 1px #777" width="540" height="405" frameborder="0" scrolling="no"></iframe>
-      </div>
-
     </div>
-  </div>
-
 
 <!-- Modal Window for Text Message -->
 <div class="modal fade" id="teacher_text_message" tabindex="-1" role="dialog" aria-labelledby="teacher_text_messageTitle" aria-hidden="true">
