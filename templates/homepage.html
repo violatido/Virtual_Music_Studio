@@ -14,17 +14,21 @@
     </nav>
     <div class="container-fluid" id="home-container">
         <div class="row" id="main-homepage-row">
-            <div class="col-lg-6 d-none d-sm-block" id="logo-col">
+            <div class="col-md-6" id="logo-col">
                 <img class="img-fluid" id="logo" src="static/img/Dark-logo-cutout.png" height="100px" alt="">
             </div>
-            <div class="col-lg-6" id="homepage-content-col">
+            <div class="col d-none d-sm-block d-md-none d-flex justify-content-center">
+                <button class="btn"><a class="a-home" href="/student-portal">Student</a></button>
+                <button class="btn"><a class="a-home" href="/teacher-portal">Teacher</a></button>
+            </div>
+            <div class="col-md-6 d-none d-sm-none d-md-block" id="homepage-content-col">
                 <div class="row">
                     <div class="col">
                         <h1 class="homepage-content">A Virtual Studio For All Your Teaching Needs</h1>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col d-flex justify-content-center">
+                    <div class="col d-flex justify-content-center d-none d-sm-none d-md-block ">
                         <button class="btn"><a class="a-home" href="/student-portal">Student</a></button>
                         <button class="btn"><a class="a-home" href="/teacher-portal">Teacher</a></button>
                     </div>

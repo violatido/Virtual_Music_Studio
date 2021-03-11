@@ -31,34 +31,33 @@
             <li>Teacher Email: {{teacher.teacher_email}}</li>
             <li>Phone: {{teacher.teacher_phone}}</li>
           </ul>
-          <button class="btn" data-toggle="modal" type="submit" id="tp-note-button"><a href="/teacher-notes" id="tp-note-button-text">Write a lesson note</a></button>
+          <button class="btn dark-pink" data-toggle="modal" type="submit" id="tp-note-button"><a href="/teacher-notes" id="tp-note-button-text">Write a lesson note</a></button>
         </div>
       </div>
       <div class="col-md-4 " id="teacher-sms-col">
-        <h3 class="">Text a Student</h3>
-            <form id="message-id" method="post">
-              <div class="form-row">
-                <div class="form-group col-8">
-                  <textarea class="md-textarea form-control" name="message_content" placeholder="Write Message Here" id="message_content"></textarea>
-                </div>
+          <form id="message-id" method="post">
+            <h3 class="">Text a Student</h3>
+            <div class="form-row">
+              <div class="form-group col-8">
+                <textarea class="md-textarea form-control" name="message_content" placeholder="Write Message Here" id="message_content"></textarea>
               </div>
-              <div class="form-row">
-                <div class="form-group col-5">
-                  <select class="form-control" id="phone_dropdown_id">
-                    <option value="" id="">Choose a student</option>
-                  {% for student in teacher.students %} 
-                    <option id="" value={{ student.student_id }} >{{ student.student_fname }} {{ student.student_lname }}</option>
-                  {% endfor %}
-                  </select>
-                </div>
-                <div class="form-group col-3">
-                  <input id="sms-submit" class="btn btn-primary" data-toggle="modal" data-target="#teacher_text_message" type="submit">
-                </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-5">
+                <select class="form-control" id="phone_dropdown_id">
+                  <option value="" id="">Choose a student</option>
+                {% for student in teacher.students %} 
+                  <option id="" value={{ student.student_id }} >{{ student.student_fname }} {{ student.student_lname }}</option>
+                {% endfor %}
+                </select>
               </div>
-              <div class="form-row">
-
+              <div class="form-group col-3">
+                <input id="sms-submit" class="btn dark-pink" data-toggle="modal" data-target="#teacher_text_message" type="submit">
               </div>
-            </form> 
+            </div>
+            <div class="form-row">
+            </div>
+          </form> 
         </div>
       </div>
     </div>
