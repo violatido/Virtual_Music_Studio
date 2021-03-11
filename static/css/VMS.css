@@ -28,7 +28,7 @@
 .nav-row {
     background: linear-gradient(#DDBDBD, #FEFEFA);
     height: 100px;
-}
+} /*gradient nav bar*/
 
 .left-nav-col {
     /* border: 3px green solid; */
@@ -43,10 +43,10 @@
     text-overflow: ellipsis;
     text-align: center;
     z-index: 1;
-}
+} /*aligns the nav Virtual Music Studio*/
 
 .a-home {
-    font-size: 2.25em;
+    /* font-size: 2.25em; */
     /* border: 3px rgba(246, 114, 128) solid; */
     border-radius: 10px;
     margin-left: 20px;
@@ -87,10 +87,6 @@ a {
 
 /*____________________________________________________Homepage____________________________________________________*/
 
-.homepage-nav-button {
-    font-size: .60em;
-}
-
 .homepage-background {
     background-color: #DDBDBD;
     background-image: url("/static/img/skew-background.png");
@@ -101,7 +97,11 @@ a {
     /* height: 70vh; */
     /* width: 100%; */
     z-index: -1;
-}
+} /* skewed homepage background */
+
+.homepage-nav-button {
+    font-size: 1.6em;
+} /* Student/teacher homepage buttons */
 
 #main-homepage-row {
     display: flex;
@@ -129,12 +129,6 @@ a {
     max-height: 600px;
     padding-bottom: 175px;
 }
-
-.homepage-button {
-    display: flex;
-    justify-content: flex-start;
-}
-
 /*_________________________________________________Portals_____________________________________________________*/
 .portal-background {
     /* background-color: #FEFEFA; */
