@@ -53,17 +53,34 @@
     text-decoration: none;
     color: #424B54;
     padding: 5px;
-}
+} /*Logo home links for skewed pages*/
 
-a:hover {
+.a-home2 {
+    font-size: 2.75em;
+    /* border: 3px rgba(246, 114, 128) solid; */
+    border-radius: 10px;
+    margin-left: 20px;
+    text-decoration: none;
+    color: #424B54;
+    padding: 5px;
+}/* logo links for NON-skewed pages */
+
+/* a:hover {
     background-color: #7B6C76;
     text-decoration: none;
     color: #FEFEFA;
     transition-duration: 1s; 
-}
+} */
 
 .btn {
-    color: #FEFEFA
+    color: #FEFEFA;
+    background-color: #B38D97;
+    border: 1px #B38D97 solid;
+}
+
+.btn:hover {
+    color: #2D3339;
+    background-color: #DDBDBD;
 }
 
 .btn-link-text {
@@ -83,7 +100,15 @@ a {
 
 .h1-page-header {
     padding-bottom: 30px;
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 500;
+    font-size: 5em;
 }
+
+.form-buttons {
+    
+}
+
 
 /*____________________________________________________Homepage____________________________________________________*/
 
@@ -101,6 +126,8 @@ a {
 
 .homepage-nav-button {
     font-size: 1.6em;
+    color: #2D3339;
+
 } /* Student/teacher homepage buttons */
 
 #main-homepage-row {
@@ -145,7 +172,7 @@ a {
 }
 
 .portal-container {
-    height: 90vh;
+    height: 95vh;
     display: flex;
     align-items: center;
 }
@@ -175,6 +202,11 @@ a {
 
 .teacher-profile-info {
     font-size: 1.25em;
+}
+
+#notes-link {
+    background-color: #B38D97;
+    border: 1px #B38D97 solid;
 }
 
 #teacher-profile-students-row {

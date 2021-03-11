@@ -8,7 +8,7 @@
   <nav class="light-pink">
     <div class="row nav-row">
         <div class="col-12 d-flex justify-content-start left-nav-col">
-            <span class="left-nav-link"><a class="bask display-4 a-home" href="/">Virtual Music Studio</a>
+            <span class="left-nav-link"><a class="arch a-home2" href="/">Virtual Music Studio</a>
         </div>
     </div>    
   </nav>
@@ -24,16 +24,14 @@
       <div class="col-md-4" id="teacher-info-col">
         <h3 class="d-flex justify-content-center"> Teacher Info</h3>
         <div class="d-flex justify-content-center teacher-profile-info">
-          <ul>
-            <li>Teacher Name: {{teacher.teacher_fname}} {{teacher.teacher_lname}}</li>
-            <li>Teacher ID: {{teacher.teacher_id}}</li>
-            <li>Teacher Email: {{teacher.teacher_email}}</li>
-            <li>Phone: {{teacher.teacher_phone}}</li>
+          <ul class="list-group">
+            <li class="list-group-item">Teacher Name: {{teacher.teacher_fname}} {{teacher.teacher_lname}}</li>
+            <li class="list-group-item">Teacher ID: {{teacher.teacher_id}}</li>
+            <li class="list-group-item">Teacher Email: {{teacher.teacher_email}}</li>
+            <li class="list-group-item">Phone: {{teacher.teacher_phone}}</li>
+            <a role="button" class="list-group-item list-group-item-action active" id="notes-link" href="/teacher-notes">Write a lesson Note</a>
           </ul>
         </div>
-        <div class=" d-flex justify-content-center">
-          <a role="button" class="btn dark-pink btn-lg" href="/teacher-notes">Write a lesson Note</a>
-        </div>        
       </div>
       <div class="col-md-4" id="teacher-sms-col">
           <form id="message-id" method="post">
