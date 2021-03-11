@@ -6,15 +6,19 @@
 {% block body %}
 <body class="homepage-background">
     <nav>
-        <div class="row" id="nav-row">
-            <div class="col-md-8" id="left-nav-col">
+        <div class="row" id="homepage-nav-row">
+            <div class="col-12" id="left-nav-col">
                 <span class="left-nav-link"><a class="a-home" href="/">Virtual Music Studio</a>
+            </div>
+            <div class="col">
+                <button class="btn homepage-nav-button"><a class="a-home" href="/student-portal">Student</a></button>
+                <button class="btn homepage-nav-button"><a class="a-home" href="/teacher-portal">Teacher</a></button>
             </div>
         </div>    
     </nav>
     <div class="container-fluid" id="home-container">
         <div class="row" id="main-homepage-row">
-            <div class="col-lg-6 order-lg-2" id="homepage-logo-col">
+            <div class="col-lg-6 align-items-sm-end order-lg-2" id="homepage-logo-col">
                 <img class="img-fluid" id="homepage-logo" src="static/img/Dark-logo-cutout.png" height="100px" alt="">
             </div>
             <div class="col-lg-6 order-lg-1 d-none d-sm-none d-lg-block" id="homepage-content-col">

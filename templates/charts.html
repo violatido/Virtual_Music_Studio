@@ -6,29 +6,29 @@
 {% block body %}
 <body class="white">
     <nav class="light-pink">
-    <div class="row" id="nav-row">
-        <div class="col-sm-6" id="left-nav-col">
-            <span class="left-nav-link"><a class="a-home" href="/">Virtual Music Studio</a>
-        </div>
-        <div class="col-sm-6 d-flex justify-content-end">
-            <button id="return-to-student-button">
-                <a class="return-to-student-link" href="/student-profile/">Return to Student Profile</a>
-            </button> 
-        </div>
-    </div>    
+        <div class="row nav-row" id="nav-row">
+            <div class="col-sm-6" id="left-nav-col">
+                <span class="left-nav-link"><a class="a-home" href="/">Virtual Music Studio</a>
+            </div>
+        </div>    
     </nav>
     <div class="container-fluid" id="container-past-logs">
-        <div class="row">
-            <div class="col d-flex justify-content-end">
-                <h1>{{ student.student_fname }} {{ student.student_lname }}'s' Log Data and History</h1>
+        <div class="row header-rows">
+            <div class="col-sm-9 d-flex justify-content-center">
+                <h1>{{ student.student_fname }} {{ student.student_lname }}'s' Log Data and Practice History</h1>
+            </div>
+            <div class="col-sm-3 d-flex justify-content-end">
+                <div class=" d-flex justify-content-center">
+                    <a role="button" class="btn dark-pink" href="/student-profile">Return to Student Profile</a>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-8">
-                <div class="row">
-                    <div class="col" id="chart-1-div">
-                        <canvas id="bar-time"></canvas>
-                    </div>
+                <div class="row">                    
+                        <div class="col" id="chart-1-div">
+                            <canvas id="bar-time"></canvas>
+                        </div>
                 </div>
                 <div class="row">
                     <div class="col" id="chart-2-div">
@@ -40,32 +40,19 @@
                         <canvas id="myChart4"></canvas>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <img class="img-fluid" src="static/img/ilana's logo.png" alt="">
-                    </div>
-                </div>
             </div>
-            <div class="col" >
-                <div class="row">
-                    <div class="col">
-                    </div>
+            <div class="col-md-4" id="log-history-col">
+                {% for log in student_logs%}
+                <div>
+                    {{ log.log_date }}
+                    <ul>
+                        <li>Log ID #{{ log.log_id }}</li>
+                        <li>Minutes Practiced: {{ log.minutes_practiced }}</li>
+                        <li>Pieces Practiced: {{ log.pieces_practiced }}</li>
+                        <li>Notes: {{ log.practice_notes }}</li>
+                    </ul>
                 </div>
-                <div class="row">
-                    <div class="col" id="log-history-col">
-                        {% for log in student_logs%}
-                        <div>
-                            {{ log.log_date }}
-                            <ul>
-                                <li>Log ID #{{ log.log_id }}</li>
-                                <li>Minutes Practiced: {{ log.minutes_practiced }}</li>
-                                <li>Pieces Practiced: {{ log.pieces_practiced }}</li>
-                                <li>Notes: {{ log.practice_notes }}</li>
-                            </ul>
-                        </div>
-                        {% endfor %}   
-                    </div>
-                </div>
+                {% endfor %}   
             </div>
         </div>
     </div>

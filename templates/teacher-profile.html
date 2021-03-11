@@ -6,22 +6,21 @@
 {% block body %}
 <body class="white">
   <nav class="light-pink">
-    <div class="row" id="nav-row">
-        <div class="col-sm-6" id="left-nav-col">
+    <div class="row nav-row">
+        <div class="col-sm-6 d-flex" id="left-nav-col">
             <span class="left-nav-link"><a class="a-home" href="/">Virtual Music Studio</a>
         </div>
-        <div class="col-sm-6">
     </div>    
   </nav>
   <div class="container-main">
-    <div class="row" id="teacher-header-row">
+    <div class="row header-rows">
       {% if teacher %}
       <div class="col-12 d-flex justify-content-center" id="teacher-header-col">
         <h1 class="teacher-profile-header">Welcome to your Virtual Music Studio</h1>
       </div>
     </div>
     {% endif %} 
-    <div class="row d-flex justify-content-around" id="teacher-profile-main-row">
+    <div class="row d-flex justify-content-center" id="teacher-profile-main-row">
       <div class="col-md-4" id="teacher-info-col">
         <h3 class="d-flex justify-content-center"> Teacher Info</h3>
         <div class="d-flex justify-content-center teacher-profile-info">

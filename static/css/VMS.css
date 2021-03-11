@@ -17,20 +17,15 @@
 
 
 /* ______________________________________________Base/Universal__________________________________________________ */
-#nav-row {
-    /* background-color: #DDBDBD; */
+.nav-row {
+    background: linear-gradient(#DDBDBD, #FEFEFA);
+    height: 100px;
 }
 
 #left-nav-col {
     /* border: 3px green solid; */
     display: flex;
     justify-content: flex-start;
-    align-items: center;
-}
-
-#right-nav-col {
-    /* border: 3px red solid; */
-    display: flex;
     align-items: center;
 }
 
@@ -54,9 +49,10 @@
 }
 
 a:hover {
-    background-color: #B38D97;
+    background-color: #7B6C76;
     text-decoration: none;
-    transition-delay: 1s; 
+    color: #FEFEFA;
+    transition-duration: 1s; 
 }
 
 .btn {
@@ -67,8 +63,9 @@ a:hover {
     color: white;
     text-decoration: none;
     background-color: #B38D97;
-
 }
+
+
 
 h1 {
     color: #2D3339;
@@ -80,6 +77,11 @@ a {
 }
 
 /*____________________________________________________Homepage____________________________________________________*/
+
+.homepage-nav-button {
+    font-size: .60em;
+}
+
 .homepage-background {
     background-color: #DDBDBD;
     background-image: url("/static/img/skew-background.png");
@@ -102,16 +104,20 @@ a {
 .homepage-content {
     text-align: center;
     font-size: 5vw;
-    margin-bottom: 20px;
+    margin-bottom: 125px;
+    padding-bottom: 300px;
 }
 
 #homepage-logo-col {
     padding: 5%;
+    display: flex;
+    align-items: flex-start;
+    padding-bottom: 300px;
 }
 
 #homepage-logo {
-    max-height: 550px;
-    margin-bottom: 30px;
+    max-height: 600px;
+    padding-bottom: 175px;
 }
 
 .homepage-button {
@@ -130,27 +136,19 @@ a {
     z-index: -1;
 }
 
-.student-portal-container {
-    margin-top: 3vh;
+.login-row {
+    margin-top: 30px;
 }
 
-.portal-login-button {
-background-color: white;
-color: #355C7D;
-font-family: 'Times New Roman', Times, serif;
-font-size: 1.25rem;
-border: 10px #6C5B7B solid;
-border-radius: 10px;
-padding: .25rem 1.25rem;
-}
-
-
-#teacher-portal-container {
+.portal-container {
     height: 90vh;
     display: flex;
     align-items: center;
 }
 
+#teacher-reg-buttons-row {
+    margin-bottom: 10px;
+}
 
 /*_________________________________________________Teacher Profile_____________________________________________*/
 #tp-background {
@@ -160,10 +158,6 @@ padding: .25rem 1.25rem;
 #main-teacher-row {
     margin-top: 3em;
 }
-
-/* #teacher-profile-main-row {
-    border: 3px green solid;
-} */
 
 .teacher-profile-header {
     margin: .5em 0em .5em 0em;
@@ -178,10 +172,6 @@ padding: .25rem 1.25rem;
 .teacher-profile-info {
     font-size: 1.25em;
 }
-
-/* #teacher-sms-col {
-    border: 3px turquoise solid;
-} */
 
 #teacher-profile-students-row {
     /* border: 3px blue solid; */
@@ -219,6 +209,21 @@ padding: .25rem 1.25rem;
     /* margin-left: .5em; */
     border: 3px red solid;
 
+}
+
+
+/*_________________________________________________Student Profile_____________________________________________*/
+
+
+
+.student-profile-header {
+    margin: .5em 0em .5em 0em;
+    text-align: center;
+}
+
+#student-info-col {
+    /* border: 3px orange solid; */
+    padding: 10px;
 }
 
 /*____________________________________________Lesson Notes_____________________________________________*/
