@@ -24,7 +24,9 @@ $.get(`/charts/1.json/${studentId}`, (res) => {
             datasets: [ {
                 data: practiceTimes.reverse(),
                 backgroundColor: colors2,
-                borderWidth: 5
+                borderWidth: 5,            
+                // fontFamily;
+                // borderColor;
             }] 
         },
         options: {            
@@ -43,35 +45,33 @@ $.get(`/charts/1.json/${studentId}`, (res) => {
                         suggestedMin: 0,
                         suggestedMax: 150
                     }
-                }]
+                }],
             }
         },
         scales: {
             xAxes: [
                 {
-                    type: 'time',
-                    time: {
-                        unit: 'day',
-                        round: 'day',
-                        displayFormats: {
-                            day: 'MMM D'
-                        },
-                    },
-                    distribution: 'series'
-                }
-            ],
-            yAxes: [{
                 ticks: {
-                    beginAtZero: true
+                    fontSize: 14
+                },
+                type: 'time',
+                time: {
+                    unit: 'day',
+                    round: 'day',
+                    displayFormats: {
+                        day: 'MMM D'
+                    },
+                },
+                distribution: 'series',
+                }],
+            },
+            tooltips: {
+                titleFontSize: 20,
+                callbacks: {
+                    title: (tooltipItem) => {
+                        return moment(tooltipItem.label).format('MMM D');
+                    }
                 }
-            }]
-        },
-        tooltips: {
-            callbacks: {
-                title: (tooltipItem) => {
-                    return moment(tooltipItem.label).format('MMM D');
-                }
-            }
         }    
     })
 });
@@ -122,11 +122,14 @@ $.get(`/charts/2.json/${studentId}`, (res) => {
             labels: viewDates.reverse(), //datesPracticedInMonth.reverse()
             datasets: [ {
                 data: weeks.reverse(),
-                backgroundColor: colors
+                backgroundColor: colors,
+                borderWidth: 5
             }] 
         },
         options: {
             title: {
+                fontSize: 18,
+                fontColor: '#424B54',
                 text: "How many days did you practice per week this past month?",
                 display: true
             },
@@ -217,21 +220,14 @@ $.get(`/charts/3.json/${studentId}`, (res) => {
             labels: viewDates.reverse(), 
             datasets: [ {
                 data: minutesWeek.reverse(),
-                backgroundColor: colors
+                backgroundColor: colors,
+                borderWidth: 5,  
             }] 
         },
-        // remove
-        // options: {
-        //     title: {
-        //         text: "How many minutes did you practice each week this month?",
-        //         display: true
-        //     },
-        //     legend: {
-        //         display: false
-        //     }
-        // },
         options: {
             title: {
+                fontSize: 18,
+                fontColor: '#424B54',
                 text: "How many minutes did you practice per week this past month?",
                 display: true
             },
