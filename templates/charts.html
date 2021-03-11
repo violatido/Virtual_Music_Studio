@@ -4,19 +4,23 @@
     Practice Log Data
 {% endblock %}
 {% block body %}
-<body class="background-color">
-    <nav>
+<body class="white">
+    <nav class="light-pink">
     <div class="row" id="nav-row">
         <div class="col-sm-6" id="left-nav-col">
             <span class="left-nav-link"><a class="a-home" href="/">Virtual Music Studio</a>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6 d-flex justify-content-end">
+            <button id="return-to-student-button">
+                <a class="return-to-student-link" href="/student-profile/">Return to Student Profile</a>
+            </button> 
+        </div>
     </div>    
     </nav>
     <div class="container-fluid" id="container-past-logs">
         <div class="row">
-            <div class="col d-flex justify-content-center">
-                <h1>Charts Charts Charts!</h1>
+            <div class="col d-flex justify-content-end">
+                <h1>{{ student.student_fname }} {{ student.student_lname }}'s' Log Data and History</h1>
             </div>
         </div>
         <div class="row">
@@ -45,9 +49,6 @@
             <div class="col" >
                 <div class="row">
                     <div class="col">
-                        <button id="return-to-student-button">
-                            <a class="return-to-student-link" href="/student-profile/">Return to Student Profile</a>
-                        </button> 
                     </div>
                 </div>
                 <div class="row">
@@ -65,7 +66,6 @@
                         {% endfor %}   
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

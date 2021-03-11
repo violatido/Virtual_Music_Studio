@@ -17,19 +17,8 @@
 
 
 /* ______________________________________________Base/Universal__________________________________________________ */
-.background-color {
-    /* background-color: #FEFEFA; */
-    background-image: url("/static/img/skew-background.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    /* height: 70%; */
-    width: 90%;
-    z-index: -1;
-}
-
 #nav-row {
     /* background-color: #DDBDBD; */
-    max-height: 200px;
 }
 
 #left-nav-col {
@@ -65,7 +54,9 @@
 }
 
 a:hover {
-    background-color: #DDBDBD;
+    background-color: #B38D97;
+    text-decoration: none;
+    transition-delay: 1s; 
 }
 
 .btn {
@@ -81,7 +72,6 @@ a:hover {
 
 h1 {
     color: #2D3339;
-    font-size: 3.75em;
 }
 
 a {
@@ -112,14 +102,16 @@ a {
 .homepage-content {
     text-align: center;
     font-size: 5vw;
+    margin-bottom: 20px;
 }
 
-#logo-col {
+#homepage-logo-col {
     padding: 5%;
 }
 
-#logo {
-    max-height: 600px;
+#homepage-logo {
+    max-height: 550px;
+    margin-bottom: 30px;
 }
 
 .homepage-button {
@@ -128,6 +120,16 @@ a {
 }
 
 /*_________________________________________________Portals_____________________________________________________*/
+.portal-background {
+    /* background-color: #FEFEFA; */
+    background-image: url("/static/img/skew-background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* height: 70%; */
+    width: 90%;
+    z-index: -1;
+}
+
 .student-portal-container {
     margin-top: 3vh;
 }
@@ -151,6 +153,9 @@ padding: .25rem 1.25rem;
 
 
 /*_________________________________________________Teacher Profile_____________________________________________*/
+#tp-background {
+    background: ;
+}
 
 #main-teacher-row {
     margin-top: 3em;
