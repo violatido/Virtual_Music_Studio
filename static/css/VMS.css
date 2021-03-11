@@ -12,7 +12,7 @@
 }
 
 .charcoal {
-    background-color: #424B54;
+    background-color: #2D3339;
 }
 
 
@@ -65,11 +65,28 @@
 }
 
 a:hover {
-    background-color: #111;
+    background-color: #DDBDBD;
 }
 
 .btn {
     color: #FEFEFA
+}
+
+.btn-link-text {
+    color: white;
+    text-decoration: none;
+    background-color: #B38D97;
+
+}
+
+h1 {
+    color: #2D3339;
+    font-size: 3.75em;
+}
+
+a {
+    text-decoration: none;
+    color: white;
 }
 
 /*____________________________________________________Homepage____________________________________________________*/
@@ -134,30 +151,22 @@ padding: .25rem 1.25rem;
 
 
 /*_________________________________________________Teacher Profile_____________________________________________*/
-.card {
-    background-color: #FEFEFA;
-    border-radius: .5em;
-    /* margin: .5em; */
-    margin-left: .5em;
-}
 
 #main-teacher-row {
     margin-top: 3em;
 }
 
-#teacher-profile-main-row {
+/* #teacher-profile-main-row {
     border: 3px green solid;
-}
+} */
 
 .teacher-profile-header {
-    margin-top: 90px;
-    font-size: 3.75em;
+    margin: .5em 0em .5em 0em;
     text-align: center;
 }
 
 #teacher-info-col {
-    border: 3px orange solid;
-    background-color: #FEFEFA;
+    /* border: 3px orange solid; */
     padding: 10px;
 }
 
@@ -165,26 +174,30 @@ padding: .25rem 1.25rem;
     font-size: 1.25em;
 }
 
+/* #teacher-sms-col {
+    border: 3px turquoise solid;
+} */
 
-#tp-note-button-text {
-    color: #FEFEFA;
+#teacher-profile-students-row {
+    /* border: 3px blue solid; */
+    display: flex;
+    justify-content: space-between;
 }
 
-
-#teacher-sms-col {
-    border: 3px turquoise solid;
+#student-list-header {
+    margin: 20px;
 }
 
 #teacher-profile-students-row {
-    border: 3px blue solid;
-    display: flex;
-    justify-content: space-between;
+    margin-top: 40px;
+    margin-bottom: 120px;
 }
 
 #teacher-profile-cards-col {
     max-height: 450px;
     overflow-x: scroll;
-    /* border: 3px black solid; */
+    border: 5px black solid;
+    margin-left: 1em;
 }
 
 #tp-loop-col {
@@ -194,8 +207,21 @@ padding: .25rem 1.25rem;
     justify-content: space-between;
 }
 
+.card {
+    background-color: #FEFEFA;
+    border-radius: .5em;
+    /* margin: .5em; */
+    /* margin-left: .5em; */
+    border: 3px red solid;
+
+}
 
 /*____________________________________________Lesson Notes_____________________________________________*/
+
+#top-note-row {
+    margin-top: 35px;
+
+}
 
 #note-history {
     max-height: 30em;

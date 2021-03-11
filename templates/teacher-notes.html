@@ -9,15 +9,15 @@
 <body class="background-color">
   <nav>
     <div class="row" id="nav-row">
-        <div class="col-sm-6" id="left-nav-col">
+        <div class="col-sm-8" id="left-nav-col">
             <span class="left-nav-link"><a class="a-home" href="/">Virtual Music Studio</a>
         </div>
         <div class="col-sm-6">
     </div>    
   </nav>
   <div class="container">
-    <div class="row">
-      <div class="col">
+    <div class="row" id="top-note-row">
+      <div class="col d-flex justify-content-center">
         {% if teacher %}
         <h1>{{ teacher.teacher_fname }} {{ teacher.teacher_lname }}'s Lesson Notes</h1>
       {% endif %}  
