@@ -3,9 +3,9 @@
 
 // _________________________________________Chart 1_______________________________________________________________
 const urlArr = window.location.href.split('/');
-console.log(urlArr);
+// console.log(urlArr);
 const studentId = urlArr[urlArr.length - 1];
-console.log(studentId);
+// console.log(studentId);
 
 $.get(`/charts/1.json/${studentId}`, (res) => {
     console.log(res)
@@ -185,18 +185,18 @@ $.get(`/charts/3.json/${studentId}`, (res) => {
         `${datesInMonth[27]} - ${datesInMonth[21]}`
     ];
 
-    minutesPerWeek.unshift(0)
+    minutesPerWeek.unshift(0);
 
     const countDates = (numList) => {
-    let emptylist = [];
-    let count = 0;
+        let emptylist = [];
+        let count = 0;
 
     for (let i = 1; i < numList.length; i ++) {
         count += numList[i];
-
+        // i + 1  % 7 === 0
         if (i % 7 === 0) {
-        emptylist.push(count)
-        count = 0;
+            emptylist.push(count)
+            count = 0;
         }
     }
     return emptylist
@@ -217,15 +217,16 @@ $.get(`/charts/3.json/${studentId}`, (res) => {
                 backgroundColor: colors
             }] 
         },
-        options: {
-            title: {
-                text: "How many minutes did you practice each week this month?",
-                display: true
-            },
-            legend: {
-                display: false
-            }
-        },
+        // remove
+        // options: {
+        //     title: {
+        //         text: "How many minutes did you practice each week this month?",
+        //         display: true
+        //     },
+        //     legend: {
+        //         display: false
+        //     }
+        // },
         options: {
             title: {
                 text: "How many minutes did you practice per week this past month?",

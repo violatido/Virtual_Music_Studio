@@ -50,9 +50,9 @@ def teacher_login():
 
 @app.route('/teacher-portal-create', methods=["POST"])
 def add_teacher():
-    """Creates a new student with an html form, 
+    """Creates a new teacher with an html form, 
     
-    if form is valid, the function adds the student to the student table"""
+    if form is valid, the function adds the teacher to the teacher table"""
 
     teacher_fname = request.form.get('teacher_fname')
     teacher_lname = request.form.get('teacher_lname')
@@ -105,7 +105,6 @@ def add_student():
     student_fname = request.form.get('student_fname')
     student_lname = request.form.get('student_lname')
     student_email = request.form.get('student_email')
-    private_teacher_name = request.form.get('private_teacher_name')
     private_teacher_email = request.form.get('private_teacher_email')
     program_name = request.form.get('program_name')
     instrument = request.form.get('instrument')
@@ -178,9 +177,10 @@ def add_note():
     
     if the note form is valid, the session adds the note to the note table"""
 
-    teacher = crud.get_teacher_by_id(session["teacher_id"])
+    # remove
+    # teacher = crud.get_teacher_by_id(session["teacher_id"])
 
-    note_teacher_id = request.form.get('note_teacher_id')
+    note_teacher_id = (session["teacher_id"])
     note_student_name = request.form.get('note_student_name')
     note_date = request.form.get('note_date')
     note_time = request.form.get('note_time')
@@ -188,7 +188,7 @@ def add_note():
 
     note = crud.create_note(note_teacher_id, note_student_name, note_date, note_time, note_content)
     
-    return jsonify({'status': 'ok', 'note_date': note_date})  
+    return jsonify({'status': 'ok', 'note_date': note.note_date})  
 
 
 #________________________________________functions for adding practice logs________________________________________#
@@ -207,9 +207,10 @@ def add_log():
     
     if the log form is valid, the session adds the log to the log table"""
 
-    student = crud.get_student_by_id(session["student_id"])
+    #remove
+    # student = crud.get_student_by_id(session["student_id"])
 
-    log_student_id = request.form.get('log_student_id')
+    log_student_id = (session["student_id"])
     log_date = request.form.get('log_date')
     log_minutes_practiced = request.form.get('log_minutes_practiced')
     log_pieces_practiced = request.form.get('log_pieces_practiced')
@@ -220,7 +221,7 @@ def add_log():
     return jsonify({'status': 'ok', 'log_date': log_date})  
 
 #___________________________________functions for viewing past logs by student id________________________________#
-@app.route('/chartsz')
+@app.route('/charts')
 def view_student_logs():
     """Renders page for viewing past logs for individual student"""
 
@@ -260,9 +261,6 @@ def seed_chart_one(student_id):
         else:
             return jsonify({"error": "student not valid"})
 
-    # student = crud.get_student_by_id(session["student_id"])
-    # student_logs = crud.get_logs_by_student_id(student.student_id)
-
     # x-axis data: dates in the week
     practice_dates = [] # holds todays date and previous six days as list items
     date = datetime.now() # the date and time in this exact moment
@@ -288,8 +286,7 @@ def seed_chart_one(student_id):
     #<Log log_date=2021-02-22 student_id=4 log_id=6
     data['minutes_practiced'] = [min_prac for date, min_prac in minutes_practiced]
     #[('2021-2-28', 0), ('2021-2-27', 0), ('2021-2-26', 120), ('2021-2-25', 12), ('2021-2-24', 45), ('2021-2-23', 35), ('2021-2-22', 100)]
-    print('!!!!!!!\n!!!\n!!!!\n!!!')
-    print(data)
+
     return jsonify(data) 
 
 @app.route('/charts/2.json/<student_id>')
@@ -306,9 +303,6 @@ def seed_chart_two(student_id):
             crud.get_logs_by_student_id
         else:
             return jsonify({"error": "student not valid"})
-
-    # student = crud.get_student_by_id(session["student_id"])
-    # student_logs = crud.get_logs_by_student_id(student.student_id)
 
     # x-axis data: dates in month (eventually divded into four weeks)
     dates_in_month = [] # holds todays date and previous 27 dates as list items
@@ -348,8 +342,7 @@ def seed_chart_three(student_id):
             crud.get_logs_by_student_id
         else:
             return jsonify({"error": "student not valid"})
-    # student = crud.get_student_by_id(session["student_id"])
-    # student_logs = crud.get_logs_by_student_id(student.student_id)
+
 
     # x-axis data: dates in month (eventually divded into four weeks)
     dates_in_month = [] # holds todays date and previous 27 dates as list items
@@ -359,8 +352,10 @@ def seed_chart_three(student_id):
         dates_in_month.append(dater) #adds formatted date to dates_in_month list
         date = date - timedelta(days=1) #goes back a day from current date
 
-
     minutes_practiced = []
+
+    # note: use this var in 362 and 369
+    # format_date = datetime.strptime(date, "%Y-%m-%d").date()
 
     # y-axis data: minutes practiced on each date in the month
     for date in dates_in_month: # loops over the dates of the month
@@ -427,7 +422,7 @@ def send_message():
     # text_message_content = "I see you're practice habits are below your goals. Try to get some extra sessions in before the next lesson!"
 
     #locating the teacher currently logged in, and their list of students
-    teacher = crud.get_teacher_by_id(session["teacher_id"])
+    # teacher = crud.get_teacher_by_id(session["teacher_id"])
 
     student_id = request.form.get('phone_dropdown_id')
 

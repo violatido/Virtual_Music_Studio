@@ -4,21 +4,26 @@
     Home
 {% endblock %}
 {% block body %}
-<div class="container-fluid">
+<div class="container-fluid" id="home-container">
     <div class="row" id="main-homepage-row">
-        <div class="col-sm-6" id="main-left-col">
+        <div class="col-sm-6" id="logo-col">
+            <img class="img-fluid  .d-sm-none .d-md-block" id="logo" src="static/img/Dark-logo-cutout.png" height="100px" alt="">
+        </div>
+        <div class="col-sm-6" id="homepage-content-col">
             <div class="row">
-                <div class="col" id="homepage-text">
-                    <h1 class="homepage-content">An Organizational Tool For Private Music Teachers.</h1>
-                    <h4 class="homepage-subtitle">Remove the burden of tracking student information and progress with an all inclusive app that creates your own virtual studio</h4>
+                <div class="col">
+                    <h1 class="homepage-content">A Virtual Studio For All Your Teaching Needs</h1>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-6" id="logo-col">
-            <img class="img-fluid" src="static/img/ilana's logo.png" alt="">
+            <div class="row">
+                <div class="col">
+                    <button class="btn"><a class="a-home" href="/student-portal">Student</a></button>
+                    <button class="btn"><a class="a-home" href="/teacher-portal">Teacher</a></button>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
-
 
 {% endblock %}

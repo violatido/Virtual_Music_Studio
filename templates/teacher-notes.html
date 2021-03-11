@@ -7,7 +7,7 @@
 {% block body %}
 
 
-<div class="container-fluid">
+<div class="container">
   <div class="row">
     <div class="col">
       {% if teacher %}
@@ -21,10 +21,10 @@
         <h3>Write a new note</h3>
         <form id="create_note">
           <div class="form-row">
-            <div class="form-group col-sm-3">
+            {#<!-- <div class="form-group col-sm-3">
               <label for="note_teacher_id">Teacher ID</label>
               <input type="number" class="form-control" id="note_teacher_id" aria-describedby="emailHelp" value={{ teacher.teacher_id }}>
-            </div>
+            </div> -->#}
             <div class="form-group col-sm-3">
               <label for="note_student_name">Student Name</label>
               <input type="text" class="form-control" id="note_student_name" placeholder="Student Name">
@@ -39,18 +39,18 @@
             </div>
           </div>
           <div class="form-row">
-            <div class="form-group col-8">              
+            <div class="form-group col-sm-10">              
               <textarea class="md-textarea form-control" id="note_content" placeholder="Write your notes here!" rows="6"></textarea>
               <!-- <input type="text" class="form-control" id="note_content" placeholder="Write your notes here!">  -->
             </div>
-            <div class="col-4 d-flex align-items-center">
+            <div class="col-sm-2 d-flex justify-content-center align-items-center">
               <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#teacher_note_button">Submit</button>
             </div>
           </div>
         </form>
       </div>
     </div>
-  <div class="row">
+  <div class="row"  id="note-history">
         {% for note in teacher_notes%}
         <div class="col-md-6">
           <div>

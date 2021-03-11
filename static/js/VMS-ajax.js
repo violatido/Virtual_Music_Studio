@@ -2,22 +2,9 @@
 
 //________________________________________Events for teacher login/registration______________________________________
 
+// remove
 // event handler for teacher login verification
-$('#login_teacher').on('submit', (evt) => {
-    // evt.preventDefault();
-    // console.log("LOGIN FUCNTION WORKS")
-
-    // const loginFormValues = {
-    //     'teacher_login_email': $('#teacher_login_email').val(),
-    //     'teacher_login_pw': $('#teacher_login_pw').val()
-    // }
-
-    // $.post("/teacher-portal", loginFormValues, (res) => {
-    //     $('#teacher_added_response').text("is logged in!")
-    //     console.log("HIIIIIIIIIIIII")
-    
-    // })
-});
+// $('#login_teacher').on('submit', (evt) => {});
 
 
 // event handler for new teacher registration 
@@ -43,22 +30,9 @@ $('#create_teacher').on('submit', (evt) => {
 
 //________________________________________Event for student login/registration______________________________________
 
-
+// remove
 // event handler for student login
-$('#login_student').on('submit', (evt) => {
-    // evt.preventDefault();
-    // console.log("LOGIN FUCNTION WORKS")
-
-    // const loginFormValues = {
-    //     'student_login_email': $('#student_login_email').val(),
-    //     'student_login_pw': $('#student_login_pw').val()
-    // }
-
-    // $.post("/student-portal", loginFormValues, (res) => {
-    //     $('#student_login_response').text(`${res.student_login_email} is logged in!`)
-    //     console.log("LOGIN FUNCTION STILL WORKS!")
-    // })
-});
+// $('#login_student').on('submit', (evt) => {});
 
 
 // event handler for new student registration 
@@ -87,25 +61,6 @@ $('#create_student').on('submit', (evt) => {
 
     document.getElementById("#create_student").reset()
 });
-
-//______________________________________Event for setting practice goals_________________________________________________
-// $('practice_goal').on('submit', (evt) => {
-//     evt.preventDefault();
-
-//     // converts student registration form into an object
-//     // const studentFormValues = $('#student_reg_form').serialize();
-//     const goalFormValues = { 
-//         'days_goal': $('#days_goal').val(),
-//         'total_practice_minutes': $('total_practice_minutes').val()
-//     } 
-
-//     $.post("/student-profile", goalFormValues, (res) => {
-//         $('#total_practice_days').text(
-//             `${res.days_goal}`
-//         );
-//     });
-// });
-
 
 //_________________________________________Event for creating logs___________________________________________________
 

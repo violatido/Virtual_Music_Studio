@@ -1,8 +1,17 @@
+.background-color {
+    /* background-color: #FEFEFA; */
+    background-image: url("/static/img/skew-background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* height: 100%;
+    width: 100%; */
+    z-index: -1;
+}
 
-/* 
 #nav-row {
-    border: 3px white solid;
-} */
+    /* background-color: #DDBDBD; */
+    max-height: 200px;
+}
 
 #left-nav-col {
     /* border: 3px green solid; */
@@ -22,33 +31,34 @@
     overflow: visible;
     text-overflow: ellipsis;
     text-align: center;
-}
-
-.right-nav-link {
-    display: block;
-    overflow: visible;
-    text-overflow: ellipsis;
-    text-align: center;
-    display: flex;
-    justify-self: flex-end;
+    z-index: 1;
 }
 
 .a-home {
     font-family: 'Arial';
-    font-size: 1.25em;
+    font-size: 2.25em;
     /* border: 3px rgba(246, 114, 128) solid; */
     border-radius: 10px;
-    margin-right: 3px;
+    margin-left: 20px;
     text-decoration: none;
+    color: #424B54;
     padding: 5px;
 }
-
 
 a:hover {
     background-color: #111;
 }
 
 /*____________________________________________________Homepage____________________________________________________*/
+#home-container{
+    /* background-image: url("/static/img/skew-background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: -1; */
+}
 
 #main-homepage-row {
     display: flex;
@@ -57,11 +67,9 @@ a:hover {
     /* border: 3px black solid; */
 }
 
-#main-left-col {
-        border: 3px green solid;
-        margin-top: 2%;
-        display: flex;
-        align-items: center;
+#homepage-content-col {
+    /* display: flex;
+    align-items: center; */
 }
 
 .homepage-content {
@@ -69,32 +77,17 @@ a:hover {
     font-size: 5vw;
 }
 
-.homepage-subtitle {
-    text-align: center;
-    font-size: 1.5vw;
-}
-
 #logo-col {
-    border: 3px red solid;
-    padding: 0%;
-    margin-top: 2%;
+    padding: 5%;
 }
 
-.student-home-button {
-    color: white;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 1.75em;
-    border: 3px rgba(246, 114, 128) solid;
-    border-radius: 10px;
-    margin-right: 5px;
+#logo {
+    max-height: 600px;
 }
 
-.portal-link {
-    text-decoration: none;
-    color:white;
+.homepage-button {
     display: flex;
-    justify-content: center;
-    align-content: center;
+    justify-content: flex-start;
 }
 
 /*_________________________________________________Portals_____________________________________________________*/
@@ -113,9 +106,16 @@ padding: .25rem 1.25rem;
 }
 
 
+#teacher-portal-container {
+    height: 90vh;
+    display: flex;
+    align-items: center;
+}
+
+
 /*_________________________________________________Teacher Profile_____________________________________________*/
 .card {
-    background-color: #FCD5BE;
+    background-color: #FEFEFA;
     border-radius: .5em;
     /* margin: .5em; */
     margin-left: .5em;
@@ -125,19 +125,65 @@ padding: .25rem 1.25rem;
     margin-top: 3em;
 }
 
-#tp-row-1 {
-    /* border: 3px white solid; */
+#teacher-profile-main-row {
+    border: 3px green solid;
 }
 
-#tp-col-1 {
-    /* border: 3px red solid; */
+.teacher-profile-header {
+    margin: 30px;
+    font-size: 3.75em;
+    text-align: center;
+}
+
+#teacher-info-col {
+    border: 3px orange solid;
+    background-color: #FEFEFA;
+    padding: 10px;
+}
+
+.teacher-profile-info {
+    font-size: 1.25em;
+}
+
+#tp-note-button {
+    background-color: #B38D97;
+}
+
+#tp-note-button-text {
+    color: #FEFEFA;
+}
+
+
+#teacher-sms-col {
+    border: 3px turquoise solid;
+}
+
+#teacher-profile-students-row {
+    border: 3px blue solid;
+    display: flex;
+    justify-content: space-between;
+}
+
+#teacher-profile-cards-col {
+    max-height: 450px;
+    overflow-x: scroll;
+    /* border: 3px black solid; */
 }
 
 #tp-loop-col {
-    /* border: 3px green solid; */
+    /* border: 3px purple solid; */
     margin-bottom: .5em;
     display: flex;
     justify-content: space-between;
+}
+
+
+/*____________________________________________Lesson Notes_____________________________________________*/
+
+#note-history {
+    max-height: 30em;
+    overflow-x: scroll;
+    border: 3px black solid;
 }
 
 /*___________________________________________Student Profile__________________________________________*/
