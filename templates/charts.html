@@ -16,12 +16,7 @@
         <div class="row header-rows">
             <div class="col-sm-9 d-flex justify-content-center">
                 <h1>{{ student.student_fname }} {{ student.student_lname }}'s' Log Data and Practice History</h1>
-            </div>
-            <div class="col-sm-3 d-flex justify-content-end">
-                <div class=" d-flex justify-content-center">
-                    <a role="button" class="btn dark-pink" href="/student-profile">Return to Student Profile</a>
-                </div>
-            </div>
+            </div>            
         </div>
         <div class="row">
             <div class="col-md-8">
@@ -41,18 +36,25 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4" id="log-history-col">
-                {% for log in student_logs%}
-                <div>
-                    {{ log.log_date }}
-                    <ul>
-                        <li>Log ID #{{ log.log_id }}</li>
-                        <li>Minutes Practiced: {{ log.minutes_practiced }}</li>
-                        <li>Pieces Practiced: {{ log.pieces_practiced }}</li>
-                        <li>Notes: {{ log.practice_notes }}</li>
-                    </ul>
+            <div class="col-md-4">
+                <div class="col-12 d-flex justify-content-center">
+                    <div class="d-flex justify-content-center">
+                        <a role="button" class="btn dark-pink" href="/student-profile">Return to Student Profile</a>
+                    </div>
                 </div>
-                {% endfor %}   
+                <div class="col-12" id="log-history-col">
+                    {% for log in student_logs%}
+                    <div>
+                        {{ log.log_date }}
+                        <ul>
+                            <li>Log ID #{{ log.log_id }}</li>
+                            <li>Minutes Practiced: {{ log.minutes_practiced }}</li>
+                            <li>Pieces Practiced: {{ log.pieces_practiced }}</li>
+                            <li>Notes: {{ log.practice_notes }}</li>
+                        </ul>
+                    </div>
+                    {% endfor %} 
+                </div>                  
             </div>
         </div>
     </div>

@@ -15,21 +15,24 @@ $.get(`/charts/1.json/${studentId}`, (res) => {
     // [0, 0, 120, 12, 45, 35, 100]
 
     let myChart2 = document.getElementById("bar-time");
-
-    let colors2 = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5 B7B', '#355C7D', '#A8A0B1'];
+    
+    let colors2 = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5B7B', '#355C7D', '#A8A0B1'];
     let chart2 = new Chart(myChart2, {
         type: 'bar',
         data: {
             labels: dates.reverse(), 
             datasets: [ {
                 data: practiceTimes.reverse(),
-                backgroundColor: colors2
+                backgroundColor: colors2,
+                borderWidth: 5
             }] 
         },
-        options: {
+        options: {            
             title: {
                 text: "How many minutes did you practice per day this week?",
-                display: true
+                display: true,
+                fontSize: 18,
+                fontColor: '#424B54'
             },
             legend: {
                 display: false
