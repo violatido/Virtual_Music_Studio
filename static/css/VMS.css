@@ -49,7 +49,7 @@
 
 .home-btn-2 {
     color: #2D3339;
-    font-size: 2em;
+    font-size: 2.15em;
     font-weight: lighter;
     border-radius: 0px;
 }
@@ -67,11 +67,12 @@
 .standard-btn {
     color: #FEFEFA;
     background-color: #B38D97;
-}
+} /*general form/hyperlink button styles*/
 
-.profile-return-btn {
-
-    
+.standard-btn:hover {
+    color: white;
+    background-color: #7B6C76;
+    transition: 2s ease;
 }
 
 .profile-return-btn:hover {
@@ -117,14 +118,16 @@ li {
 } /* skewed homepage background */
 
 .homepage-nav-button {
-    font-size: 1.25em;
+    font-size: 1.2em;
     color: #2D3339;
     border-radius: 0px;
+    font-weight: lighter;
 } /* Student/teacher homepage buttons */
 
 .homepage-nav-button:hover {
     border-bottom: 1px black solid;
     transition: 1.5s ease;
+    font-size: 1.4
 }
 
 #main-homepage-row {
