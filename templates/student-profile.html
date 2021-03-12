@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="row d-flex justify-content-center" id="student-profile-main-row">
-      <div class="col-md-6">
+      <div class="col-md-5">
         <div class="col-12" id="student-info-col">
           <h3 class="d-flex justify-content-center"> Student Info</h3>
           <div class="col list-group teacher-profile-info">
@@ -37,45 +37,50 @@
             </ul>
           </div>
         </div>
-        <div class="col">
-          <div class="mt-3 d-flex justify-content-center">
-            <a role="button" class="btn btn-lg dark-pink btn-lg" href="/charts/{{ student.student_id }}">See practice data and history</a>
-          </div>
-        </div>
       </div>  
-      <div class="col-md-6" id="student-log-col">
+      <div class="col-md-6 ml-3" id="student-log-col">
         <div id="student_log_submission">
           <h3>Practice Log for {{student.student_fname}} {{student.student_lname}}</h3>
           <form id="create_log">
-            <div class="form-row">
-              <div class="form-group col-lg-6">
+            <div class="form-row  d-flex justify-content-center">
+              <div class="form-group col-3">
                 <label for="log_student_id">Student Id</label>
                 <input type="number" class="form-control form-control-lg" id="log_student_id" value={{ student.student_id }} readonly>          
               </div>
-              <div class="form-group col-lg-6">
+              <div class="form-group col-5">
                 <label for="log_date">Today's Date</label>
                 <input type="date" class="form-control form-control-lg" id="log_date" placeholder="">
               </div>
-              <div class="form-group col-lg-6">
-                <label for="log_minutes_practiced">For How Many Minutes Did You Practice?</label>
+              <div class="form-group col-4">
+                <label for="log_minutes_practiced">Minutes Practiced</label>
                 <input type="number" class="form-control form-control-lg" id="log_minutes_practiced" placeholder="">
-              </div>
-              <div class="form-group col-lg-6">
-                <label for="log_pieces_practiced">Which Pieces Did You Practice Today?</label>
-                <input type="text" class="form-control form-control-lg" id="log_pieces_practiced" placeholder="">
-              </div>
-              <div class="form-group col">
-                <label for="log_practice_notes">Notes (optional)</label>
-                <textarea type="text" class="md-textarea form-control" id="log_practice_notes" rows="6"placeholder="Write notes about your session here (ex: problem areas, lines of focus, etc)"></textarea>
               </div>
             </div>
             <div class="form-row">
-              <div class="form-group col-6 d-flex">
-                <input id="sms-submit" class="btn btn-lg dark-pink" data-toggle="modal" data-target="#practice_log_button" type="submit">
-                <input type="reset" class="ml-5 btn btn-lg dark-pink" value="Reset">
+              <div class="form-group col-6">
+                <label for="log_practice_notes">Notes (optional)</label>
+                <textarea type="text" class="md-textarea form-control" col="12" id="log_practice_notes" rows="8"placeholder="Write notes about your session here (ex: problem areas, lines of focus, etc)"></textarea>
               </div>
-              <div class="form-group col d-flex justify-content-start">
-                <a role="button" class="btn btn-lg dark-pink btn-lg" href="/charts/{{ student.student_id }}">See practice data and history</a>
+              <div class="form-group col-6">
+                <div class="form-row">
+                  <div class="form-group col">
+                    <label for="log_pieces_practiced">Pieces Practiced</label>
+                    <textarea type="text" class="md-textarea form-control" id="log_pieces_practiced" rows="3" placeholder=""></textarea>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-3 offset-2">
+                    <input id="sms-submit" class="btn dark-pink" data-toggle="modal" data-target="#practice_log_button" type="submit">                
+                  </div>
+                  <div class="form-group col-3 d-flex justify-content-start">
+                    <input type="reset" class="ml-5 btn dark-pink" value="Reset">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-12 d-flex justify-content-center">
+                    <a role="button" class="btn dark-pink" href="/charts/{{ student.student_id }}">See practice data and history</a>
+                  </div>
+                </div>
               </div>
             </div>
           </form> 
