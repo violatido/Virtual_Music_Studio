@@ -128,15 +128,22 @@ li {
     color: #FEFEFA;
 }
 
-#teacher_added_response {
+.modal-response{
     color: #FEFEFA;
     font-family: 'Archivo Narrow', sans-serif;
-    font-size: 1.05em;
+    font-size: 1.15em;
 }
 
-#modal-button {
-    color: #B38D97;
+.modal-button {
     color: #FEFEFA;
+    background-color: #B38D97;
+}
+
+.modal-button:hover {
+    background-color: #FEFEFA;
+    color: #7B6C76;
+    font-size: 1.5em;
+    transition: .75s ease;
 }
 /*____________________________________________________Homepage____________________________________________________*/
 
