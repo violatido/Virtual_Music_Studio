@@ -37,65 +37,14 @@
     align-items: center;
 }
 
-.left-nav-link{
+/* .left-nav-link{
     display: block;
     overflow: visible;
     text-overflow: ellipsis;
     text-align: center;
     z-index: 1;
-} /*aligns the nav Virtual Music Studio*/
+} aligns the nav Virtual Music Studio */
 
-.a-home {
-    font-size: 2.75em;
-    /* border: 3px rgba(246, 114, 128) solid; */
-    border-radius: 10px;
-    margin-left: 20px;
-    text-decoration: none;
-    color: #424B54;
-} /*Logo home links for skewed pages*/
-
-.a-home:hover {
-    text-decoration: none;
-    color: #2D3339;
-}
-
-.a-home2 {
-    font-size: 2.25em;
-    /* border: 3px rgba(246, 114, 128) solid; */
-    border-radius: 10px;
-    margin-left: 20px;
-    text-decoration: none;
-    color: #424B54;
-    padding: 5px;
-}/* logo links for NON-skewed pages */
-
-.a-home2:hover {
-    text-decoration: none;
-    color: #2D3339;
-}
-
-.btn {
-    color: #FEFEFA;
-    background-color: #B38D97;
-    border: 1px #B38D97 solid;
-}
-
-.btn:hover {
-    color: white;
-    background-color: #2D3339;
-}
-
-.btn-link-text {
-    color: white;
-    text-decoration: none;
-    background-color: #B38D97;
-}
-
-
-a {
-    text-decoration: none;
-    color: white;
-}
 
 .h1-page-header {
     margin-top: 50px;
@@ -108,10 +57,12 @@ a {
 }
 
 h3 {
-    font-size: 2em;
+    font-size: 2.25em;
     color: #2D3339;
     font-family: 'Archivo Narrow', sans-serif;
     margin: 25px 0px 25px 0px;
+    font-weight: 500;
+    letter-spacing: -.06em;
 }
 
 li {
@@ -132,9 +83,8 @@ li {
 } /* skewed homepage background */
 
 .homepage-nav-button {
-    font-size: 1em;
+    font-size: 1.25em;
     color: #2D3339;
-    background: #DDBDBD;
 } /* Student/teacher homepage buttons */
 
 #main-homepage-row {
@@ -242,6 +192,7 @@ li {
     margin-bottom: 120px;
 }
 
+/* cards for student ifo */
 .tp-right-col {
     margin-top: 10px;
 }
@@ -253,10 +204,6 @@ li {
     justify-content: space-between;
 }
 
-.card-title {
-    font-size: 1.75em;
-}
-
 .teacher-profile-cards {
     width: 18em;
     background-color: #FEFEFA;
@@ -265,8 +212,13 @@ li {
     /* margin-left: .5em; */
     border: 3px #B38D97 inset;
     box-shadow: 20px 20px 50px #B38D97;
-
 }
+
+.card-title {
+    font-size: 1.75em;
+    letter-spacing: normal;
+}
+
 
 
 /*_________________________________________________Student Profile_____________________________________________*/
@@ -290,9 +242,19 @@ li {
 }
 
 #note-history {
-    max-height: 30em;
+    max-height: 25em;
     overflow-x: scroll;
-    border: 3px black solid;
+    /* border: 3px black solid; */
+}
+
+#notes-card-style {
+    width: 18em;
+    background-color: #FEFEFA;
+    border-radius: .5em;
+    /* margin: .5em; */
+    /* margin-left: .5em; */
+    border: 3px #B38D97 inset;
+    box-shadow: 20px 20px 50px #B38D97;    
 }
 
 .notes-card-title {
@@ -312,7 +274,6 @@ li {
 }
 
 #log-history-col {
-    max-height: 100vh;
     overflow-x: scroll;
-    border: 3px black solid;
+    /* border: 3px black solid; */
 }
