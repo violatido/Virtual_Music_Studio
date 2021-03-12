@@ -89,7 +89,7 @@ $('#create_note').on('submit', (evt) => {
     console.log(noteFormValues);
     $.post("/teacher-notes", noteFormValues, (res) => {
         $('#note_added_response').text(
-            `note for lesson has been saved!`
+            `Note for lesson has been saved!`
         )
     });
     document.getElementById("#create_note").reset()
