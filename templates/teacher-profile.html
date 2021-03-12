@@ -22,7 +22,7 @@
     {% endif %} 
     <div class="row d-flex justify-content-center" id="teacher-profile-main-row">
       <div class="col-md-6">
-        <div class="col-12" id="teacher-info-col">
+        <div class="col-10" id="teacher-info-col">
           <h3 class="d-flex justify-content-center">Teacher Info</h3>
           <div class="d-flex justify-content-center" id="list-border">
             <ul class="col list-group" id="teacher-profile-info">
@@ -36,13 +36,13 @@
             <a role="button" class="btn dark-pink btn-lg" href="/teacher-notes">Write a Lesson Note</a>
           </div>
         </div>
-        <div class="col-12" id="teacher-sms-col">
+        <div class="col-10" id="teacher-sms-col">
             <form id="message-id" method="post">
               <div class="form-group  d-flex justify-content-center">
                 <h3 class="">Text a Student</h3>
               </div>            
               <div class="form-row  d-flex justify-content-center">
-                <div class="form-group col-10">
+                <div class="form-group col-11">
                   <textarea class="md-textarea form-control-lg form-control" rows="4" name="message_content" placeholder="Write Message Here" id="message_content"></textarea>
                 </div>
               </div>
@@ -64,15 +64,15 @@
         <div class="d-flex justify-content-center">
           <h3>Teacher Calendar</h3>
         </div>
-        <div class="col-12 d-flex justify-content-center" id="cal-col">
-          <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=ZjU3Y2ptMWhrcWRqMG5xYWlvYzMxODB0bGtAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%23EF6C00&amp;showPrint=0&amp;showCalendars=0&amp;showTz=1" style="border:solid 1px #777" width="540" height="405" frameborder="0" scrolling="no"></iframe>
+        <div class="col-10 ml-2 d-flex justify-content-center" id="cal-col">
+          <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=ZjU3Y2ptMWhrcWRqMG5xYWlvYzMxODB0bGtAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%23EF6C00&amp;showPrint=0&amp;showCalendars=0&amp;showTz=1" style="border:solid 1px #777" width="545" height="405" frameborder="0" scrolling="no"></iframe>
         </div>
       </div>
       <div class="col-md-6 tp-right-col">
         <h3 class="d-flex justify-content-center">Students List</h3>
         <div class="row" id="tp-row-2">         
           {% for student in teacher.students %}
-          <div class="col col-lg-6" id="tp-loop-col">
+          <div class="col offset-2 offset-sm-3 offset-lg-0 col-lg-6" id="tp-loop-col">
             <div class="card teacher-profile-cards">
               <div class="card-body">
                 <h3 class="card-title d-flex justify-content-center bask">{{ student.student_fname}} {{ student.student_lname}}</h3>

@@ -46,13 +46,12 @@
 } /*aligns the nav Virtual Music Studio*/
 
 .a-home {
-    /* font-size: 2.25em; */
+    font-size: 2.75em;
     /* border: 3px rgba(246, 114, 128) solid; */
     border-radius: 10px;
     margin-left: 20px;
     text-decoration: none;
     color: #424B54;
-    padding: 5px;
 } /*Logo home links for skewed pages*/
 
 .a-home:hover {
@@ -61,7 +60,7 @@
 }
 
 .a-home2 {
-    font-size: 2.75em;
+    font-size: 2.25em;
     /* border: 3px rgba(246, 114, 128) solid; */
     border-radius: 10px;
     margin-left: 20px;
@@ -103,39 +102,39 @@ a {
     margin-bottom: 50px;
     font-family: 'Libre Baskerville', serif;
     font-weight: 500;
-    font-size: 5em;
+    font-size: 4em;
     text-align: center;
     color: #2D3339;
 }
 
 h3 {
-    font-size: 2.45em;
+    font-size: 2em;
     color: #2D3339;
     font-family: 'Archivo Narrow', sans-serif;
     margin: 25px 0px 25px 0px;
 }
 
 li {
-    font-size: 1.15em;
+    font-size: 1em;
 }
 /*____________________________________________________Homepage____________________________________________________*/
 
 .homepage-background {
     background-color: #DDBDBD;
-    background-image: url("/static/img/skew-background.png");
+    background-image: url("/static/img/new-background.png");
     background-repeat: no-repeat;
     background-size: cover;
-    /* height: 100%; */
-    position: sticky;
-    /* height: 70vh; */
-    /* width: 100%; */
+    /* height: 80%; */
+    /* position: fixed; */
+    /* height: 50vh; */
+    width: 100%;
     z-index: -1;
 } /* skewed homepage background */
 
 .homepage-nav-button {
-    font-size: 1.6em;
+    font-size: 1em;
     color: #2D3339;
-
+    background: #DDBDBD;
 } /* Student/teacher homepage buttons */
 
 #main-homepage-row {
@@ -148,21 +147,16 @@ li {
 .homepage-content {
     text-align: center;
     font-size: 5vw;
-    margin-bottom: 125px;
-    padding-bottom: 300px;
 }
 
 #homepage-logo-col {
-    padding: 5%;
     display: flex;
     align-items: flex-start;
-    padding-bottom: 300px;
 }
 
 #homepage-logo {
-    min-height: 600px;
-    max-height: 600px;
-    padding-bottom: 175px;
+    max-height: 500px;
+    /* padding-bottom: 175px; */
 }
 /*_________________________________________________Portals_____________________________________________________*/
 .portal-background {
@@ -175,18 +169,27 @@ li {
     z-index: -1;
 }
 
-.login-row {
-    margin-top: 30px;
+.portal-main-row {
+    margin-bottom: 50px;
+}
+
+.login-reg-header {
+    font-size: 2em;
 }
 
 .portal-container {
-    height: 95vh;
+    height: 105vh;
+    width: 100%;
     display: flex;
     align-items: center;
 }
 
 #teacher-reg-buttons-row {
     margin-bottom: 10px;
+}
+
+.portal-logo {
+    max-height: 500px;
 }
 
 /*_________________________________________________Teacher Profile_____________________________________________*/
@@ -230,6 +233,10 @@ li {
     margin: 20px;
 }
 
+.list-group{
+    font-size: 1em;
+}
+
 #teacher-profile-students-row {
     margin-top: 40px;
     margin-bottom: 120px;
@@ -246,8 +253,12 @@ li {
     justify-content: space-between;
 }
 
+.card-title {
+    font-size: 1.75em;
+}
+
 .teacher-profile-cards {
-    max-width: 20em;
+    width: 18em;
     background-color: #FEFEFA;
     border-radius: .5em;
     /* margin: .5em; */
@@ -282,6 +293,10 @@ li {
     max-height: 30em;
     overflow-x: scroll;
     border: 3px black solid;
+}
+
+.notes-card-title {
+    font-size: 1.5em;
 }
 
 /*___________________________________________Student Profile__________________________________________*/

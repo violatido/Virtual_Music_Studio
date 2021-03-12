@@ -13,23 +13,23 @@
   <div class="container portal-container">
     <div class="row d-flex align-items-center ">
       <div class="col-lg-6 d-none d-sm-none d-lg-block">
-        <img class="img-fluid " id="logo" src="static/img/Dark-logo-cutout.png" height="100px" alt="">
+        <img class="img-fluid portal-logo" src="static/img/Dark-logo-cutout.png" height="100px" alt="">
       </div>
-      <div class="col-lg-6">
+      <div class="col-lg-6 mb-5">
         <div class="row login-row">
           <div class="col">
             <div id="student_login_form">
-              <h3 class="arch display-4">Student Login</h3>
+              <h3 class="arch login-reg-header">Student Login</h3>
               <form id="login_student" action="/student-portal" method="post">
                 <div class="form-row">
-                  <div class="form-group col-sm-5">
-                    <input type="text" class="form-control form-control-lg" id="student_login_email" name="student_login_email" placeholder="Email Address">
+                  <div class="form-group col-5">
+                    <input type="text" class="form-control form-control-sm" id="student_login_email" name="student_login_email" placeholder="Email Address">
                   </div>
-                  <div class="form-group col-sm-5">
-                    <input type="password" class="form-control form-control-lg" id="student_login_pw" name="student_login_pw" placeholder="Password">
+                  <div class="form-group col-5">
+                    <input type="password" class="form-control form-control-sm" id="student_login_pw" name="student_login_pw" placeholder="Password">
                   </div>
-                  <div class="form-group d-flex justify-content-start col-sm-2">
-                    <button type="submit" class="btn btn-lg light-pink">Submit</button>
+                  <div class="form-group d-flex justify-content-start col-2">
+                    <button type="submit" class="btn btn-sm light-pink">Submit</button>
                   </div>
                 </div>
                 <div class="form-row">
@@ -42,49 +42,49 @@
         <div class="row">
           <div class="col">
             <div id="student-registration-form">
-              <h3 class="arch display-4">Student Registration</h3>
+              <h3 class="arch login-reg-header">Student Registration</h3>
               <form id="create_student">
                 <div class="form-row">
-                  <div class="form-group col-4">
-                    <input type="text" class="form-control form-control-lg" id="student_fname" placeholder="First Name">
+                  <div class="form-group col-6">
+                    <input type="text" class="form-control form-control-sm" id="student_fname" placeholder="First Name">
                   </div>
-                  <div class="form-group col-4">
-                    <input type="text" class="form-control form-control-lg" id="student_lname" placeholder="Last Name">
-                  </div>
-                  <div class="form-group col-4">
-                    <input type="text" class="form-control form-control-lg" id="student_phone" placeholder="Phone">
-                  </div>
+                  <div class="form-group col-6">
+                    <input type="text" class="form-control form-control-sm" id="student_lname" placeholder="Last Name">
+                  </div>                  
                 </div>
                 <div class="form-row">
                   <div class="form-group col-6">
-                    <input type="email" class="form-control form-control-lg" id="student_email" placeholder="Email">
+                    <input type="email" class="form-control form-control-sm" id="student_email" placeholder="Email">
                   </div>
                   <div class="form-group col-6">
-                    <input type="text" class="form-control form-control-lg" id="instrument" placeholder="Instrument">
+                    <input type="text" class="form-control form-control-sm" id="instrument" placeholder="Instrument">
                   </div>
                 </div>
                 <div class="form-row">
                   <div class="form-group col-6">              
-                    <input type="text" class="form-control form-control-lg" id="private_teacher_name" placeholder="Private Teacher Name">
+                    <input type="text" class="form-control form-control-sm" id="private_teacher_name" placeholder="Private Teacher Name">
                   </div>
                   <div class="form-group col-6">                
-                    <input type="email" class="form-control form-control-lg" id="private_teacher_email" placeholder="Private Teacher Email">
+                    <input type="email" class="form-control form-control-sm" id="private_teacher_email" placeholder="Private Teacher Email">
                   </div>
                 </div>
                 <div class="form-row">
                   <div class="form-group col-6">
-                    <input type="text" class="form-control form-control-lg" id="program_name" placeholder="Program Name">
+                    <input type="text" class="form-control form-control-sm" id="student_phone" placeholder="Phone">
                   </div>
                   <div class="form-group col-6">
-                    <input type="password" class="form-control form-control-lg" name="student_password" id="student_password" placeholder="Password">
-                  </div>
+                    <input type="text" class="form-control form-control-sm" id="program_name" placeholder="Program Name">
+                  </div>                  
                 </div>
                 <div class="form-row" id="teacher-reg-buttons-row">
-                  <div class="form-group col-3 d-flex justify-content-start">
-                    <button type="submit" class="btn btn-lg light-pink" data-toggle="modal" data-target="#student_reg_button">Submit</button>
+                  <div class="form-group col-6">
+                    <input type="password" class="form-control form-control-sm" name="student_password" id="student_password" placeholder="Password">
+                  </div>
+                  <div class="form-group col-3 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-sm light-pink" data-toggle="modal" data-target="#student_reg_button">Submit</button>
                   </div>
                   <div class="form-group col-3 d-flex justify-content-start">
-                    <button type="reset" value="reset" class="btn btn-lg light-pink">Reset</button>
+                    <button type="reset" value="reset" class="btn btn-sm light-pink">Reset</button>
                   </div>
                 </div>
               </form>

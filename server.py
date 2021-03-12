@@ -388,53 +388,16 @@ def send_message():
     account_sid = os.environ.get('ACCOUNT_SID')
     auth_token = os.environ.get('AUTH_TOKEN')
     client = Client(account_sid, auth_token)
-    
-    # # retrieve the data by calling seed_chart_one()
-        # data = seed_chart_one()
-        # # extract the minutes_practiced key values (min practiced per day this past week)
-        #     # minutes_per_day = data['minutes_practiced] >>> [0, 0, 0, 45, 98, 50, 120]
-        # minutes_practiced = data['minutes_practiced']
-
-        # # loop over the minutes_practiced list to count total minutes and total days
-        # def count_minutes_and_days(minutes_list):
-        #     total_days = 0
-        #     total_mins = 0
-
-        #     for minutes in minutes_list:
-        #         total_mins += minutes
-                
-        #         if minutes != 0:
-        #             minutes = 1 # 1 = one day of practice 
-        #             total_days += 1
-
-        #     return total_days, total_mins
-
-        # #unpack the totals for SMS data
-        # days_text_data, mins_text_data = count_minutes_and_days(minutes_practiced)
-        # # >>> 4
-        # # >>> 313
-        # print('!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!\n!!!!!!!!!!!!\n!!!')
-        # print(days_text_data, mins_text_data)
-
-        # text_message_content = f"This week's practice stats for student! Number of days practiced this week: {days_text_data}. Number of minutes practiced this week: {mins_text_data}"
-    
-    # hardcoded message to text to selected student
-    # text_message_content = "I see you're practice habits are below your goals. Try to get some extra sessions in before the next lesson!"
-
-    #locating the teacher currently logged in, and their list of students
-    # teacher = crud.get_teacher_by_id(session["teacher_id"])
 
     student_id = request.form.get('phone_dropdown_id')
 
     student= crud.get_student_phone(student_id) # crud: return Student.query.filter(Student.student_id == student_id).first()
     
-    student_num = student.student_phone
-    student_phone = "+1" + student_num
+    student_num = student.student_phone "+1" + student_num
 
 
     text_message_content = request.form.get('message_content')
     # selecting a student id number
-    
 
     message = client.messages.create(
                         body= text_message_content, #text message content here 

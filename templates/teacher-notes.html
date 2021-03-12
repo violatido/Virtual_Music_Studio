@@ -31,20 +31,20 @@
               <div class="col-12" id="teacher_note_form">
                 <form id="create_note">
                   <div class="form-row">
-                    <div class="form-group col-sm-4">
+                    <div class="form-group col-6 col-sm-4">
                       <label for="note_student_name">Student Name</label>
-                      <input type="text" class="form-control form-control-lg" id="note_student_name" placeholder="Student Name">
+                      <input type="text" class="form-control" id="note_student_name" placeholder="Student Name">
                     </div>
-                    <div class="form-group col-sm-4">
+                    <div class="form-group col-5 col-sm-4">
                       <label for="note_date">Lesson Date</label>
-                      <input type="date" class="form-control form-control-lg" id="note_date" placeholder="">
+                      <input type="date" class="form-control" id="note_date" placeholder="">
                     </div>
-                    <div class="form-group col-sm-2">
+                    <div class="form-group col-4 col-sm-2">
                       <label for="note_time">Lesson time</label>
-                      <input type="time" class="form-control form-control-lg" id="note_time" placeholder="">
+                      <input type="time" class="form-control" id="note_time" placeholder="">
                     </div>
-                    <div class="form-group col-sm-1 d-flex justify-content-center align-items-end">
-                      <button type="submit" class="btn btn-lg" data-toggle="modal" data-target="#teacher_note_button">Submit</button>
+                    <div class="form-group col-2 col-sm-2 d-flex justify-content-center align-items-end">
+                      <button type="submit" class="btn" data-toggle="modal" data-target="#teacher_note_button">Submit</button>
                     </div>
                   </div>
                   <div class="form-row">
@@ -65,7 +65,7 @@
               <div class="col col-lg-6">
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">{{ note.note_date }} at {{ note.note_time }}</h5>
+                    <h5 class="card-title notes-card-title">{{ note.note_date }} at {{ note.note_time }}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Note ID #: {{ note.note_id }}</h6>    
                     <ul class="card-text">
                       <li>Student name: {{ note.note_student_name }}</li>
