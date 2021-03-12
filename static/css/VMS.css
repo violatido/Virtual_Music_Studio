@@ -40,6 +40,7 @@
 /* @border-bottom: 2px black solid; */
 
 .home-btn-1 {
+    color: #2D3339;
     font-size: 2.15em;
     padding: 0px;
     margin-left: 15px;
@@ -50,16 +51,33 @@
     color: #2D3339;
     font-size: 2em;
     font-weight: lighter;
+    border-radius: 0px;
 }
 
 .home-btn-1:hover {
     border-bottom: 1px black solid;
-    transition: 1s ease;
+    transition: 1.5s ease;
+}
+
+.home-btn-2:hover {
+    border-bottom: 1px black solid;
+    transition: 1.5s ease;
 }
 
 .standard-btn {
     color: #FEFEFA;
     background-color: #B38D97;
+}
+
+.profile-return-btn {
+
+    
+}
+
+.profile-return-btn:hover {
+    border-radius: 0px;
+    border-bottom: 1px black solid;
+    transition: 1.5s ease;
 }
 
 .h1-page-header {
@@ -101,7 +119,13 @@ li {
 .homepage-nav-button {
     font-size: 1.25em;
     color: #2D3339;
+    border-radius: 0px;
 } /* Student/teacher homepage buttons */
+
+.homepage-nav-button:hover {
+    border-bottom: 1px black solid;
+    transition: 1.5s ease;
+}
 
 #main-homepage-row {
     display: flex;
