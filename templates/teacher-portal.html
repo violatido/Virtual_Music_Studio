@@ -80,33 +80,24 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="teacher_reg_buttonTitle">Registration Successful!</h5>
+        <h5 class="modal-title text-center" id="teacher_reg_buttonTitle">Teacher Registration Successful!</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          <span class="close-btn" aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <p id="teacher_added_response"></p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn standard-btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="modal-button" class="btn standard-btn" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function(){
+      $("#teacher_reg_button").modal('show');
+  });
+</script>
 {% endblock %}
-
-
-{#<!-- <div id="teacher_reg_form">
-  <form id="create_teacher">
-    <h3>Teacher Registration Form</h3>
-    First name: <input type="text" id="teacher_fname" name="teacher_fname"> <br> 
-    Last name: <input type="text" id="teacher_lname" name="teacher_lname"> <br>
-    Email: <input type="email" id="teacher_email" name="teacher_email"> <br>
-    Phone (optional): <input type="text" id="teacher_phone" name="teacher_phone" value="000-000-0000"> <br>
-    Password: <input type="text" id="teacher_password" name="teacher_password"> <br>
-    <input type="submit" value="submit">
-    <input type="reset" value="reset">
-  </form>
-  <h3 id="teacher_added_response"></h3>
-</div> -->#}

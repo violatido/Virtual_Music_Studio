@@ -30,6 +30,7 @@
     height: 100px;
 } /*gradient nav bar*/
 
+
 .left-nav-col {
     /* border: 3px green solid; */
     display: flex;
@@ -49,14 +50,17 @@
 
 .home-btn-2 {
     color: #2D3339;
-    font-size: 2.15em;
+    font-size: 2.3em;
     font-weight: lighter;
     border-radius: 0px;
+    padding: 0%;
+    margin-left: 20px;
 }
 
 .home-btn-1:hover {
     border-bottom: 1px black solid;
     transition: 1.5s ease;
+
 }
 
 .home-btn-2:hover {
@@ -72,7 +76,7 @@
 .standard-btn:hover {
     color: white;
     background-color: #7B6C76;
-    transition: 2s ease;
+    transition: .75s ease;
 }
 
 .profile-return-btn:hover {
@@ -103,6 +107,37 @@ h3 {
 li {
     font-size: 1em;
 }
+
+.modal-content {
+    background-color: #2D3339;
+}
+
+.modal-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 2.25em;
+    display: flex;
+    justify-content: center;
+    color: #FEFEFA;
+}
+
+.close-btn {
+    color: #FEFEFA;
+}
+
+.close-btn:hover{
+    color: #FEFEFA;
+}
+
+#teacher_added_response {
+    color: #FEFEFA;
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 1.05em;
+}
+
+#modal-button {
+    color: #B38D97;
+    color: #FEFEFA;
+}
 /*____________________________________________________Homepage____________________________________________________*/
 
 .homepage-background {
@@ -118,16 +153,17 @@ li {
 } /* skewed homepage background */
 
 .homepage-nav-button {
-    font-size: 1.2em;
+    font-size: 1.8em;
     color: #2D3339;
     border-radius: 0px;
     font-weight: lighter;
+    padding: 0%;
+    margin-left: 20px;
 } /* Student/teacher homepage buttons */
 
 .homepage-nav-button:hover {
     border-bottom: 1px black solid;
     transition: 1.5s ease;
-    font-size: 1.4
 }
 
 #main-homepage-row {

@@ -1,18 +1,11 @@
 "use strict"
 
 //________________________________________Events for teacher login/registration______________________________________
-
-// remove
-// event handler for teacher login verification
-// $('#login_teacher').on('submit', (evt) => {});
-
-
 // event handler for new teacher registration 
 $('#create_teacher').on('submit', (evt) => {
     evt.preventDefault();
 
     // converts teacher registration form into an object
-    // const teacherFormValues = $('#teacher_reg_form').serialize();
     const teacherFormValues = { 
         'teacher_fname': $('#teacher_fname').val(),
         'teacher_lname': $('#teacher_lname').val(),
@@ -29,11 +22,6 @@ $('#create_teacher').on('submit', (evt) => {
 });
 
 //________________________________________Event for student login/registration______________________________________
-
-// remove
-// event handler for student login
-// $('#login_student').on('submit', (evt) => {});
-
 
 // event handler for new student registration 
 $('#create_student').on('submit', (evt) => {

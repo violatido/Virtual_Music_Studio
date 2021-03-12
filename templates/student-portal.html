@@ -80,7 +80,7 @@
                     <input type="password" class="form-control form-control-sm" name="student_password" id="student_password" placeholder="Password">
                   </div>
                   <div class="form-group col-3 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-sm standard-btn" data-toggle="modal" data-target="#student_reg_button">Submit</button>
+                    <button type="submit" class="btn standard-btn" data-toggle="modal" data-target="#student_reg_button">Submit</button>
                   </div>
                   <div class="form-group col-3 d-flex justify-content-start">
                     <button type="reset" value="reset" class="btn btn-sm standard-btn">Reset</button>
@@ -95,11 +95,11 @@
   </div>
 
 <!-- Modal Window for Text Message -->
-<div class="modal fade" id="sudent_reg_button" tabindex="-1" role="dialog" aria-labelledby="sudent_reg_buttonTitle" aria-hidden="true">
+<div class="modal fade" id="student_reg_button" tabindex="-1" role="dialog" aria-labelledby="student_reg_buttonTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="sudent_reg_buttonTitle">Student Registration Successful!</h5>
+        <h5 class="modal-title" id="student_reg_buttonTitle">Registration Successful!</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -108,30 +108,9 @@
         <p id="student_added_response"></p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn standard-btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
 {% endblock %}
-
-
-{#<!-- <div class="col"> 
-  <div id="student_reg_form">
-    <form id="create_student">
-      <h3>Student Registration Form</h3>
-      First name: <input type="text" id="student_fname" name="student_fname"/> <br> 
-      Last name: <input type="text" id="student_lname" name="student_lname"/> <br>
-      Email: <input type="email" id="student_email" name="student_email"/> <br>
-      Private Teacher Name: <input type="text" id="private_teacher_name" name="private_teacher_name"/> <br>
-      Private Teacher Email: <input type="email" id="private_teacher_email" name="private_teacher_email"/> <br>
-      Program/school name: <input type="text" id="program_name" name="program_name"/> <br>
-      Instrument: <input type="text" id="instrument" name="instrument"/> <br>
-      Phone: <input type="text" name="student_phone" id="student_phone" value="format: +10000000000"> <br>
-      Password: <input type="text" id="student_password" name="student_password"/> <br>
-      <input type="submit" value="submit">
-      <input type="reset" value="reset">
-    </form>
-    <h3 id="student_added_response"></h3>
-  </div>
-</div> -->#}
