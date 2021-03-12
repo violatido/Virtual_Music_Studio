@@ -37,14 +37,15 @@
     align-items: center;
 }
 
-/* .left-nav-link{
-    display: block;
-    overflow: visible;
-    text-overflow: ellipsis;
-    text-align: center;
-    z-index: 1;
-} aligns the nav Virtual Music Studio */
+.home-btn-1 {
+    font-size: 2.15em;
+}
 
+.home-btn-2 {
+    color: #2D3339;
+    font-size: 2em;
+    font-weight: lighter;
+}
 
 .h1-page-header {
     margin-top: 50px;
