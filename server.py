@@ -157,8 +157,6 @@ def go_to_student_logs(student_id):
 
     return render_template('charts.html', student= student, teacher=teacher, student_logs=student_logs)
 
-
-
 #________________________________________functions for adding teacher notes________________________________________#
 @app.route('/teacher-notes')
 def view_teacher_notes():

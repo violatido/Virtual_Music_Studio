@@ -28,8 +28,17 @@
 .nav-row {
     background: linear-gradient(#DDBDBD, #FEFEFA);
     height: 100px;
+    animation: bgFadein 5s;
 } /*gradient nav bar*/
 
+@keyframes bgFadein {
+    from { 
+        background-color: #2D3339;    
+    }
+    to { 
+        background: linear-gradient(#DDBDBD, #FEFEFA)
+    }    
+}
 
 .left-nav-col {
     /* border: 3px green solid; */
@@ -166,11 +175,14 @@ li {
     font-weight: lighter;
     padding: 0%;
     margin-left: 20px;
+    animation: fadein 5s;
+    /* visibility: hidden; */
 } /* Student/teacher homepage buttons */
 
 .homepage-nav-button:hover {
     border-bottom: 1px black solid;
-    transition: 1.5s ease;
+    transition: .65s ease;
+    /* background-color: #FEFEFA; */
 }
 
 #main-homepage-row {
@@ -183,6 +195,9 @@ li {
 .homepage-content {
     text-align: center;
     font-size: 5vw;
+    animation: fadein 4s;
+    /* visibility: hidden; */
+
 }
 
 #homepage-logo-col {
@@ -193,6 +208,34 @@ li {
 #homepage-logo {
     max-height: 500px;
     /* padding-bottom: 175px; */
+    animation: fadein 3s;
+    /* visibility: hidden; */
+}
+
+.note {
+    font-size: 4vw;
+    margin: 5px;
+    animation: fadeinout 4s linear;
+}
+
+@keyframes fadeinout {
+    0% { opacity: 0%;}
+    10% {opacity: .1%;}
+    50% {opacity: 100%;}
+    100% { opacity: 0%;}
+    /* 100% { visibility: hidden;} */
+}
+
+@keyframes fadein {
+    0% {
+        opacity: 0%;
+    }
+    30% {
+        opacity: .01%;
+    }
+    100% {
+        opcaity: 100%
+    }
 }
 /*_________________________________________________Portals_____________________________________________________*/
 .portal-background {
@@ -290,6 +333,11 @@ li {
     justify-content: space-between;
 }
 
+#tp-card-col {
+    overflow: scroll;
+    max-height: 800px;
+}
+
 .teacher-profile-cards {
     width: 18em;
     background-color: #FEFEFA;
@@ -345,6 +393,10 @@ li {
 
 .notes-card-title {
     font-size: 1.5em;
+}
+
+.tn-col {
+    flex-wrap: nowrap;
 }
 
 /*___________________________________________Student Profile__________________________________________*/

@@ -25,7 +25,7 @@
         <div class="col-10" id="teacher-info-col">
           <h3 class="d-flex justify-content-center">Teacher Info</h3>
           <div class="d-flex justify-content-center" id="list-border">
-            <ul class="col list-group" id="teacher-profile-info">
+            <ul class="col arch list-group" id="teacher-profile-info">
               <li class="list-group-item">Teacher Name: {{teacher.teacher_fname}} {{teacher.teacher_lname}}</li>
               <li class="list-group-item">Teacher ID: {{teacher.teacher_id}}</li>
               <li class="list-group-item">Teacher Email: {{teacher.teacher_email}}</li>
@@ -61,36 +61,38 @@
               </div>
             </form> 
         </div>
-        <div class="d-flex justify-content-center">
-          <h3>Teacher Calendar</h3>
-        </div>
-        <div class="col-10 ml-2 d-flex justify-content-center" id="cal-col">
-          <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=ZjU3Y2ptMWhrcWRqMG5xYWlvYzMxODB0bGtAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%23EF6C00&amp;showPrint=0&amp;showCalendars=0&amp;showTz=1" style="border:solid 1px #777" width="545" height="405" frameborder="0" scrolling="no"></iframe>
+        <div class="col-10">
+          <h3 class="d-flex justify-content-center">Teacher Calendar</h3>
+          <div class="col-10 ml-4 d-flex justify-content-center" id="cal-col">
+            <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=ZjU3Y2ptMWhrcWRqMG5xYWlvYzMxODB0bGtAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%23EF6C00&amp;showPrint=0&amp;showCalendars=0&amp;showTz=1" style="border:solid 1px #777" width="550" height="300" frameborder="0" scrolling="no"></iframe>
+          </div>
         </div>
       </div>
       <div class="col-md-6 tp-right-col">
         <h3 class="d-flex justify-content-center">Students List</h3>
-        <div class="row" id="tp-row-2">         
-          {% for student in teacher.students %}
-          <div class="col offset-2 offset-sm-3 offset-lg-0 col-lg-6" id="tp-loop-col">
-            <div class="card teacher-profile-cards">
-              <div class="card-body">
-                <h3 class="card-title d-flex justify-content-center bask">{{ student.student_fname}} {{ student.student_lname}}</h3>
-                <h5 class="card-subtitle d-flex justify-content-center mb-4 text-muted" id="h5-student-id">Student ID #: {{ student.student_id }}</h6>    
-                <ul class="card-text">
-                  <li>Student ID #: {{ student.student_id }}</li>
-                  <li>Student email: {{ student.student_email }}</li>
-                  <li>Program name: {{ student.program_name }}</li>
-                  <li>Instrument: {{ student.instrument }}</li>
-                  <li>Student phone: {{ student.student_phone }}</li>
-                </ul>
-                <div class="d-flex justify-content-center" id="chart-link-div">
-                  <a role="button" class="btn standard-btn btn-lg" id="card-link" href="/charts/{{ student.student_id }}">View Practice Data</a>
+        <div class="col-12" id="tp-card-col">
+          <div class="row" id="tp-row-2">         
+            {% for student in teacher.students %}
+            <div class="col offset-2 offset-sm-3 offset-lg-0 col-lg-6" id="tp-loop-col">
+              <div class="card mb-5 teacher-profile-cards">
+                <div class="card-body">
+                  <h3 class="card-title d-flex justify-content-center bask">{{ student.student_fname}} {{ student.student_lname}}</h3>
+                  <h5 class="card-subtitle d-flex justify-content-center mb-4 text-muted" id="h5-student-id">Student ID #: {{ student.student_id }}</h6>    
+                  <ul class="card-text">
+                    <li>Student ID #: {{ student.student_id }}</li>
+                    <li>Student email: {{ student.student_email }}</li>
+                    <li>Program name: {{ student.program_name }}</li>
+                    <li>Instrument: {{ student.instrument }}</li>
+                    <li>Student phone: {{ student.student_phone }}</li>
+                  </ul>
+                  <div class="d-flex justify-content-center" id="chart-link-div">
+                    <a role="button" class="btn standard-btn btn-lg" id="card-link" href="/charts/{{ student.student_id }}">View Practice Data</a>
+                  </div>
                 </div>
               </div>
             </div>
+            {% endfor %}
           </div>
-          {% endfor %}
         </div>
       </div>
     </div>
