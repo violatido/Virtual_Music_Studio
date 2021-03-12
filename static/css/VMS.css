@@ -37,14 +37,29 @@
     align-items: center;
 }
 
+/* @border-bottom: 2px black solid; */
+
 .home-btn-1 {
     font-size: 2.15em;
+    padding: 0px;
+    margin-left: 15px;
+    border-radius: 0px;
 }
 
 .home-btn-2 {
     color: #2D3339;
     font-size: 2em;
     font-weight: lighter;
+}
+
+.home-btn-1:hover {
+    border-bottom: 1px black solid;
+    transition: 1s ease;
+}
+
+.standard-btn {
+    color: #FEFEFA;
+    background-color: #B38D97;
 }
 
 .h1-page-header {

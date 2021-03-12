@@ -7,20 +7,11 @@
 <body class="white">
     <nav class="light-pink">
         <div class="row nav-row">
-            <div class="col-12 d-flex justify-content-start left-nav-col">
+            <div class="col-12 d-flex justify-content-between">
                 <a class="arch btn btn-lg home-btn-2" href="/">Virtual Music Studio</a>
-            </div>
-            <div class="col">
-                <a class="btn btn-lg arch" href="/student-profile">Return to Student Profile</a>
+                <a class="btn btn-lg" href="/student-profile">Return to Student Profile</a>
             </div>
         </div> 
-        <div class="row">
-            <div class="col-12 d-flex justify-content-center">
-                <div class="d-flex justify-content-center"></div>
-                    <a role="button" class="btn btn-lg" href="/student-profile">Return to Student Profile</a>
-                </div>
-            </div>   
-        </div>
     </nav>
     <div class="container-fluid" id="container-past-logs">
         <div class="row header-rows">
@@ -46,26 +37,28 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="col-12" id="log-history-col">
-                    <h3 class="d-flex justify-content-center">Log History</h3>
-                    <div class="row" id="note-history">         
-                    {% for log in student_logs%}
-                    <div class="col">
-                        <div class="card" id="notes-card-style">
-                            <div class="card-body">
-                                <h5 class="card-title notes-card-title">{{ log.log_date }}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Log ID #: {{ log.log_id }}</h6>    
-                                <ul class="card-text">
-                                    <li>Minutes Practiced: {{ log.minutes_practiced }}</li>
-                                    <li>Pieces Practiced: {{ log.pieces_practiced }}</li>
-                                    <li>Notes: {{ log.practice_notes }}</li>
-                                </ul>
-                            </div>   
-                        </div>                  
-                    </div> 
-                    {% endfor %} 
-                </div>
+            <div class="col-md-4">                
+                <div class="row d-flex justify-content-center align-items-start">
+                    <h3 class="row d-flex justify-content-center align-items-start">Log History</h3>
+                    <div class="col-12" id="log-history-col">                        
+                        <div class="" id="note-history">         
+                        {% for log in student_logs%}
+                        <div class="col d-flex justify-content-center align-items-start">
+                            <div class="card" id="notes-card-style">
+                                <div class="card-body">
+                                    <h5 class="card-title notes-card-title">{{ log.log_date }}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Log ID #: {{ log.log_id }}</h6>    
+                                    <ul class="card-text">
+                                        <li>Minutes Practiced: {{ log.minutes_practiced }}</li>
+                                        <li>Pieces Practiced: {{ log.pieces_practiced }}</li>
+                                        <li>Notes: {{ log.practice_notes }}</li>
+                                    </ul>
+                                </div>   
+                            </div>                  
+                        </div> 
+                        {% endfor %} 
+                    </div>
+                </div>    
             </div>
         </div>
     </div>
