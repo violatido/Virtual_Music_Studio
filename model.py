@@ -1,4 +1,4 @@
-""" Define Model Classes """
+""" Define Model Classes For Virtual Music Studio App """
 
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta
@@ -7,7 +7,7 @@ db = SQLAlchemy()
 
 
 class Teacher(db.Model):
-    """Data Model for Teacher IDs"""
+    """Data Model for Teacher userse"""
     __tablename__ = 'teachers'
     
     teacher_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
@@ -20,19 +20,20 @@ class Teacher(db.Model):
     students = db.relationship('Student')
     notes = db.relationship('Note', backref='teacher', uselist=False)
 
-
     def __repr__(self):
-        """Show Teacher ID/Corresponding User Id"""
+        """Show Teacher ID and full name"""
         return f'<Teacher teacher_id={self.teacher_id} teacher_name={self.teacher_fname} {self.teacher_lname}>'
 
     def get_student_ids(self):
+        """ Gives teacher access to their students's student IDs """
+
         student_ids_lst = [student.student_id for student in self.students]
         return set(student_ids_lst)
 
 ############################################################################
 
 class Student(db.Model):
-    """Data Model for Student-specific Information"""
+    """Data Model for Student users"""
     __tablename__ = 'students'
     
     student_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
@@ -49,7 +50,7 @@ class Student(db.Model):
     logs = db.relationship('Log', backref='student', uselist=False)
 
     def __repr__(self):
-        """Show Student ID"""
+        """Show Student ID and full name"""
         return f'<Student student_id={self.student_id} student_name = {self.student_fname} {self.student_lname}>'
 
 ########################################################################
@@ -66,7 +67,7 @@ class Log(db.Model):
     practice_notes = db.Column(db.String(200))
 
     def __repr__(self):
-        """Show Log Info"""
+        """Show Log date, ID, and ID of student who created the log"""
         return f'<Log log_date={self.log_date} student_id={self.student_id} log_id={self.log_id}'
 
 ########################################################################
@@ -85,7 +86,7 @@ class Note(db.Model):
 
 
     def __repr__(self):
-        """Show Teacher Note Info"""
+        """Show Teacher Note ID and date"""
         return f'<note note_id={self.note_id} note_date = {self.note_date}>'
 
 
