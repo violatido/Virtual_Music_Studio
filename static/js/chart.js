@@ -16,7 +16,7 @@ $.get(`/charts/1.json/${studentId}`, (res) => {
 
     let myChart2 = document.getElementById("bar-time");
     
-    let colors2 = ['#FCD5BE;', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5B7B', '#355C7D', '#A8A0B1'];
+    let colors2 = ['#424B54', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5B7B', '#355C7D'];
     let chart2 = new Chart(myChart2, {
         type: 'bar',
         data: {
@@ -115,7 +115,7 @@ $.get(`/charts/2.json/${studentId}`, (res) => {
     let myChart3 = document.getElementById("chart-3");
 
 
-    let colors = ['#F8B195', '#F67280', '#A8A0B1', '#6C5B7B', '#355C7D', '#A8A0B1'];
+    let colors = ['#C06C84', '#6C5B7B', '#355C7D', '#F8B195'];
     let chart3 = new Chart(myChart3, {
         type: 'bar',
         data: {
@@ -211,7 +211,7 @@ $.get(`/charts/3.json/${studentId}`, (res) => {
     let minutesWeek =  countDates(minutesPerWeek);
     console.log(minutesWeek)
     
-    let colors = ['#FCD5BE;', '#A8A0B1', '#F67280', '#355C7D'];
+    let colors = ['#355C7D', '#F67280', '#A8A0B1', '#424B54'];
     let myChart4 = document.getElementById("myChart4");
 
     let chart4 = new Chart(myChart4, {

@@ -1,4 +1,4 @@
-"""Server for movie ratings app."""
+"""Server for Virtual Music Studio app."""
 import os
 from flask import (Flask, render_template, request, flash, session, redirect, jsonify)
 from model import connect_to_db 
@@ -6,7 +6,6 @@ from datetime import datetime, timedelta
 import crud 
 from jinja2 import StrictUndefined 
 from twilio.rest import Client
-
 
 app = Flask(__name__)
 app.secret_key = "dev"
@@ -122,9 +121,7 @@ def add_student():
 #__________________________________________functions for viewing profiles__________________________________________#
 @app.route('/student-profile')
 def view_student_profile():
-    """Renders the VMS student profile page
-    
-    Also updates the week displayed for student's weekly goals"""
+    """Renders the VMS student profile page"""
 
     student = crud.get_student_by_id(session["student_id"])
     teacher = student.teacher
@@ -135,15 +132,15 @@ def view_student_profile():
 
 @app.route('/teacher-profile')
 def view_teacher_profile():
-    """Renders the VMS teacherprofile page"""
+    """Renders the profile page for the teacher in session"""
 
     teacher = crud.get_teacher_by_id(session["teacher_id"])
-    # students = crud.get_students_by_teacher_id(teacher.teacher_id)
 
     return render_template('teacher-profile.html', teacher=teacher)
 
 @app.route('/teacher-profile/<student_id>')
 def go_to_student_profile(student_id):
+    """ Allows a teacher to see each of their students's profile page"""
 
     teacher = crud.get_teacher_by_id(session["teacher_id"])
     student = crud.get_student_by_id(student_id)    
@@ -152,6 +149,7 @@ def go_to_student_profile(student_id):
 
 @app.route('/teacher-profile-logs/<student_id>')
 def go_to_student_logs(student_id):
+    """ Lets a teacher see each of their students's practice log history and data"""
 
     teacher = crud.get_teacher_by_id(session["teacher_id"])
     student = crud.get_student_by_id(student_id)
@@ -176,9 +174,6 @@ def add_note():
     """Creates a new lesson note
     
     if the note form is valid, the session adds the note to the note table"""
-
-    # remove
-    # teacher = crud.get_teacher_by_id(session["teacher_id"])
 
     note_teacher_id = (session["teacher_id"])
     note_student_name = request.form.get('note_student_name')
@@ -207,9 +202,6 @@ def add_log():
     
     if the log form is valid, the session adds the log to the log table"""
 
-    #remove
-    # student = crud.get_student_by_id(session["student_id"])
-
     log_student_id = (session["student_id"])
     log_date = request.form.get('log_date')
     log_minutes_practiced = request.form.get('log_minutes_practiced')
@@ -231,9 +223,7 @@ def view_student_logs():
 
 @app.route('/charts/<student_id>')
 def list_logs_by_student(student_id):
-    """Lists every log made by a student depending on their student_id.
-    
-    All log info is passed into the HTML doc"""
+    """Lists every log made by a student depending on their student_id."""
     
     student = crud.get_student_by_id(student_id)
     student_logs=crud.get_logs_by_student_id(student.student_id)
@@ -354,7 +344,6 @@ def seed_chart_three(student_id):
 
     minutes_practiced = []
 
-    # note: use this var in 362 and 369
     # format_date = datetime.strptime(date, "%Y-%m-%d").date()
 
     # y-axis data: minutes practiced on each date in the month
@@ -375,12 +364,6 @@ def seed_chart_three(student_id):
     return jsonify(data) 
 
 #_______________________________________functions for messaging__________________________________#
-# @app.route('/message')
-# def view_messages():
-#     """View text messages"""
-
-#     return render_template('message.html')
-
 @app.route('/api/messages', methods=["POST"])
 def send_message():
     """ Sends a text to a specific student from their teacher's profile page """
@@ -390,18 +373,14 @@ def send_message():
     client = Client(account_sid, auth_token)
 
     student_id = request.form.get('phone_dropdown_id')
-
-    student= crud.get_student_phone(student_id) # crud: return Student.query.filter(Student.student_id == student_id).first()
-    
-    student_num = student.student_phone "+1" + student_num
-
-
     text_message_content = request.form.get('message_content')
-    # selecting a student id number
+
+    student= crud.get_student_phone(student_id) 
+    student_num = student.student_phone
 
     message = client.messages.create(
                         body= text_message_content, #text message content here 
-                        to=student_phone,
+                        to="1" + student_num,
                         from_=os.environ["TWILIO_PHONE"]
                     )
 
