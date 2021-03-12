@@ -21,44 +21,46 @@
       </div>
     </div>
     <div class="row d-flex justify-content-center" id="student-profile-main-row">
-      <div class="col-md-5" id="student-info-col">
-        <h3 class="d-flex justify-content-center"> Student Info</h3>
-        <div class="d-flex justify-content-center teacher-profile-info">
-          <ul>
-            <li>Name: {{ student.student_fname }} {{ student.student_lname }}</li>
-            {#<!-- <li>Student ID: {{ student.student_id }}</li> -->#}
-            <li>Student Email: {{ student.student_email }}</li>
-            <li>Student Phone: {{ student.student_phone }}</li>
-            <li>Private Teacher Name: {{ teacher.teacher_fname }} {{ teacher.teacher_lname }}</li>
-            <li>Private Teacher Email: {{ teacher.teacher_email }}</li>
-            <li>Program Name: {{ student.program_name }}</li>
-            <li>Instrument: {{ student.instrument }}</li>
-          </ul>
+      <div class="col-md-6">
+        <div class="col-12" id="student-info-col">
+          <h3 class="d-flex justify-content-center"> Student Info</h3>
+          <div class="col list-group teacher-profile-info">
+            <ul class="col list-group" id="student-info-list">
+              <li class="list-group-item ">Name: {{ student.student_fname }} {{ student.student_lname }}</li>
+              <li class="list-group-item">Student ID: {{ student.student_id }}</li>
+              <li class="list-group-item">Student Email: {{ student.student_email }}</li>
+              <li class="list-group-item">Student Phone: {{ student.student_phone }}</li>
+              <li class="list-group-item">Private Teacher Name: {{ teacher.teacher_fname }} {{ teacher.teacher_lname }}</li>
+              <li class="list-group-item">Private Teacher Email: {{ teacher.teacher_email }}</li>
+              <li class="list-group-item">Program Name: {{ student.program_name }}</li>
+              <li class="list-group-item">Instrument: {{ student.instrument }}</li>
+            </ul>
+          </div>
+          <div class=" d-flex justify-content-center">
+            <a role="button" class="btn dark-pink btn-lg" href="/charts/{{ student.student_id }}">See practice data and history</a>
+          </div>
         </div>
-        <div class=" d-flex justify-content-center">
-          <a role="button" class="btn dark-pink btn-lg" href="/charts/{{ student.student_id }}">See practice data and history</a>
-        </div>
-      </div>
-      <div class="col-md-5" id="student-log-col">
+      </div>  
+      <div class="col-md-6" id="student-log-col">
         <div id="student_log_submission">
           <h3>Practice Log for {{student.student_fname}} {{student.student_lname}}</h3>
           <form id="create_log">
             <div class="form-row">
               <div class="form-group col-lg-6">
                 <label for="log_student_id">Student Id</label>
-                <input type="number" class="form-control" id="log_student_id" value={{ student.student_id }} readonly>          
+                <input type="number" class="form-control form-control-lg" id="log_student_id" value={{ student.student_id }} readonly>          
               </div>
               <div class="form-group col-lg-6">
                 <label for="log_date">Today's Date</label>
-                <input type="date" class="form-control" id="log_date" placeholder="">
+                <input type="date" class="form-control form-control-lg" id="log_date" placeholder="">
               </div>
               <div class="form-group col-lg-6">
                 <label for="log_minutes_practiced">For How Many Minutes Did You Practice?</label>
-                <input type="number" class="form-control" id="log_minutes_practiced" placeholder="">
+                <input type="number" class="form-control form-control-lg" id="log_minutes_practiced" placeholder="">
               </div>
               <div class="form-group col-lg-6">
                 <label for="log_pieces_practiced">Which Pieces Did You Practice Today?</label>
-                <input type="text" class="form-control" id="log_pieces_practiced" placeholder="">
+                <input type="text" class="form-control form-control-lg" id="log_pieces_practiced" placeholder="">
               </div>
               <div class="form-group col">
                 <label for="log_practice_notes">Notes (optional)</label>

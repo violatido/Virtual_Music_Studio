@@ -30,8 +30,10 @@
               <li class="list-group-item">Teacher ID: {{teacher.teacher_id}}</li>
               <li class="list-group-item">Teacher Email: {{teacher.teacher_email}}</li>
               <li class="list-group-item">Phone: {{teacher.teacher_phone}}</li>
-              <a role="button" class="list-group-item list-group-item-action active" id="notes-link" href="/teacher-notes">Write a lesson Note</a>
             </ul>
+          </div>
+          <div class="mt-3 mb-2 d-flex justify-content-center">
+            <a role="button" class="btn dark-pink btn-lg" href="/teacher-notes">Write a Lesson Note</a>
           </div>
         </div>
         <div class="col-12" id="teacher-sms-col">
@@ -41,27 +43,27 @@
               </div>            
               <div class="form-row  d-flex justify-content-center">
                 <div class="form-group col-10">
-                  <textarea class="md-textarea form-control" rows="4" name="message_content" placeholder="Write Message Here" id="message_content"></textarea>
+                  <textarea class="md-textarea form-control-lg form-control" rows="4" name="message_content" placeholder="Write Message Here" id="message_content"></textarea>
                 </div>
               </div>
-              <div class="form-row  d-flex justify-content-center">
+              <div class="form-row mb-2  d-flex justify-content-center">
                 <div class="form-group col-7">
-                  <select class="form-control" id="phone_dropdown_id">
-                    <option value="" id="">Choose a student</option>
+                  <select class="form-control form-control-lg bask" id="phone_dropdown_id">
+                    <option>Choose a student</option>
                   {% for student in teacher.students %} 
-                    <option id="" value={{ student.student_id }} >{{ student.student_fname }} {{ student.student_lname }}</option>
+                    <option value={{ student.student_id }} >{{ student.student_fname }} {{ student.student_lname }}</option>
                   {% endfor %}
                   </select>
                 </div>
-                <div class="form-group col-3">
+                <div class="form-group d-flex justify-content-center col-3">
                   <input id="sms-submit" class="btn btn-lg dark-pink" data-toggle="modal" data-target="#teacher_text_message" type="submit">
                 </div>
               </div>
-              <div class="form-row">
-              </div>
             </form> 
         </div>
-        <h3>Teacher Calendar</h3>
+        <div class="d-flex justify-content-center">
+          <h3>Teacher Calendar</h3>
+        </div>
         <div class="col-12 d-flex justify-content-center" id="cal-col">
           <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=ZjU3Y2ptMWhrcWRqMG5xYWlvYzMxODB0bGtAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%23EF6C00&amp;showPrint=0&amp;showCalendars=0&amp;showTz=1" style="border:solid 1px #777" width="540" height="405" frameborder="0" scrolling="no"></iframe>
         </div>
@@ -71,19 +73,19 @@
         <div class="row" id="tp-row-2">         
           {% for student in teacher.students %}
           <div class="col col-lg-6" id="tp-loop-col">
-            <div class="card">
+            <div class="card teacher-profile-cards">
               <div class="card-body">
-                <h5 class="card-title">{{ student.student_fname}} {{ student.student_lname}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted" id="h6-student-id">Student ID #: {{ student.student_id }}</h6>    
+                <h3 class="card-title d-flex justify-content-center bask">{{ student.student_fname}} {{ student.student_lname}}</h3>
+                <h5 class="card-subtitle d-flex justify-content-center mb-4 text-muted" id="h5-student-id">Student ID #: {{ student.student_id }}</h6>    
                 <ul class="card-text">
-                  <li id="student_id_profile">Student ID #: {{ student.student_id }}</li>
+                  <li>Student ID #: {{ student.student_id }}</li>
                   <li>Student email: {{ student.student_email }}</li>
                   <li>Program name: {{ student.program_name }}</li>
                   <li>Instrument: {{ student.instrument }}</li>
                   <li>Student phone: {{ student.student_phone }}</li>
                 </ul>
-                <div id="chart-link-div">
-                  <button class="btn dark-pink" type="button"><a href="/teacher-profile/{{ student.student_id }}" class="card-link" id="student-profile-link">Student Profile Link</a></button>
+                <div class="d-flex justify-content-center" id="chart-link-div">
+                  <a role="button" class="btn dark-pink btn-lg card-link" href="/teacher-profile/{{ student.student_id }}">View Student Profile</a>
                 </div>
               </div>
             </div>

@@ -92,9 +92,6 @@
     background-color: #B38D97;
 }
 
-h1 {
-    color: #2D3339;
-}
 
 a {
     text-decoration: none;
@@ -108,14 +105,19 @@ a {
     font-weight: 500;
     font-size: 5em;
     text-align: center;
+    color: #2D3339;
 }
 
 h3 {
-    font-size: 2em;
+    font-size: 2.45em;
     color: #2D3339;
     font-family: 'Archivo Narrow', sans-serif;
+    margin: 25px 0px 25px 0px;
 }
 
+li {
+    font-size: 1.15em;
+}
 /*____________________________________________________Homepage____________________________________________________*/
 
 .homepage-background {
@@ -207,7 +209,7 @@ h3 {
 }
 
 #list-border{
-    border: 3px #B38D97 solid;
+    /* border: 3px #B38D97 solid; */
     margin-left: 15px;
     display: block;
     justify-content: stretch;
@@ -247,7 +249,7 @@ h3 {
     justify-content: space-between;
 }
 
-.card {
+.teacher-profile-cards {
     max-width: 20em;
     background-color: #FEFEFA;
     border-radius: .5em;
@@ -260,23 +262,19 @@ h3 {
 
 
 /*_________________________________________________Student Profile_____________________________________________*/
-
-
-
 .student-profile-header {
     margin: .5em 0em .5em 0em;
     text-align: center;
 }
 
-#student-info-col {
-    /* border: 3px orange solid; */
-    padding: 10px;
+#student-info-list {
+    font-size: 1.15em;
 }
 
 /*____________________________________________Lesson Notes_____________________________________________*/
-/* #teacher_note_form {
+#teacher_note_form {
     margin: 30px;
-} */
+}
 
 #top-note-row {
     margin-top: 35px;
@@ -302,7 +300,7 @@ h3 {
 }
 
 #log-history-col {
-    max-height: 65em;
+    max-height: 100vh;
     overflow-x: scroll;
     border: 3px black solid;
 }
