@@ -15,6 +15,10 @@
     background-color: #2D3339;
 }
 
+.charcoal-text {
+    color: #2D3339;
+}
+
 .arch {
     font-family: 'Archivo Narrow', sans-serif;
 }
@@ -85,7 +89,7 @@
 .standard-btn:hover {
     color: white;
     background-color: #7B6C76;
-    transition: .75s ease;
+    transition: .25s ease;
 }
 
 .profile-return-btn:hover {
@@ -115,6 +119,7 @@ h3 {
 
 li {
     font-size: 1em;
+    color: #2D3339;
 }
 
 .modal-content {
@@ -154,6 +159,20 @@ li {
     font-size: 1.5em;
     transition: .75s ease;
 }
+
+.homepage-nav-button {
+    font-size: 1.8em;
+    color: #2D3339;
+    border-radius: 0px;
+    font-weight: lighter;
+    padding: 0%;
+    margin-left: 20px;
+} /* Student/teacher homepage buttons */
+
+.homepage-nav-button:hover {
+    border-bottom: 1px black solid;
+    transition: .65s ease;
+}
 /*____________________________________________________Homepage____________________________________________________*/
 
 .homepage-background {
@@ -168,18 +187,18 @@ li {
     z-index: -1;
 } /* skewed homepage background */
 
-.homepage-nav-button {
+.home-nav-button {
     font-size: 1.8em;
     color: #2D3339;
     border-radius: 0px;
     font-weight: lighter;
     padding: 0%;
     margin-left: 20px;
-    animation: fadein 5s;
+    animation: fadein 4s;
     /* visibility: hidden; */
 } /* Student/teacher homepage buttons */
 
-.homepage-nav-button:hover {
+.home-nav-button:hover {
     border-bottom: 1px black solid;
     transition: .65s ease;
     /* background-color: #FEFEFA; */
@@ -196,8 +215,6 @@ li {
     text-align: center;
     font-size: 5vw;
     animation: fadein 4s;
-    /* visibility: hidden; */
-
 }
 
 #homepage-logo-col {
@@ -207,24 +224,9 @@ li {
 
 #homepage-logo {
     max-height: 500px;
-    /* padding-bottom: 175px; */
-    animation: fadein 3s;
-    /* visibility: hidden; */
+    animation: fadein 2s;
 }
 
-.note {
-    font-size: 4vw;
-    margin: 5px;
-    animation: fadeinout 4s linear;
-}
-
-@keyframes fadeinout {
-    0% { opacity: 0%;}
-    10% {opacity: .1%;}
-    50% {opacity: 100%;}
-    100% { opacity: 0%;}
-    /* 100% { visibility: hidden;} */
-}
 
 @keyframes fadein {
     0% {
@@ -239,17 +241,11 @@ li {
 }
 /*_________________________________________________Portals_____________________________________________________*/
 .portal-background {
-    /* background-color: #FEFEFA; */
     background-image: url("/static/img/skew-background.png");
     background-repeat: no-repeat;
     background-size: cover;
-    /* height: 70%; */
-    width: 90%;
+    width: 80%;
     z-index: -1;
-}
-
-.portal-main-row {
-    margin-bottom: 50px;
 }
 
 .login-reg-header {
