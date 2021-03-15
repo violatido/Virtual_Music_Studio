@@ -85,11 +85,12 @@ $('#create_note').on('submit', (evt) => {
         'note_date': $('#note_date').val(),
         'note_time': $('#note_time').val(),
         'note_content': $('#note_content').val(),
-    } 
+    }
+    
     console.log(noteFormValues);
     $.post("/teacher-notes", noteFormValues, (res) => {
         $('#note_added_response').text(
-            `Note for lesson has been saved!`
+            `New lesson note has been submitted!`
         )
     });
     document.getElementById("#create_note").reset()

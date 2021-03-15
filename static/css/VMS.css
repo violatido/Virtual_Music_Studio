@@ -32,17 +32,8 @@
 .nav-row {
     background: linear-gradient(#DDBDBD, #FEFEFA);
     height: 100px;
-    animation: bgFadein 5s;
+    animation: bgFadein 6s;
 } /*gradient nav bar*/
-
-@keyframes bgFadein {
-    from { 
-        background-color: #2D3339;    
-    }
-    to { 
-        background: linear-gradient(#DDBDBD, #FEFEFA)
-    }    
-}
 
 .left-nav-col {
     /* border: 3px green solid; */
@@ -50,8 +41,6 @@
     justify-content: flex-start;
     align-items: center;
 }
-
-/* @border-bottom: 2px black solid; */
 
 .home-btn-1 {
     color: #2D3339;
@@ -194,7 +183,7 @@ li {
     font-weight: lighter;
     padding: 0%;
     margin-left: 20px;
-    animation: fadein 4s;
+    /* animation: fadein 4s; */
     /* visibility: hidden; */
 } /* Student/teacher homepage buttons */
 
@@ -408,6 +397,6 @@ li {
 }
 
 #log-history-col {
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
     /* border: 3px black solid; */
 }
