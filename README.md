@@ -62,3 +62,5 @@ pip3 install -r requirements.txt
 Ilana Rose Mercer is a software engineer finishing her fellowship at Hackbright Academy. Her previous career as a performing classical musician and private music teacher inspired this project, designing this web app with her past experiences in mind. 
 
 Feel free to connect with Ilana here on Github and on [LinkedIn](https://www.linkedin.com/in/i-mercer/)
+
+![VMS logo](static/img/Light-logo-cutout.png)
