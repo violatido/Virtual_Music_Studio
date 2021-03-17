@@ -83,6 +83,17 @@ export TWILIO_PHONE = ''
 4. Run in the terminal: source secrets.sh
 
 
+## **Future Features**
+* Google Calendar API to allow students and teachers to including their calendars in their profiles for quick lesson scheduling
+* A weekly text to students updating them on their current weekly practice stats
+* A one-on-one messaging service between students and teachers to limit the majority of the communication outside of lessons to be in-app, freeing up precious space in the teacher's email inbox
+* A lesson payment tracking feature to assist teachers who have students with varying payment schedules, as well as late or missed payments
+
+
+## **Acknowledgments 
+
+I would like to thank the all of the teachers, TAs, and fellow classmates at Hackbright Academy who supported me during the creation and first implementation of Virtual Music Studio. I also wish to voice appreciation for my wonderful mentor, Kathy Kaminski, who spent time sharing wisdom and debugging knowledge with me through the journey of creating my first ever solo project. 
+
 ## **About the developer ...**
 Ilana Rose Mercer is a software engineer finishing her fellowship at Hackbright Academy. Before she learned how to code and became passionate about growing my career in tech, Ilana worked as a professional classical musician and private music teacher. This project is very personal to her because it is a beautiful joining of her past and present careers, and a product that she would have used daily during her private music teaching years. 
 
