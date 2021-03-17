@@ -17,15 +17,15 @@
 ## **Features**
 
 
-* Using *Charts.js*, students can log their practice sessions and view three different charts that analyze their practice data in terms of frequency and length of session. The *moment.js* library provides the ability to parse datetime objects into displayable data. 
+* Using *Charts.js*, students can log their practice sessions to create three different charts that break down their practice data in terms of frequency and length of session. This helps students and teachers to track practice habits and achieve their practicing goals. The *Moment.js* library provides the ability to parse datetime objects into displayable data. 
 
 ![](static/img/readme-media/charts-giphy.gif)
 
-* The *Twilio SMS API* allows teachers to quickly send important updates and reminders straight to a student's phone without sharing their own personal contact information. 
+* The *Twilio SMS API* lets teachers quickly send important updates and reminders, such as lesson time changes and practice goal nudges, straight to a student's phone without sharing their own personal contact information. 
 
 ![](static/img/readme-media/twilio-giphy.gif)
 
-* An additional feature that is essential for all private lessons teachers is a lesson note taking-service, which allows teachers keep track of essential information such as payments, tardiness, assignments, etc. 
+* An additional feature essential for all private lessons teachers is a lesson note taking-service, which gives teachers the ability to keep track of essential information such as payments, tardiness, assignments, etc. 
 
 ![](static/img/readme-media/notes-gif.gif)
 
