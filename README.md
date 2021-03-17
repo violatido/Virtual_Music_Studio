@@ -17,15 +17,23 @@
 ## **Features**
 
 
-* Using Charts.js, students can log their practice sessions and view three different charts that analyze their practice data in terms of frequency and length of session. 
+* Using *Charts.js*, students can log their practice sessions and view three different charts that analyze their practice data in terms of frequency and length of session. The *moment.js* library provides the ability to parse datetime objects into displayable data. 
 
 ![](static/img/readme-media/charts-giphy.gif)
 
-* The Twilio SMS API allows teachers to quickly send important updates and reminders straight to a student's phone without sharing their own personal contact information. 
+* The *Twilio SMS API* allows teachers to quickly send important updates and reminders straight to a student's phone without sharing their own personal contact information. 
 
 ![](static/img/readme-media/twilio-giphy.gif)
 
+* An additional feature that is essential for all private lessons teachers is a lesson note taking-service, which allows teachers keep track of essential information such as payments, tardiness, assignments, etc. 
+
+![](static/img/readme-media/notes-gif.gif)
+
 ## **Setup/Installation**
+
+#### **Requirements**
+* PostgreSQL
+* Python 3.7.3
 
 #### **Clone this repository**
 ```bash
@@ -43,6 +51,22 @@ source env/bin/activate
 ```bash
 pip3 install -r requirements.txt
 ```
+#### **Create database VMS**
+```bash
+(env) $ createdb VMS
+```
+
+#### **Create database tables**
+
+``` bash
+(env) $ python3 -i model.py
+>>> db.create_all()
+```
+
+#### **Start backend server**
+``` bash
+(env) $ python3 server.py
+``` 
 
 
 ## **Usage**
@@ -50,7 +74,7 @@ pip3 install -r requirements.txt
 ### **If using the Twilio SMS API feature:**
 1. After installation, visit the [Twilio SMS API docs](https://www.twilio.com/docs/sms/api) to set up your account 
 2. Create a file called secrets.sh
-3. In secrets.sh, set an export variable for your Account SID, Auth Token, and Twilio phone number. These items will be needed in the "send_message" function declared in line 365 of [server.py](https://github.com/violatido/Virtual_Music_Studio/blob/69b6be5885f11f3f7f6e6eec5cda15a789e6785e/server.py#L365)
+3. In secrets.sh, set export variables for your Account SID, Auth Token, and Twilio phone number. These items will be needed in the "send_message" function declared in line 365 of [server.py](https://github.com/violatido/Virtual_Music_Studio/blob/69b6be5885f11f3f7f6e6eec5cda15a789e6785e/server.py#L365)
 ```bash 
 export ACCOUNT_SID = ''
 export AUTH_TOKEN = ''
