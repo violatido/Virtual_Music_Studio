@@ -90,7 +90,7 @@ export TWILIO_PHONE = ''
 * A lesson payment tracking feature to assist teachers who have students with varying payment schedules, as well as late or missed payments
 
 
-## **Acknowledgments 
+## **Acknowledgments**
 
 I would like to thank the all of the teachers, TAs, and fellow classmates at Hackbright Academy who supported me during the creation and first implementation of Virtual Music Studio. I also wish to voice appreciation for my wonderful mentor, Kathy Kaminski, who spent time sharing wisdom and debugging knowledge with me through the journey of creating my first ever solo project. 
 
