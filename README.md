@@ -3,7 +3,7 @@
 # **Virtual Music Studio**
 ### Created by Ilana Rose Mercer
 
-*Virtual Music Studio* is an organizational web app for private music teachers that allows them to keep track of all their students in one space. 
+*Virtual Music Studio* is an organizational web app for private music teachers that allows them to keep track of all their students in one space. :notes: :musical_note: :notes:
 
 [*Demo Video*](https://www.youtube.com/watch?v=l1CXHxR0d8k)
 
