@@ -89,6 +89,7 @@ class Note(db.Model):
         """Show Teacher Note ID and date"""
         return f'<note note_id={self.note_id} note_date = {self.note_date}>'
 
+########################################################################
 
 def connect_to_db(flask_app, db_uri='postgresql:///VMS', echo=True):
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri

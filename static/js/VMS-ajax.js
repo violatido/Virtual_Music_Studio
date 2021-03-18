@@ -15,7 +15,8 @@ $('#create_teacher').on('submit', (evt) => {
     } 
 
     $.post("/teacher-portal-create", teacherFormValues, (res) => {
-        $('#teacher_added_response').text(`Teacher profile for ${res.teacher_fname} ${res.teacher_lname} has been created!`);
+        $('#teacher_added_response').text(
+            `Teacher profile for ${res.teacher_fname} ${res.teacher_lname} has been created!`);
     });
 
     document.getElementById("#create_teacher").reset()
@@ -27,8 +28,6 @@ $('#create_teacher').on('submit', (evt) => {
 $('#create_student').on('submit', (evt) => {
     evt.preventDefault();
 
-    // converts student registration form into an object
-    // const studentFormValues = $('#student_reg_form').serialize();
     const studentFormValues = { 
         'student_fname': $('#student_fname').val(),
         'student_lname': $('#student_lname').val(),

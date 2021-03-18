@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined 
 
-#_________________________________homepage functions_____________________________________#
+#____________________________________________homepage functions_________________________________________________#
 
 @app.route('/')
 def create_homepage():
@@ -118,7 +118,7 @@ def add_student():
     else: 
         return jsonify({'status': 'error, registration credentials incorrect'})
 
-#__________________________________________functions for viewing profiles__________________________________________#
+#__________________________________________functions for profiles__________________________________________#
 @app.route('/student-profile')
 def view_student_profile():
     """Renders the VMS student profile page"""
@@ -128,7 +128,7 @@ def view_student_profile():
     private_teacher_email = request.form.get('private_teacher_email')
 
 
-    return render_template('student-profile.html', student=student, teacher=teacher)
+    return render_template('student-profile.html', student = student, teacher = teacher)
 
 @app.route('/teacher-profile')
 def view_teacher_profile():
@@ -136,7 +136,7 @@ def view_teacher_profile():
 
     teacher = crud.get_teacher_by_id(session["teacher_id"])
 
-    return render_template('teacher-profile.html', teacher=teacher)
+    return render_template('teacher-profile.html', teacher = teacher)
 
 @app.route('/teacher-profile/<student_id>')
 def go_to_student_profile(student_id):
@@ -145,7 +145,7 @@ def go_to_student_profile(student_id):
     teacher = crud.get_teacher_by_id(session["teacher_id"])
     student = crud.get_student_by_id(student_id)    
 
-    return render_template('student-profile.html', student=student, teacher=teacher)
+    return render_template('student-profile.html', student = student, teacher = teacher)
 
 @app.route('/teacher-profile-logs/<student_id>')
 def go_to_student_logs(student_id):
@@ -155,17 +155,17 @@ def go_to_student_logs(student_id):
     student = crud.get_student_by_id(student_id)
     student_logs = crud.get_logs_by_student_id(student_id)
 
-    return render_template('charts.html', student= student, teacher=teacher, student_logs=student_logs)
+    return render_template('charts.html', student = student, teacher = teacher, student_logs = student_logs)
 
-#________________________________________functions for adding teacher notes________________________________________#
+#______________________________________functions for adding teacher notes________________________________________#
 @app.route('/teacher-notes')
 def view_teacher_notes():
     """Renders the VMS teacher notes page and note history"""
 
     teacher = crud.get_teacher_by_id(session["teacher_id"])
-    teacher_notes= crud.get_notes_by_teacher_id(teacher.teacher_id)
+    teacher_notes = crud.get_notes_by_teacher_id(teacher.teacher_id)
 
-    return render_template('teacher-notes.html', teacher=teacher, teacher_notes=teacher_notes)
+    return render_template('teacher-notes.html', teacher = teacher, teacher_notes = teacher_notes)
 
 @app.route('/teacher-notes', methods=["POST"])
 def add_note():
@@ -183,8 +183,7 @@ def add_note():
     
     return jsonify({'status': 'ok', 'note_date': note.note_date})  
 
-
-#________________________________________functions for adding practice logs________________________________________#
+#______________________________________functions for adding practice logs________________________________________#
 
 @app.route('/practice-log')
 def view_log_page():
@@ -210,7 +209,7 @@ def add_log():
     
     return jsonify({'status': 'ok', 'log_date': log_date})  
 
-#___________________________________functions for viewing past logs by student id________________________________#
+#____________________________________functions for viewing past logs by student id________________________________#
 @app.route('/charts')
 def view_student_logs():
     """Renders page for viewing past logs for individual student"""
@@ -224,7 +223,7 @@ def list_logs_by_student(student_id):
     """Lists every log made by a student depending on their student_id."""
     
     student = crud.get_student_by_id(student_id)
-    student_logs=crud.get_logs_by_student_id(student.student_id)
+    student_logs = crud.get_logs_by_student_id(student.student_id)
 
     return render_template('charts.html', student= student, student_logs=student_logs)
 
@@ -239,7 +238,7 @@ def seed_chart_one(student_id):
     """Passes data for minutes practiced and log dates into chart #1 as JSON"""
 
     if "student_id" in session:
-        student_logs = crud.get_logs_by_student_id(student_id)
+        student_logs = crud.get_logs_by_student_id(student_id) #find a different way to check if student is in session
     elif "teacher_id" in session:
         teacher = crud.get_teacher_by_id(session["teacher_id"])
         valid_students = teacher.get_student_ids()
@@ -298,7 +297,7 @@ def seed_chart_two(student_id):
     for idx in range(28):
         dater = str(date.year) + '-' + str(date.month) + '-' + str(date.day) #formats each date
         dates_in_month.append(dater) #adds formatted date to dates_in_month list
-        date = date - timedelta(days=1) #goes back a day from current date
+        date = date - timedelta(days = 1) #changed
 
     log_date = []
 
@@ -361,8 +360,8 @@ def seed_chart_three(student_id):
 
     return jsonify(data) 
 
-#_______________________________________functions for messaging__________________________________#
-@app.route('/api/messages', methods=["POST"])
+#_________________________________________functions for SMS messaging____________________________________________#
+@app.route('/api/messages', methods=["POST"]) # why is this a route?
 def send_message():
     """ Sends a text to a specific student from their teacher's profile page """
 
@@ -370,17 +369,21 @@ def send_message():
     auth_token = os.environ.get('AUTH_TOKEN')
     client = Client(account_sid, auth_token)
 
-    student_id = request.form.get('phone_dropdown_id')
+    student_id = request.form.get('phone_dropdown_id') #change: to fit the current system. Decoupling to improve architecture
     text_message_content = request.form.get('message_content')
 
-    student= crud.get_student_phone(student_id) 
-    student_num = student.student_phone
+    student = crud.get_student_phone(student_id) 
+    student_phone_number = student #why????????
+    # what if a student cannot be located by ID, or the phone can't be located by their ID?
+        # always have a backup! 
+        # this is only valid in one scope
+        # remember: there is no such thing as bug-free code
 
-    message = client.messages.create(
-                        body= text_message_content, #text message content here 
-                        to="1" + student_num,
-                        from_=os.environ["TWILIO_PHONE"]
-                    )
+    client.messages.create(
+                    body=text_message_content, #text message content here 
+                    to="1" + student_phone_number, #optimize with a different method. What if someone typed in the "1"?
+                    from_=os.environ["TWILIO_PHONE"]
+                )
 
     return jsonify({'message_content': text_message_content})
 

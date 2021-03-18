@@ -125,7 +125,6 @@ def get_students_by_teacher_id(teacher_id):
 
     return Student.query.filter(Student.teacher_id == teacher_id).order_by(Student.student_id.desc()).all()
 
-
 #__________________________functions for Notes/Logs___________________________#
 def get_notes_by_teacher_id(teacher_id):
     """ Finds all notes submitted by a specific teacher using their teacher ID """

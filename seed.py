@@ -28,14 +28,14 @@ a_b = crud.create_teacher(teacher_fname="Alice",
                             teacher_password="abaker",
                         )
 
-# o_r = crud.create_student(student_fname="Olivia",
-#                             student_lname="Rose",
-#                             student_email="orose@gmail.com",
-#                             program_name = "",
-#                             instrument = "violin",
-#                             student_password="orose",
-#                             teacher_obj=a_b
-#                         )
+o_r = crud.create_student(student_fname="Olivia",
+                            student_lname="Rose",
+                            student_email="orose@gmail.com",
+                            program_name = "",
+                            instrument = "violin",
+                            student_password="orose",
+                            teacher_obj=a_b
+                        )
 
 note_1 = crud.create_note(teacher_id=3, 
                 note_student_name="Westin Humble", 
@@ -56,21 +56,21 @@ note_3 = crud.create_note(teacher_id=3,
                 note_content="Fantastic work!")
 
 
-# a_p = crud.create_student(student_fname="Alex",
-#                             student_lname="Peters",
-#                             student_email="apeters@gmail.com",
-#                             program_name = "Klein High School",
-#                             instrument = "viola",
-#                             student_password="apeters",
-#                         )
+a_p = crud.create_student(student_fname="Alex",
+                            student_lname="Peters",
+                            student_email="apeters@gmail.com",
+                            program_name = "Klein High School",
+                            instrument = "viola",
+                            student_password="apeters",
+                        )
 
-# m_s = crud.create_student(student_fname="Sean",
-#                             student_lname="Taylor",
-#                             student_email="stay@aol.com",
-#                             program_name = "Klein High School",
-#                             instrument = "viola",
-#                             student_password="staylor",
-#                         )
+m_s = crud.create_student(student_fname="Sean",
+                            student_lname="Taylor",
+                            student_email="stay@aol.com",
+                            program_name = "Klein High School",
+                            instrument = "viola",
+                            student_password="staylor",
+                        )
 
 log_a = crud.create_log(student_id=1,
                             log_date="1/2/2021",

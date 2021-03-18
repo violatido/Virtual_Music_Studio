@@ -1,17 +1,13 @@
 "use strict"
 
+const urlArr = window.location.href.split('/');
+const studentId = urlArr[urlArr.length - 1];
 
 // _________________________________________Chart 1_______________________________________________________________
-const urlArr = window.location.href.split('/');
-// console.log(urlArr);
-const studentId = urlArr[urlArr.length - 1];
-// console.log(studentId);
-
 $.get(`/charts/1.json/${studentId}`, (res) => {
-    console.log(res)
-    const dates = res.dates_practiced; // give us a list of dates
+    const dates = res.dates_practiced;
     // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22"]
-    const practiceTimes = res.minutes_practiced; // associated practice minutes only
+    const practiceTimes = res.minutes_practiced;
     // [0, 0, 120, 12, 45, 35, 100]
 
     let myChart2 = document.getElementById("bar-time");
@@ -25,8 +21,6 @@ $.get(`/charts/1.json/${studentId}`, (res) => {
                 data: practiceTimes.reverse(),
                 backgroundColor: colors2,
                 borderWidth: 5,            
-                // fontFamily;
-                // borderColor;
             }] 
         },
         options: {            
@@ -79,10 +73,9 @@ $.get(`/charts/1.json/${studentId}`, (res) => {
 
 // ___________________________________________Chart 2_____________________________________________________________________________
 $.get(`/charts/2.json/${studentId}`, (res) => {
-    const datesInMonth = res.dates_in_month; // give us a list of dates over 4 weeks
+    const datesInMonth = res.dates_in_month;
     // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22", "Feb 21", "Feb 20", "Feb 19", "Feb 18", "Feb 17", "Feb 16", "Feb 15", "Feb 14", "Feb 13", "Feb 12", "Feb 11", "Feb 10", "Feb  9", "Feb  8", "Feb  7", "Feb  6", "Feb  5", "Feb  4", "Feb  3", "Feb  2", "Feb  1"]
-    let datesPracticedInMonth = res.log_date; // associated dates on which student practiced
-    //[0, 1, 1, 1, 1, 1, 1 | 1, 1, 1, 0, 1, 1, 1 | 1, 0, 1, 0, 1, 0, 1 | 0, 1, 1, 1, 1, 1, 1]    
+    let datesPracticedInMonth = res.log_date;
     //[6, 6, 4, 6]
 
     let viewDates = [
