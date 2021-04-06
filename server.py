@@ -19,7 +19,7 @@ def create_homepage():
     
     return render_template('homepage.html')
 
-#_______________________________view functions for teacher login/registration___________________________________#
+#__________________________________view functions for teacher login/registration___________________________________#
 
 @app.route('/teacher-portal')
 def show_teacher_reg_login_page():
@@ -405,8 +405,7 @@ def send_message():
 
     return jsonify({'message_content': text_message_content})
 
-
-
+#_________________________________________________________________________________________________#
 
 if __name__ == '__main__':
     connect_to_db(app)
