@@ -240,7 +240,7 @@ def seed_chart_one(student_id):
     """Passes data for minutes practiced and log dates into chart #1 as JSON"""
 
     if "student_id" in session:
-        student_logs = crud.get_logs_by_student_id(student_id) 
+        pass
     elif "teacher_id" in session:
         teacher = crud.get_teacher_by_id(session['teacher_id'])
         valid_students = teacher.get_student_ids()
@@ -281,7 +281,7 @@ def seed_chart_two(student_id):
     """ Passes data for days practiced over four weeks to chart #2 as JSON"""
 
     if 'student_id' in session:
-        student_logs = crud.get_logs_by_student_id(student_id)
+        pass
     elif 'teacher_id' in session:
         teacher = crud.get_teacher_by_id(session['teacher_id'])
         valid_students = teacher.get_student_ids()
@@ -294,7 +294,7 @@ def seed_chart_two(student_id):
     # x-axis data: dates in month (eventually divded into four weeks)
     dates_in_month = [] # holds todays date and previous 27 dates as list items
     date = datetime.now()
-    for idx in range(28):
+    for _ in range(28):
         dater = str(date.year) + '-' + str(date.month) + '-' + str(date.day) #formats each date
         dates_in_month.append(dater) #adds formatted date to dates_in_month list
         date = date - timedelta(days = 1) #changed
@@ -320,7 +320,7 @@ def seed_chart_three(student_id):
     """ Passes data for minutes practiced over four weeks to chart #3 as JSON"""
 
     if 'student_id' in session:
-        student_logs = crud.get_logs_by_student_id(student_id)
+        pass
     elif 'teacher_id' in session:
         teacher = crud.get_teacher_by_id(session['teacher_id'])
         valid_students = teacher.get_student_ids()
@@ -334,7 +334,7 @@ def seed_chart_three(student_id):
     # x-axis data: dates in month (eventually divded into four weeks)
     dates_in_month = [] # holds todays date and previous 27 dates as list items
     date = datetime.now()
-    for idx in range(28):
+    for _ in range(28):
         dater = str(date.year) + '-' + str(date.month) + '-' + str(date.day) #formats each date
         dates_in_month.append(dater) #adds formatted date to dates_in_month list
         date = date - timedelta(days=1) #goes back a day from current date
