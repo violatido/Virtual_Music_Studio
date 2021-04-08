@@ -13,6 +13,9 @@
 **Back-end**: Python, Flask, Jinja, SQLAlchemy, PostgreSQL </br>
 **Libraries/APIs**: Chart.js, Moment.js, Twilio SMS API
 
+## **Data Model**
+![](static/img/readme-media/VMS-Data-Model-SQL-DBM.png)
+
 
 ## **Features**
 
