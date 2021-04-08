@@ -96,7 +96,7 @@ $('#create_note').on('submit', (evt) => {
         )
     });
 
-    document.getElementById("#create_note").reset()
+    document.getElementById('#create_note').reset()
 
 });
 
@@ -106,16 +106,16 @@ $('#message-id').on('submit', (evt) => {
     evt.preventDefault();
 
     const studentTexted = { 
-        "phone_dropdown_id": $('#phone_dropdown_id').val(),
-        "message_content": $('#message_content').val() 
+        'phone_dropdown_id': $('#phone_dropdown_id').val(),
+        'message_content': $('#message_content').val() 
     }
     
-    $.post("/api/messages", studentTexted, (res) => {
+    $.post('/api/messages', studentTexted, (res) => {
         $('#sms-id').text(
             `Your message: ${res.message_content}`)
     });
 
-    document.getElementById("message-id").reset()
+    document.getElementById('message-id').reset()
 
 });
 

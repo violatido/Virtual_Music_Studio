@@ -373,11 +373,13 @@ def send_message():
     text_message_content = request.form.get('message_content')
 
     student = crud.get_student_phone(student_id) 
-    student_phone_number = student 
+    # student_phone_number = student 
+    student_num = student.student_phone
+
 
     client.messages.create(
                     body=text_message_content, # text message content goes here 
-                    to="1" + student_phone_number, 
+                    to=str("1" + student_num), 
                     from_=os.environ["TWILIO_PHONE"]
                 )
 
