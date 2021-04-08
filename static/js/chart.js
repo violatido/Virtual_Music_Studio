@@ -231,7 +231,7 @@ $.get(`/charts/3.json/${studentId}`, (res) => {
                 yAxes: [{
                     ticks: {
                         suggestedMin: 0,
-                        suggestedMax: 350
+                        suggestedMax: 450
                     }
                 }]
             }

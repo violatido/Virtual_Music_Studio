@@ -41,7 +41,7 @@ def teacher_login():
         teacher_login_email = request.form.get('teacher_login_email')
         
         teacher=crud.get_teacher_by_email(teacher_login_email)
-        session["teacher_id"]=teacher.teacher_id
+        session["teacher_id"] = teacher.teacher_id
 
         return redirect('/teacher-profile')
     else:
