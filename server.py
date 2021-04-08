@@ -51,7 +51,7 @@ def teacher_login():
 
 @app.route('/teacher-portal-create', methods=["POST"])
 def add_teacher():
-    """Creates a new teacher with an html form, 
+    """Creates a new teacher with an HTML form, 
     
     if form is valid, the function adds the teacher to the teacher table"""
 
@@ -90,7 +90,7 @@ def student_login():
     if checked_student:
         student_login_email = request.form.get('student_login_email')
         
-        student=crud.get_student_by_email(student_login_email)
+        student = crud.get_student_by_email(student_login_email)
         session['student_id']=student.student_id
 
         return redirect('/student-profile')
@@ -127,8 +127,6 @@ def view_student_profile():
 
     student = crud.get_student_by_id(session['student_id'])
     teacher = student.teacher
-    private_teacher_email = request.form.get('private_teacher_email')
-
 
     return render_template('student-profile.html', student = student, teacher = teacher)
 
