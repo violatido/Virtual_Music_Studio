@@ -1,6 +1,6 @@
 "use strict"
 
-//________________________________________Events for teacher login/registration______________________________________
+//________________________________________Events for teacher registration______________________________________
 // event handler for new teacher registration 
 $('#create_teacher').on('submit', (evt) => {
     evt.preventDefault();
@@ -14,15 +14,16 @@ $('#create_teacher').on('submit', (evt) => {
         'teacher_password': $('#teacher_password').val()
     } 
 
-    $.post("/teacher-portal-create", teacherFormValues, (res) => {
+    $.post('/teacher-portal-create', teacherFormValues, (res) => {
         $('#teacher_added_response').text(
             `Teacher profile for ${res.teacher_fname} ${res.teacher_lname} has been created!`);
     });
 
-    document.getElementById("#create_teacher").reset()
+    document.getElementById('#create_teacher').reset()
+
 });
 
-//________________________________________Event for student login/registration______________________________________
+//________________________________________Event for student registration______________________________________
 
 // event handler for new student registration 
 $('#create_student').on('submit', (evt) => {
@@ -40,13 +41,14 @@ $('#create_student').on('submit', (evt) => {
         'student_password': $('#student_password').val()
     } 
 
-    $.post("/student-portal-create", studentFormValues, (res) => {
+    $.post('/student-portal-create', studentFormValues, (res) => {
         $('#student_added_response').text(
             `Student profile for ${res.student_fname} ${res.student_lname} has been created!`
         );
     });
 
-    document.getElementById("#create_student").reset()
+    document.getElementById('#create_student').reset()
+
 });
 
 //_________________________________________Event for creating logs___________________________________________________
@@ -56,20 +58,21 @@ $('#create_log').on('submit', (evt) => {
     evt.preventDefault();
 
     const logFormValues = { 
-        "log_student_id": $('#log_student_id').val(),
+        'log_student_id': $('#log_student_id').val(),
         'log_date': $('#log_date').val(),
         'log_minutes_practiced': $('#log_minutes_practiced').val(),
         'log_pieces_practiced': $('#log_pieces_practiced').val(),
         'log_practice_notes': $('#log_practice_notes').val()
     } 
     console.log(logFormValues)
-    $.post("/practice-log", logFormValues, (res) => {
+    $.post('/practice-log', logFormValues, (res) => {
         $('#log_added_response').text(
             `Log for ${res.log_date} has been saved!`
         )
     });
 
     document.getElementById("#create_log").reset()
+
 });
 
 //_________________________________________Event for lesson notes___________________________________________________
@@ -79,20 +82,22 @@ $('#create_note').on('submit', (evt) => {
     evt.preventDefault();
 
     const noteFormValues = { 
-        "note_teacher_id": $('#note_teacher_id').val(),
-        "note_student_name": $("#note_student_name").val(),
+        'note_teacher_id': $('#note_teacher_id').val(),
+        'note_student_name': $("#note_student_name").val(),
         'note_date': $('#note_date').val(),
         'note_time': $('#note_time').val(),
         'note_content': $('#note_content').val(),
     }
     
     console.log(noteFormValues);
-    $.post("/teacher-notes", noteFormValues, (res) => {
+    $.post('/teacher-notes', noteFormValues, (res) => {
         $('#note_added_response').text(
             `New lesson note has been submitted!`
         )
     });
+
     document.getElementById("#create_note").reset()
+
 });
 
 //_________________________________________Event for sending a text_________________________________________________
@@ -105,14 +110,12 @@ $('#message-id').on('submit', (evt) => {
         "message_content": $('#message_content').val() 
     }
     
-    console.log(studentTexted)
-
-    // console.log(myMessage)
     $.post("/api/messages", studentTexted, (res) => {
         $('#sms-id').text(
             `Your message: ${res.message_content}`)
     });
 
     document.getElementById("message-id").reset()
+
 });
 

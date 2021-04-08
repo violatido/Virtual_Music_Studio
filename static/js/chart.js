@@ -5,10 +5,14 @@ const studentId = urlArr[urlArr.length - 1];
 
 // _________________________________________Chart 1_______________________________________________________________
 $.get(`/charts/1.json/${studentId}`, (res) => {
+    // Minutes per day over the course of this last week
+    // x-axis: the date (ex: Apr 1)
+    // y-axis min/max: 0 - 150 minutes in a day
+
     const dates = res.dates_practiced;
-    // ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22"]
+    // ex: ["Feb 28", "Feb 27", "Feb 26", "Feb 25", "Feb 24", "Feb 23", "Feb 22"]
     const practiceTimes = res.minutes_practiced;
-    // [0, 0, 120, 12, 45, 35, 100]
+    // ex: [0, 0, 120, 12, 45, 35, 100]
 
     let myChart2 = document.getElementById("bar-time");
     
