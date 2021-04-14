@@ -68,6 +68,16 @@ def add_teacher():
     else: 
         return jsonify({'teacher_fname': teacher_fname, 'teacher_lname': teacher_lname})
 
+@app.route('/teacher-logout') 
+def teacher_logout(): 
+    print(session) 
+    if session['teacher_id']: 
+        session.pop('teacher_id') 
+        return redirect('/') 
+    else: 
+        session.clear() 
+        
+
 #_______________________________view functions for student login/registration___________________________________#
 @app.route('/student-portal')
 def sign_up_student():
@@ -120,6 +130,14 @@ def add_student():
     else: 
         return jsonify({'status': 'error, registration credentials incorrect'})
 
+@app.route('/student-logout') 
+def student_logout(): 
+    print(session) 
+    if session['student_id']: 
+        session.pop('student_id') 
+        return redirect('/') 
+    else: 
+        session.clear() 
 #__________________________________________functions for profiles__________________________________________#
 @app.route('/student-profile')
 def view_student_profile():
@@ -383,6 +401,7 @@ def send_message():
 
     return jsonify({'message_content': text_message_content})
 
+#_________________________________________________________________________________________________#
 
 if __name__ == '__main__':
     connect_to_db(app)
