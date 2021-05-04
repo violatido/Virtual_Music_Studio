@@ -27,9 +27,11 @@ class Teacher(db.Model):
     # utilize abstraction in the teacher class to allow teachers to view student info
     def get_student_ids(self):
         """ Gives teacher access to their students's student IDs """
-
-        student_ids_lst = [student.student_id for student in self.students]
-        return set(student_ids_lst)
+        if self.students:        
+            student_ids_lst = [student.student_id for student in self.students]
+            return set(student_ids_lst)
+        else:
+            return set()
 
 #################################################################################################################
 
@@ -62,7 +64,7 @@ class Log(db.Model):
     
     log_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     student_id = db.Column(db.Integer, db.ForeignKey('students.student_id'), nullable=False)
-    log_date = db.Column(db.Date, nullable=False)
+    log_date = db.Column(db.Date, default=datetime.utcnow, nullable=False)
     minutes_practiced = db.Column(db.Integer, nullable=False)
     pieces_practiced = db.Column(db.String(150), nullable=False)
     practice_notes = db.Column(db.String(200))
@@ -92,8 +94,9 @@ class Note(db.Model):
 
 #################################################################################################################
 
-def connect_to_db(flask_app, db_uri='postgresql:///VMS', echo=True):
-    flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+
+def connect_to_db(flask_app, echo=True):
+    flask_app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:@localhost:5433/postgres'
     flask_app.config['SQLALCHEMY_ECHO'] = echo
     flask_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 

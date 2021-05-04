@@ -19,6 +19,8 @@ def create_teacher(teacher_fname,
 
     db.session.add(teacher)
     db.session.commit()
+    #refresh
+    db.session.refresh(teacher)
 
     return teacher
 

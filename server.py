@@ -255,14 +255,16 @@ def view_charts(student_id):
 def seed_chart_one(student_id):
     """Passes data for minutes practiced and log dates into chart #1 as JSON"""
 
+    student_id=int(student_id or 0)
+
     if "student_id" in session:
         pass
     elif "teacher_id" in session:
         teacher = crud.get_teacher_by_id(session['teacher_id'])
         valid_students = teacher.get_student_ids()
         
-        if int(student_id) in valid_students:
-            crud.get_logs_by_student_id
+        if student_id in valid_students:
+            stu_logs = crud.get_logs_by_student_id(student_id)
         else:
             return jsonify({'error': 'student not valid'})
 
@@ -302,8 +304,8 @@ def seed_chart_two(student_id):
         teacher = crud.get_teacher_by_id(session['teacher_id'])
         valid_students = teacher.get_student_ids()
         
-        if int(student_id) in valid_students:
-            crud.get_logs_by_student_id
+        if int(student_id or 0) in valid_students:
+            crud.get_logs_by_student_id(int(student_id))
         else:
             return jsonify({'error': 'student not valid'})
 
@@ -340,8 +342,10 @@ def seed_chart_three(student_id):
     elif 'teacher_id' in session:
         teacher = crud.get_teacher_by_id(session['teacher_id'])
         valid_students = teacher.get_student_ids()
+    
+        # print('****' * 5, student_id, '****' * 5, sep='\n')
         
-        if int(student_id) in valid_students:
+        if int(student_id or 0) in valid_students:
             crud.get_logs_by_student_id
         else:
             return jsonify({'error': 'student not valid'})
@@ -405,4 +409,4 @@ def send_message():
 
 if __name__ == '__main__':
     connect_to_db(app)
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)
