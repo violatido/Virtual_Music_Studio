@@ -1,4 +1,6 @@
-"""Script to seed database."""
+"""
+This script will create new tables if your database is empty.
+"""
 
 import os
 import json
@@ -17,44 +19,14 @@ model.connect_to_db(server.app)
 model.db.create_all()
 
 
-m_s = crud.create_teacher(teacher_fname="Matthew",
-                            teacher_lname="Smith",
-                            teacher_email="msmith@gmail.com",
-                            teacher_phone="666-888-4444",
-                            teacher_password="msmith",
-                        )
 
-a_b = crud.create_teacher(teacher_fname="Alice",
-                            teacher_lname="Baker",
-                            teacher_email="abaker@gmail.com",
-                            teacher_phone= "",
-                            teacher_password="abaker",
-                        )
 
 
 # ------------------------------------------------------------------------------
+"""
+SKIP THE CRUD FUNCTIONALITY... USE `seed_data.py` instead
+"""
 
-# Create a list of records for our student
-# student_data = [
-#
-#     dict(
-#         student_fname="Olivia",
-#         student_lname="Rose",
-#         student_email="orose@gmail.com",
-#         program_name = "",
-#         instrument = "violin",
-#         student_password="orose"
-#     ),
-#
-#
-# ]
-#
-# for rec in student_data:
-#
-#     my_student = model.Student(**rec)
-#     print(my_studenta)
-
-#
 # o_r = crud.create_student(student_fname="Olivia",
 #                             student_lname="Rose",
 #                             student_email="orose@gmail.com",

@@ -11,11 +11,57 @@ import server
 # This essentially instantiates your app in order to connect to the db.
 # That's not necessary – but we won't fix rn
 connect_to_db(server.app)
-# model.db.create_all() # No need to create all, since the models already exist
+
+db.create_all() # No need to create all, since the models already exist
 
 
 # This session allows you to interact with your db
 session = db.session
+
+
+
+
+
+# ------------------------------------------------------------------------------
+# CREATE TEACHERS
+
+
+teacher_records = [
+
+    dict(
+        teacher_fname="Matthew",
+        teacher_lname="Smith",
+        teacher_email="msmith@gmail.com",
+        teacher_phone="666-888-4444",
+        teacher_password="msmith",
+    ),
+
+    dict(
+        teacher_fname="Alice",
+        teacher_lname="Baker",
+        teacher_email="abaker@gmail.com",
+        teacher_phone= "",
+        teacher_password="abaker",
+    )
+
+]
+
+for rec in teacher_records:
+
+
+    # Check to see if your student exists, if so, skip
+    if my_teacher := session.query(Teacher).filter_by(teacher_email=rec['teacher_email']).first():
+        print(f'Teacher {my_teacher} already exists. Skipping')
+        continue
+
+    # Otherwise – create the teacher
+    my_teacher = Teacher(**rec)
+
+    # add them to the session
+    session.add(my_teacher)
+
+# commit the session
+session.commit()
 
 
 
@@ -128,15 +174,35 @@ note_records = [
 ]
 
 
+# Will create duplicate notes, so you'll want to query notes first before creating
+
+def note_already_exists(student_id, dt):
+    """check to see if a student created a note at this time, u only need these 2 keys to match"""
+    res = session.query(Note)\
+        .filter(
+            Note.student_id==student_id,
+            Note.note_created_at==dt
+        )\
+        .count()
+
+    return res > 0
+
 
 # We don't need to query the teacher since every student has only 1 teacher
 for rec in note_records:
+
+
 
     # Get yo student
     my_student = session.query(Student).filter_by(student_email=rec['student_email']).first()
 
      # make sure your student exists
     assert my_student
+
+
+    # Check if note already exists:
+    if note_already_exists(my_student.student_id, rec['note_created_at']):
+        continue
 
 
     # Now create your note
@@ -157,6 +223,69 @@ session.commit()
 # CREATE LOGS
 
 
+log_records = [
 
+    dict(
+        student_email = "orose@gmail.com", # we'll use this to query the db
+        log_date = datetime(year=2021, month=1, day=2), # will be set to midnight if no hour is specified
+        minutes_practiced=35,
+        pieces_practiced="Rebecca Clarke Morpheus",
+        practice_notes="This piece is really hard!"
+    ),
+
+    dict(
+        student_email = "orose@gmail.com", # we'll use this to query the db
+        log_date = datetime(year=2021, month=2, day=5), # will be set to midnight if no hour is specified
+        minutes_practiced=122,
+        pieces_practiced="Bach Suite 6 Allemande",
+        practice_notes=None
+    ),
+
+]
+
+
+def log_already_exists(student_id, dt):
+    """check to see if a student created a note at this time, u only need these 2 keys to match"""
+    res = session.query(Log)\
+        .filter(
+            Log.student_id==student_id,
+            Log.log_date==dt
+        )\
+        .count()
+
+    return res > 0
+
+
+# Will create duplicate logs, so you'll want to query logs first before creating
+for rec in log_records:
+
+
+    # Get yo student
+    my_student = session.query(Student).filter_by(student_email=rec['student_email']).first()
+
+     # make sure your student exists
+    assert my_student
+
+
+    # Check if note already exists:
+    if log_already_exists(my_student.student_id, rec['log_date']):
+        continue
+
+
+
+
+    my_log = Log(
+        student_id = my_student.student_id,
+        log_date = rec['log_date'],
+        minutes_practiced = rec['minutes_practiced'],
+        pieces_practiced = rec['pieces_practiced'],
+        practice_notes = rec['practice_notes']
+    )
+
+    # Add to the session
+    session.add(my_log)
+
+# Finally, commit
+session.commit()
 
 #
