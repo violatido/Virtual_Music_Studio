@@ -26,7 +26,7 @@ class Teacher(db.Model):
 
 
     @hybrid_property
-    def length(self):
+    def full_name(self):
         """Make full name as a hybrid attribute"""
         tmp = (self.teacher_fname, self.teacher_lname)
         tmp_filtered = filter(None, tmp)
@@ -68,7 +68,7 @@ class Student(db.Model):
 
 
     @hybrid_property
-    def length(self):
+    def full_name(self):
         """Make full name as a hybrid attribute"""
         tmp = (self.student_fname, self.student_lname)
         tmp_filtered = filter(None, tmp)
@@ -106,16 +106,15 @@ class Note(db.Model):
     note_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.teacher_id'))
     student_id = db.Column(db.Integer, db.ForeignKey('students.student_id'), comment='Added by Yaakov')
-    note_student_name = db.Column(db.String, nullable=False)
 
-    note_date = db.Column(db.Date, nullable=False)
-    note_time = db.Column(db.Time, nullable=False)
     note_content = db.Column(db.String, nullable=False)
+    note_created_at = db.Column(db.DateTime, nullable=False, comment='YB: store date and time in one column...')
+
 
 
     def __repr__(self):
         """Show Teacher Note ID and date"""
-        return f'<note note_id={self.note_id} note_date = {self.note_date}>'
+        return f'<note teacher_id={self.teacher_id} student_id={self.student_id} note_id={self.note_id} note_date = {self.note_date}>'
 
 #################################################################################################################
 

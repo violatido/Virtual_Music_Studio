@@ -101,46 +101,59 @@ for rec in student_records:
 # CREATE NOTES
 
 note_records = [
+
     dict(
         student_email = "orose@gmail.com", # we'll use this to query the db
-        note_student_name="Westin Humble",
-        note_date="2/5/2021",
-        note_time="3:30pm",
-        note_content="Came very prepared, but five minutes late")
+        note_created_at = datetime(year=2021, month=5, day=2, hour=15, minute=30), # eq. to `datetime(2021, 5, 2, 15, 30)`
+        note_content="Came very prepared, but five minutes late"
+    ),
 
-    )
+    dict(
+        student_email = "apeters@gmail.com", # we'll use this to query the db
+        note_created_at = datetime(year=2021, month=3, day=5, hour=13, minute=30), # eq. to `datetime(2021, 5, 2, 15, 30)`
+        note_content="Did not have his music"
+    ),
+
+    dict(
+        student_email = "stay@aol.com", # we'll use this to query the db
+        note_created_at = datetime(year=2021, month=3, day=1, hour=11, minute=30), # eq. to `datetime(2021, 5, 2, 15, 30)`
+        note_content="Fantastic work"
+    ),
+
+    dict(
+        student_email = "stay@aol.com", # we'll use this to query the db
+        note_created_at = datetime(year=2021, month=3, day=8, hour=11, minute=30), # eq. to `datetime(2021, 5, 2, 15, 30)`
+        note_content="Getting better at pacing."
+    ),
 ]
 
 
+
 # We don't need to query the teacher since every student has only 1 teacher
+for rec in note_records:
+
+    # Get yo student
+    my_student = session.query(Student).filter_by(student_email=rec['student_email']).first()
+
+     # make sure your student exists
+    assert my_student
 
 
-# note_1 = crud.create_note(teacher_id=3,
-                # note_student_name="Westin Humble",
-                # note_date="2/5/2021",
-                # note_time="3:30pm",
-                # note_content="Came very prepared, but five minutes late")
-
-# note_2 = crud.create_note(teacher_id=3,
-#                 note_student_name="Louis Jaffe",
-#                 note_date="3/5/2021",
-#                 note_time="1:30pm",
-#                 note_content="Did not have his music")
-
-# note_3 = crud.create_note(teacher_id=3,
-#                 note_student_name="Franz Schubert",
-#                 note_date="3/1/2021",
-#                 note_time="11:30am",
-#                 note_content="Fantastic work!")
+    # Now create your note
+    my_note = Note(
+        teacher_id = my_student.teacher.teacher_id,
+        student_id = my_student.student_id,
+        note_created_at = rec['note_created_at'],
+        note_content = rec['note_content']
+    )
+    session.add(my_note)
 
 
+# Now commit (you only need to commit at the end.)
+session.commit()
 
 
-
-
-
-
-
+# ------------------------------------------------------------------------------
 # CREATE LOGS
 
 
