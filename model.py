@@ -22,7 +22,7 @@ class Teacher(db.Model):
     teacher_password = db.Column(db.String(50), nullable=False)
 
     students = db.relationship('Student')
-    notes = db.relationship('Note', backref='teacher', uselist=False)
+    notes = db.relationship('Note', backref='teacher', order_by='Note.note_id', uselist=False)
 
 
     @hybrid_property
@@ -64,7 +64,7 @@ class Student(db.Model):
     student_phone = db.Column(db.String(25))
 
     teacher = db.relationship('Teacher')
-    logs = db.relationship('Log', backref='student', lazy='dynamic')
+    logs = db.relationship('Log', backref='student', order_by='Log.log_date.desc()')
 
 
     @hybrid_property

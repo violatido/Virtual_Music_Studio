@@ -144,11 +144,12 @@ def get_students_by_teacher_id(teacher_id):
     return Student.query.filter(Student.teacher_id == teacher_id).order_by(Student.student_id.desc()).all()
 
 #__________________________functions for Notes/Logs___________________________#
+
+@deprecation.deprecated(details="Use the relationship `teacher.notes` instead")
 def get_notes_by_teacher_id(teacher_id):
     """ Finds all notes submitted by a specific teacher using their teacher ID """
 
     return Note.query.filter(Note.teacher_id == teacher_id).order_by(Note.note_id).all()
-
 
 
 @deprecation.deprecated(details="Use the relationship `child.logs` instead")
@@ -188,6 +189,20 @@ def get_full_student_name(student_id):
     student_full_name = student.student_fname + ' ' + student.student_lname
 
     return student_full_name
+
+
+
+
+
+
+
+
+
+
+
+
+# ------------------------------------------------------------------------------
+
 
 if __name__ == '__main__':
     from server import app
