@@ -1,10 +1,14 @@
 """ Define Model Classes For Virtual Music Studio App """
+import deprecation
 
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta
 
 # sqlalchemy specific
 from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.ext.associationproxy import association_proxy
+
+
 
 
 db = SQLAlchemy()
@@ -22,6 +26,9 @@ class Teacher(db.Model):
     teacher_password = db.Column(db.String(50), nullable=False)
 
     students = db.relationship('Student')
+    student_ids = association_proxy('students', 'student_id',
+        doc='Use this to get all student ids from a teacher\'s students')
+
     notes = db.relationship('Note', backref='teacher', order_by='Note.note_id', uselist=False)
 
 
@@ -39,6 +46,7 @@ class Teacher(db.Model):
         return f'<Teacher teacher_id={self.teacher_id} teacher_name={self.teacher_fname} {self.teacher_lname}>'
 
     # utilize abstraction in the teacher class to allow teachers to view student info
+    @deprecation.deprecated(details="Use the association proxy `teacher.student_ids` instead")
     def get_student_ids(self):
         """ Gives teacher access to their students's student IDs """
         if self.students:

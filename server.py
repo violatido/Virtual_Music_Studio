@@ -229,6 +229,7 @@ def add_note():
     # Combine the 2! – will parse provided objects into a datetime object
     note_created_at = datetime.strptime(note_date + ' ' + note_time, '%m/%d/%Y %H:%M %p')
 
+    # Create your note
     note = crud.create_note(note_teacher_id, note_student_name, note_created_at, note_content)
 
     return jsonify({'status': 'ok', 'note_date': note.note_date})
@@ -273,7 +274,8 @@ def list_logs_by_student(student_id):
     """Lists every log made by a student depending on their student_id."""
 
     student = crud.get_student_by_id(student_id)
-    student_logs = crud.get_logs_by_student_id(student.student_id)
+    student_logs = student.logs.all()
+    # student_logs = crud.get_logs_by_student_id(student.student_id)
 
     return render_template('charts.html', student= student, student_logs=student_logs)
 
@@ -287,18 +289,33 @@ def view_charts(student_id):
 def seed_chart_one(student_id):
     """Passes data for minutes practiced and log dates into chart #1 as JSON"""
 
-    student_id=int(student_id or 0)
+    if not student_id:
+        raise ValueError(f'{student_id=}')
+
+    if type(student_id) != int:
+        student_id=int(student_id)
+
 
     if "student_id" in session:
         pass
+
     elif "teacher_id" in session:
         teacher = crud.get_teacher_by_id(session['teacher_id'])
-        valid_students = teacher.get_student_ids()
 
-        if student_id in valid_students:
-            stu_logs = crud.get_logs_by_student_id(student_id)
+        # Alternatively: query the teacher's students directly
+        #  YB: I'M NOT 100% SURE THIS WILL WORK. NEED TO TEST IT
+        my_student = teacher.students.filter(Student.student_id==student_id).first()
+        # valid_students = teacher.get_student_ids()
+
+        if my_student:
+            stu_logs = my_student.logs.all()
+            # if student_id in valid_students:
+            # stu_logs = crud.get_logs_by_student_id(student_id)
+
         else:
             return jsonify({'error': 'student not valid'})
+
+    #  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
     # x-axis data: dates in the week
     practice_dates = [] # holds todays date and previous six days as list items
@@ -310,6 +327,8 @@ def seed_chart_one(student_id):
 
     minutes_practiced = []
 
+    #  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+
     # y-axis data: minutes practiced on each date in the week
     for date in practice_dates: # loops over the dates of the week
         dates_practiced = crud.search_logs_by_date(datetime.strptime(date, '%Y-%m-%d').date(), student_id) #all practice dates
@@ -318,6 +337,8 @@ def seed_chart_one(student_id):
         else:
             minutes_practiced.append((date, 0))
 
+    #  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+
     data = {}
     data['dates_practiced'] = [datetime.strptime(date, '%Y-%m-%d').date().ctime()[4:10] for date, min_prac in minutes_practiced]
     #2021-02-28 21:05:57,764 INFO sqlalchemy.engine.base.Engine {'log_date_1': datetime.date(2021, 2, 23), 'param_1': 1}
@@ -325,6 +346,8 @@ def seed_chart_one(student_id):
     #[('2021-2-28', 0), ('2021-2-27', 0), ('2021-2-26', 120), ('2021-2-25', 12), ('2021-2-24', 45), ('2021-2-23', 35), ('2021-2-22', 100)]
 
     return jsonify(data)
+
+
 
 @app.route('/charts/2.json/<student_id>')
 def seed_chart_two(student_id):

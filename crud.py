@@ -91,7 +91,7 @@ def create_note(teacher_id,
 
     """Creates a new teacher note record"""
 
-    # Allows querying of student by full name
+    # Allows querying of student by full name – Hopefull this works!
     student_id = session.query(Student).filter(Student.full_name==note_student_name).first()
 
     note = Note(teacher_id=teacher_id,
