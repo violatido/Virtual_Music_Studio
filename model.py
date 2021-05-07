@@ -27,7 +27,7 @@ class Teacher(db.Model):
 
     students = db.relationship('Student')
     student_ids = association_proxy('students', 'student_id',
-        doc='Use this to get all student ids from a teacher\'s students')
+        info='Use this to get all student ids from a teacher\'s students')
 
     notes = db.relationship('Note', backref='teacher', order_by='Note.note_id', uselist=False)
 
