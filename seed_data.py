@@ -1,4 +1,6 @@
-"""Revised script to selective seed the database."""
+"""
+Populate database with records from serialized json format
+"""
 
 import os
 import json
