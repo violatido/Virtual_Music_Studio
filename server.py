@@ -219,11 +219,17 @@ def add_note():
 
     note_teacher_id = (session['teacher_id'])
     note_student_name = request.form.get('note_student_name')
+
+    # Consider combining the 2 into one field
     note_date = request.form.get('note_date')
     note_time = request.form.get('note_time')
+
     note_content = request.form.get('note_content')
 
-    note = crud.create_note(note_teacher_id, note_student_name, note_date, note_time, note_content)
+    # Combine the 2! – will parse provided objects into a datetime object
+    note_created_at = datetime.strptime(note_date + ' ' + note_time, '%m/%d/%Y %H:%M %p')
+
+    note = crud.create_note(note_teacher_id, note_student_name, note_created_at, note_content)
 
     return jsonify({'status': 'ok', 'note_date': note.note_date})
 

@@ -86,18 +86,20 @@ def create_log(log_date,
 
 def create_note(teacher_id,
                 note_student_name,
-                note_date,
-                note_time,
+                note_created_at,
                 note_content):
 
     """Creates a new teacher note record"""
 
+    # Allows querying of student by full name
+    student_id = session.query(Student).filter(Student.full_name==note_student_name).first()
+
     note = Note(teacher_id=teacher_id,
-                note_student_name=note_student_name,
-                note_date=note_date,
-                note_time=note_time,
+                student_id=student_id,
+                note_created_at=note_created_at,
                 note_content=note_content
                 )
+
 
     db.session.add(note)
     db.session.commit()
