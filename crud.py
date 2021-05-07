@@ -1,17 +1,29 @@
-"""CRUD operations."""
+"""
+CRUD operations.
 
+.. todo:
+    * We may chose to remove this submodule and replace with more transparent methods
+"""
+import deprecation
 from model import db, Teacher, Student, Log, Note, connect_to_db
 
+
 #______________________functions for creating table records___________________________#
-def create_teacher(teacher_fname, 
-                    teacher_lname, 
-                    teacher_email, 
-                    teacher_phone, 
+def create_teacher(teacher_fname,
+                    teacher_lname,
+                    teacher_email,
+                    teacher_phone,
                     teacher_password):
     """Creates a new teacher record"""
 
-    teacher = Teacher(teacher_fname=teacher_fname, 
-                        teacher_lname=teacher_lname, 
+    # Check if email is already in use:
+    if teacher := db.session.query(Teacher).filter_by(teacher_email=teacher_email).first():
+        # Either return False which will cause an error – or return the teacher – in which
+        # case, your method should be renamed `get_or_create_teacher()`
+        return False
+
+    teacher = Teacher(teacher_fname=teacher_fname,
+                        teacher_lname=teacher_lname,
                         teacher_email=teacher_email,
                         teacher_phone=teacher_phone,
                         teacher_password=teacher_password
@@ -19,63 +31,67 @@ def create_teacher(teacher_fname,
 
     db.session.add(teacher)
     db.session.commit()
-    #refresh
+
+    # refresh to get the teacher with all their data
     db.session.refresh(teacher)
 
     return teacher
 
-def create_student(student_fname, 
-                    student_lname, 
-                    student_email, 
-                    program_name, 
-                    instrument, 
+def create_student(student_fname,
+                    student_lname,
+                    student_email,
+                    program_name,
+                    instrument,
                     student_password,
                     student_phone,
-                    teacher_obj):
+                    teacher_id):
     """Creates a new student record"""
 
     student = Student(student_fname=student_fname,
                         student_lname=student_lname,
                         student_email=student_email,
-                        program_name=program_name, 
+                        program_name=program_name,
                         instrument=instrument,
                         student_password=student_password,
                         student_phone=student_phone,
-                        teacher=teacher_obj #using the teacher/student relationship
+                        teacher_id=teacher_id # easier to pass primary keys than entire objects
                         )
 
     db.session.add(student)
     db.session.commit()
 
+    # If you have issues with the student's data, consider refreshing the student object
     return student
 
-def create_log(log_date, 
+
+
+def create_log(log_date,
                 student_id,
-                minutes_practiced, 
-                pieces_practiced, 
+                minutes_practiced,
+                pieces_practiced,
                 practice_notes):
     """Creates a new practice log record"""
-    
-    log = Log(log_date=log_date, 
+
+    log = Log(log_date=log_date,
                 student_id=student_id,
                 minutes_practiced=minutes_practiced,
-                pieces_practiced=pieces_practiced, 
+                pieces_practiced=pieces_practiced,
                 practice_notes=practice_notes
                 )
 
     db.session.add(log)
     db.session.commit()
 
-    return log 
+    return log
 
-def create_note(teacher_id, 
-                note_student_name, 
-                note_date, 
-                note_time, 
+def create_note(teacher_id,
+                note_student_name,
+                note_date,
+                note_time,
                 note_content):
 
     """Creates a new teacher note record"""
-    
+
     note = Note(teacher_id=teacher_id,
                 note_student_name=note_student_name,
                 note_date=note_date,
@@ -86,28 +102,28 @@ def create_note(teacher_id,
     db.session.add(note)
     db.session.commit()
 
-    return note 
+    return note
 
 #__________________________functions for User verification___________________________#
 def verify_teacher(teacher_email, teacher_password):
     """Validates teacher email and password by finding matches in the database"""
 
-    return Teacher.query.filter(Teacher.teacher_email == teacher_email, 
+    return Teacher.query.filter(Teacher.teacher_email == teacher_email,
             Teacher.teacher_password == teacher_password).first()
 
 def verify_student(student_email, student_password):
     """Validates student email and password by finding matches in the database"""
 
-    return Student.query.filter(Student.student_email == student_email, 
+    return Student.query.filter(Student.student_email == student_email,
             Student.student_password == student_password).first()
 
 #__________________________functions for User verification___________________________#
-def get_student_by_email(student_email): 
+def get_student_by_email(student_email):
     """Finds all student info"""
 
     return Student.query.filter(Student.student_email == student_email).first()
 
-def get_teacher_by_email(teacher_email): 
+def get_teacher_by_email(teacher_email):
     """Finds all teacher info"""
 
     return Teacher.query.filter(Teacher.teacher_email == teacher_email).first()
@@ -133,10 +149,15 @@ def get_notes_by_teacher_id(teacher_id):
 
     return Note.query.filter(Note.teacher_id == teacher_id).order_by(Note.note_id).all()
 
-def get_logs_by_student_id(student_id):
-    """ Finds all logs submitted by a specific student using their student ID """
 
+
+@deprecation.deprecated(details="Use the relationship `child.logs` instead")
+def get_logs_by_student_id(student_id):
+    """
+    Finds all logs submitted by a specific student using their student ID
+    """
     return Log.query.filter(Log.student_id == student_id).order_by(Log.log_date.desc()).all()
+
 
 def get_minutes_practiced(student_id):
     """ Procures all minutes-practiced data per student """
