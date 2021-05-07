@@ -287,7 +287,14 @@ def view_charts(student_id):
 
 @app.route('/charts/1.json/<student_id>')
 def seed_chart_one(student_id):
-    """Passes data for minutes practiced and log dates into chart #1 as JSON"""
+    """
+    Passes data for minutes practiced and log dates into chart #1 as JSON
+
+    Error:
+    `student_id` value is being passed as "teacher-portal"
+    """
+
+    # print('*********'*10, student_id, '*********'*10, sep='\n')
 
     if not student_id:
         raise ValueError(f'{student_id=}')
