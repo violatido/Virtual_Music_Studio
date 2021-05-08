@@ -1,7 +1,7 @@
 """Server for Virtual Music Studio app."""
 import os
 from flask import (Flask, render_template, request, flash, session, redirect, jsonify)
-from model import connect_to_db
+from model import connect_to_db, db, Student, Teacher
 from datetime import datetime, timedelta
 import crud
 from jinja2 import StrictUndefined
@@ -91,8 +91,9 @@ def teacher_logout():
 @app.route('/student-portal')
 def sign_up_student():
     """Renders the VMS sign-up page"""
-
     return render_template('student-portal.html')
+
+
 
 @app.route('/student-portal', methods=["POST"])
 def student_login():
@@ -110,6 +111,8 @@ def student_login():
     if checked_student:
         # student_login_email = request.form.get('student_login_email')
         # student = crud.get_student_by_email(student_login_email)
+        print('******'*5, checked_student.student_id, '******'*5, sep='\n')
+
         session['student_id'] = checked_student.student_id
         return redirect('/student-profile')
 
@@ -150,7 +153,7 @@ def add_student():
 @app.route('/student-logout')
 def student_logout():
 
-    print(session)
+    # print(session)
 
     if session['student_id']: # shouldn't this be `if 'student_id' in session` ?
         session.pop('student_id')
@@ -163,6 +166,8 @@ def student_logout():
 @app.route('/student-profile')
 def view_student_profile():
     """Renders the VMS student profile page"""
+
+    # print('****', session, '****', sep='\n'*4)
 
     student = crud.get_student_by_id(session['student_id'])
     teacher = student.teacher
@@ -194,7 +199,7 @@ def go_to_student_logs(student_id):
     student = crud.get_student_by_id(student_id)
 
     # Get the student's logs through the relationship
-    student_logs = student.logs.all()
+    student_logs = student.logs
     # student_logs = crud.get_logs_by_student_id(student_id)
 
     return render_template('charts.html', student = student, teacher = teacher, student_logs = student_logs)
@@ -274,8 +279,10 @@ def list_logs_by_student(student_id):
     """Lists every log made by a student depending on their student_id."""
 
     student = crud.get_student_by_id(student_id)
-    student_logs = student.logs.all()
+    student_logs = student.logs
+
     # student_logs = crud.get_logs_by_student_id(student.student_id)
+
 
     return render_template('charts.html', student= student, student_logs=student_logs)
 
@@ -285,13 +292,15 @@ def view_charts(student_id):
     """View data charts for practice logs"""
     return render_template('charts.html')
 
+
 @app.route('/charts/1.json/<student_id>')
 def seed_chart_one(student_id):
     """
     Passes data for minutes practiced and log dates into chart #1 as JSON
 
     Error:
-    `student_id` value is being passed as "teacher-portal"
+        * `student_id` value is being passed as "teacher-portal"
+        * ^ Is becaause ajax was being triggered on every page, not only charts
     """
 
     # print('*********'*10, student_id, '*********'*10, sep='\n')
@@ -307,22 +316,27 @@ def seed_chart_one(student_id):
         pass
 
     elif "teacher_id" in session:
-        teacher = crud.get_teacher_by_id(session['teacher_id'])
 
-        # Alternatively: query the teacher's students directly
-        #  YB: I'M NOT 100% SURE THIS WILL WORK. NEED TO TEST IT
-        my_student = teacher.students.filter(Student.student_id==student_id).first()
-        # valid_students = teacher.get_student_ids()
+        # Get the student in one query
+        my_student = db.session.query(Student)\
+            .join(Teacher)\
+            .filter(
+                Teacher.teacher_id==session['teacher_id'],
+                Student.student_id==student_id
+            )\
+            .first()
 
         if my_student:
-            stu_logs = my_student.logs.all()
-            # if student_id in valid_students:
-            # stu_logs = crud.get_logs_by_student_id(student_id)
+            # Get the logs from the relationship
+            stu_logs = my_student.logs
 
         else:
             return jsonify({'error': 'student not valid'})
 
     #  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+
+    # YB: Consider utilizing pandas here to group by an interval.
+    # Pandas is excelent at time series data. You could [bin] your data by week/month/etc
 
     # x-axis data: dates in the week
     practice_dates = [] # holds todays date and previous six days as list items
@@ -336,21 +350,25 @@ def seed_chart_one(student_id):
 
     #  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
+
     # y-axis data: minutes practiced on each date in the week
-    for date in practice_dates: # loops over the dates of the week
-        dates_practiced = crud.search_logs_by_date(datetime.strptime(date, '%Y-%m-%d').date(), student_id) #all practice dates
+    for dt in practice_dates: # loops over the dates of the week
+        dates_practiced = crud.search_logs_by_date(datetime.strptime(dt, '%Y-%m-%d').date(), student_id) #all practice dates
+
         if dates_practiced:
-            minutes_practiced.append((date, dates_practiced.minutes_practiced))
+            minutes_practiced.append((dt, dates_practiced.minutes_practiced))
         else:
-            minutes_practiced.append((date, 0))
+            minutes_practiced.append((dt, 0))
 
     #  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
     data = {}
-    data['dates_practiced'] = [datetime.strptime(date, '%Y-%m-%d').date().ctime()[4:10] for date, min_prac in minutes_practiced]
+    data['dates_practiced'] = [datetime.strptime(dt, '%Y-%m-%d').date().ctime()[4:10] for dt, min_prac in minutes_practiced]
     #2021-02-28 21:05:57,764 INFO sqlalchemy.engine.base.Engine {'log_date_1': datetime.date(2021, 2, 23), 'param_1': 1}
-    data['minutes_practiced'] = [min_prac for date, min_prac in minutes_practiced]
+    data['minutes_practiced'] = [min_prac for dt, min_prac in minutes_practiced]
     #[('2021-2-28', 0), ('2021-2-27', 0), ('2021-2-26', 120), ('2021-2-25', 12), ('2021-2-24', 45), ('2021-2-23', 35), ('2021-2-22', 100)]
+
+    print('*******'*10, data, '*******'*10, sep='\n')
 
     return jsonify(data)
 
@@ -447,16 +465,22 @@ def seed_chart_three(student_id):
 def send_message():
     """ Sends a text to a specific student from their teacher's profile page """
 
+    # Get content from form
+    student_id = request.form.get('phone_dropdown_id')
+    text_message_content = request.form.get('message_content')
+    student = crud.get_student_phone(student_id)
+    student_num = student.student_phone
+
+    # If testing, don't send the text
+    if os.environ.get('TESTING'):
+        return jsonify({'message_content': text_message_content})
+
+
     account_sid = os.environ.get('ACCOUNT_SID')
     auth_token = os.environ.get('AUTH_TOKEN')
     client = Client(account_sid, auth_token)
 
-    student_id = request.form.get('phone_dropdown_id')
-    text_message_content = request.form.get('message_content')
 
-    student = crud.get_student_phone(student_id)
-    # student_phone_number = student
-    student_num = student.student_phone
 
 
     client.messages.create(

@@ -228,6 +228,31 @@ session.commit()
 log_records = [
 
     dict(
+        student_email = "apeters@gmail.com", # we'll use this to query the db
+        log_date = datetime(year=2021, month=5, day=1), # will be set to midnight if no hour is specified
+        minutes_practiced=15,
+        pieces_practiced="Rebecca Clarke Morpheus",
+        practice_notes="This piece is really hard!"
+    ),
+
+    dict(
+        student_email = "apeters@gmail.com", # we'll use this to query the db
+        log_date = datetime(year=2021, month=5, day=2), # will be set to midnight if no hour is specified
+        minutes_practiced=35,
+        pieces_practiced="Rebecca Clarke Morpheus",
+        practice_notes="This piece is really hard!"
+    ),
+
+    dict(
+        student_email = "apeters@gmail.com", # we'll use this to query the db
+        log_date = datetime(year=2021, month=5, day=3), # will be set to midnight if no hour is specified
+        minutes_practiced=122,
+        pieces_practiced="Bach Suite 6 Allemande",
+        practice_notes=None
+    ),
+
+
+    dict(
         student_email = "orose@gmail.com", # we'll use this to query the db
         log_date = datetime(year=2021, month=1, day=2), # will be set to midnight if no hour is specified
         minutes_practiced=35,
