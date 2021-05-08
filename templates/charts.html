@@ -52,7 +52,9 @@
                             <div class="col d-flex justify-content-center align-items-start">
                                 <div class="card mb-5" id="notes-card-style">
                                     <div class="card-body">
-                                        <h5 class="card-title notes-card-title">{{ log.log_date }}</h5>
+                                        <h5 class="card-title notes-card-title">{{ log.log_date.strftime("%m/%d/%Y")}}</h5>
+
+                                        <h6 class="card-subtitle mb-2 text-muted">Log Time: {{ log.log_date.strftime("%H:%M %p") }}</h6>
                                         <h6 class="card-subtitle mb-2 text-muted">Log ID #: {{ log.log_id }}</h6>
                                         <ul class="card-text">
                                             <li>Minutes Practiced: {{ log.minutes_practiced }}</li>
