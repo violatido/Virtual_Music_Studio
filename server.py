@@ -167,7 +167,8 @@ def student_logout():
 def view_student_profile():
     """Renders the VMS student profile page"""
 
-    # print('****', session, '****', sep='\n'*4)
+    if 'student_id' not in session:
+        return jsonify({'error':'Uh oh, no student_id in session'})
 
     student = crud.get_student_by_id(session['student_id'])
     teacher = student.teacher
