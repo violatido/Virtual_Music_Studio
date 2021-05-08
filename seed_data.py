@@ -254,7 +254,7 @@ log_records = [
 
     dict(
         student_email = "orose@gmail.com", # we'll use this to query the db
-        log_date = datetime(year=2021, month=1, day=2), # will be set to midnight if no hour is specified
+        log_date = datetime(year=2021, month=5, day=2), # will be set to midnight if no hour is specified
         minutes_practiced=35,
         pieces_practiced="Rebecca Clarke Morpheus",
         practice_notes="This piece is really hard!"
@@ -262,10 +262,18 @@ log_records = [
 
     dict(
         student_email = "orose@gmail.com", # we'll use this to query the db
-        log_date = datetime(year=2021, month=2, day=5), # will be set to midnight if no hour is specified
+        log_date = datetime(year=2021, month=5, day=5), # will be set to midnight if no hour is specified
         minutes_practiced=122,
         pieces_practiced="Bach Suite 6 Allemande",
         practice_notes=None
+    ),
+
+    dict(
+        student_email = "orose@gmail.com", # we'll use this to query the db
+        log_date = datetime(year=2021, month=5, day=9), # will be set to midnight if no hour is specified
+        minutes_practiced=10,
+        pieces_practiced="Bach Suite 6 Allemande",
+        practice_notes="YOLO!"
     ),
 
 ]
