@@ -29,7 +29,7 @@ class Teacher(db.Model):
     student_ids = association_proxy('students', 'student_id',
         info='Use this to get all student ids from a teacher\'s students')
 
-    notes = db.relationship('Note', backref='teacher', order_by='Note.note_id', uselist=False)
+    notes = db.relationship('Note', backref='teacher', order_by='Note.note_id')
 
 
     @hybrid_property
@@ -73,7 +73,7 @@ class Student(db.Model):
 
     teacher = db.relationship('Teacher')
     logs = db.relationship('Log', backref='student', order_by='Log.log_date.desc()')
-
+    notes = db.relationship('Note', backref='student', order_by='Note.note_created_at.desc()')
 
     @hybrid_property
     def full_name(self):
@@ -123,7 +123,7 @@ class Note(db.Model):
 
     def __repr__(self):
         """Show Teacher Note ID and date"""
-        return f'<note teacher_id={self.teacher_id} student_id={self.student_id} note_id={self.note_id} note_date = {self.note_date}>'
+        return f'<note teacher_id={self.teacher_id} student_id={self.student_id} note_id={self.note_id} note_date = {self.note_created_at}>'
 
 #################################################################################################################
 

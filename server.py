@@ -211,7 +211,8 @@ def view_teacher_notes():
     """Renders the VMS teacher notes page and note history"""
 
     teacher = crud.get_teacher_by_id(session['teacher_id'])
-    teacher_notes = teacher.notes.all()
+    teacher_notes = teacher.notes
+    
     # teacher_notes = crud.get_notes_by_teacher_id(teacher.teacher_id)
 
     return render_template('teacher-notes.html', teacher = teacher, teacher_notes = teacher_notes)

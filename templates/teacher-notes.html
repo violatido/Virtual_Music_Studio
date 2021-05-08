@@ -13,14 +13,14 @@
             <a class="arch btn btn-lg home-btn-2" href="/">Virtual Music Studio</a>
             <a class="btn btn-lg profile-return-btn " href="/teacher-profile">Return to Teacher Profile</a>
         </div>
-    </div>    
+    </div>
   </nav>
   <div class="container-main">
     <div class="row header-rows">
       <div class="col d-flex justify-content-center text-center">
         {% if teacher %}
         <h1 class="h1-page-header">{{ teacher.teacher_fname }} {{ teacher.teacher_lname }}'s Lesson Notes</h1>
-      {% endif %}  
+      {% endif %}
       </div>
     </div>
     <div class="row">
@@ -46,7 +46,7 @@
                 </div>
               </div>
               <div class="form-row">
-                <div class="form-group form-control-lg col">              
+                <div class="form-group form-control-lg col">
                   <textarea class="md-textarea form-control" id="note_content" placeholder="Write your notes here!" rows="10"></textarea>
                 </div>
               </div>
@@ -57,7 +57,7 @@
         <div class="row d-flex justify-content-center">
           <h3 class="row d-flex justify-content-center">Note History</h3>
         </div>
-        <div class="row" id="note-history">         
+        <div class="row" id="note-history">
           {% for note in teacher_notes %}
           <div class="col col-lg-6" >
             <div class="card mb-5" id="notes-card-style">
@@ -65,9 +65,9 @@
                 <h5 class="card-title notes-card-title">Note ID #: {{ note.note_id }}</h5>
                 {#<!-- <h6 class="card-subtitle mb-2 text-muted"></h6>     -->#}
                 <ul class="card-text">
-                  <li>Student name: {{ note.note_student_name }}</li>
-                  <li>Lesson Date: {{note.note_date}}</li>
-                  <li>Lesson Time: {{note.note_time}}</li>
+                  <li>Student name: {{ note.student.full_name }}</li>
+                  <li>Lesson Date: {{note.note_created_at.date().strftime("%m/%d/%Y")}}</li>
+                  <li>Lesson Time: {{note.note_created_at.time().strftime("%H:%M %p")}}</li>
                   <li>Notes: {{ note.note_content }}</li>
                 </ul>
               </div>
@@ -101,4 +101,4 @@
 
 
 
-{% endblock %}  
+{% endblock %}
