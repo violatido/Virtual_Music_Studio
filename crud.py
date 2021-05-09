@@ -6,7 +6,7 @@ CRUD operations.
 """
 import deprecation
 from model import db, Teacher, Student, Log, Note, connect_to_db
-
+from sqlalchemy import func
 
 #______________________functions for creating table records___________________________#
 def create_teacher(teacher_fname,
@@ -95,7 +95,19 @@ def create_note(teacher_id,
     """Creates a new teacher note record"""
 
     # Allows querying of student by full name – Hopefull this works!
-    student_id = session.query(Student).filter(Student.full_name==note_student_name).first()
+    # Querying by hybrid attribute doesn't seem to be working unfortunately
+    student_id = db.session.query(Student.student_id)\
+        .filter(
+            func.concat(
+                Student.student_fname,
+                ' ',
+                Student.student_lname
+            ) == note_student_name
+        ).first()
+
+    # Only allow if student id exists
+    if not student_id:
+        return None
 
     note = Note(teacher_id=teacher_id,
                 student_id=student_id,

@@ -3,31 +3,32 @@
 //________________________________________Events for teacher registration______________________________________
 // event handler for new teacher registration
 
-/*
-  This function will return true
-  if none of the attributes of the
-  provided obj are null.
 
-  Parameters:
-    o: object
-    q: str, default = 'any'
-      query, either 'all' or 'any'
-
-  Examples:
-  ```js
-  >> z = {'x':'abc', 'y':123, 'z':null}
-  >> isEmptyObject(z, 'all')
-  false
-
-  >> isEmptyObject(z, 'any')
-  true
-
-  // By default, q='any' so
-  >> isEmptyObject(z)
-  true
-  ```
-*/
 function isEmptyObject(o, q='any') {
+  /*
+    This function will return true
+    if none of the attributes of the
+    provided obj are null.
+
+    Parameters:
+      o: object
+      q: str, default = 'any'
+        query, either 'all' or 'any'
+
+    Examples:
+    ```js
+    >> z = {'x':'abc', 'y':123, 'z':null}
+    >> isEmptyObject(z, 'all')
+    false
+
+    >> isEmptyObject(z, 'any')
+    true
+
+    // By default, q='any' so
+    >> isEmptyObject(z)
+    true
+    ```
+  */
 
   // If all are null
   if (q==='all'){
@@ -207,6 +208,7 @@ $('#create_student__submit').on('click', (evt) => {
 $('#create_log').on('submit', (evt) => {
     evt.preventDefault();
 
+
     const logFormValues = {
         'log_student_id': $('#log_student_id').val(),
         'log_date': $('#log_date').val(),
@@ -214,16 +216,36 @@ $('#create_log').on('submit', (evt) => {
         'log_pieces_practiced': $('#log_pieces_practiced').val(),
         'log_practice_notes': $('#log_practice_notes').val()
     }
-    console.log(logFormValues)
+
+    //  If not attr, do nothing
+    if (isEmptyObject(logFormValues, 'any')){
+
+      $.post('/student-profile', logFormValues, (res) => {
+          $('#log_added_response').text(
+              `Empty values... Log has not been saved.`
+          )
+      });
+      return {}
+    }
+
+
+    // console.log(logFormValues)
     $.post('/practice-log', logFormValues, (res) => {
         $('#log_added_response').text(
             `Log for ${res.log_date} has been saved!`
         )
     });
 
-    document.getElementById("#create_log").reset()
+    // Reset (manually)
+    $('#log_date').val('');
+    $('#log_minutes_practiced').val('');
+    $('#log_pieces_practiced').val('');
+    $('#log_practice_notes').val('');
 
 });
+
+
+
 
 //_________________________________________Event for lesson notes___________________________________________________
 
@@ -239,7 +261,23 @@ $('#create_note').on('submit', (evt) => {
         'note_content': $('#note_content').val(),
     }
 
-    console.log(noteFormValues);
+
+    //  If not attr, do nothing
+    if (isEmptyObject(noteFormValues, 'any')){
+
+      $.post('/teacher-notes', logFormValues, (res) => {
+          $('#note_added_response').text(
+              `Empty values... Note has not been saved.`
+          )
+      });
+      return {}
+    }
+
+
+
+
+
+    // console.log(noteFormValues);
     $.post('/teacher-notes', noteFormValues, (res) => {
         $('#note_added_response').text(
             `New lesson note has been submitted!`

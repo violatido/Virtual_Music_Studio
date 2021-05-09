@@ -37,13 +37,15 @@ class Teacher(db.Model):
         """Make full name as a hybrid attribute"""
         tmp = (self.teacher_fname, self.teacher_lname)
         tmp_filtered = filter(None, tmp)
+
         return ' '.join(tmp_filtered)
 
 
 
     def __repr__(self):
         """Show Teacher ID and full name"""
-        return f'<Teacher teacher_id={self.teacher_id} teacher_name={self.teacher_fname} {self.teacher_lname}>'
+        return f'<Teacher teacher_id={self.teacher_id} teacher_name={self.full_name}>'
+
 
     # utilize abstraction in the teacher class to allow teachers to view student info
     @deprecation.deprecated(details="Use the association proxy `teacher.student_ids` instead")
@@ -79,13 +81,14 @@ class Student(db.Model):
     def full_name(self):
         """Make full name as a hybrid attribute"""
         tmp = (self.student_fname, self.student_lname)
-        tmp_filtered = filter(None, tmp)
+        tmp_filtered = map(str, filter(None, tmp))
+
         return ' '.join(tmp_filtered)
 
 
     def __repr__(self):
         """Show Student ID and full name"""
-        return f'<Student student_id={self.student_id} student_name = {self.student_fname} {self.student_lname}>'
+        return f'<Student student_id={self.student_id} student_name = {self.full_name}>'
 
 #################################################################################################################
 
@@ -113,8 +116,8 @@ class Note(db.Model):
     __tablename__ = 'notes'
 
     note_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
-    teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.teacher_id'))
-    student_id = db.Column(db.Integer, db.ForeignKey('students.student_id'), comment='Added by Yaakov')
+    teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.teacher_id'), nullable=False)
+    student_id = db.Column(db.Integer, db.ForeignKey('students.student_id'), nullable=False, comment='Added by Yaakov')
 
     note_content = db.Column(db.String, nullable=False)
     note_created_at = db.Column(db.DateTime, nullable=False, comment='YB: store date and time in one column...')

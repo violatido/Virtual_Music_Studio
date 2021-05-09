@@ -16,7 +16,6 @@ app.jinja_env.undefined = StrictUndefined
 @app.route('/')
 def create_homepage():
     """Renders the VMS homepage"""
-
     return render_template('homepage.html')
 
 #__________________________________view functions for teacher login/registration___________________________________#
@@ -87,7 +86,8 @@ def add_teacher():
     teacher_password = request.form.get('teacher_password')
 
     teacher = crud.create_teacher(teacher_fname, teacher_lname, teacher_email, teacher_phone, teacher_password)
-    print('*****'*10, teacher, '*****'*10, sep='\n\n')
+
+
     if not teacher:
         return jsonify({'error': 'email already in use'})
 
@@ -138,10 +138,6 @@ def student_login():
 
     # No need to query twice
     if my_student:
-        # student_login_email = request.form.get('student_login_email')
-        # student = crud.get_student_by_email(student_login_email)
-        print('******'*5, my_student.student_id, '******'*5, sep='\n')
-
         session['student_id'] = my_student.student_id
         return redirect('/student-profile')
 
@@ -192,7 +188,7 @@ def student_logout():
 
 
 #__________________________________________functions for profiles__________________________________________#
-@app.route('/student-profile')
+@app.route('/student-profile', methods=["GET", "POST"])
 def view_student_profile():
     """Renders the VMS student profile page"""
 
@@ -203,6 +199,8 @@ def view_student_profile():
     teacher = student.teacher
 
     return render_template('student-profile.html', student = student, teacher = teacher)
+
+
 
 @app.route('/teacher-profile')
 def view_teacher_profile():
@@ -235,26 +233,45 @@ def go_to_student_logs(student_id):
     return render_template('charts.html', student = student, teacher = teacher, student_logs = student_logs)
 
 #______________________________________functions for adding teacher notes________________________________________#
-@app.route('/teacher-notes')
-def view_teacher_notes():
-    """Renders the VMS teacher notes page and note history"""
+# @app.route('/teacher-notes')
+# def view_teacher_notes():
+#     """Renders the VMS teacher notes page and note history"""
+#
+#     teacher = crud.get_teacher_by_id(session['teacher_id'])
+#     teacher_notes = teacher.notes
+#
+#     # teacher_notes = crud.get_notes_by_teacher_id(teacher.teacher_id)
+#
+#     return render_template('teacher-notes.html', teacher = teacher, teacher_notes = teacher_notes)
 
-    teacher = crud.get_teacher_by_id(session['teacher_id'])
-    teacher_notes = teacher.notes
 
-    # teacher_notes = crud.get_notes_by_teacher_id(teacher.teacher_id)
-
-    return render_template('teacher-notes.html', teacher = teacher, teacher_notes = teacher_notes)
-
-
-@app.route('/teacher-notes', methods=['POST'])
+@app.route('/teacher-notes', methods=['GET', 'POST'])
 def add_note():
-    """Creates a new lesson note
+    """
+    Renders the VMS teacher notes page and note history
 
-    if the note form is valid, the session adds the note to the note table"""
+    _OR_
 
+
+    Creates a new lesson note
+
+    if the note form is valid, the session adds the note to the note table
+    """
+
+    if not request.form:
+        teacher = crud.get_teacher_by_id(session['teacher_id'])
+        teacher_notes = teacher.notes
+
+        # teacher_notes = crud.get_notes_by_teacher_id(teacher.teacher_id)
+
+        return render_template('teacher-notes.html', teacher = teacher, teacher_notes = teacher_notes)
+
+
+
+    # Otherwise
     note_teacher_id = (session['teacher_id'])
     note_student_name = request.form.get('note_student_name')
+
 
     # Consider combining the 2 into one field
     note_date = request.form.get('note_date')
@@ -263,29 +280,34 @@ def add_note():
     note_content = request.form.get('note_content')
 
     # Combine the 2! – will parse provided objects into a datetime object
-    note_created_at = datetime.strptime(note_date + ' ' + note_time, '%m/%d/%Y %H:%M %p')
+    note_created_at = datetime.strptime(note_date + ' ' + note_time, '%Y-%m-%d %H:%M')
 
     # Create your note
     note = crud.create_note(note_teacher_id, note_student_name, note_created_at, note_content)
 
-    return jsonify({'status': 'ok', 'note_date': note.note_date})
+    return jsonify({'status': 'ok', 'note_date': note.note_created_at})
 
 #______________________________________functions for adding practice logs________________________________________#
 
-@app.route('/practice-log')
+@app.route('/practice-log', methods=["GET", "POST"])
 def view_log_page():
-    """Renders the VMS practice-log page with practice log form"""
+    """
+    Renders the VMS practice-log page with practice log form
 
-    student = crud.get_student_by_id(session['student_id'])
+    _OR_
 
-    return render_template('practice-log.html', student=student)
+    Creates a new practice log
 
-@app.route('/practice-log', methods=['POST'])
-def add_log():
-    """Creates a new practice log
+    if the log form is valid, the session adds the log to the log table
 
-    if the log form is valid, the session adds the log to the log table"""
+    """
 
+    # If the form wasn't posted, do this
+    if not request.form:
+        return jsonify({'status':'error', 'log_date':None})
+
+
+    # Otherwise
     log_student_id = (session['student_id'])
     log_date = request.form.get('log_date')
     log_minutes_practiced = request.form.get('log_minutes_practiced')
@@ -295,6 +317,7 @@ def add_log():
     log = crud.create_log(log_date, log_student_id, log_minutes_practiced, log_pieces_practiced, log_practice_notes)
 
     return jsonify({'status': 'ok', 'log_date': log_date})
+
 
 #____________________________________functions for viewing past logs by student id________________________________#
 @app.route('/charts')
@@ -399,7 +422,7 @@ def seed_chart_one(student_id):
     data['minutes_practiced'] = [min_prac for dt, min_prac in minutes_practiced]
     #[('2021-2-28', 0), ('2021-2-27', 0), ('2021-2-26', 120), ('2021-2-25', 12), ('2021-2-24', 45), ('2021-2-23', 35), ('2021-2-22', 100)]
 
-    print('*******'*10, data, '*******'*10, sep='\n')
+    # print('*******'*10, data, '*******'*10, sep='\n')
 
     return jsonify(data)
 

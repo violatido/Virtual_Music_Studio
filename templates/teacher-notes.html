@@ -65,7 +65,7 @@
                 <h5 class="card-title notes-card-title">Note ID #: {{ note.note_id }}</h5>
                 {#<!-- <h6 class="card-subtitle mb-2 text-muted"></h6>     -->#}
                 <ul class="card-text">
-                  <li>Student name: {{ note.student.full_name }}</li>
+                  <li>Student name: {{ note.student.full_name if note.student else '' }}</li>
                   <li>Lesson Date: {{note.note_created_at.date().strftime("%m/%d/%Y")}}</li>
                   <li>Lesson Time: {{note.note_created_at.time().strftime("%H:%M %p")}}</li>
                   <li>Notes: {{ note.note_content }}</li>
