@@ -7,13 +7,13 @@
     <div class="row" id="nav-row">
         <div class="col-12 d-flex justify-content-start left-nav-col">
           <a class="arch btn btn-lg home-btn-2" href="/">Virtual Music Studio</a>        </div>
-    </div> 
+    </div>
     <div class="row">
       <div class="col d-flex justify-content-start left-nav-col">
           <a role="button" class="homepage-nav-button btn btn-lg d-flex" id="" href="/teacher-portal">Teacher</a>
           <a role="button" class="homepage-nav-button btn btn-lg" id="" href="/student-portal">Student</a>
       </div>
-  </div>     
+  </div>
   </nav>
   <div class="container portal-container">
     <div class="row d-flex align-items-center ">
@@ -54,7 +54,7 @@
                   </div>
                   <div class="form-group col-6">
                     <input type="text" class="form-control form-control-sm" id="student_lname" placeholder="Last Name">
-                  </div>                  
+                  </div>
                 </div>
                 <div class="form-row">
                   <div class="form-group col-6">
@@ -65,10 +65,10 @@
                   </div>
                 </div>
                 <div class="form-row">
-                  <div class="form-group col-6">              
+                  <div class="form-group col-6">
                     <input type="text" class="form-control form-control-sm" id="private_teacher_name" placeholder="Private Teacher Name">
                   </div>
-                  <div class="form-group col-6">                
+                  <div class="form-group col-6">
                     <input type="email" class="form-control form-control-sm" id="private_teacher_email" placeholder="Private Teacher Email">
                   </div>
                 </div>
@@ -78,14 +78,14 @@
                   </div>
                   <div class="form-group col-6">
                     <input type="text" class="form-control form-control-sm" id="program_name" placeholder="Program Name">
-                  </div>                  
+                  </div>
                 </div>
                 <div class="form-row" id="teacher-reg-buttons-row">
                   <div class="form-group col-6">
                     <input type="password" class="form-control form-control-sm" name="student_password" id="student_password" placeholder="Password">
                   </div>
                   <div class="form-group col-3 d-flex justify-content-end">
-                    <button type="submit" class="btn standard-btn" data-toggle="modal" data-target="#student_reg_button">Submit</button>
+                    <input type="button" class="btn standard-btn" id="create_student__submit" data-toggle="modal" data-target="#student_reg_button" value="Submit">
                   </div>
                   <div class="form-group col-3 d-flex justify-content-start">
                     <button type="reset" value="reset" class="btn btn-sm standard-btn">Reset</button>
@@ -110,7 +110,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <p class="modal-response" id="student_added_response"></p>
+        <p class="modal-response" id="student_added_response_p1"></p>
+        <p class="modal-response" id="student_added_response_p2"></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn standard-btn btn-secondary" data-dismiss="modal">Close</button>

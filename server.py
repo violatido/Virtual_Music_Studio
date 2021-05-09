@@ -109,32 +109,40 @@ def teacher_logout():
 
 
 #_______________________________view functions for student login/registration___________________________________#
-@app.route('/student-portal')
-def sign_up_student():
-    """Renders the VMS sign-up page"""
-    return render_template('student-portal.html')
 
 
-
-@app.route('/student-portal', methods=["POST"])
+@app.route('/student-portal', methods=["GET", "POST"])
 def student_login():
-    """Checks to see if student's email and password works,
+    """
+    Renders the VMS sign-up page
+
+    _OR_
+
+    Checks to see if student's email and password works,
 
     If the email/password combo is valid, the student is redirected to their profile page
-    If invalid, error message is shown"""
+    If invalid, error message is shown
+    """
 
+    # If the students didn't try to sign in
+    if not request.form:
+        return render_template('student-portal.html')
+
+
+    # Otherwise, sign in
     student_login_email = request.form.get('student_login_email')
     student_login_pw = request.form.get('student_login_pw')
 
-    checked_student = crud.verify_student(student_login_email, student_login_pw)
+    my_student = crud.verify_student(student_login_email, student_login_pw)
+
 
     # No need to query twice
-    if checked_student:
+    if my_student:
         # student_login_email = request.form.get('student_login_email')
         # student = crud.get_student_by_email(student_login_email)
-        print('******'*5, checked_student.student_id, '******'*5, sep='\n')
+        print('******'*5, my_student.student_id, '******'*5, sep='\n')
 
-        session['student_id'] = checked_student.student_id
+        session['student_id'] = my_student.student_id
         return redirect('/student-profile')
 
     else:
@@ -167,7 +175,7 @@ def add_student():
     student = crud.create_student(student_fname, student_lname, student_email, program_name, instrument, student_password, student_phone, teacher.teacher_id)
 
     if student:
-        return jsonify({'student_fname': student_fname, 'student_lname': student_lname, 'student_full_name':student.full_name})
+        return jsonify({'full_name':student.full_name, 'email':student.student_email, 'pw':student.student_password})
     else:
         return jsonify({'status': 'error, registration credentials incorrect'})
 
