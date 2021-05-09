@@ -1,35 +1,67 @@
 "use strict"
 
 //________________________________________Events for teacher registration______________________________________
-// event handler for new teacher registration 
-$('#create_teacher').on('submit', (evt) => {
+// event handler for new teacher registration
+
+// Only allow once the page is finished loading...
+document.addEventListener("DOMContentLoaded", function() {
+
+
+
+
+$('#create_teacher__submit').on('click', (evt) => {
+
     evt.preventDefault();
 
     // converts teacher registration form into an object
-    const teacherFormValues = { 
+    const teacherFormValues = {
         'teacher_fname': $('#teacher_fname').val(),
         'teacher_lname': $('#teacher_lname').val(),
         'teacher_email': $('#teacher_email').val(),
         'teacher_phone': $('#teacher_phone').val(),
         'teacher_password': $('#teacher_password').val()
-    } 
+    }
 
+    //  The following code isn't working – Reset each input on its own
+    // document.getElementById('#create_teacher').reset()
+    $('#teacher_fname').val('');
+    $('#teacher_lname').val('');
+    $('#teacher_email').val('');
+    $('#teacher_phone').val('');
+    $('#teacher_password').val('');
+
+
+    // This post isn't working 100%
     $.post('/teacher-portal-create', teacherFormValues, (res) => {
-        $('#teacher_added_response').text(
-            `Teacher profile for ${res.teacher_fname} ${res.teacher_lname} has been created!`);
+        $('#teacher_added_response_p1').text(
+            `Teacher profile for ${res.full_name} has been created!`
+          );
+          $('#teacher_added_response_p2').text(
+            `Please sign in (from the current page you're on). (We know this is a bit cumbersome.)`
+          );
+
+        // Populate the sign in form
+        $('#teacher_login_email').val(res.email);
+        $('#teacher_login_pw').val(res.pw);
+
     });
 
-    document.getElementById('#create_teacher').reset()
+
+
+
+
 
 });
 
+
+
 //________________________________________Event for student registration______________________________________
 
-// event handler for new student registration 
+// event handler for new student registration
 $('#create_student').on('submit', (evt) => {
     evt.preventDefault();
 
-    const studentFormValues = { 
+    const studentFormValues = {
         'student_fname': $('#student_fname').val(),
         'student_lname': $('#student_lname').val(),
         'student_email': $('#student_email').val(),
@@ -39,7 +71,7 @@ $('#create_student').on('submit', (evt) => {
         'instrument': $('#instrument').val(),
         'student_phone': $('#student_phone').val(),
         'student_password': $('#student_password').val()
-    } 
+    }
 
     $.post('/student-portal-create', studentFormValues, (res) => {
         $('#student_added_response').text(
@@ -57,13 +89,13 @@ $('#create_student').on('submit', (evt) => {
 $('#create_log').on('submit', (evt) => {
     evt.preventDefault();
 
-    const logFormValues = { 
+    const logFormValues = {
         'log_student_id': $('#log_student_id').val(),
         'log_date': $('#log_date').val(),
         'log_minutes_practiced': $('#log_minutes_practiced').val(),
         'log_pieces_practiced': $('#log_pieces_practiced').val(),
         'log_practice_notes': $('#log_practice_notes').val()
-    } 
+    }
     console.log(logFormValues)
     $.post('/practice-log', logFormValues, (res) => {
         $('#log_added_response').text(
@@ -81,14 +113,14 @@ $('#create_log').on('submit', (evt) => {
 $('#create_note').on('submit', (evt) => {
     evt.preventDefault();
 
-    const noteFormValues = { 
+    const noteFormValues = {
         'note_teacher_id': $('#note_teacher_id').val(),
         'note_student_name': $("#note_student_name").val(),
         'note_date': $('#note_date').val(),
         'note_time': $('#note_time').val(),
         'note_content': $('#note_content').val(),
     }
-    
+
     console.log(noteFormValues);
     $.post('/teacher-notes', noteFormValues, (res) => {
         $('#note_added_response').text(
@@ -105,11 +137,11 @@ $('#create_note').on('submit', (evt) => {
 $('#message-id').on('submit', (evt) => {
     evt.preventDefault();
 
-    const studentTexted = { 
+    const studentTexted = {
         'phone_dropdown_id': $('#phone_dropdown_id').val(),
-        'message_content': $('#message_content').val() 
+        'message_content': $('#message_content').val()
     }
-    
+
     $.post('/api/messages', studentTexted, (res) => {
         $('#sms-id').text(
             `Your message: ${res.message_content}`)
@@ -119,3 +151,5 @@ $('#message-id').on('submit', (evt) => {
 
 });
 
+
+});

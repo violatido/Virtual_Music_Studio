@@ -2,6 +2,7 @@
 
 {% block title %}Sign-up/Register{% endblock %}
 {% block body %}
+
 <body class="portal-background">
   <nav>
     <div class="row" id="nav-row">
@@ -67,7 +68,7 @@
                     <input type="password" class="form-control" id="teacher_password" placeholder="Password">
                   </div>
                   <div class="form-group col-3 d-flex justify-content-end">
-                    <button type="submit" class="btn standard-btn" data-toggle="modal" data-target="#teacher_reg_button">Submit</button>
+                    <input type="button" class="btn standard-btn" id="create_teacher__submit" data-toggle="modal" data-target="#teacher_reg_button" value="Submit">
                   </div>
                   <div class="form-group col-3 d-flex justify-content-start">
                     <button type="reset" value="reset" class="btn standard-btn">Reset</button>
@@ -92,7 +93,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <p class="modal-response" id="teacher_added_response"></p>
+        <p class="modal-response" id="teacher_added_response_p1"></p>
+        <p class="modal-response" id="teacher_added_response_p2"></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn modal-button" data-dismiss="modal">Close</button>

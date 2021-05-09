@@ -21,43 +21,64 @@ def create_homepage():
 
 #__________________________________view functions for teacher login/registration___________________________________#
 
-@app.route('/teacher-portal')
-def show_teacher_reg_login_page():
-    """Renders the Teacher registration/login page"""
+# @app.route('/teacher-portal')
+# def show_teacher_reg_login_page():
+#     """Renders the Teacher registration/login page"""
+#
+#     return render_template('teacher-portal.html')
 
-    return render_template('teacher-portal.html')
 
-@app.route('/teacher-portal', methods=["POST"])
+@app.route('/teacher-portal', methods=["GET", "POST"])
 def teacher_login():
     """
+    Renders the Teacher registration/login page
+
+    _OR_
+
     Checks to see if teacher's email and password is valid
 
     If the email/password combo is valid, the student is redirected to their profile page
     If invalid, error message is shown
     """
 
+
+
+    # If the teacher didn't try to sign in
+    if not request.form:
+        return render_template('teacher-portal.html')
+
+
+    # Otherwise, try signing them in
+
     teacher_login_email = request.form.get('teacher_login_email')
     teacher_login_pw = request.form.get('teacher_login_pw')
 
     #  No need to do it twice since you've already gotten this teacher
-    checked_teacher = crud.verify_teacher(teacher_login_email, teacher_login_pw)
+    my_teacher = crud.verify_teacher(teacher_login_email, teacher_login_pw)
 
-    if checked_teacher:
 
-        # teacher_login_email = request.form.get('teacher_login_email')
-        # teacher=crud.get_teacher_by_email(teacher_login_email)
 
-        session['teacher_id'] = checked_teacher.teacher_id
+    if my_teacher:
+
+        session['teacher_id'] = my_teacher.teacher_id
 
         return redirect('/teacher-profile')
+
     else:
         return jsonify({'status': 'error'})
+
+
+
 
 @app.route('/teacher-portal-create', methods=["POST"])
 def add_teacher():
     """Creates a new teacher with an HTML form,
 
-    if form is valid, the function adds the teacher to the teacher table"""
+    if form is valid, the function adds the teacher to the teacher table
+
+
+    .. todo: Validate form data either here or in JS to prevent bad data from being added.
+    """
 
     teacher_fname = request.form.get('teacher_fname')
     teacher_lname = request.form.get('teacher_lname')
@@ -66,12 +87,12 @@ def add_teacher():
     teacher_password = request.form.get('teacher_password')
 
     teacher = crud.create_teacher(teacher_fname, teacher_lname, teacher_email, teacher_phone, teacher_password)
-
-    if teacher == None:
+    print('*****'*10, teacher, '*****'*10, sep='\n\n')
+    if not teacher:
         return jsonify({'error': 'email already in use'})
 
     else:
-        return jsonify({'teacher_fname': teacher_fname, 'teacher_lname': teacher_lname, 'teacher_full_name':teacher.full_name})
+        return jsonify({'full_name':teacher.full_name, 'email':teacher.teacher_email, 'pw':teacher.teacher_password})
 
 
 @app.route('/teacher-logout')
@@ -212,7 +233,7 @@ def view_teacher_notes():
 
     teacher = crud.get_teacher_by_id(session['teacher_id'])
     teacher_notes = teacher.notes
-    
+
     # teacher_notes = crud.get_notes_by_teacher_id(teacher.teacher_id)
 
     return render_template('teacher-notes.html', teacher = teacher, teacher_notes = teacher_notes)

@@ -16,6 +16,9 @@ def create_teacher(teacher_fname,
                     teacher_password):
     """Creates a new teacher record"""
 
+    if not teacher_email:
+        raise ValueError(f'{teacher_email=}')
+
     # Check if email is already in use:
     if teacher := db.session.query(Teacher).filter_by(teacher_email=teacher_email).first():
         # Either return False which will cause an error – or return the teacher – in which
