@@ -1,10 +1,15 @@
 "use strict"
 
+/*
+  The code below appears to be the culprit of your issue with callbacks...
+
+*/
 const urlArr = window.location.href.split('/');
 const studentId = urlArr[urlArr.length - 1];
 
 // _________________________________________Chart 1_______________________________________________________________
 $.get(`/charts/1.json/${studentId}`, (res) => {
+
     // Minutes per day over the course of this last week
     // x-axis: the date (ex: Apr 1)
     // y-axis min/max: 0 - 150 minutes in a day
@@ -15,19 +20,19 @@ $.get(`/charts/1.json/${studentId}`, (res) => {
     // ex: [0, 0, 120, 12, 45, 35, 100]
 
     let myChart2 = document.getElementById("bar-time");
-    
+
     let colors2 = ['#424B54', '#F8B195', '#F67280', '#C06C84', '#A8A0B1', '#6C5B7B', '#355C7D'];
     let chart2 = new Chart(myChart2, {
         type: 'bar',
         data: {
-            labels: dates.reverse(), 
+            labels: dates.reverse(),
             datasets: [ {
                 data: practiceTimes.reverse(),
                 backgroundColor: colors2,
-                borderWidth: 5,            
-            }] 
+                borderWidth: 5,
+            }]
         },
-        options: {            
+        options: {
             title: {
                 text: "How many minutes did you practice per day this week?",
                 display: true,
@@ -70,7 +75,7 @@ $.get(`/charts/1.json/${studentId}`, (res) => {
                         return moment(tooltipItem.label).format('MMM D');
                     }
                 }
-        }    
+        }
     })
 });
 
@@ -84,20 +89,20 @@ $.get(`/charts/2.json/${studentId}`, (res) => {
 
     let viewDates = [
                         `${datesInMonth[6]} - ${datesInMonth[0]}`, // Feb 28 - Feb 21
-                        `${datesInMonth[13]} - ${datesInMonth[7]}`, 
-                        `${datesInMonth[20]} - ${datesInMonth[14]}`, 
+                        `${datesInMonth[13]} - ${datesInMonth[7]}`,
+                        `${datesInMonth[20]} - ${datesInMonth[14]}`,
                         `${datesInMonth[27]} - ${datesInMonth[21]}`
                     ];
-    
+
     datesPracticedInMonth.unshift(0)
 
     const countDates = (numList) => {
         let emptylist = [];
         let count = 0;
-        
+
         for (let i = 1; i < numList.length; i ++) {
             count += numList[i];
-        
+
             if (i % 7 === 0) {
                 emptylist.push(count)
                 count = 0;
@@ -105,7 +110,7 @@ $.get(`/charts/2.json/${studentId}`, (res) => {
         }
         return emptylist;
     }
-    
+
     let weeks = countDates(datesPracticedInMonth);
 
 
@@ -121,7 +126,7 @@ $.get(`/charts/2.json/${studentId}`, (res) => {
                 data: weeks.reverse(),
                 backgroundColor: colors,
                 borderWidth: 5
-            }] 
+            }]
         },
         options: {
             title: {
@@ -168,7 +173,7 @@ $.get(`/charts/2.json/${studentId}`, (res) => {
                     return moment(tooltipItem.label).format('MMM D');
                 }
             }
-        }    
+        }
     })
 });
 
@@ -183,8 +188,8 @@ $.get(`/charts/3.json/${studentId}`, (res) => {
 
     let viewDates = [
         `${datesInMonth[6]} - ${datesInMonth[0]}`, // Feb 28 - Feb 21
-        `${datesInMonth[13]} - ${datesInMonth[7]}`, 
-        `${datesInMonth[20]} - ${datesInMonth[14]}`, 
+        `${datesInMonth[13]} - ${datesInMonth[7]}`,
+        `${datesInMonth[20]} - ${datesInMonth[14]}`,
         `${datesInMonth[27]} - ${datesInMonth[21]}`
     ];
 
@@ -206,20 +211,21 @@ $.get(`/charts/3.json/${studentId}`, (res) => {
     };
 
     let minutesWeek =  countDates(minutesPerWeek);
-    console.log(minutesWeek)
-    
+    // console.log(minutesWeek)
+
+
     let colors = ['#355C7D', '#F67280', '#A8A0B1', '#424B54'];
     let myChart4 = document.getElementById("myChart4");
 
     let chart4 = new Chart(myChart4, {
         type: 'bar',
         data: {
-            labels: viewDates.reverse(), 
+            labels: viewDates.reverse(),
             datasets: [ {
                 data: minutesWeek.reverse(),
                 backgroundColor: colors,
-                borderWidth: 5,  
-            }] 
+                borderWidth: 5,
+            }]
         },
         options: {
             title: {
@@ -266,6 +272,6 @@ $.get(`/charts/3.json/${studentId}`, (res) => {
                     return moment(tooltipItem.label).format('MMM D');
                 }
             }
-        }    
+        }
     })
 });
