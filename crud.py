@@ -132,6 +132,10 @@ def verify_student(student_email, student_password):
     return Student.query.filter(Student.student_email == student_email,
             Student.student_password == student_password).first()
 
+def check_email(teacher_email):
+    """Return database row that matches given email."""
+
+    return User.query.filter(Teacher.teacher_email == teacher_email).first()
 #__________________________functions for User verification___________________________#
 def get_student_by_email(student_email):
     """Finds all student info"""

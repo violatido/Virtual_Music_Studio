@@ -33,8 +33,6 @@ def teacher_login():
     If invalid, error message is shown
     """
 
-
-
     # If the teacher didn't try to sign in
     if not request.form:
         return render_template('teacher-portal.html')
@@ -78,8 +76,7 @@ def add_teacher():
 
     teacher = crud.create_teacher(teacher_fname, teacher_lname, teacher_email, teacher_phone, teacher_password)
 
-
-    if not teacher:
+    if crud.check_teacher_email(teacher_email) != None:
         return jsonify({'error': 'email already in use'})
 
     else:

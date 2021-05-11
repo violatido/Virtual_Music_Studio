@@ -76,20 +76,27 @@ document.addEventListener("DOMContentLoaded", function() {
         //  If not attr, do nothing
         if (isEmptyObject(teacherFormValues, 'any')){
 
-        $.post('/teacher-portal', studentFormValues, (res) => {
+            $.post('/teacher-portal', studentFormValues, (res) => {
+                $('#teacher_reg_buttonTitle').text(
+                    `Registration Unsuccessful!`
+                );
 
-            $('#teacher_reg_buttonTitle').text(
-                `Registration Unsuccessful!`
-            );
-
-            $('#teacher_added_response_p1').text(
-                `No values provided.`
-            );
-        });
+                $('#teacher_added_response_p1').text(
+                    `No values provided.`
+                );
+            });
 
         // Return to escape the other stuff
         return
         }
+
+        $.post('/teacher-portal', studentFormValues, (res) => {
+            if (res === 'error: email already in use') {
+                $('#teacher_added_response_p1').text(
+                    `Error! ${res.teacher_email} is already in use!`
+                );
+            }
+        },
 
         //  The following code isn't working – Reset each input on its own
         // document.getElementById('#create_teacher').reset()
