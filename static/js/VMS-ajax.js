@@ -36,7 +36,6 @@ function isEmptyObject(o, q='any') {
 
     // If any are null
     else if (q==='any'){
-
         // Iterate through elements
         for (let key of Object.keys(o)){
             let val = o[key];
@@ -45,7 +44,6 @@ function isEmptyObject(o, q='any') {
                 return true;
             }
         }
-
     return false;
     }
 
@@ -96,10 +94,9 @@ document.addEventListener("DOMContentLoaded", function() {
         $('#teacher_phone').val('');
         $('#teacher_password').val('');
 
-        // This post isn't working 100%
         $.post('/teacher-portal-create', teacherFormValues, (res) => {
             if (res.status === 'ok') {
-                $('#teacher_added_response_p1').text(
+                $('#teacher_reg_buttonTitle').text(
                     `Teacher profile for ${res.full_name} has been created!`
                 );
                 $('#teacher_added_response_p2').text(
@@ -109,20 +106,24 @@ document.addEventListener("DOMContentLoaded", function() {
                 $('#teacher_login_email').val(res.email);
                 $('#teacher_login_pw').val(res.pw);
             }
-            else if (res.status === 'error') {
-                console.log('error')
-                $.post('/teacher-portal', teacherFormValues, (res) => {
-                    $('#teacher_reg_buttonTitle').text(
-                        `Registration Unsuccessful!`
-                    );
-    
-                    $('#teacher_added_response_p1').text(
-                        `Email already in use.`
-                    );
-                });
+            else if (res.status === 'error- email already in use') {
+                $('#teacher_reg_buttonTitle').text(
+                    `Registration Unsuccessful!`
+                );
+                $('#teacher_added_response_p2').text(
+                    `Email already in use.)`
+                );
+            }
+            else if (res.status === 'error- no teacher in database') {
+                $('#teacher_reg_buttonTitle').text(
+                    `Registration Unsuccessful!`
+                );
+                $('#teacher_added_response_p2').text(
+                    `No teacher is signed up with that email. 
+                    Please wait until your teacher makes a virtual studio before signing up!.`
+                );
             }
         });
-
     });
 
 
@@ -170,21 +171,26 @@ document.addEventListener("DOMContentLoaded", function() {
         $('#student_phone').val('');
         $('#student_password').val('');
 
-
-
         $.post('/student-portal-create', studentFormValues, (res) => {
-            $('#student_added_response_p1').text(
-                `Student profile for ${res.full_name} has been created!`
-            );
-
-            $('#student_added_response_p2').text(
-                `Please sign in (from the current page you're on). (We know this is a bit cumbersome.)`
-            );
-
-            // Populate the sign in form
-            $('#student_login_email').val(res.email);
-            $('#student_login_pw').val(res.pw);
-
+            if (res.status === 'ok') {
+                $('#student_reg_buttonTitle').text(
+                    `Student profile for ${res.full_name} has been created!`
+                );
+                $('#student_added_response_p2').text(
+                    `Please sign in (from the current page you're on). (We know this is a bit cumbersome.)`
+                );
+                // Populate the sign in form
+                $('#student_login_email').val(res.email);
+                $('#student_login_pw').val(res.pw);
+            }
+            else if (res.status === 'error') {
+                $('#student_reg_buttonTitle').text(
+                    `Registration unsuccessful!`
+                );
+                $('#student_added_response_p2').text(
+                    `Email already in use.)`
+                ); 
+            }
         });
 
     });
