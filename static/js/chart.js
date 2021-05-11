@@ -211,7 +211,6 @@ $.get(`/charts/3.json/${studentId}`, (res) => {
     };
 
     let minutesWeek =  countDates(minutesPerWeek);
-    // console.log(minutesWeek)
 
 
     let colors = ['#355C7D', '#F67280', '#A8A0B1', '#424B54'];

@@ -134,7 +134,6 @@ def student_login():
         return jsonify({'status': 'error, login credentials incorrect'})
 
 
-
 @app.route('/student-portal-create', methods=['POST'])
 def add_student():
     """
@@ -310,10 +309,13 @@ def list_logs_by_student(student_id):
     student = crud.get_student_by_id(student_id)
     student_logs = student.logs
 
-    # don't need to pass in teacher for listing only
-    # teacher = crud.get_teacher_by_id(session["teacher_id"]) 
+    # don't need to pass in teacher for listing only?/
+    if "teacher_id" in session:
+        teacher = crud.get_teacher_by_id(session["teacher_id"]) 
+    else:
+        teacher = None
 
-    return render_template('charts.html', student= student, student_logs=student_logs)
+    return render_template('charts.html', student= student, teacher=teacher, student_logs=student_logs)
 
 #____________________________________functions for viewing/seeding data charts___________________________________#
 @app.route('/charts/<student_id>')
@@ -394,7 +396,6 @@ def seed_chart_one(student_id):
     #2021-02-28 21:05:57,764 INFO sqlalchemy.engine.base.Engine {'log_date_1': datetime.date(2021, 2, 23), 'param_1': 1}
     data['minutes_practiced'] = [min_prac for dt, min_prac in minutes_practiced]
     #[('2021-2-28', 0), ('2021-2-27', 0), ('2021-2-26', 120), ('2021-2-25', 12), ('2021-2-24', 45), ('2021-2-23', 35), ('2021-2-22', 100)]
-
 
 
     return jsonify(data)

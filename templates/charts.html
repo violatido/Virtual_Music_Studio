@@ -13,10 +13,10 @@
         <div class="row nav-row">
             <div class="col-12 d-flex justify-content-between left-nav-col">
                 <a class="arch btn btn-lg home-btn-2" href="/">Virtual Music Studio</a>
-                {% if student %}
-                    <a class="btn btn-lg profile-return-btn " href="/student-profile">Return to Profile</a>
-                {% else %}
-                    <a class="btn btn-lg profile-return-btn " href="/teacher-profile">Return to Profile</a>
+                {% if teacher %}
+                    <a class="btn btn-lg profile-return-btn " href="/teacher-profile">Return to teacher Profile</a>
+                {% elif student %}
+                    <a class="btn btn-lg profile-return-btn " href="/student-profile">Return to student Profile</a>
                 {% endif %}
             </div>
         </div>
