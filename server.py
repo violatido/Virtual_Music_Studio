@@ -20,13 +20,6 @@ def create_homepage():
 
 #__________________________________view functions for teacher login/registration___________________________________#
 
-# @app.route('/teacher-portal')
-# def show_teacher_reg_login_page():
-#     """Renders the Teacher registration/login page"""
-#
-#     return render_template('teacher-portal.html')
-
-
 @app.route('/teacher-portal', methods=["GET", "POST"])
 def teacher_login():
     """
@@ -65,8 +58,6 @@ def teacher_login():
 
     else:
         return jsonify({'status': 'error'})
-
-
 
 
 @app.route('/teacher-portal-create', methods=["POST"])
@@ -222,13 +213,13 @@ def go_to_student_profile(student_id):
 def go_to_student_logs(student_id):
     """ Lets a teacher see each of their students's practice log history and data"""
 
-    # teacher = crud.get_teacher_by_id(session['teacher_id'])
+    teacher = crud.get_teacher_by_id(session['teacher_id'])
     student = crud.get_student_by_id(student_id)
 
     # Get the student's logs through the relationship
     student_logs = student.logs
 
-    return render_template('charts.html', student = student, student_logs = student_logs)
+    return render_template('charts.html', student = student, teacher=teacher, student_logs = student_logs)
 
 #______________________________________functions for adding teacher notes________________________________________#
 # @app.route('/teacher-notes')
