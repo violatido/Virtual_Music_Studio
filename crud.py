@@ -57,13 +57,12 @@ def create_student(student_fname,
                         instrument=instrument,
                         student_password=student_password,
                         student_phone=student_phone,
-                        teacher_id=teacher_id # easier to pass primary keys than entire objects
+                        teacher_id=teacher_id
                         )
 
     db.session.add(student)
     db.session.commit()
 
-    # If you have issues with the student's data, consider refreshing the student object
     return student
 
 def create_log(log_date,

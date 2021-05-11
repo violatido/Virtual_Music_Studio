@@ -136,17 +136,20 @@ def add_student():
     student_phone = request.form.get('student_phone')
 
     # # Get the student's teacher
-    # teacher = crud.get_teacher_by_email(private_teacher_email)
+    teacher = crud.get_teacher_by_email(private_teacher_email)
     # # What happens if the teacher doesn't exist?
     # assert teacher
 
+    # error: student won't print because email already in db- why doesn't this happen with teacher?
+
     student = crud.create_student(student_fname, student_lname, student_email, program_name, instrument, student_password, student_phone, teacher.teacher_id)
+    print('******** \n' * 10, student)
 
     if crud.check_student_email(student_email) == None:
         return jsonify({'status': 'ok', 'full_name':student.full_name, 'email':student.student_email, 'pw':student.student_password})
-    elif crud.get_teacher_by_email(private_teacher_email) == None:
+    elif teacher == None:
         return ({'status': 'error- no teacher in database'})
-    else:
+    elif crud.check_student_email(student_email) != None:
         return jsonify({'status': 'error- email already in use'})
 
 @app.route('/student-logout')
