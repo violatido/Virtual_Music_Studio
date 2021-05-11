@@ -66,8 +66,6 @@ def create_student(student_fname,
     # If you have issues with the student's data, consider refreshing the student object
     return student
 
-
-
 def create_log(log_date,
                 student_id,
                 minutes_practiced,

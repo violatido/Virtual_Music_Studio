@@ -1,7 +1,5 @@
 "use strict"
 
-//________________________________________Events for teacher registration______________________________________
-// event handler for new teacher registration
 
 function isEmptyObject(o, q='any') {
     /*
@@ -57,6 +55,9 @@ function isEmptyObject(o, q='any') {
 
 // Form submission only allowed once the page is finished loading...
 document.addEventListener("DOMContentLoaded", function() {
+
+    //________________________________________Events for teacher registration______________________________________
+// event handler for new teacher registration
 
 
     $('#create_teacher__submit').on('click', (evt) => {
@@ -218,7 +219,6 @@ document.addEventListener("DOMContentLoaded", function() {
         $('#log_practice_notes').val('');
 
     });
-
 
 
 

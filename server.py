@@ -222,13 +222,13 @@ def go_to_student_profile(student_id):
 def go_to_student_logs(student_id):
     """ Lets a teacher see each of their students's practice log history and data"""
 
-    teacher = crud.get_teacher_by_id(session['teacher_id'])
+    # teacher = crud.get_teacher_by_id(session['teacher_id'])
     student = crud.get_student_by_id(student_id)
 
     # Get the student's logs through the relationship
     student_logs = student.logs
 
-    return render_template('charts.html', student = student, teacher = teacher, student_logs = student_logs)
+    return render_template('charts.html', student = student, student_logs = student_logs)
 
 #______________________________________functions for adding teacher notes________________________________________#
 # @app.route('/teacher-notes')
@@ -256,31 +256,23 @@ def add_note():
     if the note form is valid, the session adds the note to the note table
     """
 
+    # if the form wasn't posted, do this:
     if not request.form:
         teacher = crud.get_teacher_by_id(session['teacher_id'])
         teacher_notes = teacher.notes
 
-        # teacher_notes = crud.get_notes_by_teacher_id(teacher.teacher_id)
-
         return render_template('teacher-notes.html', teacher = teacher, teacher_notes = teacher_notes)
-
-
 
     # Otherwise
     note_teacher_id = (session['teacher_id'])
     note_student_name = request.form.get('note_student_name')
-
-
-    # Consider combining the 2 into one field
     note_date = request.form.get('note_date')
     note_time = request.form.get('note_time')
-
     note_content = request.form.get('note_content')
 
     # Combine the 2! – will parse provided objects into a datetime object
     note_created_at = datetime.strptime(note_date + ' ' + note_time, '%Y-%m-%d %H:%M')
 
-    # Create your note
     note = crud.create_note(note_teacher_id, note_student_name, note_created_at, note_content)
 
     return jsonify({'status': 'ok', 'note_date': note.note_created_at})
@@ -331,9 +323,9 @@ def list_logs_by_student(student_id):
 
     student = crud.get_student_by_id(student_id)
     student_logs = student.logs
-    teacher = crud.get_teacher_by_id(session["teacher_id"])
+    # teacher = crud.get_teacher_by_id(session["teacher_id"])
 
-    return render_template('charts.html', student= student, teacher=teacher, student_logs=student_logs)
+    return render_template('charts.html', student= student, student_logs=student_logs)
 
 #____________________________________functions for viewing/seeding data charts___________________________________#
 @app.route('/charts/<student_id>')
