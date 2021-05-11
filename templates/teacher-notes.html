@@ -29,10 +29,16 @@
           <div class="col-12" id="teacher_note_form">
             <form id="create_note">
               <div class="form-row">
-                <div class="form-group col-6 col-sm-3">
+                <!-- <div class="form-group col-6 col-sm-3">
                   <label for="note_student_name">Student Name</label>
                   <input type="text" class="form-control" id="note_student_name" placeholder="Student Name">
-                </div>
+                </div> -->
+                <select class="form-group col-6 col-sm-3" id="note_student_name">
+                  <option>Student Name</option>
+                {% for student in teacher.students %}
+                  <option value={{ student.student_id }} >{{ student.full_name }}</option>
+                {% endfor %}
+                </select>
                 <div class="form-group col-5 col-sm-4">
                   <label for="note_date">Date</label>
                   <input type="date" class="form-control" id="note_date" placeholder="">
@@ -41,10 +47,6 @@
                   <label for="note_time">Time</label>
                   <input type="time" class="form-control" id="note_time" placeholder="">
                 </div>
-                <!-- <div div class="form-group col-6 col-sm-6">
-                  <label for="note_created_at">Date and time</label>
-                  <input type="datetime-local" class="form-control" id="note_created_at" placeholder="">
-                </div> -->
                 <div class="form-group col-2 col-sm-2 d-flex justify-content-center align-items-end">
                   <button type="submit" class="btn standard-btn" data-toggle="modal" data-target="#teacher_note_button">Submit</button>
                 </div>

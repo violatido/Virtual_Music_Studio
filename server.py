@@ -234,12 +234,12 @@ def go_to_student_logs(student_id):
 # @app.route('/teacher-notes')
 # def view_teacher_notes():
 #     """Renders the VMS teacher notes page and note history"""
-#
+
 #     teacher = crud.get_teacher_by_id(session['teacher_id'])
 #     teacher_notes = teacher.notes
-#
+
 #     # teacher_notes = crud.get_notes_by_teacher_id(teacher.teacher_id)
-#
+
 #     return render_template('teacher-notes.html', teacher = teacher, teacher_notes = teacher_notes)
 
 
@@ -249,7 +249,6 @@ def add_note():
     Renders the VMS teacher notes page and note history
 
     _OR_
-
 
     Creates a new lesson note
 
@@ -265,7 +264,7 @@ def add_note():
 
     # Otherwise
     note_teacher_id = (session['teacher_id'])
-    note_student_name = request.form.get('note_student_name')
+    student_id = request.form.get('note_student_name')
     note_date = request.form.get('note_date')
     note_time = request.form.get('note_time')
     note_content = request.form.get('note_content')
@@ -273,8 +272,8 @@ def add_note():
     # Combine the 2! – will parse provided objects into a datetime object
     note_created_at = datetime.strptime(note_date + ' ' + note_time, '%Y-%m-%d %H:%M')
 
-    note = crud.create_note(note_teacher_id, note_student_name, note_created_at, note_content)
-
+    note = crud.create_note(note_teacher_id, student_id, note_created_at, note_content)
+    
     return jsonify({'status': 'ok', 'note_date': note.note_created_at})
 
 #______________________________________functions for adding practice logs________________________________________#
@@ -516,13 +515,9 @@ def send_message():
     if os.environ.get('TESTING'):
         return jsonify({'message_content': text_message_content})
 
-
     account_sid = os.environ.get('ACCOUNT_SID')
     auth_token = os.environ.get('AUTH_TOKEN')
     client = Client(account_sid, auth_token)
-
-
-
 
     client.messages.create(
                     body=text_message_content, # text message content goes here

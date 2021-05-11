@@ -86,7 +86,7 @@ def create_log(log_date,
     return log
 
 def create_note(teacher_id,
-                note_student_name,
+                student_id,
                 note_created_at,
                 note_content):
 
@@ -94,18 +94,18 @@ def create_note(teacher_id,
 
     # Allows querying of student by full name – Hopefull this works!
     # Querying by hybrid attribute doesn't seem to be working unfortunately
-    student_id = db.session.query(Student.student_id)\
-        .filter(
-            func.concat(
-                Student.student_fname,
-                ' ',
-                Student.student_lname
-            ) == note_student_name
-        ).first()
+    # student_id = db.session.query(Student.student_id)\
+    #     .filter(
+    #         func.concat(
+    #             Student.student_fname,
+    #             ' ',
+    #             Student.student_lname
+    #         ) == note_student_name
+    #     ).first()
 
     # Only allow if student id exists
-    if not student_id:
-        return None
+    # if not student_id:
+    #     return None
 
     note = Note(teacher_id=teacher_id,
                 student_id=student_id,

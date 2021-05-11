@@ -221,7 +221,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 
-
     //_________________________________________Event for lesson notes___________________________________________________
 
     // event handler for creating new lesson notes
