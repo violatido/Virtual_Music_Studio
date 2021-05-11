@@ -204,8 +204,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     }
 
-
-        // console.log(logFormValues)
         $.post('/practice-log', logFormValues, (res) => {
             $('#log_added_response').text(
                 `Log for ${res.log_date} has been saved!`
@@ -248,7 +246,6 @@ document.addEventListener("DOMContentLoaded", function() {
         return {}
         }
 
-        // console.log(noteFormValues);
         $.post('/teacher-notes', noteFormValues, (res) => {
             $('#note_added_response').text(
                 `New lesson note has been submitted!`

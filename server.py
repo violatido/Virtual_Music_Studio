@@ -89,8 +89,6 @@ def add_teacher():
 @app.route('/teacher-logout')
 def teacher_logout():
 
-    print(session) # YB: Is there a reason we're printing this?
-
     if session['teacher_id']:
         session.pop('teacher_id')
         return redirect('/')
@@ -168,8 +166,6 @@ def add_student():
 
 @app.route('/student-logout')
 def student_logout():
-
-    # print(session)
 
     if session['student_id']: # shouldn't this be `if 'student_id' in session` ?
         session.pop('student_id')
@@ -297,7 +293,6 @@ def view_log_page():
 
     return jsonify({'status': 'ok', 'log_date': log_date})
 
-
 #____________________________________functions for viewing past logs by student id________________________________#
 @app.route('/charts')
 def view_student_logs():
@@ -305,6 +300,7 @@ def view_student_logs():
 
     student = crud.get_student_by_id(session['student_id'])
     teacher = crud.get_teacher_by_id(session["teacher_id"])
+
     return render_template('charts.html', student=student, teacher=teacher)
 
 @app.route('/charts/<student_id>')
@@ -313,7 +309,9 @@ def list_logs_by_student(student_id):
 
     student = crud.get_student_by_id(student_id)
     student_logs = student.logs
-    # teacher = crud.get_teacher_by_id(session["teacher_id"])
+
+    # don't need to pass in teacher for listing only
+    # teacher = crud.get_teacher_by_id(session["teacher_id"]) 
 
     return render_template('charts.html', student= student, student_logs=student_logs)
 
@@ -333,8 +331,6 @@ def seed_chart_one(student_id):
         * `student_id` value is being passed as "teacher-portal"
         * ^ Is becaause ajax was being triggered on every page, not only charts
     """
-
-    # print('*********'*10, student_id, '*********'*10, sep='\n')
 
     if not student_id:
         raise ValueError(f'{student_id=}')
@@ -399,7 +395,7 @@ def seed_chart_one(student_id):
     data['minutes_practiced'] = [min_prac for dt, min_prac in minutes_practiced]
     #[('2021-2-28', 0), ('2021-2-27', 0), ('2021-2-26', 120), ('2021-2-25', 12), ('2021-2-24', 45), ('2021-2-23', 35), ('2021-2-22', 100)]
 
-    # print('*******'*10, data, '*******'*10, sep='\n')
+
 
     return jsonify(data)
 
@@ -453,8 +449,6 @@ def seed_chart_three(student_id):
     elif 'teacher_id' in session:
         teacher = crud.get_teacher_by_id(session['teacher_id'])
         valid_students = teacher.get_student_ids()
-
-        # print('****' * 5, student_id, '****' * 5, sep='\n')
 
         if int(student_id or 0) in valid_students:
             crud.get_logs_by_student_id
