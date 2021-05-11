@@ -136,6 +136,11 @@ def check_teacher_email(teacher_email):
     """Return database row that matches given email."""
 
     return Teacher.query.filter(Teacher.teacher_email == teacher_email).first()
+
+def check_student_email(student_email):
+    """Return database row that matches given email."""
+
+    return Student.query.filter(Student.student_email == student_email).first()
 #__________________________functions for User verification___________________________#
 def get_student_by_email(student_email):
     """Finds all student info"""
