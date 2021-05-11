@@ -76,11 +76,10 @@ def add_teacher():
 
     teacher = crud.create_teacher(teacher_fname, teacher_lname, teacher_email, teacher_phone, teacher_password)
 
-    if crud.check_teacher_email(teacher_email) != None:
-        return jsonify({'error': 'email already in use'})
-
+    if crud.check_teacher_email(teacher_email) == None:
+        return jsonify({'status': 'ok', 'full_name':teacher.full_name, 'email':teacher.teacher_email, 'pw':teacher.teacher_password})
     else:
-        return jsonify({'full_name':teacher.full_name, 'email':teacher.teacher_email, 'pw':teacher.teacher_password})
+        return jsonify({'status': 'error'})
 
 
 @app.route('/teacher-logout')

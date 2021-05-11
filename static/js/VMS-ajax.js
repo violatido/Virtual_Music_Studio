@@ -44,7 +44,6 @@ function isEmptyObject(o, q='any') {
             if (val==='' || val===null){
                 return true;
             }
-
         }
 
     return false;
@@ -58,7 +57,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //________________________________________Events for teacher registration______________________________________
 // event handler for new teacher registration
-
 
     $('#create_teacher__submit').on('click', (evt) => {
 
@@ -76,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
         //  If not attr, do nothing
         if (isEmptyObject(teacherFormValues, 'any')){
 
-            $.post('/teacher-portal', studentFormValues, (res) => {
+            $.post('/teacher-portal', teacherFormValues, (res) => {
                 $('#teacher_reg_buttonTitle').text(
                     `Registration Unsuccessful!`
                 );
@@ -90,14 +88,6 @@ document.addEventListener("DOMContentLoaded", function() {
         return
         }
 
-        $.post('/teacher-portal', studentFormValues, (res) => {
-            if (res === 'error: email already in use') {
-                $('#teacher_added_response_p1').text(
-                    `Error! ${res.teacher_email} is already in use!`
-                );
-            }
-        });
-
         //  The following code isn't working – Reset each input on its own
         // document.getElementById('#create_teacher').reset()
         $('#teacher_fname').val('');
@@ -108,16 +98,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // This post isn't working 100%
         $.post('/teacher-portal-create', teacherFormValues, (res) => {
-            $('#teacher_added_response_p1').text(
-                `Teacher profile for ${res.full_name} has been created!`
-            );
-            $('#teacher_added_response_p2').text(
-                `Please sign in (from the current page you're on). (We know this is a bit cumbersome.)`
-            );
-
-            // Populate the sign in form
-            $('#teacher_login_email').val(res.email);
-            $('#teacher_login_pw').val(res.pw);
+            if (res.status === 'ok') {
+                $('#teacher_added_response_p1').text(
+                    `Teacher profile for ${res.full_name} has been created!`
+                );
+                $('#teacher_added_response_p2').text(
+                    `Please sign in (from the current page you're on). (We know this is a bit cumbersome.)`
+                );
+                // Populate the sign in form
+                $('#teacher_login_email').val(res.email);
+                $('#teacher_login_pw').val(res.pw);
+            }
+            else if (res.status === 'error') {
+                console.log('error')
+                $.post('/teacher-portal', teacherFormValues, (res) => {
+                    $('#teacher_reg_buttonTitle').text(
+                        `Registration Unsuccessful!`
+                    );
+    
+                    $('#teacher_added_response_p1').text(
+                        `Email already in use.`
+                    );
+                });
+            }
         });
 
     });
