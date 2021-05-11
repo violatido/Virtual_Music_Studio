@@ -133,7 +133,7 @@ class Note(db.Model):
 
 def connect_to_db(flask_app, echo=True):
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:@localhost:5433/postgres'
-    flask_app.config['SQLALCHEMY_ECHO'] = echo
+    flask_app.config['SQLALCHEMY_ECHO'] = False
     flask_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.app = flask_app

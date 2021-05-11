@@ -201,7 +201,6 @@ def view_student_profile():
     return render_template('student-profile.html', student = student, teacher = teacher)
 
 
-
 @app.route('/teacher-profile')
 def view_teacher_profile():
     """Renders the profile page for the teacher in session"""
@@ -228,7 +227,6 @@ def go_to_student_logs(student_id):
 
     # Get the student's logs through the relationship
     student_logs = student.logs
-    # student_logs = crud.get_logs_by_student_id(student_id)
 
     return render_template('charts.html', student = student, teacher = teacher, student_logs = student_logs)
 
@@ -306,7 +304,6 @@ def view_log_page():
     if not request.form:
         return jsonify({'status':'error', 'log_date':None})
 
-
     # Otherwise
     log_student_id = (session['student_id'])
     log_date = request.form.get('log_date')
@@ -325,8 +322,8 @@ def view_student_logs():
     """Renders page for viewing past logs for individual student"""
 
     student = crud.get_student_by_id(session['student_id'])
-
-    return render_template('charts.html', student=student)
+    teacher = crud.get_teacher_by_id(session["teacher_id"])
+    return render_template('charts.html', student=student, teacher=teacher)
 
 @app.route('/charts/<student_id>')
 def list_logs_by_student(student_id):
@@ -334,11 +331,9 @@ def list_logs_by_student(student_id):
 
     student = crud.get_student_by_id(student_id)
     student_logs = student.logs
+    teacher = crud.get_teacher_by_id(session["teacher_id"])
 
-    # student_logs = crud.get_logs_by_student_id(student.student_id)
-
-
-    return render_template('charts.html', student= student, student_logs=student_logs)
+    return render_template('charts.html', student= student, teacher=teacher, student_logs=student_logs)
 
 #____________________________________functions for viewing/seeding data charts___________________________________#
 @app.route('/charts/<student_id>')
