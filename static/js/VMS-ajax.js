@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     `Error! ${res.teacher_email} is already in use!`
                 );
             }
-        },
+        });
 
         //  The following code isn't working – Reset each input on its own
         // document.getElementById('#create_teacher').reset()
