@@ -13,6 +13,7 @@ from utils.cipher import hash_input
 app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
+connect_to_db(app)
 
 #____________________________________________homepage functions_________________________________________________#
 
@@ -507,5 +508,5 @@ def send_message():
 #_________________________________________________________________________________________________#
 
 if __name__ == '__main__':
-    connect_to_db(app)
+    # connect_to_db(app)
     app.run(host='0.0.0.0', port=5001, debug=True)
