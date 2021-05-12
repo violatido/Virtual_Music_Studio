@@ -7,6 +7,8 @@ import crud
 from jinja2 import StrictUndefined
 from twilio.rest import Client
 
+from hashlib import sha256
+
 app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
@@ -18,7 +20,11 @@ def create_homepage():
     """Renders the VMS homepage"""
     return render_template('homepage.html')
 
+def hash_input(password):
+    return sha256(password.encode('utf-8')).hexdigest()
+
 #__________________________________view functions for teacher login/registration___________________________________#
+
 
 @app.route('/teacher-portal', methods=["GET", "POST"])
 def teacher_login():
@@ -42,7 +48,7 @@ def teacher_login():
     teacher_login_pw = request.form.get('teacher_login_pw')
 
     #  No need to do it twice since you've already gotten this teacher
-    my_teacher = crud.verify_teacher(teacher_login_email, teacher_login_pw)
+    my_teacher = crud.verify_teacher(teacher_login_email, hash_input(teacher_login_pw))
 
     if my_teacher:
         session['teacher_id'] = my_teacher.teacher_id
@@ -67,7 +73,7 @@ def add_teacher():
     teacher_phone = request.form.get('teacher_phone')
     teacher_password = request.form.get('teacher_password')
 
-    teacher = crud.create_teacher(teacher_fname, teacher_lname, teacher_email, teacher_phone, teacher_password)
+    teacher = crud.create_teacher(teacher_fname, teacher_lname, teacher_email, teacher_phone, hash_input(teacher_password))
 
     if crud.check_teacher_email(teacher_email) == None:
         return jsonify({'status': 'ok', 'full_name':teacher.full_name, 'email':teacher.teacher_email, 'pw':teacher.teacher_password})
@@ -108,7 +114,7 @@ def student_login():
     student_login_email = request.form.get('student_login_email')
     student_login_pw = request.form.get('student_login_pw')
 
-    my_student = crud.verify_student(student_login_email, student_login_pw)
+    my_student = crud.verify_student(student_login_email, hash_input(student_login_pw))
 
 
     # No need to query twice
@@ -140,7 +146,7 @@ def add_student():
     # # What happens if the teacher doesn't exist?
     # assert teacher
 
-    student = crud.create_student(student_fname, student_lname, student_email, program_name, instrument, student_password, student_phone, teacher.teacher_id)
+    student = crud.create_student(student_fname, student_lname, student_email, program_name, instrument, hash_input(student_password), student_phone, teacher.teacher_id)
 
     if crud.check_student_email(student_email) == None:
         return jsonify({'status': 'ok', 'full_name':student.full_name, 'email':student.student_email, 'pw':student.student_password})
