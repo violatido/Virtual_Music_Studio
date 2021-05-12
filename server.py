@@ -7,7 +7,8 @@ import crud
 from jinja2 import StrictUndefined
 from twilio.rest import Client
 
-from hashlib import sha256
+#import custom func
+from utils.cipher import hash_input
 
 app = Flask(__name__)
 app.secret_key = "dev"
@@ -20,8 +21,6 @@ def create_homepage():
     """Renders the VMS homepage"""
     return render_template('homepage.html')
 
-def hash_input(password):
-    return sha256(password.encode('utf-8')).hexdigest()
 
 #__________________________________view functions for teacher login/registration___________________________________#
 

@@ -85,6 +85,12 @@ export TWILIO_PHONE = ''
 ```
 4. Run in the terminal: source secrets.sh
 
+## **Troubleshooting**
+
+If you make changes to the database and you want to drop and recreate it:
+* drop the current database (this gets rid of everything):`DROP SCHEMA public CASCADE;`
+* create an empty schema where the database will populate: `CREATE SCHEMA public;`
+* run [`seed.py`](seed.py) to populate the database: `python seed.py --createdb --dropdb --seed_data`
 
 ## **Future Features**
 * Google Calendar API to allow students and teachers to including their calendars in their profiles for quick lesson scheduling

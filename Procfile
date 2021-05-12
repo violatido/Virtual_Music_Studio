@@ -1,0 +1,1 @@
+web: gunicorn python3:server.py --port=$PORT

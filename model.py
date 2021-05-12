@@ -1,4 +1,6 @@
 """ Define Model Classes For Virtual Music Studio App """
+import os
+
 import deprecation
 
 from flask_sqlalchemy import SQLAlchemy
@@ -22,7 +24,7 @@ class Teacher(db.Model):
     teacher_lname = db.Column(db.String(25), nullable=False)
     teacher_email = db.Column(db.String(50), nullable=False, unique=True)
     teacher_phone = db.Column(db.String(25))
-    teacher_password = db.Column(db.String(50), nullable=False)
+    teacher_password = db.Column(db.String, nullable=False)
 
     students = db.relationship('Student')
     student_ids = association_proxy('students', 'student_id',
@@ -67,7 +69,7 @@ class Student(db.Model):
     student_fname = db.Column(db.String(25), nullable=False)
     student_lname = db.Column(db.String(25), nullable=False)
     student_email = db.Column(db.String(50), nullable=False, unique=True)
-    student_password = db.Column(db.String(50), nullable=False)
+    student_password = db.Column(db.String, nullable=False)
     program_name = db.Column(db.String(50))
     instrument = db.Column(db.String(25), nullable=False)
     student_phone = db.Column(db.String(25))
@@ -131,7 +133,7 @@ class Note(db.Model):
 
 
 def connect_to_db(flask_app, echo=True):
-    flask_app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:@localhost:5433/postgres'
+    flask_app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URI', 'postgresql://postgres:@localhost:5433/postgres')
     flask_app.config['SQLALCHEMY_ECHO'] = False
     flask_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
