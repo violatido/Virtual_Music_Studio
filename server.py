@@ -1,59 +1,65 @@
 """Server for Virtual Music Studio app."""
 import os
 from flask import (Flask, render_template, request, flash, session, redirect, jsonify)
-from model import connect_to_db 
+from model import connect_to_db, db, Student, Teacher
 from datetime import datetime, timedelta
-import crud 
-from jinja2 import StrictUndefined 
+import crud
+from jinja2 import StrictUndefined
 from twilio.rest import Client
 
 app = Flask(__name__)
 app.secret_key = "dev"
-app.jinja_env.undefined = StrictUndefined 
+app.jinja_env.undefined = StrictUndefined
 
 #____________________________________________homepage functions_________________________________________________#
 
 @app.route('/')
 def create_homepage():
     """Renders the VMS homepage"""
-    
     return render_template('homepage.html')
 
 #__________________________________view functions for teacher login/registration___________________________________#
 
-@app.route('/teacher-portal')
-def show_teacher_reg_login_page():
-    """Renders the Teacher registration/login page"""
-
-    return render_template('teacher-portal.html')
-
-@app.route('/teacher-portal', methods=["POST"])
+@app.route('/teacher-portal', methods=["GET", "POST"])
 def teacher_login():
-    """Checks to see if teacher's email and password is valid
-    
-    If the email/password combo is valid, the student is redirected to their profile page
-    If invalid, error message is shown"""
+    """
+    Renders the Teacher registration/login page
 
+    _OR_
+
+    Checks to see if teacher's email and password is valid
+
+    If the email/password combo is valid, the student is redirected to their profile page
+    If invalid, error message is shown
+    """
+
+    # If the teacher didn't try to sign in
+    if not request.form:
+        return render_template('teacher-portal.html')
+
+    # Otherwise, try signing them in
     teacher_login_email = request.form.get('teacher_login_email')
     teacher_login_pw = request.form.get('teacher_login_pw')
 
-    checked_teacher = crud.verify_teacher(teacher_login_email, teacher_login_pw)
+    #  No need to do it twice since you've already gotten this teacher
+    my_teacher = crud.verify_teacher(teacher_login_email, teacher_login_pw)
 
-    if checked_teacher:
-        teacher_login_email = request.form.get('teacher_login_email')
-        
-        teacher=crud.get_teacher_by_email(teacher_login_email)
-        session['teacher_id'] = teacher.teacher_id
-
+    if my_teacher:
+        session['teacher_id'] = my_teacher.teacher_id
         return redirect('/teacher-profile')
+
     else:
         return jsonify({'status': 'error'})
 
 @app.route('/teacher-portal-create', methods=["POST"])
 def add_teacher():
-    """Creates a new teacher with an HTML form, 
-    
-    if form is valid, the function adds the teacher to the teacher table"""
+    """Creates a new teacher with an HTML form,
+
+    if form is valid, the function adds the teacher to the teacher table
+
+
+    .. todo: Validate form data either here or in JS to prevent bad data from being added.
+    """
 
     teacher_fname = request.form.get('teacher_fname')
     teacher_lname = request.form.get('teacher_lname')
@@ -63,55 +69,62 @@ def add_teacher():
 
     teacher = crud.create_teacher(teacher_fname, teacher_lname, teacher_email, teacher_phone, teacher_password)
 
-    if teacher == None:
-        return jsonify({'error': 'email already in use'})
-    else: 
-        return jsonify({'teacher_fname': teacher_fname, 'teacher_lname': teacher_lname})
+    if crud.check_teacher_email(teacher_email) == None:
+        return jsonify({'status': 'ok', 'full_name':teacher.full_name, 'email':teacher.teacher_email, 'pw':teacher.teacher_password})
+    else:
+        return jsonify({'status': 'error'})
 
-@app.route('/teacher-logout') 
-def teacher_logout(): 
-    print(session) 
-    if session['teacher_id']: 
-        session.pop('teacher_id') 
-        return redirect('/') 
-    else: 
-        session.clear() 
-        
+@app.route('/teacher-logout')
+def teacher_logout():
+
+    if session['teacher_id']:
+        session.pop('teacher_id')
+        return redirect('/')
+
+    else:
+        session.clear()
 
 #_______________________________view functions for student login/registration___________________________________#
-@app.route('/student-portal')
-def sign_up_student():
-    """Renders the VMS sign-up page"""
 
-    return render_template('student-portal.html')
-
-@app.route('/student-portal', methods=["POST"])
+@app.route('/student-portal', methods=["GET", "POST"])
 def student_login():
-    """Checks to see if student's email and password works, 
-        
-    If the email/password combo is valid, the student is redirected to their profile page
-    If invalid, error message is shown"""
+    """
+    Renders the VMS sign-up page
 
+    _OR_
+
+    Checks to see if student's email and password works,
+
+    If the email/password combo is valid, the student is redirected to their profile page
+    If invalid, error message is shown
+    """
+
+    # If the students didn't try to sign in
+    if not request.form:
+        return render_template('student-portal.html')
+
+
+    # Otherwise, sign in
     student_login_email = request.form.get('student_login_email')
     student_login_pw = request.form.get('student_login_pw')
 
-    checked_student = crud.verify_student(student_login_email, student_login_pw)
+    my_student = crud.verify_student(student_login_email, student_login_pw)
 
-    if checked_student:
-        student_login_email = request.form.get('student_login_email')
-        
-        student = crud.get_student_by_email(student_login_email)
-        session['student_id']=student.student_id
 
+    # No need to query twice
+    if my_student:
+        session['student_id'] = my_student.student_id
         return redirect('/student-profile')
+
     else:
         return jsonify({'status': 'error, login credentials incorrect'})
 
 @app.route('/student-portal-create', methods=['POST'])
 def add_student():
-    """Creates a new student with an html form, 
-    
-    if form is valid, the function adds the student to the student table"""
+    """
+    Creates a new student with an html form,
+    if form is valid, the function adds the student to the student table
+    """
 
     student_fname = request.form.get('student_fname')
     student_lname = request.form.get('student_lname')
@@ -121,32 +134,44 @@ def add_student():
     instrument = request.form.get('instrument')
     student_password = request.form.get('student_password')
     student_phone = request.form.get('student_phone')
-    teacher = crud.get_teacher_by_email(private_teacher_email)
 
-    student = crud.create_student(student_fname, student_lname, student_email, program_name, instrument, student_password, student_phone, teacher)
+    # # Get the student's teacher
+    # teacher = crud.get_teacher_by_email(private_teacher_email)
+    # # What happens if the teacher doesn't exist?
+    # assert teacher
 
-    if student:
-        return jsonify({'student_fname': student_fname, 'student_lname': student_lname})
-    else: 
-        return jsonify({'status': 'error, registration credentials incorrect'})
+    student = crud.create_student(student_fname, student_lname, student_email, program_name, instrument, student_password, student_phone, teacher.teacher_id)
 
-@app.route('/student-logout') 
-def student_logout(): 
-    print(session) 
-    if session['student_id']: 
-        session.pop('student_id') 
-        return redirect('/') 
-    else: 
-        session.clear() 
+    if crud.check_student_email(student_email) == None:
+        return jsonify({'status': 'ok', 'full_name':student.full_name, 'email':student.student_email, 'pw':student.student_password})
+    elif crud.get_teacher_by_email(private_teacher_email) == None:
+        return ({'status': 'error- no teacher in database'})
+    else:
+        return jsonify({'status': 'error- email already in use'})
+
+@app.route('/student-logout')
+def student_logout():
+
+    if session['student_id']: # shouldn't this be `if 'student_id' in session` ?
+        session.pop('student_id')
+        return redirect('/')
+    else:
+        session.clear()
+
+
 #__________________________________________functions for profiles__________________________________________#
-@app.route('/student-profile')
+@app.route('/student-profile', methods=["GET", "POST"])
 def view_student_profile():
     """Renders the VMS student profile page"""
+
+    if 'student_id' not in session:
+        return jsonify({'error':'Uh oh, no student_id in session'})
 
     student = crud.get_student_by_id(session['student_id'])
     teacher = student.teacher
 
     return render_template('student-profile.html', student = student, teacher = teacher)
+
 
 @app.route('/teacher-profile')
 def view_teacher_profile():
@@ -161,7 +186,7 @@ def go_to_student_profile(student_id):
     """ Allows a teacher to see each of their students's profile page"""
 
     teacher = crud.get_teacher_by_id(session['teacher_id'])
-    student = crud.get_student_by_id(student_id)    
+    student = crud.get_student_by_id(student_id)
 
     return render_template('student-profile.html', student = student, teacher = teacher)
 
@@ -171,61 +196,87 @@ def go_to_student_logs(student_id):
 
     teacher = crud.get_teacher_by_id(session['teacher_id'])
     student = crud.get_student_by_id(student_id)
-    student_logs = crud.get_logs_by_student_id(student_id)
 
-    return render_template('charts.html', student = student, teacher = teacher, student_logs = student_logs)
+    # Get the student's logs through the relationship
+    student_logs = student.logs
+
+    return render_template('charts.html', student = student, teacher=teacher, student_logs = student_logs)
 
 #______________________________________functions for adding teacher notes________________________________________#
-@app.route('/teacher-notes')
-def view_teacher_notes():
-    """Renders the VMS teacher notes page and note history"""
+# @app.route('/teacher-notes')
+# def view_teacher_notes():
+#     """Renders the VMS teacher notes page and note history"""
 
-    teacher = crud.get_teacher_by_id(session['teacher_id'])
-    teacher_notes = crud.get_notes_by_teacher_id(teacher.teacher_id)
+#     teacher = crud.get_teacher_by_id(session['teacher_id'])
+#     teacher_notes = teacher.notes
 
-    return render_template('teacher-notes.html', teacher = teacher, teacher_notes = teacher_notes)
+#     # teacher_notes = crud.get_notes_by_teacher_id(teacher.teacher_id)
 
-@app.route('/teacher-notes', methods=['POST'])
+#     return render_template('teacher-notes.html', teacher = teacher, teacher_notes = teacher_notes)
+
+
+@app.route('/teacher-notes', methods=['GET', 'POST'])
 def add_note():
-    """Creates a new lesson note
-    
-    if the note form is valid, the session adds the note to the note table"""
+    """
+    Renders the VMS teacher notes page and note history
 
+    _OR_
+
+    Creates a new lesson note
+
+    if the note form is valid, the session adds the note to the note table
+    """
+
+    # if the form wasn't posted, do this:
+    if not request.form:
+        teacher = crud.get_teacher_by_id(session['teacher_id'])
+        teacher_notes = teacher.notes
+
+        return render_template('teacher-notes.html', teacher = teacher, teacher_notes = teacher_notes)
+
+    # Otherwise
     note_teacher_id = (session['teacher_id'])
-    note_student_name = request.form.get('note_student_name')
+    student_id = request.form.get('note_student_name')
     note_date = request.form.get('note_date')
     note_time = request.form.get('note_time')
     note_content = request.form.get('note_content')
 
-    note = crud.create_note(note_teacher_id, note_student_name, note_date, note_time, note_content)
+    # Combine the 2! – will parse provided objects into a datetime object
+    note_created_at = datetime.strptime(note_date + ' ' + note_time, '%Y-%m-%d %H:%M')
+
+    note = crud.create_note(note_teacher_id, student_id, note_created_at, note_content)
     
-    return jsonify({'status': 'ok', 'note_date': note.note_date})  
+    return jsonify({'status': 'ok', 'note_date': note.note_created_at})
 
 #______________________________________functions for adding practice logs________________________________________#
 
-@app.route('/practice-log')
+@app.route('/practice-log', methods=["GET", "POST"])
 def view_log_page():
-    """Renders the VMS practice-log page with practice log form"""
+    """
+    Renders the VMS practice-log page with practice log form
 
-    student = crud.get_student_by_id(session['student_id'])
-    
-    return render_template('practice-log.html', student=student)
+    _OR_
 
-@app.route('/practice-log', methods=['POST'])
-def add_log():
-    """Creates a new practice log
-    
-    if the log form is valid, the session adds the log to the log table"""
+    Creates a new practice log
 
+    if the log form is valid, the session adds the log to the log table
+
+    """
+
+    # If the form wasn't posted, do this
+    if not request.form:
+        return jsonify({'status':'error', 'log_date':None})
+
+    # Otherwise
     log_student_id = (session['student_id'])
     log_date = request.form.get('log_date')
     log_minutes_practiced = request.form.get('log_minutes_practiced')
     log_pieces_practiced = request.form.get('log_pieces_practiced')
     log_practice_notes = request.form.get('log_practice_notes')
-    
+
     log = crud.create_log(log_date, log_student_id, log_minutes_practiced, log_pieces_practiced, log_practice_notes)
-    
-    return jsonify({'status': 'ok', 'log_date': log_date})  
+
+    return jsonify({'status': 'ok', 'log_date': log_date})
 
 #____________________________________functions for viewing past logs by student id________________________________#
 @app.route('/charts')
@@ -233,17 +284,24 @@ def view_student_logs():
     """Renders page for viewing past logs for individual student"""
 
     student = crud.get_student_by_id(session['student_id'])
+    teacher = crud.get_teacher_by_id(session["teacher_id"])
 
-    return render_template('charts.html', student=student)
+    return render_template('charts.html', student=student, teacher=teacher)
 
 @app.route('/charts/<student_id>')
 def list_logs_by_student(student_id):
     """Lists every log made by a student depending on their student_id."""
-    
-    student = crud.get_student_by_id(student_id)
-    student_logs = crud.get_logs_by_student_id(student.student_id)
 
-    return render_template('charts.html', student= student, student_logs=student_logs)
+    student = crud.get_student_by_id(student_id)
+    student_logs = student.logs
+
+    # don't need to pass in teacher for listing only?/
+    if "teacher_id" in session:
+        teacher = crud.get_teacher_by_id(session["teacher_id"]) 
+    else:
+        teacher = None
+
+    return render_template('charts.html', student= student, teacher=teacher, student_logs=student_logs)
 
 #____________________________________functions for viewing/seeding data charts___________________________________#
 @app.route('/charts/<student_id>')
@@ -251,22 +309,49 @@ def view_charts(student_id):
     """View data charts for practice logs"""
     return render_template('charts.html')
 
+
 @app.route('/charts/1.json/<student_id>')
 def seed_chart_one(student_id):
-    """Passes data for minutes practiced and log dates into chart #1 as JSON"""
+    """
+    Passes data for minutes practiced and log dates into chart #1 as JSON
 
-    student_id=int(student_id or 0)
+    Error:
+        * `student_id` value is being passed as "teacher-portal"
+        * ^ Is becaause ajax was being triggered on every page, not only charts
+    """
+
+    if not student_id:
+        raise ValueError(f'{student_id=}')
+
+    if type(student_id) != int:
+        student_id=int(student_id)
+
 
     if "student_id" in session:
         pass
+
     elif "teacher_id" in session:
-        teacher = crud.get_teacher_by_id(session['teacher_id'])
-        valid_students = teacher.get_student_ids()
-        
-        if student_id in valid_students:
-            stu_logs = crud.get_logs_by_student_id(student_id)
+
+        # Get the student in one query
+        my_student = db.session.query(Student)\
+            .join(Teacher)\
+            .filter(
+                Teacher.teacher_id==session['teacher_id'],
+                Student.student_id==student_id
+            )\
+            .first()
+
+        if my_student:
+            # Get the logs from the relationship
+            stu_logs = my_student.logs
+
         else:
             return jsonify({'error': 'student not valid'})
+
+    #  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+
+    # YB: Consider utilizing pandas here to group by an interval.
+    # Pandas is excelent at time series data. You could [bin] your data by week/month/etc
 
     # x-axis data: dates in the week
     practice_dates = [] # holds todays date and previous six days as list items
@@ -274,25 +359,34 @@ def seed_chart_one(student_id):
     for _ in range(7):
         dater = str(date.year) + '-' + str(date.month) + '-' + str(date.day)
         practice_dates.append(dater)
-        date = date - timedelta(days=1) # ex: first iteration = yesterday 
+        date = date - timedelta(days=1) # ex: first iteration = yesterday
 
     minutes_practiced = []
 
+    #  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+
+
     # y-axis data: minutes practiced on each date in the week
-    for date in practice_dates: # loops over the dates of the week
-        dates_practiced = crud.search_logs_by_date(datetime.strptime(date, '%Y-%m-%d').date(), student_id) #all practice dates 
+    for dt in practice_dates: # loops over the dates of the week
+        dates_practiced = crud.search_logs_by_date(datetime.strptime(dt, '%Y-%m-%d').date(), student_id) #all practice dates
+
         if dates_practiced:
-            minutes_practiced.append((date, dates_practiced.minutes_practiced))
+            minutes_practiced.append((dt, dates_practiced.minutes_practiced))
         else:
-            minutes_practiced.append((date, 0))
-        
+            minutes_practiced.append((dt, 0))
+
+    #  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+
     data = {}
-    data['dates_practiced'] = [datetime.strptime(date, '%Y-%m-%d').date().ctime()[4:10] for date, min_prac in minutes_practiced]
+    data['dates_practiced'] = [datetime.strptime(dt, '%Y-%m-%d').date().ctime()[4:10] for dt, min_prac in minutes_practiced]
     #2021-02-28 21:05:57,764 INFO sqlalchemy.engine.base.Engine {'log_date_1': datetime.date(2021, 2, 23), 'param_1': 1}
-    data['minutes_practiced'] = [min_prac for date, min_prac in minutes_practiced]
+    data['minutes_practiced'] = [min_prac for dt, min_prac in minutes_practiced]
     #[('2021-2-28', 0), ('2021-2-27', 0), ('2021-2-26', 120), ('2021-2-25', 12), ('2021-2-24', 45), ('2021-2-23', 35), ('2021-2-22', 100)]
 
-    return jsonify(data) 
+
+    return jsonify(data)
+
+
 
 @app.route('/charts/2.json/<student_id>')
 def seed_chart_two(student_id):
@@ -303,7 +397,7 @@ def seed_chart_two(student_id):
     elif 'teacher_id' in session:
         teacher = crud.get_teacher_by_id(session['teacher_id'])
         valid_students = teacher.get_student_ids()
-        
+
         if int(student_id or 0) in valid_students:
             crud.get_logs_by_student_id(int(student_id))
         else:
@@ -331,7 +425,7 @@ def seed_chart_two(student_id):
     data['dates_in_month'] = [datetime.strptime(date, '%Y-%m-%d').date().ctime()[4:10] for date, date_prac in log_date]
     data['log_date'] = [date_prac for date, date_prac in log_date]
 
-    return jsonify(data) 
+    return jsonify(data)
 
 @app.route('/charts/3.json/<student_id>')
 def seed_chart_three(student_id):
@@ -342,9 +436,7 @@ def seed_chart_three(student_id):
     elif 'teacher_id' in session:
         teacher = crud.get_teacher_by_id(session['teacher_id'])
         valid_students = teacher.get_student_ids()
-    
-        # print('****' * 5, student_id, '****' * 5, sep='\n')
-        
+
         if int(student_id or 0) in valid_students:
             crud.get_logs_by_student_id
         else:
@@ -378,28 +470,30 @@ def seed_chart_three(student_id):
     # [('2021-3-1', 45), ('2021-2-28', 0), ('2021-2-27', 0), ('2021-2-26', 120), ('2021-2-25', 12), ('2021-2-24', 45), ('2021-2-23', 35), ('2021-2-22', 100), ('2021-2-21', 22), ('2021-2-20', 0), ('2021-2-19', 45), ('2021-2-18', 22), ('2021-2-17', 23), ('2021-2-16', 45), ('2021-2-15', 0), ('2021-2-14', 10), ('2021-2-13', 0), ('2021-2-12', 72), ('2021-2-11', 0), ('2021-2-10', 42), ('2021-2-9', 0), ('2021-2-8', 50), ('2021-2-7', 65), ('2021-2-6', 35), ('2021-2-5', 122), ('2021-2-4', 40), ('2021-2-3', 25), ('2021-2-2', 0)]
 
 
-    return jsonify(data) 
+    return jsonify(data)
 
 #_________________________________________functions for SMS messaging____________________________________________#
-@app.route('/api/messages', methods=['POST']) 
+@app.route('/api/messages', methods=['POST'])
 def send_message():
     """ Sends a text to a specific student from their teacher's profile page """
+
+    # Get content from form
+    student_id = request.form.get('phone_dropdown_id')
+    text_message_content = request.form.get('message_content')
+    student = crud.get_student_phone(student_id)
+    student_num = student.student_phone
+
+    # If testing, don't send the text
+    if os.environ.get('TESTING'):
+        return jsonify({'message_content': text_message_content})
 
     account_sid = os.environ.get('ACCOUNT_SID')
     auth_token = os.environ.get('AUTH_TOKEN')
     client = Client(account_sid, auth_token)
 
-    student_id = request.form.get('phone_dropdown_id') 
-    text_message_content = request.form.get('message_content')
-
-    student = crud.get_student_phone(student_id) 
-    # student_phone_number = student 
-    student_num = student.student_phone
-
-
     client.messages.create(
-                    body=text_message_content, # text message content goes here 
-                    to=str("1" + student_num), 
+                    body=text_message_content, # text message content goes here
+                    to=str("1" + student_num),
                     from_=os.environ["TWILIO_PHONE"]
                 )
 
