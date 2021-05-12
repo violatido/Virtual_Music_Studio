@@ -2,6 +2,8 @@
 
 from model import db, Teacher, Student, Log, Note, connect_to_db
 
+import bcrypt
+
 #______________________functions for creating table records___________________________#
 def create_teacher(teacher_fname, 
                     teacher_lname, 
