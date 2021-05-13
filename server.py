@@ -142,7 +142,7 @@ def add_student():
     student_phone = request.form.get('student_phone')
 
     # # Get the student's teacher
-    # teacher = crud.get_teacher_by_email(private_teacher_email)
+    teacher = crud.get_teacher_by_email(private_teacher_email)
     # # What happens if the teacher doesn't exist?
     # assert teacher
 
@@ -315,7 +315,7 @@ def view_charts(student_id):
     """View data charts for practice logs"""
     return render_template('charts.html')
 
-
+# /charts/name-of-chart
 @app.route('/charts/1.json/<student_id>')
 def seed_chart_one(student_id):
     """

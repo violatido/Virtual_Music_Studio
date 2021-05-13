@@ -100,7 +100,6 @@ class Log(db.Model):
     log_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     student_id = db.Column(db.Integer, db.ForeignKey('students.student_id'), nullable=False)
     log_date = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
-
     minutes_practiced = db.Column(db.SmallInteger, nullable=False)
     pieces_practiced = db.Column(db.String(150), nullable=False)
     practice_notes = db.Column(db.String(200))
@@ -119,7 +118,6 @@ class Note(db.Model):
     note_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.teacher_id'), nullable=False)
     student_id = db.Column(db.Integer, db.ForeignKey('students.student_id'), nullable=False, comment='Added by Yaakov')
-
     note_content = db.Column(db.String, nullable=False)
     note_created_at = db.Column(db.DateTime, nullable=False, comment='YB: store date and time in one column...')
 

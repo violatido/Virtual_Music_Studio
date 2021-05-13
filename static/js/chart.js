@@ -1,7 +1,7 @@
 "use strict"
 
 /*
-  The code below appears to be the culprit of your issue with callbacks...
+The code below appears to be the culprit of your issue with callbacks...
 
 */
 const urlArr = window.location.href.split('/');
