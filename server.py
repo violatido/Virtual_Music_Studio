@@ -164,7 +164,7 @@ def view_student_profile():
     """Renders the VMS student profile page"""
 
     if 'student_id' not in session:
-        return jsonify({'error':'Uh oh, no student_id in session'})
+        return jsonify({'error':'No student_id in session. Please log in!'})
 
     student = crud.get_student_by_id(session['student_id'])
     teacher = student.teacher
@@ -175,6 +175,9 @@ def view_student_profile():
 @app.route('/teacher-profile')
 def view_teacher_profile():
     """Renders the profile page for the teacher in session"""
+
+    if 'teacher_id' not in session:
+        return jsonify({'error':'No teacher_id in session. Please log in!'})
 
     teacher = crud.get_teacher_by_id(session['teacher_id'])
 

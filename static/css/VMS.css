@@ -62,10 +62,23 @@
 .home-btn-1:hover {
     border-bottom: 1px black solid;
     transition: 1.5s ease;
-
 }
 
 .home-btn-2:hover {
+    border-bottom: 1px black solid;
+    transition: 1.5s ease;
+}
+
+.logout-btn {
+    color: #2D3339;
+    font-size: 1.5em;
+    font-weight: lighter;
+    border-radius: 0px;
+    padding: 0%;
+    margin-right: 20px;
+}
+
+.logout-btn:hover {
     border-bottom: 1px black solid;
     transition: 1.5s ease;
 }
