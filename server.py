@@ -209,18 +209,6 @@ def go_to_student_logs(student_id):
     return render_template('charts.html', student = student, teacher=teacher, student_logs = student_logs)
 
 #______________________________________functions for adding teacher notes________________________________________#
-# @app.route('/teacher-notes')
-# def view_teacher_notes():
-#     """Renders the VMS teacher notes page and note history"""
-
-#     teacher = crud.get_teacher_by_id(session['teacher_id'])
-#     teacher_notes = teacher.notes
-
-#     # teacher_notes = crud.get_notes_by_teacher_id(teacher.teacher_id)
-
-#     return render_template('teacher-notes.html', teacher = teacher, teacher_notes = teacher_notes)
-
-
 @app.route('/teacher-notes', methods=['GET', 'POST'])
 def add_note():
     """
