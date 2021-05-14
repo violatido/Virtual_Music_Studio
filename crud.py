@@ -8,8 +8,6 @@ import deprecation
 from model import db, Teacher, Student, Log, Note, connect_to_db
 from sqlalchemy import func
 
-import bcrypt
-
 #______________________functions for creating table records___________________________#
 def create_teacher(teacher_fname,
                     teacher_lname,

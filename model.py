@@ -6,7 +6,6 @@ import deprecation
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta
 
-import bcrypt
 # sqlalchemy specific
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.ext.associationproxy import association_proxy
