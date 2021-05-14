@@ -85,17 +85,11 @@ document.addEventListener("DOMContentLoaded", function() {
         // Return to escape the other stuff
         return
         }
-
-        //  The following code isn't working – Reset each input on its own
-        // document.getElementById('#create_teacher').reset()
-        $('#teacher_fname').val('');
-        $('#teacher_lname').val('');
-        $('#teacher_email').val('');
-        $('#teacher_phone').val('');
-        $('#teacher_password').val('');
-
+        console.log('before post')
         $.post('/teacher-portal-create', teacherFormValues, (res) => {
+            console.log(res)
             if (res.status === 'ok') {
+                console.log('successful message')
                 $('#teacher_reg_buttonTitle').text(
                     `Teacher profile for ${res.full_name} has been created!`
                 );
@@ -106,12 +100,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 $('#teacher_login_email').val(res.email);
                 $('#teacher_login_pw').val(res.pw);
             }
-            else if (res.status === 'error- email already in use') {
+            else if (res.status === 'error') {
+                console.log('unsuccessful message')
                 $('#teacher_reg_buttonTitle').text(
-                    `Registration Unsuccessful!`
+                    `Email already in use!`
                 );
                 $('#teacher_added_response_p2').text(
-                    `Email already in use.)`
+                    `Please try again.`
                 );
             }
             else if (res.status === 'error- no teacher in database') {
@@ -124,6 +119,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 );
             }
         });
+
+        
+        $('#teacher_fname').val('');
+        $('#teacher_lname').val('');
+        $('#teacher_email').val('');
+        $('#teacher_phone').val('');
+        $('#teacher_password').val('');
     });
 
 
@@ -211,6 +213,9 @@ document.addEventListener("DOMContentLoaded", function() {
         //  If not attr, do nothing
         if (isEmptyObject(logFormValues, 'any')){
             $.post('/student-profile', logFormValues, (res) => {
+                $('#practice_log_buttonTitle').text(
+                    `Log not submitted`
+                )
                 $('#log_added_response').text(
                     `Empty values... Log has not been saved.`
                 );
@@ -253,10 +258,10 @@ document.addEventListener("DOMContentLoaded", function() {
         //  If not attr, do nothing
         if (isEmptyObject(noteFormValues, 'any')){
 
-        $.post('/teacher-notes', logFormValues, (res) => {
-            $('#note_added_response').text(
-                `Empty values... Note has not been saved.`
-            );
+            $.post('/teacher-notes', logFormValues, (res) => {
+                $('#note_added_response').text(
+                    `Empty values... Note has not been saved.`
+                );
         });
         
         return {}

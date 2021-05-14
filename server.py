@@ -73,7 +73,9 @@ def add_teacher():
 
     teacher = crud.create_teacher(teacher_fname, teacher_lname, teacher_email, teacher_phone, hash_input(teacher_password))
 
-    if crud.check_teacher_email(teacher_email) == None:
+    print('****' * 10, teacher, '****' * 10)
+
+    if crud.check_teacher_email(teacher_email) != None:
         return jsonify({'status': 'ok', 'full_name':teacher.full_name, 'email':teacher.teacher_email, 'pw':teacher.teacher_password})
     else:
         return jsonify({'status': 'error'})
