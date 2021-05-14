@@ -268,7 +268,12 @@ document.addEventListener("DOMContentLoaded", function() {
             );
         });
 
-        document.getElementById('#create_note').reset()
+        // Reset (manually)
+        $('#note_student_name').val('');
+        $('#note_date').val('');
+        $('#note_time').val('');
+        $('#note_content').val('');
+
     });
 
     //_________________________________________Event for sending a text_________________________________________________
