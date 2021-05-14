@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         $.post('/practice-log', logFormValues, (res) => {
             $('#log_added_response').text(
-                `Log for ${res.log_date} has been saved!`
+                `A new practice log has been submitted!`
             );
         });
 
