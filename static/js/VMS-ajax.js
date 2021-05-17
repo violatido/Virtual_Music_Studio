@@ -57,7 +57,9 @@ document.addEventListener("DOMContentLoaded", function() {
 // event handler for new teacher registration
 
     $('#create_teacher__submit').on('click', (evt) => {
+        console.log('before evet.preventDefault')
         evt.preventDefault();
+        console.log('after evet.preventDefault')
 
         // converts teacher registration form into an object
         const teacherFormValues = {
@@ -70,7 +72,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
         //  If not attr, do nothing
         if (isEmptyObject(teacherFormValues, 'any')){
+            console.log('after isEmptyObject')
             $.post('/teacher-portal', teacherFormValues, (res) => {
+                console.log('within isEmptyObject .post')
                 $('#teacher_reg_buttonTitle').text(
                     `Error!`
                 );
@@ -82,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return
         }
 
+        // responses from form completion, whether or not successful:
         $.post('/teacher-portal-create', teacherFormValues, (res) => {
             if (res.status === 'ok') {
                 $('#teacher_reg_buttonTitle').text(
@@ -141,35 +146,37 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         //  If not attr, do nothing
         if (isEmptyObject(studentFormValues, 'any')){
-
-        $.post('/student-portal', studentFormValues, (res) => {
-            $('#student_reg_buttonTitle').text(
-                `Registration Unsuccessful!`
-            );
-            $('#student_added_response').text(
-                `No values provided.`
-            );
-        });
+            console.log('after isEmptyObject')
+            $.post('/student-portal', studentFormValues, (res) => {
+                console.log('after isEmptyObject post')
+                $('#student_reg_buttonTitle').text(
+                    `Registration Unsuccessful!`
+                );
+                $('#student_added_response_p2').text(
+                    `No values provided.`
+                );
+            });
         // Return to escape the other stuff
-        return
-    }
-        console.log('before')
+            return
+        }
+        console.log('before post')
+
         $.post('/student-portal-create', studentFormValues, (res) => {
-            console.log(after)
+            console.log('after post')
             if (res.status === 'ok') {
-                console.log('ok')
+                console.log('within res.status == ok')
                 $('#student_reg_buttonTitle').text(
                     `Student profile for ${res.full_name} has been created!`
                 );
                 $('#student_added_response_p2').text(
-                    `Please sign in (from the current page you're on). (We know this is a bit cumbersome.)`
+                    `Please log in from the form above`
                 );
                 // Populate the sign in form
                 $('#student_login_email').val(res.email);
                 $('#student_login_pw').val(res.pw);
             }
             else if (res.status === 'error- email already in use') {
-                console.log('email in use')
+                console.log('within res.status == student email already in use')
                 $('#student_reg_buttonTitle').text(
                     `Email already in use!`
                 );
@@ -178,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 );
             }
             else if (res.status === 'error- no teacher in database') {
-                console.log('no teacher in db')
+                console.log(' within no teacher in db')
                 $('#student_reg_buttonTitle').text(
                     `Virtual Studio for this teacher doesn't exist!`
                 );
@@ -187,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 );
             }
             else if (res.status === 'error') {
-                console.log('no teacher in db')
+                console.log('within general error')
                 $('#student_reg_buttonTitle').text(
                     `Error!`
                 );

@@ -46,6 +46,10 @@ def teacher_login():
     # Otherwise, try signing them in
     teacher_login_email = request.form.get('teacher_login_email')
     teacher_login_pw = request.form.get('teacher_login_pw')
+    
+    # if data is empty, do nothing
+    if not all([teacher_login_email, teacher_login_pw]):
+        return render_template('teacher-portal.html')
 
     #  No need to do it twice since you've already gotten this teacher
     my_teacher = crud.verify_teacher(teacher_login_email, hash_input(teacher_login_pw))
@@ -53,7 +57,6 @@ def teacher_login():
     if my_teacher:
         session['teacher_id'] = my_teacher.teacher_id
         return redirect('/teacher-profile')
-
     else:
         return jsonify({'status': 'error'})
 
@@ -71,18 +74,20 @@ def add_teacher():
     teacher_phone = request.form.get('teacher_phone')
     teacher_password = request.form.get('teacher_password')
 
+    # check to see if teacher already exists
+    # more explicit, less complicated: get the first teacher that has the email
+    teacher = db.session.query(Teacher).filter(Teacher.teacher_email == teacher_email).first()
 
+    if teacher:
+        return jsonify({'status': 'error- email already in use'})
+
+    # now create the teacher:
     teacher = crud.create_teacher(teacher_fname, teacher_lname, teacher_email, teacher_phone, hash_input(teacher_password))
 
-    if not teacher:
+    if not teacher: 
         return jsonify({'status': 'error-please try again'})
 
-    if crud.check_teacher_email(teacher_email) != None:
-        return jsonify({'status': 'error- email already in use'})
-    elif crud.check_teacher_email(teacher_email) == None:
-        return jsonify({'status': 'ok', 'full_name':teacher.full_name, 'email':teacher.teacher_email, 'pw':teacher.teacher_password})
-    else:
-        return jsonify({'status': 'error-please try again'})
+    return jsonify({'status': 'ok', 'full_name':teacher.full_name, 'email':teacher.teacher_email, 'pw':teacher.teacher_password})
         
 
 @app.route('/teacher-logout')
@@ -117,6 +122,10 @@ def student_login():
     student_login_email = request.form.get('student_login_email')
     student_login_pw = request.form.get('student_login_pw')
 
+    # if data is empty, do nothing
+    if not all([student_login_email, student_login_pw]):
+        return render_template('student-portal.html')
+
     my_student = crud.verify_student(student_login_email, hash_input(student_login_pw))
 
     if my_student:
@@ -133,6 +142,8 @@ def add_student():
     if form is valid, the function adds the student to the student table
     """
 
+    print('********' * 10, 'before forms')
+
     student_fname = request.form.get('student_fname')
     student_lname = request.form.get('student_lname')
     student_email = request.form.get('student_email')
@@ -142,18 +153,24 @@ def add_student():
     student_password = request.form.get('student_password')
     student_phone = request.form.get('student_phone')
 
-    teacher = crud.get_teacher_by_email(private_teacher_email)
-    # # What happens if the teacher doesn't exist?
-    # assert teacher
-
-    student = crud.create_student(student_fname, student_lname, student_email, program_name, instrument, hash_input(student_password), student_phone, teacher.teacher_id)
-
-    if crud.check_student_email(student_email) == None:
-        return jsonify({'status': 'ok', 'full_name':student.full_name, 'email':student.student_email, 'pw':student.student_password})
-    elif teacher == None:
-        return ({'status': 'error- no teacher in database'})
-    elif crud.check_student_email(student_email) != None:
+    # check if student already exists
+    student = db.session.query(Student).filter(Student.student_email == student_email).first()
+    
+    if student:
         return jsonify({'status': 'error- email already in use'})
+
+    # verify that teacher exists:
+    teacher = crud.get_teacher_by_email(private_teacher_email)
+    if not teacher:
+        return ({'status': 'error- no teacher in database'})
+    
+    # create the student
+    student = crud.create_student(student_fname, student_lname, student_email, program_name, instrument, hash_input(student_password), student_phone, teacher.teacher_id)
+    if not student:
+        return jsonify({'status': 'error-please try again'})
+    
+    return jsonify({'status': 'ok', 'full_name':student.full_name, 'email':student.student_email, 'pw':student.student_password})
+
 
 @app.route('/student-logout')
 def student_logout():
