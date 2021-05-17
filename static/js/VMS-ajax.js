@@ -57,7 +57,6 @@ document.addEventListener("DOMContentLoaded", function() {
 // event handler for new teacher registration
 
     $('#create_teacher__submit').on('click', (evt) => {
-
         evt.preventDefault();
 
         // converts teacher registration form into an object
@@ -71,21 +70,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
         //  If not attr, do nothing
         if (isEmptyObject(teacherFormValues, 'any')){
-
             $.post('/teacher-portal', teacherFormValues, (res) => {
                 $('#teacher_reg_buttonTitle').text(
-                    `Registration Unsuccessful!`
+                    `Error!`
                 );
-
-                $('#teacher_added_response_p1').text(
-                    `No values provided.`
+                $('#teacher_added_response_p2').text(
+                    `Please try again.`
                 );
             });
 
-        // Return to escape the other stuff
         return
         }
-        console.log('before post')
+
         $.post('/teacher-portal-create', teacherFormValues, (res) => {
             if (res.status === 'ok') {
                 $('#teacher_reg_buttonTitle').text(
@@ -96,7 +92,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 );
                 // Populate the sign in form
                 $('#teacher_login_email').val(res.email);
-                $('#teacher_login_pw').val(res.pw);
+                // should we refill the password?
+                // $('#teacher_login_pw').val(res.pw);
             }
             else if (res.status === 'error- email already in use') {
                 $('#teacher_reg_buttonTitle').text(

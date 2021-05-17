@@ -1,8 +1,6 @@
 """
 CRUD operations.
 
-.. todo:
-    * We may chose to remove this submodule and replace with more transparent methods
 """
 import deprecation
 from model import db, Teacher, Student, Log, Note, connect_to_db
@@ -21,8 +19,7 @@ def create_teacher(teacher_fname,
 
     # Check if email is already in use:
     if teacher := db.session.query(Teacher).filter_by(teacher_email=teacher_email).first():
-        # Either return False which will cause an error – or return the teacher – in which
-        # case, your method should be renamed `get_or_create_teacher()`
+        # Either return False which will cause an error – or return the teacher 
         return False
 
     teacher = Teacher(teacher_fname=teacher_fname,
@@ -35,7 +32,6 @@ def create_teacher(teacher_fname,
     db.session.add(teacher)
     db.session.commit()
 
-    # refresh to get the teacher with all their data
     db.session.refresh(teacher)
 
     return teacher
@@ -91,8 +87,8 @@ def create_note(teacher_id,
 
     """Creates a new teacher note record"""
 
-    # Allows querying of student by full name – Hopefull this works!
-    # Querying by hybrid attribute doesn't seem to be working unfortunately
+    # Allows querying of student by full name
+    # instead of querying by hybrid attribute
     # student_id = db.session.query(Student.student_id)\
     #     .filter(
     #         func.concat(
@@ -174,14 +170,12 @@ def get_notes_by_teacher_id(teacher_id):
 
     return Note.query.filter(Note.teacher_id == teacher_id).order_by(Note.note_id).all()
 
-
 @deprecation.deprecated(details="Use the relationship `child.logs` instead")
 def get_logs_by_student_id(student_id):
     """
     Finds all logs submitted by a specific student using their student ID
     """
     return Log.query.filter(Log.student_id == student_id).order_by(Log.log_date.desc()).all()
-
 
 def get_minutes_practiced(student_id):
     """ Procures all minutes-practiced data per student """

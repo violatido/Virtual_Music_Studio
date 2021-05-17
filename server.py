@@ -71,14 +71,19 @@ def add_teacher():
     teacher_phone = request.form.get('teacher_phone')
     teacher_password = request.form.get('teacher_password')
 
+
     teacher = crud.create_teacher(teacher_fname, teacher_lname, teacher_email, teacher_phone, hash_input(teacher_password))
 
-    print('****' * 10, teacher, '****' * 10)
+    if not teacher:
+        return jsonify({'status': 'error-please try again'})
 
     if crud.check_teacher_email(teacher_email) != None:
+        return jsonify({'status': 'error- email already in use'})
+    elif crud.check_teacher_email(teacher_email) == None:
         return jsonify({'status': 'ok', 'full_name':teacher.full_name, 'email':teacher.teacher_email, 'pw':teacher.teacher_password})
     else:
-        return jsonify({'status': 'error'})
+        return jsonify({'status': 'error-please try again'})
+        
 
 @app.route('/teacher-logout')
 def teacher_logout():
