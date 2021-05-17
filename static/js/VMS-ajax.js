@@ -85,22 +85,14 @@ document.addEventListener("DOMContentLoaded", function() {
         // Return to escape the other stuff
         return
         }
-
-        //  The following code isn't working – Reset each input on its own
-        // document.getElementById('#create_teacher').reset()
-        $('#teacher_fname').val('');
-        $('#teacher_lname').val('');
-        $('#teacher_email').val('');
-        $('#teacher_phone').val('');
-        $('#teacher_password').val('');
-
+        console.log('before post')
         $.post('/teacher-portal-create', teacherFormValues, (res) => {
             if (res.status === 'ok') {
                 $('#teacher_reg_buttonTitle').text(
                     `Teacher profile for ${res.full_name} has been created!`
                 );
                 $('#teacher_added_response_p2').text(
-                    `Please sign in (from the current page you're on). (We know this is a bit cumbersome.)`
+                    `Please log in from the form above.`
                 );
                 // Populate the sign in form
                 $('#teacher_login_email').val(res.email);
@@ -108,22 +100,28 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             else if (res.status === 'error- email already in use') {
                 $('#teacher_reg_buttonTitle').text(
-                    `Registration Unsuccessful!`
+                    `Email already in use!`
                 );
                 $('#teacher_added_response_p2').text(
-                    `Email already in use.)`
+                    `Please try again.`
                 );
             }
-            else if (res.status === 'error- no teacher in database') {
+            else if (res.status === 'error-please try again') {
                 $('#teacher_reg_buttonTitle').text(
-                    `Registration Unsuccessful!`
+                    `Error!`
                 );
                 $('#teacher_added_response_p2').text(
-                    `No teacher is signed up with that email. 
-                    Please wait until your teacher makes a virtual studio before signing up!.`
+                    `Please try again.`
                 );
             }
         });
+
+        
+        $('#teacher_fname').val('');
+        $('#teacher_lname').val('');
+        $('#teacher_email').val('');
+        $('#teacher_phone').val('');
+        $('#teacher_password').val('');
     });
 
 
@@ -148,11 +146,9 @@ document.addEventListener("DOMContentLoaded", function() {
         if (isEmptyObject(studentFormValues, 'any')){
 
         $.post('/student-portal', studentFormValues, (res) => {
-
             $('#student_reg_buttonTitle').text(
                 `Registration Unsuccessful!`
             );
-
             $('#student_added_response').text(
                 `No values provided.`
             );
@@ -160,19 +156,11 @@ document.addEventListener("DOMContentLoaded", function() {
         // Return to escape the other stuff
         return
     }
-        // Set values to null
-        $('#student_fname').val('');
-        $('#student_lname').val('');
-        $('#student_email').val('');
-        $('#private_teacher_name').val('');
-        $('#private_teacher_email').val('');
-        $('#program_name').val('');
-        $('#instrument').val('');
-        $('#student_phone').val('');
-        $('#student_password').val('');
-
+        console.log('before')
         $.post('/student-portal-create', studentFormValues, (res) => {
+            console.log(after)
             if (res.status === 'ok') {
+                console.log('ok')
                 $('#student_reg_buttonTitle').text(
                     `Student profile for ${res.full_name} has been created!`
                 );
@@ -183,16 +171,45 @@ document.addEventListener("DOMContentLoaded", function() {
                 $('#student_login_email').val(res.email);
                 $('#student_login_pw').val(res.pw);
             }
-            else if (res.status === 'error') {
+            else if (res.status === 'error- email already in use') {
+                console.log('email in use')
                 $('#student_reg_buttonTitle').text(
-                    `Registration unsuccessful!`
+                    `Email already in use!`
                 );
                 $('#student_added_response_p2').text(
-                    `Email already in use.)`
-                ); 
+                    `Please try again.`
+                );
+            }
+            else if (res.status === 'error- no teacher in database') {
+                console.log('no teacher in db')
+                $('#student_reg_buttonTitle').text(
+                    `Virtual Studio for this teacher doesn't exist!`
+                );
+                $('#student_added_response_p2').text(
+                    `Please wait until your teacher has created their virtual studio before registering.`
+                );
+            }
+            else if (res.status === 'error') {
+                console.log('no teacher in db')
+                $('#student_reg_buttonTitle').text(
+                    `Error!`
+                );
+                $('#student_added_response_p2').text(
+                    `Please try again.`
+                );
             }
         });
 
+                // Set values to null
+                $('#student_fname').val('');
+                $('#student_lname').val('');
+                $('#student_email').val('');
+                $('#private_teacher_name').val('');
+                $('#private_teacher_email').val('');
+                $('#program_name').val('');
+                $('#instrument').val('');
+                $('#student_phone').val('');
+                $('#student_password').val('');
     });
 
     //_________________________________________Event for creating logs___________________________________________________
@@ -211,6 +228,9 @@ document.addEventListener("DOMContentLoaded", function() {
         //  If not attr, do nothing
         if (isEmptyObject(logFormValues, 'any')){
             $.post('/student-profile', logFormValues, (res) => {
+                $('#practice_log_buttonTitle').text(
+                    `Log not submitted`
+                )
                 $('#log_added_response').text(
                     `Empty values... Log has not been saved.`
                 );
@@ -222,7 +242,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         $.post('/practice-log', logFormValues, (res) => {
             $('#log_added_response').text(
-                `Log for ${res.log_date} has been saved!`
+                `A new practice log has been submitted!`
             );
         });
 
@@ -253,10 +273,10 @@ document.addEventListener("DOMContentLoaded", function() {
         //  If not attr, do nothing
         if (isEmptyObject(noteFormValues, 'any')){
 
-        $.post('/teacher-notes', logFormValues, (res) => {
-            $('#note_added_response').text(
-                `Empty values... Note has not been saved.`
-            );
+            $.post('/teacher-notes', logFormValues, (res) => {
+                $('#note_added_response').text(
+                    `Empty values... Note has not been saved.`
+                );
         });
         
         return {}
@@ -268,7 +288,12 @@ document.addEventListener("DOMContentLoaded", function() {
             );
         });
 
-        document.getElementById('#create_note').reset()
+        // Reset (manually)
+        $('#note_student_name').val('');
+        $('#note_date').val('');
+        $('#note_time').val('');
+        $('#note_content').val('');
+
     });
 
     //_________________________________________Event for sending a text_________________________________________________

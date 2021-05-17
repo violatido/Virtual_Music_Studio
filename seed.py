@@ -22,7 +22,6 @@ import crud
 import model
 import server
 
-
 # ------------------------------------------------------------------------------
 # Define args
 import argparse
@@ -38,9 +37,6 @@ args = parser.parse_args()
 
 
 # ------------------------------------------------------------------------------
-
-
-
 
 # The following commands are not ideal, since they execute as sudo
 if args.dropdb:

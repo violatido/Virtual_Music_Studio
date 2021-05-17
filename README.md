@@ -5,6 +5,8 @@
 
 *Virtual Music Studio* is an organizational web app for private music teachers that allows them to keep track of all their students in one space. Features include data visualization of a student’s practicing statistics, the ability for teachers to send texts to their students from the app, and recording lesson notes and practice logs.  :notes: :musical_note: :notes:
 
+[Visit the app!](https://virtual-music-studio.herokuapp.com/)
+
 [*Demo Video*](https://www.youtube.com/watch?v=l1CXHxR0d8k)
 
 
@@ -85,6 +87,12 @@ export TWILIO_PHONE = ''
 ```
 4. Run in the terminal: source secrets.sh
 
+## **Troubleshooting**
+
+If you make changes to the database and you want to drop and recreate it:
+* drop the current database (this gets rid of everything):`DROP SCHEMA public CASCADE;`
+* create an empty schema where the database will populate: `CREATE SCHEMA public;`
+* run [`seed.py`](seed.py) to populate the database: `python seed.py --createdb --dropdb --seed_data`
 
 ## **Future Features**
 * Google Calendar API to allow students and teachers to including their calendars in their profiles for quick lesson scheduling

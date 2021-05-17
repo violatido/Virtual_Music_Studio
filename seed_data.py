@@ -10,6 +10,9 @@ from model import db, Teacher, Student, Log, Note, connect_to_db
 
 import server
 
+#import custom func
+from utils.cipher import hash_input
+
 # This essentially instantiates your app in order to connect to the db.
 # That's not necessary – but we won't fix rn
 connect_to_db(server.app)
@@ -35,7 +38,7 @@ teacher_records = [
         teacher_lname="Smith",
         teacher_email="msmith@gmail.com",
         teacher_phone="666-888-4444",
-        teacher_password="msmith",
+        teacher_password=hash_input("msmith"),
     ),
 
     dict(
@@ -43,7 +46,7 @@ teacher_records = [
         teacher_lname="Baker",
         teacher_email="abaker@gmail.com",
         teacher_phone= "",
-        teacher_password="abaker",
+        teacher_password=hash_input("abaker"),
     )
 
 ]
@@ -80,7 +83,7 @@ student_records = [
         student_email="orose@gmail.com",
         program_name = "",
         instrument = "violin",
-        student_password="orose",
+        student_password= hash_input("orose"),
         teacher_email = "abaker@gmail.com" # we'll use this query the teacher
     ),
 
@@ -91,7 +94,7 @@ student_records = [
         student_email="apeters@gmail.com",
         program_name = "Klein High School",
         instrument = "viola",
-        student_password="apeters",
+        student_password= hash_input("apeters"),
         teacher_email = "msmith@gmail.com" # we'll use this query the teacher
     ),
 
@@ -101,7 +104,7 @@ student_records = [
         student_email="stay@aol.com",
         program_name = "Klein High School",
         instrument = "viola",
-        student_password="staylor",
+        student_password=hash_input("staylor"),
         teacher_email = "msmith@gmail.com" # we'll use this query the teacher
     )
 
